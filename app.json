@@ -1,0 +1,8 @@
+{
+  "name": "All About movies",
+  "description": "Project based on React, Express & TMDB Rest API",
+  "repository": "https://git.heroku.com/allaboutmovies.git",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static", "react", "tmdb"],
+  "image": "heroku/nodejs"
+}
