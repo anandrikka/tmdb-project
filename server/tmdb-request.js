@@ -1,18 +1,8 @@
 'use strict'
+var axios = require('axios');
+var queryString = require('querystring');
 
-var es6Promise = require('es6-promise')
-var request = require('superagent')
-var queryString = require('querystring')
-var objectAssign = require('object-assign')
-var PromiseFn
-var tmdbResources = require('./tmdb-resource')
-
-if (typeof Promise === 'undefined') {
-    PromiseFn = Promise
-} else {
-    //noinspection JSUnresolvedVariable
-    PromiseFn = es6Promise.Promise
-}
+var tmdbResources = require('./tmdb-resource');
 
 module.exports = function (apiKey) {
     if (apiKey) {
@@ -25,73 +15,25 @@ module.exports = function (apiKey) {
 function TmdbApi(apiKey) {
   this.apiKey = apiKey;
   this.baseUrl = tmdbResources.baseUrl;
+  this.axiosInstance = axios.create({
+    baseURL: this.baseUrl
+  });
   return this;
 }
 
 Object.keys(tmdbResources.apis).forEach(function (api) {
     var apiList = tmdbResources.apis[api];
-    for (var i = 0; i < apiList.length; i++) {
-        var a = apiList[i];
-        TmdbApi.prototype[a.name] = function (query, params, body) {
-            console.log(a.name);
-            params = params || {};
-            a.resource = a.resource
-                .replace(':genreId', 150);
-            console.log(a.resource);
-            return makeRequest.call(this, a.resource, a.method, query, body);
-        }
-    }
-})
-
-function makeRequest(resource, method, query, body) {
-    var url = this.baseUrl + resource
-    query = objectAssign({}, query);
-    query.api_key = this.apiKey;
-    var qs
-    if (query) {
-        qs = queryString.stringify(query)
-    }
-    console.log('qs', qs);
-    var headers = headers || {} 
-    var options = {
-        url: url,
-        method: method,
-        headers: headers,
-        qs: qs,
-        body: body
-    }
-    return new PromiseFn(function (resolve, reject) {
-        var req = request('GET', url).query(query).set('Accept', 'application/json');
-        var params = {};
-        request(options, function (err, res) {
-        if (err) {
-            reject({
-                status: { code: 400, message: 'Bad Request' },
-                error: err
-            })
-        } else {
-            if (res.statusCode >= 400) {
-                reject(constructResponse(res))
-            } else {
-                resolve(constructResponse(res))
+    apiList.forEach(function (apiItem) {
+        if (apiItem.method === 'GET') {
+            TmdbApi.prototype[apiItem.name] = function (query, params, body) {
+                query = query || {};
+                query.api_key = this.apiKey;
+                params = params || {};
+                if (params.genreId) {
+                    apiItem.resource.replace(':genreId', params.genreId);
+                }
+                return this.axiosInstance.get(apiItem.resource + '?' + queryString.stringify(query));
             }
         }
-        })
     })
-}
-
-function constructResponse (response) {
-    var obj = {
-        headers: response.headers,
-        status: {
-        code: response.statusCode,
-        message: response.statusMessage
-        }
-    }
-    if (response.statusCode < 400) {
-        obj.data = JSON.parse(response.body)
-    } else {
-        obj.error = JSON.parse(response.body)
-    }
-    return obj
-}
+})
