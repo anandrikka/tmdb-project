@@ -3,22 +3,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import css from './styles/main.scss';
-import NavbarComponent from './components/NavbarComponent';
 
-class App extends React.Component {
+const router = (
 
-    constructor(props) {
-        super(props);
-    }
+    <div>
+        <h4>Hello Everyone, This website is being created based on TMDB for movies & tv info</h4>
+    </div>
 
-    render() {
-        return (
-            <div>
-                <NavbarComponent></NavbarComponent>
-            </div>
-            
-        );
-    }
-}
+);
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(router, document.getElementById('app'));

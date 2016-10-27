@@ -5,14 +5,14 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: './src/app.js',
-        react_assets: [
-            'react',
-            'react-dom',
-            'react-router',
-            'react-redux',
-            'react-bootstrap'
-        ]
+        app: './src/app.js'
+        // react_assets: [
+        //     'react',
+        //     'react-dom',
+        //     'react-router',
+        //     'react-redux',
+        //     'react-bootstrap'
+        // ]
     },
     output: {
         path: '/dist',
@@ -21,14 +21,14 @@ module.exports = {
     },
     devServer: {
         inline: true,
-        port: 8080
-        // proxy: {
-        //     '*': 'http:localhost:3000'
-        // }
+        port: 8080,
+        proxy: {
+            'api/*': 'http:localhost:3000'
+        }
     },
     devtool: 'inline-source-map',
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('react_assets', 'react-assets.bundle.js'),
+        //new webpack.optimize.CommonsChunkPlugin('react_assets', 'react-assets.bundle.js'),
         new CleanWebpackPlugin(['dist'], {
             root: __dirname + '/',
             verbose: true,
