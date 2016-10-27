@@ -1,6 +1,12 @@
 'use strict';
 
 import React from 'react';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import NavDropdown from 'react-bootstrap/lib/NavDropdown';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+
 import css from '../styles/navbar.scss'; 
     
 export default class NavbarComponent extends React.Component {
@@ -10,27 +16,42 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        $('.button-collapse').sideNav();
+        
     }
 
     render() {
         return (
-            <nav>
-                <div className="nav-wrapper">
-                    <a href="#!" className="brand-logo">Logo</a>
-                    <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
-                    <ul className="right hide-on-med-and-down">
-                        <li><a href="sass.html">Movies</a></li>
-                        <li><a href="badges.html">Television</a></li>
-                        <li><a href="collapsible.html">People</a></li>
-                    </ul>
-                    <ul className="side-nav" id="mobile-demo">
-                        <li><a href="sass.html">Movies</a></li>
-                        <li><a href="badges.html">Television</a></li>
-                        <li><a href="collapsible.html">People</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <div>
+                Navbar
+            </div>
         );
+    }
+
+    navbar() {
+        // <Navbar inverse>
+        //     <Navbar.Header>
+        //         <Navbar.Brand>
+        //             <a href="#">React-Bootstrap</a>
+        //         </Navbar.Brand>
+        //         <Navbar.Toggle />
+        //     </Navbar.Header>
+        //     <Navbar.Collapse>
+        //         <Nav>
+        //             <NavItem eventKey={1} href="#">Link</NavItem>
+        //             <NavItem eventKey={2} href="#">Link</NavItem>
+        //             <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+        //                 <MenuItem eventKey={3.1}>Action</MenuItem>
+        //                 <MenuItem eventKey={3.2}>Another action</MenuItem>
+        //                 <MenuItem eventKey={3.3}>Something else here</MenuItem>
+        //                 <MenuItem divider />
+        //                 <MenuItem eventKey={3.3}>Separated link</MenuItem>
+        //             </NavDropdown>
+        //         </Nav>
+        //         <Nav pullRight>
+        //             <NavItem eventKey={1} href="#">Link Right</NavItem>
+        //             <NavItem eventKey={2} href="#">Link Right</NavItem>
+        //         </Nav>
+        //     </Navbar.Collapse>
+        // </Navbar>
     }
 }

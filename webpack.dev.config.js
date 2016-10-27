@@ -35,10 +35,10 @@ module.exports = {
             dry: false,
             exclude: ['assets']
         }),
-        new HtmlWebpackPlugin({
-            filename: '../index.html',
-            template: 'template.html'
-        }),
+        // new HtmlWebpackPlugin({
+        //     filename: '../index.html',
+        //     template: 'template.html'
+        // }),
         new ExtractTextPlugin("main.css")
     ],
     module: {
