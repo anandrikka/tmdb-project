@@ -13,7 +13,7 @@ app.use('/dist', express.static(__dirname + '/dist'))
 
 //serving index.html
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/home.html');
 });
 
 app.listen(process.env.PORT || 3000);

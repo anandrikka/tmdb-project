@@ -35,7 +35,7 @@ module.exports = {
             exclude: ['assets']
         }),
         new HtmlWebpackPlugin({
-            filename: '../index.html',
+            filename: '../home.html',
             template: 'template.html'
         }),
         new ExtractTextPlugin('main.[hash].css')
