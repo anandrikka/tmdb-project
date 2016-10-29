@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 class MoviesComponent extends Component {
 
-    constructor(props, context) {
+    constructor(props) {
         super(props);
     }
 

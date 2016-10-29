@@ -47,11 +47,11 @@ export default class NavbarComponent extends React.Component {
                     <ul className="nav navbar-nav navbar-right">
                         <li><a href="#">Login</a></li>
                     </ul>
-                    <form role="search" className="navbar-form navbar-right">
+                    {/*<form role="search" className="navbar-form navbar-right">
                         <div className="form-group">
-                            <input type="text" placeholder="Search" className="form-control"/>
+                            <input type="text" placeholder="Search" className="form-control" />
                         </div>
-                    </form>
+                    </form>*/}
                     
                 </div>
             </nav>

@@ -29,17 +29,17 @@ module.exports = {
     devtool: 'inline-source-map',
     plugins: [
         //new webpack.optimize.CommonsChunkPlugin('react_assets', 'react-assets.bundle.js'),
-        new CleanWebpackPlugin(['dist'], {
-            root: __dirname + '/',
-            verbose: true,
-            dry: false,
-            exclude: ['assets']
-        }),
+        // new CleanWebpackPlugin(['dist'], {
+        //     root: __dirname + '/',
+        //     verbose: true,
+        //     dry: false,
+        //     exclude: ['assets']
+        // }),
         // new HtmlWebpackPlugin({
         //     filename: '../index.html',
         //     template: 'template.html'
         // }),
-        new ExtractTextPlugin("main.css")
+        new ExtractTextPlugin("./assets/css/main.css")
     ],
     module: {
 		loaders: [

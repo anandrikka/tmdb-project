@@ -38,7 +38,8 @@ module.exports = {
             filename: '../home.html',
             template: 'template.html'
         }),
-        new ExtractTextPlugin('main.[hash].css')
+        //new ExtractTextPlugin('main.[hash].css')
+        new ExtractTextPlugin("./assets/css/main.[hash].css")
     ],
     module: {
 		loaders: [
