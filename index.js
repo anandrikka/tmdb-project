@@ -7,7 +7,7 @@ let movies = require('./server/routes/movies');
 app.use('/api/movies', movies);
 
 //static files serving
-app.use('/dist', express.static(__dirname + '/dist'))
+app.use('/dist', express.static(__dirname + '/dist')) 
 
 
 
