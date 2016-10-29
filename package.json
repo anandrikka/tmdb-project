@@ -4,7 +4,7 @@
   "description": "A project build based React Redux Framework and TMDB Rest Api",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --config webpack.dev.config.js",
+    "dev": "webpack-dev-server --hot --history-api-fallback --config webpack.dev.config.js",
     "clean": "webpack --config webpack.dev.config.js",
     "build": "webpack --config webpack.prod.config.js"
   },

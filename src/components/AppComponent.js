@@ -2,16 +2,16 @@
 
 import React, { Component, PropTypes } from 'react';
 import NavbarComponent from './NavbarComponent';
-import ContainerComponent from './ContainerComponent';
+import ContainerComponent from './HomeComponent';
 import css from '../styles/app.scss';
 
 
 class AppComponent extends Component {
-    render () {
+    render() {
         return (
             <div>
                 <NavbarComponent />
-                <ContainerComponent />
+                {this.props.children}
             </div>
         )
     }

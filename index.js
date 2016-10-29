@@ -12,7 +12,7 @@ app.use('/dist', express.static(__dirname + '/dist'))
 
 
 //serving index.html
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendFile(__dirname + '/home.html');
 });
 

@@ -1,11 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import { Link } from 'react-router';
 
 import css from '../styles/navbar.scss'; 
     
@@ -21,37 +17,44 @@ export default class NavbarComponent extends React.Component {
 
     render() {
         return (
-            <div>
-                Navbar
-            </div>
+            <nav role="navigation" className="navbar navbar-default" style={{borderRadius:'0px'}}>
+                <div className="navbar-header">
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
+                        <span className="sr-only">Toggle navigation</span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                    </button>
+                    <Link to="/" className="navbar-brand">TMDB</Link>
+                </div>
+                <div id="navbarCollapse" className="collapse navbar-collapse">
+                    <ul className="nav navbar-nav">
+                        <li><Link to="/movies">Movies</Link></li>
+                        <li><Link to="/tv">TV</Link></li>
+                        <li className="dropdown">
+                            <Link to="/people" data-toggle="dropdown" className="dropdown-toggle" href="#">
+                                People
+                            </Link>
+                            <ul role="menu" className="dropdown-menu">
+                                <li><a href="#">Inbox</a></li>
+                                <li><a href="#">Drafts</a></li>
+                                <li><a href="#">Sent Items</a></li>
+                                <li className="divider"></li>
+                                <li><a href="#">Trash</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul className="nav navbar-nav navbar-right">
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                    <form role="search" className="navbar-form navbar-right">
+                        <div className="form-group">
+                            <input type="text" placeholder="Search" className="form-control"/>
+                        </div>
+                    </form>
+                    
+                </div>
+            </nav>
         );
-    }
-
-    navbar() {
-        // <Navbar inverse>
-        //     <Navbar.Header>
-        //         <Navbar.Brand>
-        //             <a href="#">React-Bootstrap</a>
-        //         </Navbar.Brand>
-        //         <Navbar.Toggle />
-        //     </Navbar.Header>
-        //     <Navbar.Collapse>
-        //         <Nav>
-        //             <NavItem eventKey={1} href="#">Link</NavItem>
-        //             <NavItem eventKey={2} href="#">Link</NavItem>
-        //             <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-        //                 <MenuItem eventKey={3.1}>Action</MenuItem>
-        //                 <MenuItem eventKey={3.2}>Another action</MenuItem>
-        //                 <MenuItem eventKey={3.3}>Something else here</MenuItem>
-        //                 <MenuItem divider />
-        //                 <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        //             </NavDropdown>
-        //         </Nav>
-        //         <Nav pullRight>
-        //             <NavItem eventKey={1} href="#">Link Right</NavItem>
-        //             <NavItem eventKey={2} href="#">Link Right</NavItem>
-        //         </Nav>
-        //     </Navbar.Collapse>
-        // </Navbar>
     }
 }
