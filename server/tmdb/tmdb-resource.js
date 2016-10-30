@@ -40,12 +40,12 @@ module.exports = {
             {
                 resource: 'discover/movie',
                 method: 'GET',
-                name: 'searchMovie'
+                name: 'discoverMovie'
             },
             {
                 resource: 'discover/tv',
                 method: 'GET',
-                name: 'searchTv'
+                name: 'discoverTv'
             }
         ],
         search: [
