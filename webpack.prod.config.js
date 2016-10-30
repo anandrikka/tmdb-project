@@ -39,7 +39,7 @@ module.exports = {
             template: 'template.html'
         }),
         //new ExtractTextPlugin('main.[hash].css')
-        new ExtractTextPlugin("./assets/css/main.[hash].css")
+        new ExtractTextPlugin("./assets/css/main.css")
     ],
     module: {
 		loaders: [

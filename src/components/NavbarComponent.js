@@ -12,47 +12,27 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        
+        $(".button-collapse").sideNav();
     }
 
     render() {
         return (
-            <nav role="navigation" className="navbar navbar-default" style={{borderRadius:'0px'}}>
-                <div className="navbar-header">
-                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                    </button>
-                    <Link to="/" className="navbar-brand">TMDB</Link>
-                </div>
-                <div id="navbarCollapse" className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
+            <nav>
+                <div className="nav-wrapper container">
+                    <Link to="/" className="brand-logo">TMDB</Link>
+                    <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+                    <ul className="right hide-on-med-and-down">
                         <li><Link to="/movies">Movies</Link></li>
                         <li><Link to="/tv">TV</Link></li>
-                        <li className="dropdown">
-                            <Link to="/people" data-toggle="dropdown" className="dropdown-toggle" href="#">
-                                People
-                            </Link>
-                            <ul role="menu" className="dropdown-menu">
-                                <li><a href="#">Inbox</a></li>
-                                <li><a href="#">Drafts</a></li>
-                                <li><a href="#">Sent Items</a></li>
-                                <li className="divider"></li>
-                                <li><a href="#">Trash</a></li>
-                            </ul>
-                        </li>
+                        <li><Link to="/people">People</Link></li>
+                        <li><a href="mobile.html">Login</a></li>
                     </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li><a href="#">Login</a></li>
+                    <ul className="side-nav" id="mobile-demo">
+                        <li><Link to="/movies">Movies</Link></li>
+                        <li><Link to="/tv">TV</Link></li>
+                        <li><Link to="/people">People</Link></li>
+                        <li><a href="mobile.html">Login</a></li>
                     </ul>
-                    {/*<form role="search" className="navbar-form navbar-right">
-                        <div className="form-group">
-                            <input type="text" placeholder="Search" className="form-control" />
-                        </div>
-                    </form>*/}
-                    
                 </div>
             </nav>
         );

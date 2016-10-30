@@ -29,19 +29,19 @@
     padding-bottom: 0;
 }
 
-// $font-color: whitesmoke;
+body {
+    background: #141E30; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #141E30 , #243B55); 
+    background: linear-gradient(to left, #141E30 , #243B55);  
+    color: #fff;
+}
 
-// .dropdown-menu {
-//     background: #243B55;
-//     li {
-//         a {
-//             color: $font-color;
-//         }
-//     }
-// }
+input {
+    color: #fff;
+}
 
-// .form-control {
-//     background: #243B55;
-//     border-color:  #243B55;
-//     color: $font-color;
-// }
+@media only screen and (min-width: 993px){
+    .container{
+        width:90%
+    }
+}
