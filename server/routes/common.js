@@ -10,6 +10,9 @@ router.use(function queryorParams(req, res, next) {
     next();
 });
 
+/**
+ *To get movie gernes
+ */
 router.get('/movieGenres', function (req, res) {
     tmdbRequest.getListOfGenreForMovies(req.query, req.params).then(function (result) {
         res.send({ config: result.config, headers: result.headers, data: result.data });

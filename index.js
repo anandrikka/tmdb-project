@@ -1,12 +1,19 @@
 'use strict';
 
-let express = require('express');
-let app = express();
-let movies = require('./server/routes/movies');
-let common = require('./server/routes/common');
+var express = require('express');
+var app = express();
+var routes = require('./server/routes/routes');
 
-app.use('/api/movies', movies);
-app.use('/api/common', common);
+var routeKeys = Object.keys(routes);
+
+for (let i = 0; i < routeKeys.length; i++) {
+    let resourcePath = '/api/' + routeKeys[i];
+    console.log('Resources for Path: ' + '\'' + resourcePath + '\'' + ' created');
+    app.use(resourcePath, routes[routeKeys[i]]);
+}
+
+// app.use('/api/movies', routes.movies);
+// app.use('/api/common', routes.common);
 //static files serving
 app.use('/dist', express.static(__dirname + '/dist')) 
 
