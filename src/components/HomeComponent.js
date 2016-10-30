@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Nav, NavItem } from 'react-bootstrap';
 
 class HomeComponent extends Component {
     render() {
