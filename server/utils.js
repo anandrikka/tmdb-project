@@ -7,5 +7,8 @@ module.exports = {
         req.params = req.params || {};
         req.query = req.query || {};
         next();
+    },
+    successObj: function (result) {
+        return { config: result.config, headers: result.headers, data: result.data };
     }
 };
