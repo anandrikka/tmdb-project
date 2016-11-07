@@ -2,17 +2,11 @@
 
 var express = require('express');
 var router = express.Router();
-var tmdbRequest = require('../tmdbRequestor');
+var utils = require('../utils');
+var tmdbRequest = utils.tmdb;
 
-router.use(function queryorParams(req, res, next) {
-    req.params = req.params || {};
-    req.query = req.query || {};
-    next();
-});
+router.use(utils.reqMiddleware);
 
-/**
- *To get movie gernes
- */
 router.get('/movieGenres', function (req, res) {
     tmdbRequest.getListOfGenreForMovies(req.query, req.params).then(function (result) {
         res.send({ config: result.config, headers: result.headers, data: result.data });

@@ -2,14 +2,10 @@
 
 var express = require('express');
 var router = express.Router();
-var tmdbRequest = require('../tmdbRequestor');
+var utils = require('../utils');
+var tmdbRequest = utils.tmdb
 
-
-router.use(function queryorParams(req, res, next) {
-    req.params = req.params || {};
-    req.query = req.query || {};
-    next();
-});
+router.use(utils.reqMiddleware);
 
 router.get('/discoverMovie', function (req, res) {
     tmdbRequest.discoverMovie().then(function (result) {
@@ -18,7 +14,5 @@ router.get('/discoverMovie', function (req, res) {
         res.send(error)     
     })
 });
-
-router
 
 module.exports = router;
