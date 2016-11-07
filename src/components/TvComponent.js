@@ -4,7 +4,7 @@ class TvComponent extends Component {
     render() {
         return (
             <div className="container-fluid">
-                TV Component
+                TV Components
             </div>
         );
     }
