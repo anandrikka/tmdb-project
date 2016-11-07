@@ -14,14 +14,18 @@ class HomeComponent extends Component {
             <div className="container" style={{marginTop:'20px'}}>
                 <div className="section">
                     <h5>Movies in Theaters</h5>
-                    <div className="carousel home-carousel">
-                        <a className="carousel-item" href="#one!">
-                            <img src="http://lorempixel.com/250/250/nature/1" />
-                        </a>
-                        <a className="carousel-item" href="#two!"><img src="http://lorempixel.com/250/250/nature/2"/></a>
-                        <a className="carousel-item" href="#three!"><img src="http://lorempixel.com/250/250/nature/3"/></a>
-                        <a className="carousel-item" href="#four!"><img src="http://lorempixel.com/250/250/nature/4"/></a>
-                        <a className="carousel-item" href="#five!"><img src="http://lorempixel.com/250/250/nature/5"/></a>
+                    <div className="row">
+                        <div className="col s12 m4 l4">
+                            <div className="card">
+                                <div className="card-image waves-effect waves-block waves-light">
+                                    <img className="activator" src="http://lorempixel.com/250/250/nature/1" />
+                                    <span className="card-title">Title</span>
+                                </div>
+                                <div className="card-action">
+                                    <a href="#">This is a link</a>
+                                </div>
+                            </div>  
+                        </div>
                     </div>
                 </div>
                 <div className="section">
