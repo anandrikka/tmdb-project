@@ -7,6 +7,11 @@ import css from '../styles/app.scss';
 
 
 class AppComponent extends Component {
+
+    componentDidMount() {
+        
+    }
+
     render() {
         return (
             <div>

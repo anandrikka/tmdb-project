@@ -7,13 +7,13 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: './src/app.js'
-        // react_assets: [
-        //     'react',
-        //     'react-dom',
-        //     'react-router',
-        //     'react-redux'
-        // ]
+        app: './src/app.js',
+        react_assets: [
+            'react',
+            'react-dom',
+            'react-router',
+            'react-redux'
+        ]
     },
     output: {
         path: 'dist',
@@ -26,7 +26,7 @@ module.exports = {
                 NODE_ENV: "'production'" //Should be defined only in this way
             }
         }),
-        //new webpack.optimize.CommonsChunkPlugin("react_assets", "react-assets.[hash].bundle.js"),
+        new webpack.optimize.CommonsChunkPlugin("react_assets", "react-assets.[hash].bundle.js"),
         new webpack.optimize.UglifyJsPlugin({ minimize: true }),
         new CleanWebpackPlugin(['dist'], {
             root: __dirname + '/',
