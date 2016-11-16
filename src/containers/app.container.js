@@ -1,18 +1,17 @@
 'use strict';
 
-import React, {PropTypes} from 'redux';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import App from '../components/AppComponent';
-import * as Actions from '../actions/AppActions';
+import App from '../components/app.component';
+import * as appActions from '../actions/app.actions';
 
 let mapStateToProps = (state) => ({
     movies: state.movies
 });
 
 let mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Actions, dispatch)
-})
+    actions: bindActionCreators(appActions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

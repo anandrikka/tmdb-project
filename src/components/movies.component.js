@@ -1,4 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+'use strict';
+
+import React, { Component, PropTypes } from 'react';
 
 class MoviesComponent extends Component {
 

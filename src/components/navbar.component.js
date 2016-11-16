@@ -12,7 +12,7 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        $(".button-collapse").sideNav();
+        $('.button-collapse').sideNav();
     }
 
     render() {
