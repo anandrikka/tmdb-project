@@ -3,7 +3,9 @@
 import { combineReducers } from 'redux';
 
 import movies from './movies.reducer';
+import home from './home.reducer';
 
 export default combineReducers({
-    movies
+    movies,
+    home
 });

@@ -10,7 +10,11 @@ module.exports = {
             'react',
             'react-dom',
             'react-router',
-            'react-redux'
+            'react-redux',
+            'react-bootstrap',
+            'redux-thunk',
+            'redux-logger',
+            'react-router-bootstrap'
         ]
     },
     output: {

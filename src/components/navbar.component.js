@@ -4,6 +4,8 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import css from '../styles/navbar.scss'; 
+
+import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
     
 export default class NavbarComponent extends React.Component {
 
@@ -12,29 +14,36 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        $('.button-collapse').sideNav();
+        
     }
 
     render() {
         return (
-            <nav>
-                <div className="nav-wrapper container">
-                    <Link to="/" className="brand-logo">TMDB</Link>
-                    <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
-                    <ul className="right hide-on-med-and-down">
-                        <li><Link to="/movies">Movies</Link></li>
-                        <li><Link to="/tv">TV</Link></li>
-                        <li><Link to="/people">People</Link></li>
-                        <li><a href="mobile.html">Login</a></li>
-                    </ul>
-                    <ul className="side-nav" id="mobile-demo">
-                        <li><Link to="/movies">Movies</Link></li>
-                        <li><Link to="/tv">TV</Link></li>
-                        <li><Link to="/people">People</Link></li>
-                        <li><a href="mobile.html">Login</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <Navbar default collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="/">TMDB</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1}>Movies</NavItem>
+                        <NavItem eventKey={2} href="/tv">TV</NavItem>
+                        <NavItem eventKey={3} href="/people">People</NavItem>
+                        <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
+                        <MenuItem eventKey={4.1}>Action</MenuItem>
+                        <MenuItem eventKey={4.2}>Another action</MenuItem>
+                        <MenuItem eventKey={4.3}>Something else here</MenuItem>
+                        <MenuItem divider />
+                        <MenuItem eventKey={4.3}>Separated link</MenuItem>
+                        </NavDropdown>
+                    </Nav>
+                    <Nav pullRight>
+                        <NavItem eventKey={1} href="#">Login</NavItem>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
     }
 }

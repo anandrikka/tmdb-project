@@ -12,7 +12,8 @@ module.exports = {
             'react',
             'react-dom',
             'react-router',
-            'react-redux'
+            'react-redux',
+            'react-bootstrap'
         ]
     },
     output: {

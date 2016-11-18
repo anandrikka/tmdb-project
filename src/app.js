@@ -9,7 +9,7 @@ import store from './stores/store';
 import MoviesComponent from './components/movies.component';
 import TvComponent from './components/tv.component';
 import PeopleComponent from './components/people.component';
-import HomeComponent from './components/home.component';
+import HomeContainer from './containers/home.container';
 
 import css from './styles/main.scss';
 
@@ -19,7 +19,7 @@ const router = (
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path='/' component={AppContainer}>
-                <IndexRoute component={HomeComponent}/>
+                <IndexRoute component={HomeContainer}/>
                 <Route path="/movies" component={MoviesComponent}/>
                 <Route path="/tv" component={TvComponent} />
                 <Route path="/people" component={PeopleComponent}/>

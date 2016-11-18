@@ -1,6 +1,16 @@
 'use strict';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+
 import rootReducer from '../reducers';
 
-export default createStore(rootReducer);
+const loggerMiddleware = createLogger();
+
+let defaultState = {};
+
+export default createStore(
+    rootReducer,
+    defaultState,
+    applyMiddleware(thunkMiddleware, loggerMiddleware));
