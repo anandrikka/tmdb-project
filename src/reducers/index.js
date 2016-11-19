@@ -2,10 +2,10 @@
 
 import { combineReducers } from 'redux';
 
-import movies from './movies.reducer';
+import appContainer from './app.reducer';
 import home from './home.reducer';
 
 export default combineReducers({
-    movies,
+    appContainer,
     home
 });
