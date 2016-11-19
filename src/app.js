@@ -6,14 +6,14 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import {Provider} from 'react-redux';
 import store from './stores/store';
 
-import MoviesComponent from './components/movies.component';
-import TvComponent from './components/tv.component';
-import PeopleComponent from './components/people.component';
-import HomeContainer from './containers/home.container';
+import MoviesComponent from './components/MoviesComponent';
+import TvComponent from './components/TvComponent';
+import PeopleComponent from './components/PeopleComponent';
+import HomeContainer from './containers/HomeContainer';
 
 import css from './styles/main.scss';
 
-import AppContainer from './containers/app.container';
+import AppContainer from './containers/AppContainer';
 
 const router = (
     <Provider store={store}>

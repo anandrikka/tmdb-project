@@ -25,6 +25,6 @@ export const fetchMovies = () => ((dispatch) => {
         }, (error) => {
             dispatch(loadingMoviesStoped(false));
         })
-    }, 5000);
+    }, 1000);
     
 }) 

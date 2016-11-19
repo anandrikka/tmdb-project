@@ -1,8 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import NavbarComponent from './navbar.component';
-import ContainerComponent from './home.component';
+import NavbarComponent from './NavbarComponent';
 import css from '../styles/app.scss';
 
 

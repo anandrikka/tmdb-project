@@ -2,9 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import MaterialCard from './card.component';
 import css from '../styles/home.scss';
-import LoadingComponent from './loading.component';
+import LoadingComponent from './LoadingComponent';
 import { Col, Thumbnail } from 'react-bootstrap';
 
 class HomeComponent extends Component {
@@ -25,14 +24,18 @@ class HomeComponent extends Component {
                 <LoadingComponent isLoading={this.props.home.nowPlaying.isLoading}></LoadingComponent>
                 <div className="row">
                     {
-                        this.props.home.nowPlaying.list.map(function (item, index) { 
+                        this.props.home.nowPlaying.list.map((item, index) => {
                             return (
-                                <Col xs={12} sm={4} key={index}>
-                                    <Thumbnail href="#" src={"https://image.tmdb.org/t/p/w500/" + item.poster_path} style={{height:'200px'}}/>
-                                </Col>
+                                <div className="col-xs-12 col-sm-3" key={index}>
+                                    <img className="img-responsive" style={{maxHeight:'300px', width:'100%'}} src={'https://image.tmdb.org/t/p/w500' + item.poster_path} />
+                                </div>
                             );
                         })
                     }
+                    
+                    <div className="col-xs-12 col-sm-3">
+                        
+                    </div>
                 </div>
             </div>
             

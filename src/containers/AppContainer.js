@@ -3,7 +3,7 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import App from '../components/app.component';
+import AppComponent from '../components/AppComponent';
 import * as appActions from '../actions/app.actions';
 
 let mapStateToProps = (state) => {
@@ -17,4 +17,4 @@ let mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(appActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
