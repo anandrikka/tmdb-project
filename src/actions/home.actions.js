@@ -1,18 +1,14 @@
 import * as HomeConstants from '../constants/home.constants';
 import axios from 'axios';
 
-export const loadLatestMovies = () => ({
-    type: HomeConstants.FETCH_MOVIES
-});
-
-export const loadingMoviesStarted = (loading) => ({
+export const loadingMoviesStarted = (isLoading) => ({
     type: HomeConstants.LOADING_LATEST_MOVIES_STARTED,
-    loading
+    isLoading
 });
 
-export const loadingMoviesStoped = (loading) => ({
+export const loadingMoviesStoped = (isLoading) => ({
     type: HomeConstants.LOADING_LATEST_MOVIES_STOPPED,
-    loading
+    isLoading
 });
 
 export const loadMovies = (nowPlaying) => ({
@@ -22,10 +18,13 @@ export const loadMovies = (nowPlaying) => ({
 
 export const fetchMovies = () => ((dispatch) => {
     dispatch(loadingMoviesStarted(true));
-    return axios.get('/api/movies/nowPlaying').then((response) => {
-        dispatch(loadMovies(response.data.data.results));
-        dispatch(loadingMoviesStoped());
-    }, (error) => {
-        dispatch(loadingMoviesStoped(false));
-    })
+    setTimeout(() => {
+        return axios.get('/api/movies/nowPlaying', { params: { language: 'en_US' } }).then((response) => {
+            dispatch(loadMovies(response.data.data.results));
+            dispatch(loadingMoviesStoped(false));
+        }, (error) => {
+            dispatch(loadingMoviesStoped(false));
+        })
+    }, 5000);
+    
 }) 

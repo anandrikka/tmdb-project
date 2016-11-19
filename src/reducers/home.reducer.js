@@ -14,11 +14,17 @@ let defaultState = {
 let homeReducer = (state = defaultState, action) => {
     switch (action.type) {
         case HomeConstants.LOADING_LATEST_MOVIES_STARTED:
-            let isLoading = action.isLoading;
-            return Object.assign({}, defaultState);
+            return Object.assign({}, state,
+                {
+                    nowPlaying: Object.assign({}, state.nowPlaying,
+                        { isLoading: action.isLoading })
+                });
         case HomeConstants.FETCH_MOVIES:            
             return Object.assign({}, state,
-                { nowPlaying: Object.assign({}, state.nowPlaying, {list:action.nowPlaying})});
+                { nowPlaying: Object.assign({}, state.nowPlaying, { list: action.nowPlaying }) });
+        case HomeConstants.LOADING_LATEST_MOVIES_STOPPED:
+            let isLoading = action.loading;
+            return Object.assign({}, state, {nowPlaying: Object.assign({}, state.nowPlaying, {isLoading:action.isLoading})});
         default:
             return state;
     }
