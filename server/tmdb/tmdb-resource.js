@@ -9,7 +9,7 @@ module.exports = {
             {
                 resource: 'timezones/list',
                 method: 'GET',
-                name: 'getSupportedTimezonesOnTMDB'
+                name: 'getSupportedTimezones'
             }
         ],
         genre: [

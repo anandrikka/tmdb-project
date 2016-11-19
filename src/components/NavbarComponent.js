@@ -14,7 +14,13 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        
+        // <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
+        //     <MenuItem eventKey={4.1}>Action</MenuItem>
+        //     <MenuItem eventKey={4.2}>Another action</MenuItem>
+        //     <MenuItem eventKey={4.3}>Something else here</MenuItem>
+        //     <MenuItem divider />
+        //     <MenuItem eventKey={4.3}>Separated link</MenuItem>
+        // </NavDropdown>
     }
 
     render() {
@@ -31,13 +37,6 @@ export default class NavbarComponent extends React.Component {
                         <NavItem eventKey={1}>Movies</NavItem>
                         <NavItem eventKey={2} href="/tv">TV</NavItem>
                         <NavItem eventKey={3} href="/people">People</NavItem>
-                        <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
-                        <MenuItem eventKey={4.1}>Action</MenuItem>
-                        <MenuItem eventKey={4.2}>Another action</MenuItem>
-                        <MenuItem eventKey={4.3}>Something else here</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey={4.3}>Separated link</MenuItem>
-                        </NavDropdown>
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={1} href="#">Login</NavItem>

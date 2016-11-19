@@ -5,10 +5,9 @@ var ApiUtils = require('../ApiUtils');
 
 var reqFn = ApiUtils.requestFn;
 
-//middleware
+//Middleware
 router.use(ApiUtils.reqMiddleware);
 
-router.get('/movieGenres', reqFn('getListOfGenreForMovies'));
-router.get('/timezones', reqFn('getSupportedTimezones'));
+router.get('/airingToday', reqFn('tvShowsAiringToday'));
 
 module.exports = router;

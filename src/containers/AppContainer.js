@@ -4,17 +4,15 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import AppComponent from '../components/AppComponent';
-import * as appActions from '../actions/app.actions';
+import * as AppActions from '../actions/app.actions';
 
 let mapStateToProps = (state) => {
-    let {appContainer} = state;
+    let {appData} = state;
     return {
-        appContainer
+        appData
     }
 };
 
-let mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(appActions, dispatch)
-});
+let mapDispatchToProps = (dispatch) => (bindActionCreators(AppActions, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

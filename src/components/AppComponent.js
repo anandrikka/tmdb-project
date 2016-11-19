@@ -8,7 +8,8 @@ import css from '../styles/app.scss';
 class AppComponent extends Component {
 
     componentDidMount() {
-        
+        this.props.fetchTimezones();
+        this.props.fetchMovieGenres();
     }
 
     render() {
@@ -22,7 +23,10 @@ class AppComponent extends Component {
 }
 
 AppComponent.propTypes = {
-
+    timezones: React.PropTypes.func.isRequired,
+    movieGenres: React.PropTypes.func.isRequired,
+    fetchTimezones: React.PropTypes.func.isRequired,
+    fetchMovieGenres: React.PropTypes.func.isRequired
 }
 
 export default AppComponent;

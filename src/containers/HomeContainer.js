@@ -8,16 +8,12 @@ import HomeComponent from '../components/HomeComponent';
 import * as HomeActions from '../actions/home.actions';
 
 let mapStateToProps = (state) => {
-    let { home } = state;
+    let { homeData } = state;
     return {
-        home
+        homeData
     };
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators(HomeActions, dispatch)
-    };
-}
+let mapDispatchToProps = (dispatch) => (bindActionCreators(HomeActions, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);
