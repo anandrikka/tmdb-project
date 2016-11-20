@@ -1,64 +1,118 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 import css from '../styles/home.scss';
 import LoadingComponent from './LoadingComponent';
-import { Col, Thumbnail } from 'react-bootstrap';
+import PaginationComponent from './PaginationComponent';
+import CardComponent from './CardComponent';
+
 
 class HomeComponent extends Component {
 
-    componentDidMount () {
-        this.props.fetchMovies();
-        this.props.fetchTvAiringToday();
-    }
-    
-    renderCards() {
-        {this.props.home.nowPlaying.list.map(function(item, index){
-            return <MaterialCard details={item} key={index}></MaterialCard>
-        })}
+    constructor(props) {
+        super(props);
+        this.state = {
+            mActivePage: 1,
+            tvActivePage: 1,
+            umActivePage: 1
+        }
+        this.mPageSelect = this.mPageSelect.bind(this);
     }
 
-    cardComponent(item, index) {
-        let card = {
-            height: '350px',
-            border: '1px solid #ccc',
-            marginBottom: '20px',
-            position: 'relative',
-            zIndex:'9999'
-        };
-        return (
-            <div className="col-xs-12 col-sm-3" key={index}>
-                <div style={card}>
-                    <div style={{ position: 'absolute', color:'#fff', right:'0', padding:'10px' }}>
-                        <span className="fa fa-heart-o fa-2x"></span>
-                    </div>
-                    <img className="img-responsive" style={{ maxHeight: '300px', width: '100%' }} src={'https://image.tmdb.org/t/p/w500' + item.poster_path} />
-                </div>
-            </div>
-        );
+    componentDidMount () {
+        this.props.fetchMovies().then(() => {
+            let mLength =  this.props.homeData.nowPlaying.list.length;
+            this.setState({
+                mStartIndex: 0,
+                mStopIndex: mLength > 8 ? (8-1): (mLength-1) 
+            })
+        });
+        this.props.fetchTvAiringToday().then(() => {
+            let tvLength = this.props.homeData.tvAiringToday.list.length;
+            this.setState({
+                tvStartIndex: 0,
+                tvStopIndex: tvLength > 8 ? (8-1) : (tvLength-1)
+            })
+        });
+        this.props.fetchUpcomingMovies().then(() => {
+            let upcomingLength = this.props.homeData.upcomingMovies.list.length;
+            this.setState({
+                upcomingStartIndex: 0,
+                upcomingStopIndex: upcomingLength > 8 ? (8-1) : (upcomingLength-1)
+            })
+        });
     }
+
+    componentDidUpdate() {
+        
+    }
+
+    mPageSelect(pageNumber) {
+        let stopItemIndex = pageNumber * 8;
+        let totalItems = this.props.homeData.nowPlaying.list.length;
+        let fetchAdditional = (stopItemIndex > totalItems);
+        if (fetchAdditional) {
+            let fetchPage = (totalItems / 20) + 1;
+            this.props.fetchMovies(fetchPage).then(() => {
+                this.setState({
+                    mStartIndex: (pageNumber-1) * 8,
+                    mStopIndex: stopItemIndex - 1,
+                    mActivePage: pageNumber
+                })
+            });
+        } else {
+            this.setState({
+                mStartIndex: (pageNumber-1) * 8,
+                mStopIndex: stopItemIndex - 1,
+                mActivePage: pageNumber
+            })
+        }
+    }    
 
     render() {
+        let nowPlayingList = this.props.homeData.nowPlaying.list;
+        let tvList = this.props.homeData.tvAiringToday.list;
+        let upcomingMoviesList = this.props.homeData.upcomingMovies.list;
         return (
             <div className="container">
-                <LoadingComponent isLoading={this.props.homeData.nowPlaying.isLoading}></LoadingComponent>
                 <h2>Movies in Theaters</h2>
-                <div className="row">
+                <LoadingComponent isLoading={this.props.homeData.nowPlaying.isLoading}></LoadingComponent>
+                <Row>
                     {
                         this.props.homeData.nowPlaying.list.map((item, index) => {
-                            return this.cardComponent(item, index);
+                            if (index >= this.state.mStartIndex && index <= this.state.mStopIndex) {
+                                console.log(this.state.mStartIndex, index, this.state.mStopIndex);
+                                return (<CardComponent item={item} key={index}></CardComponent>);
+                            }
                         })
                     }
+                </Row>
+                <div style={{ float: 'right' }}>
+                    {this.props.homeData.nowPlaying.list.length > 0 ? <PaginationComponent pages={20} 
+                        activePage={this.state.mActivePage}
+                        pageSelect={this.mPageSelect}></PaginationComponent> : null}    
                 </div>
+                <div className="clearfix"></div>
                 <h2>Television Airings Today</h2>
-                <div className="row">
+                <LoadingComponent isLoading={this.props.homeData.tvAiringToday.isLoading}></LoadingComponent>
+                <Row>
                     {
                         this.props.homeData.tvAiringToday.list.map((item, index) => {
-                            return this.cardComponent(item, index);
+                            return <CardComponent item={item} key={index}></CardComponent>
                         })
                     }
-                </div>
+                </Row>
+                <h2>Upcoming Movies</h2>
+                <LoadingComponent isLoading={this.props.homeData.upcomingMovies.isLoading}></LoadingComponent>
+                <Row>
+                    {
+                        this.props.homeData.upcomingMovies.list.map((item, index) => {
+                            return <CardComponent item={item} key={index}></CardComponent>
+                        })
+                    }
+                </Row>
             </div>
             
         );

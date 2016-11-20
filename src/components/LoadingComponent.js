@@ -2,12 +2,13 @@ import React, {Component, PropTypes} from 'react';
 
 class LoadingComponent extends Component {
     render() {
-        let displayValue = this.props.isLoading ? 'table' : 'none';
+        let displayValue = this.props.isLoading ? 'block' : 'none';
         return (
-            <div className="loading-container" style={{display:displayValue}}>
-                <div className="loading-animation"></div>
-                <div className="loading-animation"></div>
-                <div className="loading-animation"></div>
+            <div className="loadingBar" style={{display:displayValue}}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         );
     }
