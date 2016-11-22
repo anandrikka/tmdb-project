@@ -54,96 +54,6 @@ class HomeComponent extends Component {
 		});
 	}
 	
-	prevPageSelect(activePage, type) {
-		if(activePage < 1) {
-			return;
-		}
-		if(type === 'nowPlaying') {
-			this.setState({
-				mStartIndex: (activePage - 1) * 8,
-				mStopIndex: (activePage * 8) - 1,
-				mActivePage: activePage
-			})
-		}else if(type === 'airingToday') {
-			this.setState({
-				tStartIndex: (activePage - 1) * 8,
-				tStopIndex: (activePage * 8) - 1,
-				tActivePage: activePage
-			})
-		}else if(type === 'upcoming') {
-			this.setState({
-				uStartIndex: (activePage - 1) * 8,
-				uStopIndex: (activePage * 8) - 1,
-				uActivePage: activePage
-			})
-		}
-		
-	}
-	
-	nextPageSelect(activePage, totalPages, totalItems, type) {
-		if(activePage > totalPages) {
-			return;
-		}
-		let serverPage = (totalItems/20) + 1;
-		if(totalItems < (activePage * 8)){
-			this.props.fetchMovies(serverPage).then(()=>{
-				setState.bind(this)(type);
-			})
-		}else {
-			setState.bind(this)(type);
-		}
-		
-		function setState(type) {
-			if(type==='nowPlaying') {
-				this.setState({
-					mStartIndex: (activePage-1) * 8,
-					mStopIndex: (activePage * 8) - 1,
-					mActivePage: activePage
-				});
-			}else if(type==='airingToday') {
-				this.setState({
-					tStartIndex: (activePage-1) * 8,
-					tStopIndex: (activePage * 8) - 1,
-					tvActivePage: activePage
-				});
-			}else if(type === 'upcoming') {
-				this.setState({
-					uStartIndex: (activePage-1) * 8,
-					uStopIndex: (activePage * 8) - 1,
-					uActivePage: activePage
-				});
-			}
-		
-		}
-	}
-	
-	mPrevPageSelect() {
-		this.prevPageSelect(this.state.mActivePage-1, 'nowPlaying');
-	}
-	
-	mNextPageSelect() {
-		this.nextPageSelect(this.state.mActivePage+1, this.state.mTotalPages, 
-			this.props.homeData.nowPlaying.list.length, 'nowPlaying');
-	}
-	
-	tvPrevPageSelect() {
-		this.prevPageSelect(this.state.tvActivePage-1, 'airingToday');
-	}
-	
-	tvNextPageSelect() {
-		this.nextPageSelect(this.state.tvActivePage+1, this.state.tTotalPages, 
-			this.props.homeData.tvAiringToday.list.length, 'airingToday');
-	}
-	
-	uPrevPageSelect() {
-		this.prevPageSelect(this.state.uActivePage-1, 'upcoming');
-	}
-	
-	uNextPageSelect() {
-		this.nextPageSelect(this.state.uActivePage+1, this.state.uTotalPages, 
-			this.props.homeData.upcomingMovies.list.length, 'upcoming');
-	}
-	
 	render() {
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;
@@ -211,6 +121,96 @@ class HomeComponent extends Component {
 			</div>
 			
 		);
+	}
+
+	prevPageSelect(activePage, type) {
+		if(activePage < 1) {
+			return;
+		}
+		if(type === 'fetchMovies') {
+			this.setState({
+				mStartIndex: (activePage - 1) * 8,
+				mStopIndex: (activePage * 8) - 1,
+				mActivePage: activePage
+			})
+		}else if(type === 'fetchTvAiringToday') {
+			this.setState({
+				tStartIndex: (activePage - 1) * 8,
+				tStopIndex: (activePage * 8) - 1,
+				tvActivePage: activePage
+			})
+		}else if(type === 'fetchUpcomingMovies') {
+			this.setState({
+				uStartIndex: (activePage - 1) * 8,
+				uStopIndex: (activePage * 8) - 1,
+				uActivePage: activePage
+			})
+		}
+		
+	}
+	
+	nextPageSelect(activePage, totalPages, totalItems, type) {
+		if(activePage > totalPages) {
+			return;
+		}
+		let serverPage = (totalItems/20) + 1;
+		if(totalItems < (activePage * 8)){
+			this.props[type](serverPage).then(()=>{
+				setState.bind(this)(type);
+			})
+		}else {
+			setState.bind(this)(type);
+		}
+		
+		function setState(type) {
+			if(type==='fetchMovies') {
+				this.setState({
+					mStartIndex: (activePage-1) * 8,
+					mStopIndex: (activePage * 8) - 1,
+					mActivePage: activePage
+				});
+			}else if(type==='fetchTvAiringToday') {
+				this.setState({
+					tStartIndex: (activePage-1) * 8,
+					tStopIndex: (activePage * 8) - 1,
+					tvActivePage: activePage
+				});
+			}else if(type === 'fetchUpcomingMovies') {
+				this.setState({
+					uStartIndex: (activePage-1) * 8,
+					uStopIndex: (activePage * 8) - 1,
+					uActivePage: activePage
+				});
+			}
+		
+		}
+	}
+
+	mPrevPageSelect() {
+		this.prevPageSelect(this.state.mActivePage-1, 'fetchMovies');
+	}
+	
+	mNextPageSelect() {
+		this.nextPageSelect(this.state.mActivePage+1, this.state.mTotalPages, 
+			this.props.homeData.nowPlaying.list.length, 'fetchMovies');
+	}
+	
+	tvPrevPageSelect() {
+		this.prevPageSelect(this.state.tvActivePage-1, 'fetchTvAiringToday');
+	}
+	
+	tvNextPageSelect() {
+		this.nextPageSelect(this.state.tvActivePage+1, this.state.tTotalPages, 
+			this.props.homeData.tvAiringToday.list.length, 'fetchTvAiringToday');
+	}
+	
+	uPrevPageSelect() {
+		this.prevPageSelect(this.state.uActivePage-1, 'fetchUpcomingMovies');
+	}
+	
+	uNextPageSelect() {
+		this.nextPageSelect(this.state.uActivePage+1, this.state.uTotalPages, 
+			this.props.homeData.upcomingMovies.list.length, 'fetchUpcomingMovies');
 	}
 }
 
