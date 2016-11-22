@@ -4,6 +4,7 @@ import * as AppActionConstants from '../constants/app.constants';
 
 /* jshint unused:false*/ 
 let defaultState = {
+    userInfo: {},
     translations: {
         list: [],
         successful: false
@@ -18,15 +19,17 @@ let defaultState = {
     }
 };
 
-function loadMovies(state=defaultState, action) {
+function app(state=defaultState, action) {
     switch(action.type) {
         case AppActionConstants.TIME_ZONES:
             return state;
         case AppActionConstants.MOVIE_GENRES:
+            return state;
+        case AppActionConstants.USER_INFO:
             return state;
         default:
             return state;
     }
 }
 
-export default loadMovies;
+export default app;

@@ -11,6 +11,7 @@ export default class NavbarComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        this.sendLoginRequest = this.sendLoginRequest.bind(this);
     }
 
     componentDidMount() {
@@ -21,6 +22,10 @@ export default class NavbarComponent extends React.Component {
         //     <MenuItem divider />
         //     <MenuItem eventKey={4.3}>Separated link</MenuItem>
         // </NavDropdown>
+    }
+
+    sendLoginRequest() {
+        this.props.authenticate();
     }
 
     render() {
@@ -39,7 +44,7 @@ export default class NavbarComponent extends React.Component {
                         <NavItem eventKey={3} href="/people">People</NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={1} href="#">Login</NavItem>
+                        <NavItem eventKey={1} href="#" onSelect={this.sendLoginRequest}>Login</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

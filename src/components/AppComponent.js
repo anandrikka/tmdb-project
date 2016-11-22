@@ -15,7 +15,7 @@ class AppComponent extends Component {
     render() {
         return (
             <div>
-                <NavbarComponent />
+                <NavbarComponent {...this.props}/>
                 {this.props.children}
             </div>
         )

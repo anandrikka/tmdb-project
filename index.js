@@ -12,12 +12,12 @@ for (let i = 0; i < routeKeys.length; i++) {
     app.use(resourcePath, routes[routeKeys[i]]);
 }
 
-// app.use('/api/movies', routes.movies);
-// app.use('/api/common', routes.common);
+app.get('/api/authenticate', function (req, res) {
+    res.send('authenticate recieved');
+})
+
 //static files serving
 app.use('/dist', express.static(__dirname + '/dist')) 
-
-
 
 //serving index.html
 app.get('*', function(req, res) {
@@ -25,8 +25,6 @@ app.get('*', function(req, res) {
 });
 
 var server_port = process.env.PORT || 3000
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
- 
 app.listen(server_port, function () {
   console.log( "Listening on " + "port " + server_port )
 });
