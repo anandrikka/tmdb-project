@@ -6,28 +6,21 @@ import Immutable from 'immutable';
 let defaultState = {
     nowPlaying: {
         list: [],
-        isLoading: false,
-        error: {}
+        error: false
     },
     tvAiringToday: {
         list: [],
-        isLoading: false,
-        error: {}
+        error: false
     },
     upcomingMovies: {
         list: [],
-        isLoading: false,
-        error: {}
+        error: false
     }
 };
 
 let homeReducer = (state = defaultState, action) => {
     let modifiedState;
     switch (action.type) {
-        case HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_LOADING_STATUS:
-            modifiedState = Immutable.fromJS(state);
-            modifiedState = modifiedState.updateIn(['nowPlaying', 'isLoading'], value => action.isLoading);
-            return modifiedState.toJS();
         case HomeActionConstants.FETCH_NOW_PLAYING_MOVIES:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.updateIn(['nowPlaying', 'list'],
@@ -39,10 +32,6 @@ let homeReducer = (state = defaultState, action) => {
                     totalResults: action.nowPlaying.total_results
                 }
             });
-            return modifiedState.toJS();
-        case HomeActionConstants.FETCH_TV_AIRING_TODAY_LOADING_STATUS:
-            modifiedState = Immutable.fromJS(state);
-            modifiedState = modifiedState.updateIn(['tvAiringToday', 'isLoading'], isLoading => action.isLoading);
             return modifiedState.toJS();
         case HomeActionConstants.FETCH_TV_AIRING_TODAY:
             modifiedState = Immutable.fromJS(state);
@@ -56,14 +45,6 @@ let homeReducer = (state = defaultState, action) => {
                 }
             });
             return modifiedState.toJS();
-        case HomeActionConstants.FETCH_UPCOMING_MOVIES_LOADING_STATUS:
-            modifiedState = Immutable.fromJS(state);
-            modifiedState = modifiedState.mergeDeep({
-                upcomingMovies: {
-                    isLoading: action.isLoading
-                }
-            });
-            return modifiedState.toJS();
         case HomeActionConstants.FETCH_UPCOMING_MOVIES:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.mergeDeep({
@@ -74,6 +55,18 @@ let homeReducer = (state = defaultState, action) => {
                     totalResults: action.upcomingMovies.total_results
                 }
             });
+            return modifiedState.toJS();
+        case HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_FAILURE:
+            modifiedState = Immutable.fromJS(state);
+            modifiedState = modifiedState.updateIn(['nowPlaying', 'error'], error => action.status);
+            return modifiedState.toJS();
+        case HomeActionConstants.FETCH_TV_AIRING_TODAY_FAILURE:
+            modifiedState = Immutable.fromJS(state);
+            modifiedState = modifiedState.updateIn(['tvAiringToday', 'error'], error => action.status);
+            return modifiedState.toJS();
+        case HomeActionConstants.FETCH_UPCOMING_MOVIES_FAILURE:
+            modifiedState = Immutable.fromJS(state);
+            modifiedState = modifiedState.updateIn(['upcomingMovies', 'error'], error => action.status);
             return modifiedState.toJS();
         default:
             return state;

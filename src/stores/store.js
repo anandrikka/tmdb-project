@@ -6,9 +6,19 @@ import createLogger from 'redux-logger';
 
 import rootReducer from '../reducers';
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger({
+    collapsed: true,
+    diff: true
+});
 
 let defaultState = {};
+
+// function sampleMiddileware({getState}) {
+//     return (next) => (action) => {
+//         console.log(getState);
+//         return next(action);
+//     }
+// }
 
 export default createStore(
     rootReducer,

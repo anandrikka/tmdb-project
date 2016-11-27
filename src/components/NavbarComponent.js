@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import css from '../styles/navbar.scss'; 
 
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
     
 export default class NavbarComponent extends React.Component {
 
@@ -39,9 +40,15 @@ export default class NavbarComponent extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1}>Movies</NavItem>
-                        <NavItem eventKey={2} href="/tv">TV</NavItem>
-                        <NavItem eventKey={3} href="/people">People</NavItem>
+                        <LinkContainer to="/movies">
+                            <NavItem eventKey={1}>Movies</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/tv">
+                            <NavItem eventKey={2} href="/tv">TV</NavItem>    
+                        </LinkContainer>
+                        <LinkContainer to="/people">
+                            <NavItem eventKey={3} href="/people">People</NavItem>
+                        </LinkContainer>
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={1} href="#" onSelect={this.sendLoginRequest}>Login</NavItem>

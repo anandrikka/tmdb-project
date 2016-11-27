@@ -10,6 +10,7 @@ class AppComponent extends Component {
     componentDidMount() {
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();
+        this.props.fetchTvGenres();
     }
 
     render() {

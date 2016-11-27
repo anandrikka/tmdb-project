@@ -1,10 +1,23 @@
 module.exports = {
     baseUrl: 'https://api.themoviedb.org/3/',
-    authentication: {
-        requestToken: 'authentication/token/new',
-        sessionId: 'authentication/session/new'
-    },
     apis: {
+        authentication: [
+            {
+                resource: '/authentication/token/new',
+                method: 'GET',
+                name: 'requestToken'
+            },
+            {
+                resource: '/authentication/token/validate_with_login',
+                method: 'GET',
+                name: 'validateRequestToken'
+            },
+            {
+                resource: '/authentication/session/new',
+                method: 'GET',
+                name: 'createSession'
+            }
+        ],
         timezones: [
             {
                 resource: 'timezones/list',

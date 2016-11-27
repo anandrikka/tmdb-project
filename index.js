@@ -12,9 +12,11 @@ for (let i = 0; i < routeKeys.length; i++) {
     app.use(resourcePath, routes[routeKeys[i]]);
 }
 
-app.get('/api/authenticate', function (req, res) {
-    res.send('authenticate recieved');
-})
+app.use('/api/authenticate', require('./server/routes/authentication'));
+
+// app.get('/api/authenticate', function (req, res) {
+//     res.send('authenticate recieved');
+// })
 
 //static files serving
 app.use('/dist', express.static(__dirname + '/dist')) 

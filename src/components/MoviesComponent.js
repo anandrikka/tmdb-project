@@ -10,7 +10,7 @@ class MoviesComponent extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
+            <div className="container">
                 Movies
             </div>
         );

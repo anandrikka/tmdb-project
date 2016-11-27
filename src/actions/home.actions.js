@@ -1,12 +1,11 @@
 import axios from 'axios';
 
 import * as HomeActionConstants from '../constants/home.constants';
-import { RESOURCE_PLAYING_MOVIES, RESOURCE_TODAY_SERIALS, RESOURCE_UPCOMING_MOVIES } from '../constants/Urls';
-
-export const loadingStatus = (actionType, isLoading) => ({
-    type: actionType,
-    isLoading
-});
+import {
+    RESOURCE_PLAYING_MOVIES,
+    RESOURCE_TODAY_SERIALS,
+    RESOURCE_UPCOMING_MOVIES
+} from '../constants/Urls';
 
 export const loadMovies = (nowPlaying) => ({
     type: HomeActionConstants.FETCH_NOW_PLAYING_MOVIES,
@@ -23,37 +22,36 @@ export const loadUpcomingMovies = (upcomingMovies) => ({
     upcomingMovies
 })
 
+export const updateErrorStatus = (type, status) => ({
+    type,
+    status
+})
+
 export const fetchMovies = (page) => ((dispatch) => {
     page = page || 1;
-    dispatch(loadingStatus(HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_LOADING_STATUS, true));
     return axios.get(RESOURCE_PLAYING_MOVIES, {
         params: {
             page: page
         }
     }).then((response) => {
         dispatch(loadMovies(response.data));
-        dispatch(loadingStatus(HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_LOADING_STATUS, false));
     }, (error) => {
-        dispatch(loadingStatus(HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_LOADING_STATUS, false));
+        dispatch(updateErrorStatus(HomeActionConstants.FETCH_NOW_PLAYING_MOVIES_FAILURE, true));
     });
 });
 
 export const fetchTvAiringToday = () => ((dispatch) => {
-    dispatch(loadingStatus(HomeActionConstants.FETCH_TV_AIRING_TODAY_LOADING_STATUS, true));
     return axios.get(RESOURCE_TODAY_SERIALS).then((response) => {
         dispatch(loadTvAiringToday(response.data));
-        dispatch(loadingStatus(HomeActionConstants.FETCH_TV_AIRING_TODAY_LOADING_STATUS, false));
     }, (error) => {
-        dispatch(loadingStatus(HomeActionConstants.FETCH_TV_AIRING_TODAY_LOADING_STATUS, false));
+        dispatch(updateErrorStatus(HomeActionConstants.FETCH_TV_AIRING_TODAY_FAILURE, true));
     });
 });
 
 export const fetchUpcomingMovies = () => ((dispatch) => {
-    dispatch(loadingStatus(HomeActionConstants.FETCH_UPCOMING_MOVIES_LOADING_STATUS, true));
     return axios.get(RESOURCE_UPCOMING_MOVIES).then((response) => {
         dispatch(loadUpcomingMovies(response.data));
-        dispatch(loadingStatus(HomeActionConstants.FETCH_UPCOMING_MOVIES_LOADING_STATUS, false));
     }, (error) => {
-        dispatch(loadingStatus(HomeActionConstants.FETCH_TV_AIRING_TODAY_LOADING_STATUS, false));
+        dispatch(updateErrorStatus(HomeActionConstants.FETCH_UPCOMING_MOVIES_FAILURE, true));
     });
 });
