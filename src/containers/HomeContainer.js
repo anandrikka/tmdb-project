@@ -8,10 +8,9 @@ import HomeComponent from '../components/HomeComponent';
 import * as HomeActions from '../actions/home.actions';
 
 let mapStateToProps = (state) => {
-    let { homeData, appData } = state;
+    let { homeData } = state;
     return {
-        homeData,
-        appData
+        homeData
     };
 }
 

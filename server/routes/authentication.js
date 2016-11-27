@@ -6,8 +6,7 @@ var tmdbApi = ApiUtils.tmdbApi;
 var reqFn = ApiUtils.requestFn;
 
 router.get('/login', function (req, res) {
-    //res.sendFile(__dirname+'/login.html');
-    //res.send('<html><head>window.open(\'http://www.google.com\')</head><body></body></html>')
+    console.log('request recieved');
 });
 
 module.exports = router;

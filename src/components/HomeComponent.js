@@ -62,7 +62,8 @@ class HomeComponent extends Component {
 								{
 									nowPlaying.list.map((item, index) => {
 										return (
-											<img key={index} className={getImageClass(index)}
+                                            <img style={{ cursor: 'pointer' }} key={index}
+                                                className={getImageClass(index)}
 												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
 												onError={(e)=>{$(e.target).hide()}}/>
 										);
@@ -75,7 +76,8 @@ class HomeComponent extends Component {
 								{
 									tvAiringToday.list.map((item, index) => {
 										return (
-											<img key={index} className={getImageClass(index)}
+                                            <img key={index} style={{ cursor: 'pointer' }}
+                                                className={getImageClass(index)}
 												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
 												onError={(e)=>{$(e.target).hide()}}/>
 										);
@@ -87,7 +89,8 @@ class HomeComponent extends Component {
 								{
 									upcomingMovies.list.map((item, index) => {
 										return (
-											<img key={index} className={getImageClass(index)}
+                                            <img key={index} style={{ cursor: 'pointer' }}
+                                                className={getImageClass(index)}
 												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
 												onError={(e)=>{$(e.target).hide()}}/>
 										);

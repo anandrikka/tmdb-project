@@ -6,7 +6,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import {Provider} from 'react-redux';
 import store from './stores/store';
 
-import MoviesComponent from './components/MoviesComponent';
+import MoviesContainer from './containers/MoviesContainer';
 import TvComponent from './components/TvComponent';
 import PeopleComponent from './components/PeopleComponent';
 import HomeContainer from './containers/HomeContainer';
@@ -20,7 +20,7 @@ const router = (
         <Router history={browserHistory}>
             <Route path='/' component={AppContainer}>
                 <IndexRoute component={HomeContainer}/>
-                <Route path="/movies" component={MoviesComponent}/>
+                <Route path="/movies" component={MoviesContainer}/>
                 <Route path="/tv" component={TvComponent} />
                 <Route path="/people" component={PeopleComponent}/>
             </Route>

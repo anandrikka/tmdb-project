@@ -3,7 +3,7 @@
 let baseUrl = '/api';
 let constructUrl = (path) => (baseUrl + path);
 
-export const RESOURCE_AUTHENTICATE = constructUrl('/authenticate');
+export const RESOURCE_AUTHENTICATE = constructUrl('/authenticate/login');
 
 //movies
 export const RESOURCE_PLAYING_MOVIES = constructUrl('/movies/nowPlaying');
