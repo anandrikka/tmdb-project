@@ -51,7 +51,7 @@ export default class NavbarComponent extends React.Component {
                         </LinkContainer>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={1} href="#" onSelect={this.sendLoginRequest}>Login</NavItem>
+                        <NavItem eventKey={1} href="#" onClick={this.sendLoginRequest}>Login</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

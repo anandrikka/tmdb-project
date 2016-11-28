@@ -64,8 +64,8 @@ class HomeComponent extends Component {
 										return (
                                             <img style={{ cursor: 'pointer' }} key={index}
                                                 className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
-												onError={(e)=>{$(e.target).hide()}}/>
+												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+												onError={(e)=>{$(e.target).remove()}}/>
 										);
 									})
 								}
@@ -78,8 +78,8 @@ class HomeComponent extends Component {
 										return (
                                             <img key={index} style={{ cursor: 'pointer' }}
                                                 className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
-												onError={(e)=>{$(e.target).hide()}}/>
+												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+												onError={(e)=>{$(e.target).remove()}}/>
 										);
 									})
 								}
@@ -91,8 +91,8 @@ class HomeComponent extends Component {
 										return (
                                             <img key={index} style={{ cursor: 'pointer' }}
                                                 className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.backdrop_path)}
-												onError={(e)=>{$(e.target).hide()}}/>
+												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+												onError={(e)=>{$(e.target).remove()}}/>
 										);
 									})
 								}

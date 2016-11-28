@@ -1,8 +1,8 @@
 'use strict';
 
-var express = require('express');
-var app = express();
-var routes = require('./server/routes/routes');
+var express         = require('express');
+var app             = express();
+var routes          = require('./server/routes/routes');
 
 var routeKeys = Object.keys(routes);
 
@@ -12,21 +12,15 @@ for (let i = 0; i < routeKeys.length; i++) {
     app.use(resourcePath, routes[routeKeys[i]]);
 }
 
-app.use('/api/authenticate', require('./server/routes/authentication'));
-
-// app.get('/api/authenticate', function (req, res) {
-//     res.send('authenticate recieved');
-// })
-
 //static files serving
-app.use('/dist', express.static(__dirname + '/dist')) 
+app.use('/dist', express.static(__dirname + '/dist'));
 
 //serving index.html
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/home.html');
 });
 
-var server_port = process.env.PORT || 3000
+var server_port = process.env.PORT || 3000;
 app.listen(server_port, function () {
   console.log( "Listening on " + "port " + server_port )
 });
