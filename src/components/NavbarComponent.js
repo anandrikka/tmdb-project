@@ -13,20 +13,25 @@ export default class NavbarComponent extends React.Component {
     constructor(props) {
         super(props);
         this.sendLoginRequest = this.sendLoginRequest.bind(this);
+        this.openLoginDialog = this.openLoginDialog.bind(this);
+        this.state = {
+            showLoginDialog: false
+        }
     }
 
     componentDidMount() {
-        // <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
-        //     <MenuItem eventKey={4.1}>Action</MenuItem>
-        //     <MenuItem eventKey={4.2}>Another action</MenuItem>
-        //     <MenuItem eventKey={4.3}>Something else here</MenuItem>
-        //     <MenuItem divider />
-        //     <MenuItem eventKey={4.3}>Separated link</MenuItem>
-        // </NavDropdown>
+        
     }
 
     sendLoginRequest() {
         this.props.authenticate();
+    }
+
+    openLoginDialog() {
+        this.props.showLogin(!this.state.showLoginDialog);
+        this.setState({
+            showLoginDialog: !this.state.showLoginDialog
+        });
     }
 
     render() {
@@ -34,7 +39,7 @@ export default class NavbarComponent extends React.Component {
             <Navbar default collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="/">TMDB</a>
+                        <Link to="/">TMDB</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -51,7 +56,7 @@ export default class NavbarComponent extends React.Component {
                         </LinkContainer>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={1} href="#" onClick={this.sendLoginRequest}>Login</NavItem>
+                        <NavItem eventKey={1} href="#" onClick={this.openLoginDialog}>Login</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

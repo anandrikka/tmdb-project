@@ -19,7 +19,8 @@ const router = (
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path='/' component={AppContainer}>
-                <IndexRoute component={HomeContainer}/>
+                <IndexRoute component={HomeContainer} />
+                <Route path="/home" component={HomeContainer}></Route>
                 <Route path="/movies" component={MoviesContainer}/>
                 <Route path="/tv" component={TvComponent} />
                 <Route path="/people" component={PeopleComponent}/>

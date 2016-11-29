@@ -12,6 +12,10 @@ for (let i = 0; i < routeKeys.length; i++) {
     app.use(resourcePath, routes[routeKeys[i]]);
 }
 
+app.post('/loginSubmit', function (req, res) {
+    console.log(req.body);
+});
+
 //static files serving
 app.use('/dist', express.static(__dirname + '/dist'));
 

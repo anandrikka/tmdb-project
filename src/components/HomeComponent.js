@@ -37,19 +37,28 @@ class HomeComponent extends Component {
         
 	}
 	
+	getImageSrc(path) {
+        if (path) {
+            return IMAGE_URI_ORIGINAL + path;
+        } else {
+            return '../../dist/assets/images/placeholder.png';
+            //return 'http://placehold.it/500x500';
+        }
+    }
+
     render() {
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;
         let upcomingMovies = this.props.homeData.upcomingMovies;
         let getImageClass = (index) => {
             if (index%4 == 1) {
-				return 'img-200';
+				return 'img-250';
 			}
 			if (index%3 === 0) {
 				return 'img-300';
 			}
 			if (index%7 === 0) {
-				return 'img-150';
+				return 'img-400';
 			}
 		}
         return (
@@ -61,12 +70,14 @@ class HomeComponent extends Component {
 							<section className="home-photos">
 								{
 									nowPlaying.list.map((item, index) => {
-										return (
-                                            <img style={{ cursor: 'pointer' }} key={index}
-                                                className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-												onError={(e)=>{$(e.target).remove()}}/>
-										);
+										if (item.poster_path) {
+											return (
+												<img style={{ cursor: 'pointer' }} key={index}
+													className={getImageClass(index)}
+													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+													onError={(e)=>{$(e.target).hide()}}/>
+											);
+										}
 									})
 								}
 							</section>
@@ -75,12 +86,15 @@ class HomeComponent extends Component {
 							<section className="home-photos">
 								{
 									tvAiringToday.list.map((item, index) => {
-										return (
-                                            <img key={index} style={{ cursor: 'pointer' }}
-                                                className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-												onError={(e)=>{$(e.target).remove()}}/>
-										);
+										if (item.poster_path) {
+											return (
+												<img key={index} style={{ cursor: 'pointer' }}
+													className={getImageClass(index)}
+													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+													onError={(e)=>{$(e.target).hide()}}/>
+											);
+										}
+										
 									})
 								}
 							</section>
@@ -88,12 +102,14 @@ class HomeComponent extends Component {
 							<section className="home-photos">
 								{
 									upcomingMovies.list.map((item, index) => {
-										return (
-                                            <img key={index} style={{ cursor: 'pointer' }}
-                                                className={getImageClass(index)}
-												src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-												onError={(e)=>{$(e.target).remove()}}/>
-										);
+										if (item.poster_path) {
+											return (
+												<img key={index} style={{ cursor: 'pointer' }}
+													className={getImageClass(index)}
+													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+													onError={(e)=>{$(e.target).hide()}}/>
+											);
+										}
 									})
 								}
 							</section>

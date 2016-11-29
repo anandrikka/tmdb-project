@@ -15,9 +15,10 @@ let moviesReducer = (state = defaultState, action) => {
     switch (action.type) {
         case MoviesActionConstants.FETCH_LATEST_MOVIES:
             modifiedState = Immutable.fromJS(state);
+            modifiedState = modifiedState.updateIn(['latestMovies', 'list'],
+                list => action.latestMovies.results)
             modifiedState = modifiedState.mergeDeep({
                 latestMovies: {
-                    list: state.latestMovies.list.concat(action.latestMovies.results),
                     totalPages: action.latestMovies.total_pages,
                     totalResults: action.latestMovies.total_results,
                     currentPage: action.page

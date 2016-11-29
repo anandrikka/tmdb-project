@@ -24,7 +24,7 @@ let homeReducer = (state = defaultState, action) => {
         case HomeActionConstants.FETCH_NOW_PLAYING_MOVIES:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.updateIn(['nowPlaying', 'list'],
-                list => list.concat(action.nowPlaying.results));
+                list => action.nowPlaying.results);
             modifiedState = modifiedState.mergeDeep({
                 nowPlaying: {
                     totalMoviePages: action.nowPlaying.total_pages,
@@ -36,7 +36,7 @@ let homeReducer = (state = defaultState, action) => {
         case HomeActionConstants.FETCH_TV_AIRING_TODAY:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.updateIn(['tvAiringToday', 'list'],
-                list => list.concat(action.tvAiringToday.results));
+                list => action.tvAiringToday.results);
             modifiedState = modifiedState.mergeDeep({
                 tvAiringToday: {
                     totalTvAiringPages: action.tvAiringToday.total_pages,
@@ -47,9 +47,10 @@ let homeReducer = (state = defaultState, action) => {
             return modifiedState.toJS();
         case HomeActionConstants.FETCH_UPCOMING_MOVIES:
             modifiedState = Immutable.fromJS(state);
+            modifiedState = modifiedState.updateIn(['upcomingMovies', 'list'],
+                list => action.upcomingMovies.results)
             modifiedState = modifiedState.mergeDeep({
                 upcomingMovies: {
-                    list: state.upcomingMovies.list.concat(action.upcomingMovies.results),
                     totalUpComingPages: action.upcomingMovies.total_pages,
                     upComingPage: action.upcomingMovies.page,
                     totalResults: action.upcomingMovies.total_results
