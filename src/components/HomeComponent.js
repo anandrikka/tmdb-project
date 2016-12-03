@@ -34,7 +34,6 @@ class HomeComponent extends Component {
 	
 	gotoMovies() {
 		this.props.history.push('/movies')
-		console.log(this.props);
 	}
 
     render() {

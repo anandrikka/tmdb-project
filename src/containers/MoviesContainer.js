@@ -15,17 +15,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-class MainMovies extends Component {
-    render() {
-        const child = React.cloneElement(this.props.children, this.props);
-        return (
-            <div>
-                {child}
-            </div>
-        )
-    }
-}
-
 const mapDispatchToProps = (dispatch) => bindActionCreators(MovieActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesComponent);

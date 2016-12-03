@@ -18,7 +18,6 @@ class RevealCardComponent extends Component {
 
     render() {
         let item = this.props.item;
-        console.log('CardComponent', this.props);
         let genres='';
         for (let i = 0; i < item.genre_ids.length; i++) {
             if (this.props.genres[item.genre_ids[i]]) {

@@ -71,10 +71,10 @@ export default class NavbarComponent extends React.Component {
                     </div>
                 </nav>
                 <ul id="movies" className="dropdown-content">
-                    <li><Link to="/movies/nowPlaying">Now Playing</Link></li>
-                    <li><Link to="/movies/upcoming">Upcoming</Link></li>
-                    <li><Link to="/movies/popular">Popular</Link></li>
-                    <li><Link to="/movies/topRated">Top Rated</Link></li>
+                    <li><Link to="/movies?type=nowPlaying">Now Playing</Link></li>
+                    <li><Link to="/movies?type=upcoming">Upcoming</Link></li>
+                    <li><Link to="/movies?type=popular">Popular</Link></li>
+                    <li><Link to="/movies?type=topRated">Top Rated</Link></li>
                 </ul>
                 <ul id="tv" className="dropdown-content">
                     <li><a href="#!">Airing Today</a></li>

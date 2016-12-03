@@ -11,6 +11,8 @@ import TvComponent from './components/TvComponent';
 import PeopleComponent from './components/PeopleComponent';
 import HomeContainer from './containers/HomeContainer';
 import MoviesComponent from './components/MoviesComponent'
+import MovieComponent from './components/MovieComponent';
+import MoviesListComponent from './components/MoviesListComponent';
 
 import css from './styles/main.scss';
 
@@ -23,8 +25,8 @@ const router = (
                 <IndexRoute component={HomeContainer} />
                 <Route path="/home" component={HomeContainer}></Route>
                 <Route path="/movies" component={MoviesContainer}>
-                    <IndexRoute component={MoviesComponent}></IndexRoute>
-                    <Route path="/movies/:type" component={MoviesComponent}></Route>
+                    <IndexRoute component={MoviesListComponent}></IndexRoute>
+                    <Route path="/movies/:id" component={MovieComponent}></Route>
                 </Route>
                 <Route path="/tv" component={TvComponent} />
                 <Route path="/people" component={PeopleComponent}/>
