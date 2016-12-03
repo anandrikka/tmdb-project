@@ -3,11 +3,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import css from '../styles/navbar.scss'; 
+import css from '../styles/navbar.scss';
 
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-    
+
 export default class NavbarComponent extends React.Component {
 
     constructor(props) {
@@ -20,7 +20,7 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     sendLoginRequest() {
@@ -36,30 +36,57 @@ export default class NavbarComponent extends React.Component {
 
     render() {
         return (
-            <Navbar default collapseOnSelect>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">TMDB</Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                </Navbar.Header>
-                <Navbar.Collapse>
-                    <Nav>
-                        <LinkContainer to="/movies">
-                            <NavItem eventKey={1}>Movies</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to="/tv">
-                            <NavItem eventKey={2} href="/tv">TV</NavItem>    
-                        </LinkContainer>
-                        <LinkContainer to="/people">
-                            <NavItem eventKey={3} href="/people">People</NavItem>
-                        </LinkContainer>
-                    </Nav>
-                    <Nav pullRight>
-                        <NavItem eventKey={1} href="#" onClick={this.openLoginDialog}>Login</NavItem>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                        <Link to="/" className="brand-logo">TMDB</Link>
+                        <a href="#" data-activates="mobile-menu" className="button-collapse">
+                            <i className="material-icons">menu</i>
+                        </a>
+                        <ul className="right hide-on-med-and-down">
+                            <li>
+                                <a className="dropdown-button" data-beloworigin="true" data-hover="true" data-activates="movies">Movies
+                                <i className="material-icons left nav-i-left">local_movies</i>
+                                </a></li>
+                            <li>
+                                <a className="dropdown-button" data-hover="true" data-beloworigin="true" href="#!" data-activates="tv">Television<i className="material-icons left">tv</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a className="dropdown-button" data-hover="true"  data-beloworigin="true" href="#!" data-activates="people">People<i className="material-icons left">people</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mobile.html">Login
+                                    <i className="material-icons right">account_circle</i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul className="side-nav" id="mobile-menu">
+                            <li><a href="mobile.html">Login</a></li>
+                            <li><a href="sass.html">Movies</a></li>
+                            <li><a href="badges.html">Television</a></li>
+                            <li><a href="collapsible.html">People</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <ul id="movies" className="dropdown-content">
+                    <li><Link to="/movies/nowPlaying">Now Playing</Link></li>
+                    <li><Link to="/movies/upcoming">Upcoming</Link></li>
+                    <li><Link to="/movies/popular">Popular</Link></li>
+                    <li><Link to="/movies/topRated">Top Rated</Link></li>
+                </ul>
+                <ul id="tv" className="dropdown-content">
+                    <li><a href="#!">Airing Today</a></li>
+                    <li><a href="#!">On The Air</a></li>
+                    <li><a href="#!">Popular</a></li>
+                    <li><a href="#!">Top Rated</a></li>
+                </ul>
+                <ul id="people" className="dropdown-content">
+                    <li><a href="#!">Popular</a></li>
+                </ul>
+            </div>
+
         );
     }
 }

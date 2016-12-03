@@ -1,38 +1,38 @@
 'use strict';
 import axios from 'axios';
 
-import * as AppActionConstants from '../constants/app.constants';
+import * as ActionConstants from './action.constants';
 import {
     RESOURCE_TIMEZONES,
     RESOURCE_MOVIE_GENRES,
     RESOURCE_AUTHENTICATE,
     RESOURCE_TV_GENRES
-} from '../constants/Urls';
+} from '../Utilities/Urls';
 
 export const timezones = (timezones) =>  {
     return {
-        type: AppActionConstants.TIMEZONES,
+        type: ActionConstants.TIMEZONES,
         timezones
     };
 };
 
 export const movieGenres = (movieGenres) => {
     return {
-        type: AppActionConstants.MOVIE_GENRES,
+        type: ActionConstants.MOVIE_GENRES,
         movieGenres
     }
 };
 
 export const tvGenres = (tvGenres) => {
     return {
-        type: AppActionConstants.TV_GENRES,
+        type: ActionConstants.TV_GENRES,
         tvGenres
     }
 }
 
 export const loadUser = (user) => {
     return {
-        type: AppActionConstants.USER_INFO,
+        type: ActionConstants.USER_INFO,
         user
     }
 }

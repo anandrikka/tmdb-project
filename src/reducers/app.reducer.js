@@ -1,7 +1,7 @@
 'use strict';
 
 import Immutable from 'immutable';
-import * as AppActionConstants from '../constants/app.constants';
+import * as ActionConstants from '../actions/action.constants';
 
 /* jshint unused:false*/ 
 let defaultState = {
@@ -21,12 +21,12 @@ let defaultState = {
 function app(state = defaultState, action) {
     let modifiedState;
     switch(action.type) {
-        case AppActionConstants.TIMEZONES:
+        case ActionConstants.TIMEZONES:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.updateIn(['timezones', 'list'], list => action.timezones);
             modifiedState = modifiedState.updateIn(['timezones, successful'], successful => true);
             return modifiedState.toJS();
-        case AppActionConstants.MOVIE_GENRES:
+        case ActionConstants.MOVIE_GENRES:
             let movieGenres = {};
             for(let genre of action.movieGenres) {
                 movieGenres[genre.id] = genre;
@@ -36,7 +36,7 @@ function app(state = defaultState, action) {
                 movieGenres
             });
             return modifiedState.toJS();
-        case AppActionConstants.TV_GENRES:
+        case ActionConstants.TV_GENRES:
             let tvGenres = {};
             for (let genre of action.tvGenres) {
                 tvGenres[genre.id] = genre;
@@ -46,7 +46,7 @@ function app(state = defaultState, action) {
                 tvGenres
             });
             return modifiedState.toJS();
-        case AppActionConstants.USER_INFO:
+        case ActionConstants.USER_INFO:
             return state;
         default:
             return state;

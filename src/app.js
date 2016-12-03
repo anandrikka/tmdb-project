@@ -10,6 +10,7 @@ import MoviesContainer from './containers/MoviesContainer';
 import TvComponent from './components/TvComponent';
 import PeopleComponent from './components/PeopleComponent';
 import HomeContainer from './containers/HomeContainer';
+import MoviesComponent from './components/MoviesComponent'
 
 import css from './styles/main.scss';
 
@@ -21,7 +22,10 @@ const router = (
             <Route path='/' component={AppContainer}>
                 <IndexRoute component={HomeContainer} />
                 <Route path="/home" component={HomeContainer}></Route>
-                <Route path="/movies" component={MoviesContainer}/>
+                <Route path="/movies" component={MoviesContainer}>
+                    <IndexRoute component={MoviesComponent}></IndexRoute>
+                    <Route path="/movies/:type" component={MoviesComponent}></Route>
+                </Route>
                 <Route path="/tv" component={TvComponent} />
                 <Route path="/people" component={PeopleComponent}/>
             </Route>

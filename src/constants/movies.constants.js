@@ -1,7 +1,0 @@
-'use strict';
-
-export const FETCH_LATEST_MOVIES = 'FETCH_LATEST_MOVIES';
-
-export const FETCH_MOVIE_DETAILS = 'FETCH_MOVIE_DETAILS';
-
-export const FETCH_MOVIE_VIDEOS = 'FETCH_MOVIE_VIDEOS';

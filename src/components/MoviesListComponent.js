@@ -1,15 +1,7 @@
-'use strict';
+import React, {Component, PropTypes} from 'react'
 
-import React, { Component, PropTypes } from 'react';
-import { Row, Col, Image } from 'react-bootstrap';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
-import LoadingComponent from './LoadingComponent';
-import PaginationComponent from './PaginationComponent';
-import RevealCardComponent from './RevealCardComponent';
-import axios from 'axios';
-
-class MoviesComponent extends Component {
-
+class MoviesListComponent extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -56,9 +48,8 @@ class MoviesComponent extends Component {
             })
         })
     }
-
+    
     render() {
-        console.log('MoviesComponent', this.props);
         return (
             <div className="container" style={{marginTop:'20px'}}>
                 <div className="row">
@@ -90,7 +81,8 @@ class MoviesComponent extends Component {
     }
 }
 
-MoviesComponent.propTypes = {
-};
+MoviesListComponent.propTypes = {
 
-export default MoviesComponent;
+}
+
+export default MoviesListComponent;

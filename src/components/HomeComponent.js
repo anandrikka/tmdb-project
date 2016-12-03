@@ -7,7 +7,6 @@ import axios from 'axios';
 import css from '../styles/home.scss';
 import LoadingComponent from './LoadingComponent';
 import PaginationComponent from './PaginationComponent';
-import CardComponent from './CardComponent';
 import SimplePaginationComponent from './SimplePaginationComponent';
 import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
 
@@ -19,37 +18,28 @@ class HomeComponent extends Component {
         this.state = {
 			loading:true
 		}
+		this.gotoMovies = this.gotoMovies.bind(this);
 	}
 
 	componentDidMount () {
         axios.all([this.props.fetchMovies(),
-        this.props.fetchTvAiringToday(),
-        this.props.fetchUpcomingMovies()]).then((data) => {
+        this.props.fetchTvAiringToday()]).then((data) => {
             this.setState({
 				loading: false
 			})
         }, (error) => {
 			
 		})
-        // this.props.fetchMovies();
-        // this.props.fetchTvAiringToday();
-        // this.props.fetchUpcomingMovies();
-        
-	}
-	
-	getImageSrc(path) {
-        if (path) {
-            return IMAGE_URI_ORIGINAL + path;
-        } else {
-            return '../../dist/assets/images/placeholder.png';
-            //return 'http://placehold.it/500x500';
-        }
     }
+	
+	gotoMovies() {
+		this.props.history.push('/movies')
+		console.log(this.props);
+	}
 
     render() {
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;
-        let upcomingMovies = this.props.homeData.upcomingMovies;
         let getImageClass = (index) => {
             if (index%4 == 1) {
 				return 'img-250';
@@ -66,8 +56,8 @@ class HomeComponent extends Component {
                 {
                     !this.state.loading ? (
                         <div>
-							<h3>Movies in Theaters</h3>
-							<section className="home-photos">
+							<h4>Movies in Theaters</h4>
+							<section className="home-photos" onClick={this.gotoMovies}>
 								{
 									nowPlaying.list.map((item, index) => {
 										if (item.poster_path) {
@@ -82,7 +72,7 @@ class HomeComponent extends Component {
 								}
 							</section>
 							<div className="clearfix"></div>
-							<h3>Television Airings Today</h3>
+							<h4>Television Airings Today</h4>
 							<section className="home-photos">
 								{
 									tvAiringToday.list.map((item, index) => {
@@ -95,21 +85,6 @@ class HomeComponent extends Component {
 											);
 										}
 										
-									})
-								}
-							</section>
-							<h3>Upcoming Movies</h3>
-							<section className="home-photos">
-								{
-									upcomingMovies.list.map((item, index) => {
-										if (item.poster_path) {
-											return (
-												<img key={index} style={{ cursor: 'pointer' }}
-													className={getImageClass(index)}
-													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-													onError={(e)=>{$(e.target).hide()}}/>
-											);
-										}
 									})
 								}
 							</section>

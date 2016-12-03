@@ -10,4 +10,10 @@ router.use(ApiUtils.reqMiddleware);
 
 router.get('/airingToday', reqFn('tvShowsAiringToday'));
 
+router.get('/popular', reqFn('getPopularTvShows'));
+
+router.get('/topRated', reqFn('getTopRatedTvShows'));
+
+router.get('/airingNow', reqFn('getTvShowsCurrentlyAiring'));
+
 module.exports = router;

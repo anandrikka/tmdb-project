@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import NavbarComponent from './NavbarComponent';
 import css from '../styles/app.scss';
 import LoginModalComponent from './LoginModalComponent';
+import FooterComponent from './FooterComponent';
 
 class AppComponent extends Component {
 
@@ -17,6 +18,16 @@ class AppComponent extends Component {
     }
 
     componentDidMount() {
+        $(document).ready(function() {
+            $('select').material_select();
+            $(".button-collapse").sideNav();
+            $('.dropdown-button').dropdown(
+                {
+                    hover: true,
+                    belowOrigin: true
+                }
+            );
+        });
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();
         this.props.fetchTvGenres();
@@ -36,10 +47,10 @@ class AppComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className="main">
                 <NavbarComponent {...this.props} showLogin={this.showLogin} />
-                <LoginModalComponent show={this.state.login} hideModal={this.hideModal}></LoginModalComponent>
                 {this.props.children}
+                <FooterComponent></FooterComponent>
             </div>
         )
     }

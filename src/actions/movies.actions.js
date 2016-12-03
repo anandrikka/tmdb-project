@@ -1,24 +1,42 @@
 import axios from 'axios';
 
-import * as MovieActionConstants from '../constants/movies.constants';
-import { RESOURCE_PLAYING_MOVIES } from '../constants/Urls';
+import * as ActionConstants from './action.constants';
+import {
+    RESOURCE_PLAYING_MOVIES,
+    RESOURCE_POPULAR_MOVIES,
+    RESOURCE_UPCOMING_MOVIES,
+    RESOURCE_TOP_RATED_MOVIES
+} from '../Utilities/Urls';
 
-
-export const loadLatestMovies = (latestMovies, page) => ({
-    type: MovieActionConstants.FETCH_LATEST_MOVIES,
-    latestMovies,
+export const loadMovies = (movies, page) => ({
+    type: ActionConstants.FETCH_MOVIES,
+    movies,
     page: page || 1
-});
+})
 
-export const fetchLatestMovies = (page) => ((dispatch) => {
+export const fetchMovies = (type, page) => ((dispatch) => {
     page = page || 1;
-    return axios.get(RESOURCE_PLAYING_MOVIES, {
+    let resource;
+    switch (type) {
+        case 'upcoming':
+            resource = RESOURCE_UPCOMING_MOVIES;
+            break;
+        case 'topRated':
+            resource = RESOURCE_TOP_RATED_MOVIES;
+            break;
+        case 'popular':
+            resource = RESOURCE_POPULAR_MOVIES
+            break;
+        default:
+            resource = RESOURCE_PLAYING_MOVIES;
+    }
+    return axios.get(resource, {
         params: {
             page
         }
     }).then((response) => {
-        dispatch(loadLatestMovies(response.data, page));
+            dispatch(loadMovies(response.data, page));
     }, (error) => {
         
-    });
-})
+    })
+});
