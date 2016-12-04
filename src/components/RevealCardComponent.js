@@ -11,7 +11,7 @@ class RevealCardComponent extends Component {
         if (path) {
             return IMAGE_URI_ORIGINAL + path;
         } else {
-            return '../../dist/assets/images/placeholder.png';
+            return '../../dist/assets/images/placeholder.jpg';
             //return 'http://placehold.it/500x500';
         }
     }
@@ -34,9 +34,13 @@ class RevealCardComponent extends Component {
                 </div>
                 <div className="card-content ccard-content">
                     <span className="activator ccard">
-                        {item.original_title}<i style={{cursor:'pointer'}} className="material-icons right">more_vert</i>
+                        {item.original_title || item.original_name}<i style={{cursor:'pointer'}} className="material-icons right">more_vert</i>
                     </span>
-                    <p><span className="text-darken-4">Genres: </span>{genres}</p>
+                    <div className="valign-wrapper">
+                        <p className="valign">
+                            <span className="material-icons">date_range</span>{item.release_date}
+                        </p>
+                    </div>
                 </div>
                 <div className="card-reveal">
                     <span className="card-title grey-text text-darken-4">Overview

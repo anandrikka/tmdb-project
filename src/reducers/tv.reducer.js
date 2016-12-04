@@ -10,17 +10,17 @@ let defaultState = {
     }
 };
 
-let moviesReducer = (state = defaultState, action) => {
+let tvReducer = (state = defaultState, action) => {
     let modifiedState;
     switch (action.type) {
-        case ActionConstants.FETCH_MOVIES:
+        case ActionConstants.FETCH_TV_LIST:
             modifiedState = Immutable.fromJS(state);
             modifiedState = modifiedState.updateIn(['search', 'list'],
-                list => action.movies.results)
+                list => action.tvList.results)
             modifiedState = modifiedState.mergeDeep({
                 search: {
-                    totalPages: action.movies.total_pages,
-                    totalResults: action.movies.total_results,
+                    totalPages: action.tvList.total_pages,
+                    totalResults: action.tvList.total_results,
                     currentPage: action.page
                 }
             })
@@ -30,4 +30,4 @@ let moviesReducer = (state = defaultState, action) => {
     }
 }
 
-export default moviesReducer;
+export default tvReducer;

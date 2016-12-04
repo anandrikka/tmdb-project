@@ -10,7 +10,6 @@
     img {
         width: 100% !important;
     }
-
     .img-150 {
         height: 150px !important;
     }
@@ -25,6 +24,38 @@
     }
     .img-400 {
         height: 400px !important;
+    }
+}
+
+@media (min-width:480px) and (max-width:720px) {
+    .home-photos {
+        line-height: 0;
+        -webkit-column-count: 3;
+        -webkit-column-gap:   0px;
+        -moz-column-count:    3;
+        -moz-column-gap:      0px;
+        column-count:         3;
+        column-gap:           0px;
+    }
+
+    img {
+        width: 100% !important;
+    }
+
+    .img-150 {
+        height: 250px !important;
+    }
+    .img-200 {
+        height: 250px !important;
+    }
+    .img-250 {
+        height: 250px !important;
+    }
+    .img-300 {
+        height: 250px !important;
+    }
+    .img-400 {
+        height: 250px !important;
     }
 }
 

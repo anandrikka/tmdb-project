@@ -7,28 +7,27 @@ import PaginationComponent from './PaginationComponent';
 import RevealCardComponent from './RevealCardComponent';
 import axios from 'axios';
 
-class MoviesListComponent extends Component {
-
+class TvListComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: true,
             activePage: 1,
-            movieCategory: this.props.location.query.type || 'latest'
+            tvCategory: this.props.location.query.type || 'airingToday'
         }
         this.pageSelect = this.pageSelect.bind(this);
-        this.loadMoviesOnType = this.loadMoviesOnType.bind(this);
+        this.loadTvListOnType = this.loadTvListOnType.bind(this);
     }
 
     componentDidMount() {
-        this.loadMoviesOnType();
+        this.loadTvListOnType();
     }
 
-    loadMoviesOnType(page, movieCategory) {
-        this.props.fetchMovies(movieCategory || this.state.movieCategory, page || 1).then(() => {
+    loadTvListOnType(page, tvCategory) {
+        this.props.fetchTvList(tvCategory || this.state.tvCategory, page || 1).then(() => {
             let posters = [];
-            for (let movie in this.props.moviesData.search.list) {
-                posters.push(IMAGE_URI_ORIGINAL + this.props.moviesData.search.list[movie].poster_path);
+            for (let tv in this.props.tvData.search.list) {
+                posters.push(IMAGE_URI_ORIGINAL + this.props.tvData.search.list[tv].poster_path);
             }
             axios.all(posters).then(function() {
                 this.setState({
@@ -42,9 +41,9 @@ class MoviesListComponent extends Component {
         if (this.props.location.query && nextProps.location.query &&
             this.props.location.query.type !== nextProps.location.query.type) {
             this.setState({
-                movieCategory: nextProps.location.query.type
+                tvCategory: nextProps.location.query.type
             })
-            this.loadMoviesOnType(null, nextProps.location.query.type);
+            this.loadTvListOnType(null, nextProps.location.query.type);
         }
     }
 
@@ -54,7 +53,7 @@ class MoviesListComponent extends Component {
             loading: true,
             activePage: page
         });
-        this.loadMoviesOnType(page);
+        this.loadTvListOnType(page);
     }
 
     render() {
@@ -63,11 +62,11 @@ class MoviesListComponent extends Component {
                 <div className="row">
                     <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
                     {
-                        this.props.moviesData.search.list.map((item, index) => {
+                        this.props.tvData.search.list.map((item, index) => {
                             return (
                                 <div className="col s12 m2 l4" key={index}>
                                     <RevealCardComponent item={item}
-                                        genres={this.props.appData.movieGenres}>
+                                        genres={this.props.appData.tvGenres}>
                                     </RevealCardComponent>
                                 </div>
                             );
@@ -78,7 +77,7 @@ class MoviesListComponent extends Component {
                     !this.state.loading ? (
                         <div style={{ float: 'right' }}>
                             <PaginationComponent
-                                pages={this.props.moviesData.search.totalPages}
+                                pages={this.props.tvData.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>
                             </PaginationComponent>
                         </div>
@@ -90,7 +89,8 @@ class MoviesListComponent extends Component {
     }
 }
 
-MoviesListComponent.propTypes = {
-};
+TvListComponent.propTypes = {
 
-export default MoviesListComponent;
+}
+
+export default TvListComponent

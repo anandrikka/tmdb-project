@@ -33,7 +33,11 @@ class HomeComponent extends Component {
     }
 	
 	gotoMovies() {
-		this.props.history.push('/movies')
+		this.props.history.push('/movies');
+	}
+
+	gotoTv() {
+		this.props.history.push('/tv');
 	}
 
     render() {
@@ -41,10 +45,10 @@ class HomeComponent extends Component {
 		let tvAiringToday = this.props.homeData.tvAiringToday;
         let getImageClass = (index) => {
             if (index%4 == 1) {
-				return 'img-250';
+				return 'img-300';
 			}
 			if (index%3 === 0) {
-				return 'img-300';
+				return 'img-350';
 			}
 			if (index%7 === 0) {
 				return 'img-400';
@@ -72,7 +76,7 @@ class HomeComponent extends Component {
 							</section>
 							<div className="clearfix"></div>
 							<h4>Television Airings Today</h4>
-							<section className="home-photos">
+							<section className="home-photos" onClick={this.gotoTv}>
 								{
 									tvAiringToday.list.map((item, index) => {
 										if (item.poster_path) {

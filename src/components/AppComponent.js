@@ -21,12 +21,8 @@ class AppComponent extends Component {
         $(document).ready(function() {
             $('select').material_select();
             $(".button-collapse").sideNav();
-            $('.dropdown-button').dropdown(
-                {
-                    hover: true,
-                    belowOrigin: true
-                }
-            );
+            $('.dropdown-button').dropdown();
+            //$('.modal').modal();
         });
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();
@@ -49,6 +45,7 @@ class AppComponent extends Component {
         return (
             <div className="main">
                 <NavbarComponent {...this.props} showLogin={this.showLogin} />
+                <LoginModalComponent></LoginModalComponent>
                 {this.props.children}
                 <FooterComponent></FooterComponent>
             </div>

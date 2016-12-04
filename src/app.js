@@ -7,7 +7,8 @@ import {Provider} from 'react-redux';
 import store from './stores/store';
 
 import MoviesContainer from './containers/MoviesContainer';
-import TvComponent from './components/TvComponent';
+import TvContainer from './containers/TvContainer';
+import TvListComponent from './components/TvListComponent';
 import PeopleComponent from './components/PeopleComponent';
 import HomeContainer from './containers/HomeContainer';
 import MoviesComponent from './components/MoviesComponent'
@@ -28,7 +29,9 @@ const router = (
                     <IndexRoute component={MoviesListComponent}></IndexRoute>
                     <Route path="/movies/:id" component={MovieComponent}></Route>
                 </Route>
-                <Route path="/tv" component={TvComponent} />
+                <Route path="/tv" component={TvContainer}>
+                    <IndexRoute component={TvListComponent}></IndexRoute>
+                </Route>
                 <Route path="/people" component={PeopleComponent}/>
             </Route>
         </Router>

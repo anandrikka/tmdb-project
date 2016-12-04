@@ -15,7 +15,7 @@ export const RESOURCE_TOP_RATED_MOVIES = constructUrl('/movies/topRated');
 export const RESOURCE_TODAY_SERIALS = constructUrl('/tv/airingToday');
 export const RESOURCE_TV_POPULAR = constructUrl('/tv/popular');
 export const RESOURCE_TV_TOP_RATED = constructUrl('/tv/topRated');
-export const RESOURCE_TV_ON_AIR = constructUrl('/tv/onAir');
+export const RESOURCE_TV_ON_AIR = constructUrl('/tv/airingNow');
 
 //common
 export const RESOURCE_TIMEZONES = constructUrl('/common/timezones');
