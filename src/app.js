@@ -9,11 +9,12 @@ import store from './stores/store';
 import MoviesContainer from './containers/MoviesContainer';
 import TvContainer from './containers/TvContainer';
 import TvListComponent from './components/TvListComponent';
-import PeopleComponent from './components/PeopleComponent';
+import PeopleContainer from './containers/PeopleContainer';
 import HomeContainer from './containers/HomeContainer';
 import MoviesComponent from './components/MoviesComponent'
 import MovieComponent from './components/MovieComponent';
 import MoviesListComponent from './components/MoviesListComponent';
+import PeopleListComponent from './components/PeopleListComponent';
 
 import css from './styles/main.scss';
 
@@ -32,7 +33,9 @@ const router = (
                 <Route path="/tv" component={TvContainer}>
                     <IndexRoute component={TvListComponent}></IndexRoute>
                 </Route>
-                <Route path="/people" component={PeopleComponent}/>
+                <Route path="/people" component={PeopleContainer}>
+                    <IndexRoute component={PeopleListComponent}></IndexRoute>
+                </Route>
             </Route>
         </Router>
     </Provider>

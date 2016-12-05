@@ -17,6 +17,9 @@ export const RESOURCE_TV_POPULAR = constructUrl('/tv/popular');
 export const RESOURCE_TV_TOP_RATED = constructUrl('/tv/topRated');
 export const RESOURCE_TV_ON_AIR = constructUrl('/tv/airingNow');
 
+//people
+export const RESOURCE_PEOPLE_POPULAR = constructUrl('/people/popular');
+
 //common
 export const RESOURCE_TIMEZONES = constructUrl('/common/timezones');
 export const RESOURCE_MOVIE_GENRES = constructUrl('/common/movieGenres');

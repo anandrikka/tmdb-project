@@ -6,3 +6,18 @@
 .ccard-content {
     padding: 16px !important;
 }
+
+.ccard-title {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.c-card {
+    .card-image {
+        .card-title {
+            font-size: 16px;
+            padding: 12px;
+            font-weight: 500;
+        }
+    }
+}

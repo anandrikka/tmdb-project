@@ -12,7 +12,41 @@ class TvComponent extends Component {
                         <div className="row col s12">
                             <div className="input-field">
                                 <i className="material-icons prefix">search</i>
-                                <input id="icon_prefix" type="text" className="validate" />
+                                <div style={{ position: 'relative', display: 'block' }}>
+                                    <input id="icon_prefix" type="text" className="validate" style={{ margin: '0px' }} />
+                                    <div style={{ display: 'block', position: 'absolute', backgroundColor: '#f9f9f9', zIndex: '999', width: '100%', boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)' }}>
+                                        <ul className="collection">
+                                            <li className="collection-item avatar">
+                                                <img src="images/yuna.jpg" alt="" className="circle" />
+                                                <span className="title">Title</span>
+                                                <p>First Line <br />
+                                                    Second Line </p>
+                                                <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                            </li>
+                                            <li className="collection-item avatar">
+                                                <i className="material-icons circle">folder</i>
+                                                <span className="title">Title</span>
+                                                <p>First Line <br />
+                                                    Second Line</p>
+                                                <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                            </li>
+                                            <li className="collection-item avatar">
+                                                <i className="material-icons circle green">insert_chart</i>
+                                                <span className="title">Title</span>
+                                                <p>First Line <br />
+                                                    Second Line</p>
+                                                <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                            </li>
+                                            <li className="collection-item avatar">
+                                                <i className="material-icons circle red">play_arrow</i>
+                                                <span className="title">Title</span>
+                                                <p>First Line <br />
+                                                    Second Line</p>
+                                                <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>

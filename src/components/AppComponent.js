@@ -22,7 +22,7 @@ class AppComponent extends Component {
             $('select').material_select();
             $(".button-collapse").sideNav();
             $('.dropdown-button').dropdown();
-            //$('.modal').modal();
+            $('.modal-trigger').leanModal();
         });
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();

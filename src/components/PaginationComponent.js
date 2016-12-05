@@ -24,7 +24,7 @@ class PaginationComponent extends Component {
             )
         }
         return (
-            <Pagination prev next first last ellipsis boundaryLinks items={this.props.pages} maxButtons={3}
+            <Pagination prev next first last ellipsis boundaryLinks items={this.props.pages} maxButtons={10}
                     activePage={this.props.activePage} onSelect={this.props.pageSelect} />
         );
     }

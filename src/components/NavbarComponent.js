@@ -31,7 +31,7 @@ export default class NavbarComponent extends React.Component {
                         </a>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <a className="dropdown-button" data-beloworigin="true" data-hover="true" data-activates="movies">Movies
+                                <a className="dropdown-button" data-beloworigin="true" data-hover="true" data-constrainwidth="false" data-activates="movies">Movies
                                 <i className="material-icons left nav-i-left">local_movies</i>
                                 </a></li>
                             <li>
@@ -44,7 +44,7 @@ export default class NavbarComponent extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <a href="#modal1">Login
+                                <a className="modal-trigger" data-target="modal1">Login
                                     <i className="material-icons right">account_circle</i>
                                 </a>
                             </li>
@@ -69,6 +69,15 @@ export default class NavbarComponent extends React.Component {
                     <li><Link to="/tv?type=popular">Popular</Link></li>
                     <li><Link to="/tv?type=topRated">Top Rated</Link></li>
                 </ul>
+                <div id="modal1" className="modal modal-fixed-footer">
+                    <div className="modal-content">
+                    <h4>Modal Header</h4>
+                    <p>A bunch of text</p>
+                    </div>
+                    <div className="modal-footer">
+                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+                    </div>
+                </div>
             </div>
 
         );

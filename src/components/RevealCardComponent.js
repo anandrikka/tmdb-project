@@ -18,23 +18,28 @@ class RevealCardComponent extends Component {
 
     render() {
         let item = this.props.item;
-        let genres='';
-        for (let i = 0; i < item.genre_ids.length; i++) {
-            if (this.props.genres[item.genre_ids[i]]) {
-                genres = genres + this.props.genres[item.genre_ids[i]].name;
-            }
-            if (i !== item.genre_ids.length - 1) {
-                genres = genres + ', ';
+        let genres = '';
+        if (item.genre_ids) {
+            for (let i = 0; i < item.genre_ids.length; i++) {
+                if (this.props.genres[item.genre_ids[i]]) {
+                    genres = genres + this.props.genres[item.genre_ids[i]].name;
+                }
+                if (i !== item.genre_ids.length - 1) {
+                    genres = genres + ', ';
+                }
             }
         }
+
         return (
-            <div className="card">
-                <div className="card-image waves-effect waves-block waves-light">
-                    <img className="activator" src={this.getImageSrc(item.backdrop_path)} />
+            <div className="card c-card">
+                <div className="card-image ">
+                    <img className="activator" src={this.getImageSrc(item.backdrop_path || item.profile_path)} />
+                    <span className="card-title">{item.original_title || item.original_name}</span>
+
                 </div>
                 <div className="card-content ccard-content">
                     <span className="activator ccard">
-                        {item.original_title || item.original_name}<i style={{cursor:'pointer'}} className="material-icons right">more_vert</i>
+                        {item.original_title || item.original_name}<i style={{ cursor: 'pointer' }} className="material-icons right">more_vert</i>
                     </span>
                     <div className="valign-wrapper">
                         <p className="valign">
