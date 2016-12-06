@@ -33,7 +33,8 @@ app.get('/api/login', function (req, res) {
 });
 
 app.get('/api/callback', function (req, res) {
-    console.log(req, res);
+    console.log(req.headers, res.headers);
+    tmdbApi.createSession({request_token:'123'})
     res.redirect('/');
 })
 
