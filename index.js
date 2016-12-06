@@ -33,7 +33,7 @@ app.get('/api/login', function (req, res) {
 });
 
 app.get('/api/callback', function (req, res) {
-    alert('came here');
+    console.log(req, res);
 })
 
 //static files serving
