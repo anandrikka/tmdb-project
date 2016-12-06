@@ -25,16 +25,24 @@ for (let i = 0; i < routeKeys.length; i++) {
 
 app.get('/api/login', function (req, res) {
     tmdbApi.requestToken().then(function (tokenResult) {
-        res.redirect('https://www.themoviedb.org/authenticate/' + tokenResult.data.request_token +
-            '?redirect_to=' + isServer ? 'https://tmdbredux.herokuapp.com/api/callback' : 'http://localhost/api/callback');
+        console.log('tokenResult: ', tokenResult.data);
+        var buildUrl = 'https://www.themoviedb.org/authenticate/' +
+            tokenResult.data.request_token + '?redirect_to=';
+        if (isServer) {
+            buildUrl = buildUrl + 'https://tmdbredux.herokuapp.com/api/callback';
+        } else {
+            buildUrl = buildUrl + 'http://localhost/api/callback';
+        }
+        console.log('buildUrl: ', buildUrl);
+        res.redirect(buildUrl);
     }, function (error) {
         
     })
 });
 
 app.get('/api/callback', function (req, res) {
-    console.log(req.headers, res.headers);
-    tmdbApi.createSession({request_token:'123'})
+    //console.log(req.headers, res.headers);
+    //tmdbApi.createSession({request_token:'123'})
     res.redirect('/');
 })
 
