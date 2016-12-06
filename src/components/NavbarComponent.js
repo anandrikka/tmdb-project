@@ -7,8 +7,7 @@ import css from '../styles/navbar.scss';
 
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
-import LoginModalComponent from './LoginModalComponent';
+import axios from 'axios';
 
 export default class NavbarComponent extends React.Component {
 
@@ -17,7 +16,7 @@ export default class NavbarComponent extends React.Component {
     }
 
     componentDidMount() {
-
+        
     }
 
     render() {
@@ -44,7 +43,7 @@ export default class NavbarComponent extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <a className="modal-trigger" data-target="modal1">Login
+                                <a href="/api/login" target="_blank">Login
                                     <i className="material-icons right">account_circle</i>
                                 </a>
                             </li>
@@ -69,17 +68,7 @@ export default class NavbarComponent extends React.Component {
                     <li><Link to="/tv?type=popular">Popular</Link></li>
                     <li><Link to="/tv?type=topRated">Top Rated</Link></li>
                 </ul>
-                <div id="modal1" className="modal modal-fixed-footer">
-                    <div className="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
-                    </div>
-                    <div className="modal-footer">
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-                    </div>
-                </div>
             </div>
-
         );
     }
 }

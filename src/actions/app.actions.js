@@ -6,7 +6,9 @@ import {
     RESOURCE_TIMEZONES,
     RESOURCE_MOVIE_GENRES,
     RESOURCE_AUTHENTICATE,
-    RESOURCE_TV_GENRES
+    RESOURCE_TV_GENRES,
+    RESOURCE_REQ_AUTH_TOKEN,
+    REQ_LOGIN_WITH_AUTH_TOKEN
 } from '../Utilities/Urls';
 
 export const timezones = (timezones) =>  {
@@ -61,9 +63,25 @@ export const fetchTvGenres = () => ((dispatch) => {
     })
 })
 
-export const authenticate = () => ((dispatch) => {
-    return axios.get(RESOURCE_AUTHENTICATE).then((response) => {
+export const authenticate = (username, password) => ((dispatch) => {
+    return axios.post(RESOURCE_AUTHENTICATE, { username, password }).then((response) => {
         dispatch(loadUser(response.data));
+    }, (error) => {
+        console.log('error', error);
+    })
+});
+
+export const getReqToken = () => ((dispatch) => {
+    return axios.get(RESOURCE_REQ_AUTH_TOKEN).then((response) => {
+        axios.get(REQ_LOGIN_WITH_AUTH_TOKEN, {
+            params: {
+                reqToken: response.data.request_token
+            }
+        }).then((res) => {
+            console.log(res);
+            }, () => {
+            
+        })
     }, (error) => {
 
     })

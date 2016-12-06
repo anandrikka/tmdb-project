@@ -35,7 +35,7 @@ const router = (
                 </Route>
                 <Route path="/people" component={PeopleContainer}>
                     <IndexRoute component={PeopleListComponent}></IndexRoute>
-                </Route>
+                </Route>                
             </Route>
         </Router>
     </Provider>

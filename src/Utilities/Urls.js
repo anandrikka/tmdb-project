@@ -4,6 +4,8 @@ let baseUrl = '/api';
 let constructUrl = (path) => (baseUrl + path);
 
 export const RESOURCE_AUTHENTICATE = constructUrl('/authenticate/login');
+export const RESOURCE_REQ_AUTH_TOKEN = constructUrl('/authenticate/loginReqToken');
+export const REQ_LOGIN_WITH_AUTH_TOKEN = constructUrl('/authenticate/dialogWithReqToken');
 
 //movies
 export const RESOURCE_PLAYING_MOVIES = constructUrl('/movies/nowPlaying');

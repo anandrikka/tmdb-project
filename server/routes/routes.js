@@ -9,6 +9,5 @@ module.exports = {
     movies: movies,
     common: common,
     tv: tv,
-    people: people,
-    authenticate:authenticate
+    people: people
 }

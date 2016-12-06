@@ -3,18 +3,12 @@
 import React, { Component, PropTypes } from 'react';
 import NavbarComponent from './NavbarComponent';
 import css from '../styles/app.scss';
-import LoginModalComponent from './LoginModalComponent';
 import FooterComponent from './FooterComponent';
 
 class AppComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.showLogin = this.showLogin.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-        this.state = {
-            login: false
-        }
     }
 
     componentDidMount() {
@@ -28,24 +22,11 @@ class AppComponent extends Component {
         this.props.fetchMovieGenres();
         this.props.fetchTvGenres();
     }
-
-    showLogin(flag) {
-        this.setState({
-            login: flag
-        })
-    }   
-
-    hideModal() {
-        this.setState({
-            login: false
-        })
-    }
-
+    
     render() {
         return (
             <div className="main">
-                <NavbarComponent {...this.props} showLogin={this.showLogin} />
-                <LoginModalComponent></LoginModalComponent>
+                <NavbarComponent {...this.props} />
                 {this.props.children}
                 <FooterComponent></FooterComponent>
             </div>
