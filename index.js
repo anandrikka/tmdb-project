@@ -34,6 +34,7 @@ app.get('/api/login', function (req, res) {
 
 app.get('/api/callback', function (req, res) {
     console.log(req, res);
+    res.redirect('/');
 })
 
 //static files serving
