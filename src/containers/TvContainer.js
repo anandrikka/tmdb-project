@@ -1,20 +1,17 @@
-'use strict';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, {Component} from 'react'
 
-import TvComponent from '../components/TvComponent';
+import TvComponent from '../components/TvComponent.jsx';
 import * as TvActions from '../actions/tv.actions';
 
 const mapStateToProps = (state) => {
-    let {tvData, appData} = state;
+    const { tvData, appData } = state;
     return {
         appData,
         tvData
-    }
-}
+    };
+};
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(TvActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(TvActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TvComponent);

@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react'
 
 class FooterComponent extends Component {
@@ -17,4 +15,4 @@ class FooterComponent extends Component {
     }
 }
 
-export default FooterComponent
+export default FooterComponent;

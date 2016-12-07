@@ -6,15 +6,15 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import {Provider} from 'react-redux';
 import store from './stores/store';
 
+import HomeContainer from './containers/HomeContainer';
 import MoviesContainer from './containers/MoviesContainer';
 import TvContainer from './containers/TvContainer';
-import TvListComponent from './components/TvListComponent';
 import PeopleContainer from './containers/PeopleContainer';
-import HomeContainer from './containers/HomeContainer';
-import MoviesComponent from './components/MoviesComponent'
-import MovieComponent from './components/MovieComponent';
-import MoviesListComponent from './components/MoviesListComponent';
-import PeopleListComponent from './components/PeopleListComponent';
+import MoviesComponent from './components/MoviesComponent.jsx'
+import MovieComponent from './components/MovieComponent.jsx';
+import MoviesListComponent from './components/MoviesListComponent.jsx';
+import TvListComponent from './components/TvListComponent.jsx';
+import PeopleListComponent from './components/PeopleListComponent.jsx';
 
 import css from './styles/main.scss';
 

@@ -12,7 +12,6 @@ class RevealCardComponent extends Component {
             return IMAGE_URI_ORIGINAL + path;
         } else {
             return '../../dist/assets/images/placeholder.jpg';
-            //return 'http://placehold.it/500x500';
         }
     }
 

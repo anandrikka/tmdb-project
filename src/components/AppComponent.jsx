@@ -1,9 +1,9 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import NavbarComponent from './NavbarComponent';
+import NavbarComponent from './NavbarComponent.jsx';
 import css from '../styles/app.scss';
-import FooterComponent from './FooterComponent';
+import FooterComponent from './FooterComponent.jsx';
 
 class AppComponent extends Component {
 

@@ -1,20 +1,17 @@
-'use strict';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, {Component} from 'react'
 
-import MoviesComponent from '../components/MoviesComponent';
+import MoviesComponent from '../components/MoviesComponent.jsx';
 import * as MovieActions from '../actions/movies.actions';
 
 const mapStateToProps = (state) => {
-    let {moviesData, appData} = state;
+    const { moviesData, appData } = state;
     return {
         appData,
         moviesData
-    }
-}
+    };
+};
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(MovieActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(MovieActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesComponent);

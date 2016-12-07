@@ -1,6 +1,4 @@
-'use strict';
 import axios from 'axios';
-
 import * as ActionConstants from './action.constants';
 import {
     RESOURCE_TIMEZONES,
@@ -11,78 +9,64 @@ import {
     REQ_LOGIN_WITH_AUTH_TOKEN
 } from '../Utilities/Urls';
 
-export const timezones = (timezones) =>  {
-    return {
-        type: ActionConstants.TIMEZONES,
-        timezones
-    };
-};
-
-export const movieGenres = (movieGenres) => {
-    return {
-        type: ActionConstants.MOVIE_GENRES,
-        movieGenres
-    }
-};
-
-export const tvGenres = (tvGenres) => {
-    return {
-        type: ActionConstants.TV_GENRES,
-        tvGenres
-    }
-}
-
-export const loadUser = (user) => {
-    return {
-        type: ActionConstants.USER_INFO,
-        user
-    }
-}
-
-export const fetchTimezones = () => ((dispatch) => {
-    return axios.get(RESOURCE_TIMEZONES).then((response) => {
-        dispatch(timezones(response.data));
-    }, (error) => {
-
-    });
+export const timezones = timezones => ({
+    type: ActionConstants.TIMEZONES,
+    timezones
 });
 
-export const fetchMovieGenres = () => ((dispatch) => {
+export const movieGenres = movieGenres => ({
+    type: ActionConstants.MOVIE_GENRES,
+    movieGenres
+});
+
+export const tvGenres = tvGenres => ({
+    type: ActionConstants.TV_GENRES,
+    tvGenres
+});
+
+export const loadUser = user => ({
+    type: ActionConstants.USER_INFO,
+    user
+});
+
+export const fetchTimezones = () => dispatch => {
+    return axios.get(RESOURCE_TIMEZONES).then(response => {
+        dispatch(timezones(response.data));
+    }, error => { // eslint-disable-line
+    });
+};
+
+export const fetchMovieGenres = () => dispatch => {
     return axios.get(RESOURCE_MOVIE_GENRES).then((response) => {
         dispatch(movieGenres(response.data.genres));
-    }, (error) => {
-       
-    })
-});
+    }, (error) => { // eslint-disable-line
+    });
+};
 
-export const fetchTvGenres = () => ((dispatch) => {
+export const fetchTvGenres = () => dispatch => {
     return axios.get(RESOURCE_TV_GENRES).then((response) => {
-        dispatch(tvGenres(response.data.genres))
-    }, (error) => {
+        dispatch(tvGenres(response.data.genres));
+    }, (error) => { // eslint-disable-line
+    });
+};
 
-    })
-})
-
-export const authenticate = (username, password) => ((dispatch) => {
+export const authenticate = (username, password) => dispatch => {
     return axios.post(RESOURCE_AUTHENTICATE, { username, password }).then((response) => {
         dispatch(loadUser(response.data));
-    }, (error) => {
-        console.log('error', error);
-    })
-});
+    }, (error) => { // eslint-disable-line
+    });
+};
 
-export const getReqToken = () => ((dispatch) => {
+export const getReqToken = () => (dispatch => { // eslint-disable-line
     return axios.get(RESOURCE_REQ_AUTH_TOKEN).then((response) => {
         axios.get(REQ_LOGIN_WITH_AUTH_TOKEN, {
             params: {
                 reqToken: response.data.request_token
             }
-        }).then((res) => {
-            console.log(res);
-            }, () => {
-            
-        })
-    }, (error) => {
+        }).then((res) => { // eslint-disable-line
+        }, () => {
+        });
+    }, (error) => { // eslint-disable-line
 
-    })
+    });
 });

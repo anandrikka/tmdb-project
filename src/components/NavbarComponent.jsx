@@ -7,7 +7,6 @@ import css from '../styles/navbar.scss';
 
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import axios from 'axios';
 
 export default class NavbarComponent extends React.Component {
 
@@ -18,6 +17,11 @@ export default class NavbarComponent extends React.Component {
     componentDidMount() {
         
     }
+
+    loginPopup() {
+        window.open('/api/login', 'popup', 'width=600,height=600');
+        return false;
+    }    
 
     render() {
         return (
@@ -43,7 +47,7 @@ export default class NavbarComponent extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <a href="/api/login" target="_blank">Login
+                                <a href="/api/login" target="popup" onClick={this.loginPopup}>Login
                                     <i className="material-icons right">account_circle</i>
                                 </a>
                             </li>

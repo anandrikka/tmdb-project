@@ -5,11 +5,12 @@ import { Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 
 import css from '../styles/home.scss';
-import LoadingComponent from './LoadingComponent';
-import PaginationComponent from './PaginationComponent';
-import SimplePaginationComponent from './SimplePaginationComponent';
+import LoadingComponent from './LoadingComponent.jsx';
+import PaginationComponent from './PaginationComponent.jsx';
+import SimplePaginationComponent from './SimplePaginationComponent.jsx';
 import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
 
+import promise from '../Utilities/Promise';
 
 class HomeComponent extends Component {
 
@@ -21,7 +22,16 @@ class HomeComponent extends Component {
 		this.gotoMovies = this.gotoMovies.bind(this);
 	}
 
-	componentDidMount () {
+	componentDidMount() {
+		promise.all([this.props.fetchMovies(),
+        this.props.fetchTvAiringToday()]).then((data) => {
+            this.setState({
+				loading: false
+			})
+        }, (error) => {
+			
+		})
+
         axios.all([this.props.fetchMovies(),
         this.props.fetchTvAiringToday()]).then((data) => {
             this.setState({

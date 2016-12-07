@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
-import LoadingComponent from './LoadingComponent';
-import PaginationComponent from './PaginationComponent';
-import RevealCardComponent from './RevealCardComponent';
+import LoadingComponent from './LoadingComponent.jsx';
+import PaginationComponent from './PaginationComponent.jsx';
+import RevealCardComponent from './RevealCardComponent.jsx';
 import axios from 'axios';
 
 class MoviesComponent extends Component {

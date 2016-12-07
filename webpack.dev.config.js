@@ -30,6 +30,9 @@ module.exports = {
         }
     },
     devtool: 'inline-source-map',
+    eslint: {
+        configFile: './.eslintrc'
+    },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('react_assets', 'react-assets.bundle.js'),
         // new CleanWebpackPlugin(['dist'], {
@@ -50,6 +53,16 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel'
+            },
+            {
+				test: /\.jsx$/,
+				exclude: /node_modules/,
+				loader: 'babel'
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader'
             },
             {
 				test: /\.scss$/,

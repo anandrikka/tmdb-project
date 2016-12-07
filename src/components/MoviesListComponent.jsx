@@ -2,9 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
-import LoadingComponent from './LoadingComponent';
-import PaginationComponent from './PaginationComponent';
-import RevealCardComponent from './RevealCardComponent';
+import LoadingComponent from './LoadingComponent.jsx';
+import PaginationComponent from './PaginationComponent.jsx';
+import RevealCardComponent from './RevealCardComponent.jsx';
 import axios from 'axios';
 
 class MoviesListComponent extends Component {
@@ -65,7 +65,7 @@ class MoviesListComponent extends Component {
                     {
                         this.props.moviesData.search.list.map((item, index) => {
                             return (
-                                <div className="col s12 m2 l4" key={index}>
+                                <div className="col s12 m12 l4" key={index}>
                                     <RevealCardComponent item={item}
                                         genres={this.props.appData.movieGenres}>
                                     </RevealCardComponent>
