@@ -1,9 +1,7 @@
-'use strict';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './stores/store';
 
 import HomeContainer from './containers/HomeContainer';
@@ -15,10 +13,9 @@ import MovieComponent from './components/MovieComponent.jsx';
 import MoviesListComponent from './components/MoviesListComponent.jsx';
 import TvListComponent from './components/TvListComponent.jsx';
 import PeopleListComponent from './components/PeopleListComponent.jsx';
-
-import css from './styles/main.scss';
-
 import AppContainer from './containers/AppContainer';
+
+import css from './styles/main.scss'; // eslint-ignore-line
 
 const router = (
     <Provider store={store}>

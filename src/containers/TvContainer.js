@@ -1,8 +1,12 @@
+/* eslint-disable */
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import TvComponent from '../components/TvComponent.jsx';
 import * as TvActions from '../actions/tv.actions';
+
+/* eslint-enable */
 
 const mapStateToProps = (state) => {
     const { tvData, appData } = state;

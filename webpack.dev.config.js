@@ -5,7 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/app.jsx',
         react_assets: [
             'react',
             'react-dom',
@@ -32,6 +32,9 @@ module.exports = {
     devtool: 'inline-source-map',
     eslint: {
         configFile: './.eslintrc'
+    },
+    resolve: {
+        extensions: ["", ".js", ".jsx"]
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('react_assets', 'react-assets.bundle.js'),

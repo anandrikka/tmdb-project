@@ -7,7 +7,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/app.jsx',
         react_assets: [
             'react',
             'react-dom',

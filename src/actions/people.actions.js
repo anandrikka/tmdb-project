@@ -5,29 +5,27 @@ import {
     RESOURCE_PEOPLE_POPULAR
 } from '../Utilities/Urls';
 
-export const loadPeople = (peopleList, page) => ({
+export const loadPeople = (peopleList, page = 1) => ({
     type: ActionConstants.FETCH_PEOPLE_LIST,
     peopleList,
-    page: page || 1
-})
+    page
+});
 
-export const fetchPeople = (type, page) => ((dispatch) => {
-    page = page || 1;
+export const fetchPeople = (type, page = 1) => ((dispatch) => {
     let resource;
     switch (type) {
-        case 'popular':
-            resource = RESOURCE_PEOPLE_POPULAR;
-            break;
-        default:
-            resource = RESOURCE_PEOPLE_POPULAR;
+    case 'popular':
+        resource = RESOURCE_PEOPLE_POPULAR;
+        break;
+    default:
+        resource = RESOURCE_PEOPLE_POPULAR;
     }
     return axios.get(resource, {
         params: {
             page
         }
     }).then((response) => {
-            dispatch(loadPeople(response.data, page));
-    }, (error) => {
-        
-    })
+        dispatch(loadPeople(response.data, page));
+    }, (error) => { // eslint-disable-line
+    });
 });
