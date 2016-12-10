@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var session = require('express-session');
 var logger = require('morgan');
 var jwt = require('jsonwebtoken');
 var Cookies = require('cookies');
