@@ -55,9 +55,9 @@ app.get('/api/callback', function (req, res) {
             var cookies = new Cookies(req, res);
             var encryptedSessionId = ApiUtils.encrypt(sessionResult.data.session_id);
             var cookieOptions = {};
+            cookieOptions.http = true;
             if (isProd) {
-                cookieOptions.secure = true;
-                cookieOptions.http = true;
+                //cookieOptions.secure = true;
             }
             try {
                 cookies.set('tmdbredux', encryptedSessionId, cookieOptions);
