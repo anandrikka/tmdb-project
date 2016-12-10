@@ -1,17 +1,21 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var jwt = require('jsonwebtoken');
+var Cookies = require('cookies');
+var bodyParser = require('body-parser');
 var ApiUtils = require('./server/ApiUtils');
 var tmdbApi = ApiUtils.tmdbApi;
 
-var isServer = process.env.PORT;
+var isProd = process.env.PORT ? true : false;
 
 /**
  *Middleware for all requests
  */
 app.use(logger('dev'));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
 /**
  *Routes for all resources are created here
@@ -31,13 +35,11 @@ app.get('/api/login', function (req, res) {
     tmdbApi.requestToken().then(function (tokenResult) {
         var buildUrl = 'https://www.themoviedb.org/authenticate/' +
             tokenResult.data.request_token + '?redirect_to=';
-        if (isServer) {
+        if (isProd) {
             buildUrl = buildUrl + 'https://tmdbredux.herokuapp.com/api/callback';
         } else {
             buildUrl = buildUrl + 'http://localhost/api/callback';
         }
-        console.log('buildUrl: ', buildUrl);
-        // res.write('<a href="'+buildUrl+'" target="popup" onload="window.open("/api/login", "popup", "width=600,height=600")\"/>')
         res.redirect(buildUrl);
     }, function (error) {
         
@@ -51,8 +53,26 @@ app.get('/api/login', function (req, res) {
 app.get('/api/callback', function (req, res) {
     if (req.query.approved) {
         tmdbApi.createSession({ request_token: req.query.request_token }).then(function (sessionResult) {
-            res.write('<script>window.close();</script>');
+            var cookies = new Cookies(req, res);
+            var encryptedSessionId = ApiUtils.encrypt(sessionResult.data.session_id);
+            var cookieOptions = {};
+            if (isProd) {
+                cookieOptions.secure = true;
+                cookieOptions.http = true;
+            }
+            try {
+                cookies.set('tmdbredux', encryptedSessionId, cookieOptions);
+            } catch (e) {
+                console.log(e)
+                res.sendStatus(500);
+                return;
+            }
+            
+            // res.cookie('tmdbredux', sessionResult.data.session_id);
+            // var token = jwt.sign({'id':sessionResult.data.session_id}, '123456');
+            //res.cookie('token', token);
             res.redirect('/');
+            //req.session.cookie = sessionResult.data.session_id;
             //res.sendStatus(500).redirect('/');
         })
     } else {

@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import axios from 'axios';
+//import axios from 'axios';
 
 import css from '../styles/home.scss';
 import LoadingComponent from './LoadingComponent.jsx';
@@ -10,7 +10,7 @@ import PaginationComponent from './PaginationComponent.jsx';
 import SimplePaginationComponent from './SimplePaginationComponent.jsx';
 import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
 
-import promise from '../Utilities/Promise';
+import axios from '../Utilities/axios';
 
 class HomeComponent extends Component {
 
@@ -23,16 +23,7 @@ class HomeComponent extends Component {
 	}
 
 	componentDidMount() {
-		promise.all([this.props.fetchMovies(),
-        this.props.fetchTvAiringToday()]).then((data) => {
-            this.setState({
-				loading: false
-			})
-        }, (error) => {
-			
-		})
-
-        axios.all([this.props.fetchMovies(),
+		axios.all([this.props.fetchMovies(),
         this.props.fetchTvAiringToday()]).then((data) => {
             this.setState({
 				loading: false
@@ -69,7 +60,7 @@ class HomeComponent extends Component {
                 {
                     !this.state.loading ? (
                         <div>
-							<h4>Movies in Theaters</h4>
+							<h5>Movies in Theaters</h5>
 							<section className="home-photos" onClick={this.gotoMovies}>
 								{
 									nowPlaying.list.map((item, index) => {
@@ -85,7 +76,7 @@ class HomeComponent extends Component {
 								}
 							</section>
 							<div className="clearfix"></div>
-							<h4>Television Airings Today</h4>
+							<h5>Television Airings Today</h5>
 							<section className="home-photos" onClick={this.gotoTv}>
 								{
 									tvAiringToday.list.map((item, index) => {

@@ -18,15 +18,20 @@ class AppComponent extends Component {
             $('.dropdown-button').dropdown();
             $('.modal-trigger').leanModal();
         });
+        this.props.fetchUserDetails();
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();
         this.props.fetchTvGenres();
     }
     
     render() {
+        const userDetails = this.props.appData.userInfo;
+        const userActions = {
+            fetchUserDetails: this.props.fetchUserDetails
+        }
         return (
             <div className="main">
-                <NavbarComponent {...this.props} />
+                <NavbarComponent details = {userDetails} actions = {userActions} />
                 {this.props.children}
                 <FooterComponent></FooterComponent>
             </div>

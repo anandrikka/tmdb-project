@@ -2,7 +2,9 @@ import Immutable from 'immutable';
 import * as ActionConstants from '../actions/action.constants';
 
 const defaultState = {
-    userInfo: {},
+    userInfo: {
+        userAuthenticated: false
+    },
     translations: {
         list: [],
         successful: false
@@ -21,7 +23,11 @@ function app(state = defaultState, action) {
     case ActionConstants.TIMEZONES: {
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.updateIn(['timezones', 'list'], list => action.timezones); // eslint-disable-line
-        modifiedState = modifiedState.updateIn(['timezones, successful'], successful => true); // eslint-disable-line
+        modifiedState = modifiedState.mergeDeep({
+            timezones: {
+                successful: true
+            }
+        });
         return modifiedState.toJS();
     }
     case ActionConstants.MOVIE_GENRES: {
@@ -46,8 +52,25 @@ function app(state = defaultState, action) {
         });
         return modifiedState.toJS();
     }
-    case ActionConstants.USER_INFO:
-        return state;
+    case ActionConstants.USER_INFO: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['userInfo'], value => action.userInfo); // eslint-disable-line
+        modifiedState = modifiedState.toJS();
+        modifiedState = Immutable.Map(modifiedState);
+        const userInfo = modifiedState.get('userInfo');
+        userInfo.userAuthenticated = true;
+        modifiedState = modifiedState.set('userInfo', userInfo);
+        return modifiedState.toJS();
+    }
+    case ActionConstants.USER_INFO_FAILED: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.mergeDeep({
+            userInfo: {
+                userAuthenticated: false
+            }
+        });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

@@ -19,11 +19,13 @@ export default class NavbarComponent extends React.Component {
     }
 
     loginPopup() {
+        // href="/api/login" target="popup" onClick={this.loginPopup}
         window.open('/api/login', 'popup', 'width=600,height=600');
         return false;
     }    
 
     render() {
+        
         return (
             <div>
                 <nav>
@@ -46,11 +48,21 @@ export default class NavbarComponent extends React.Component {
                                     <i className="material-icons left">people</i>
                                 </Link>
                             </li>
-                            <li>
-                                <a href="/api/login" target="popup" onClick={this.loginPopup}>Login
-                                    <i className="material-icons right">account_circle</i>
-                                </a>
-                            </li>
+                            {
+                                !this.props.details.userAuthenticated ? (
+                                    <li>
+                                        <a href="/api/login">Login
+                                            <i className="material-icons right">account_circle</i>
+                                        </a>
+                                    </li>
+                                ) : (
+                                    <li>
+                                        <a href="#!"> {this.props.details.username}
+                                        <i className="material-icons right">account_circle</i>
+                                        </a>
+                                    </li>    
+                                )
+                            }
                         </ul>
                         <ul className="side-nav" id="mobile-menu">
                             <li><a href="#!">Login</a></li>

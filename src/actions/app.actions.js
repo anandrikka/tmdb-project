@@ -3,10 +3,8 @@ import * as ActionConstants from './action.constants';
 import {
     RESOURCE_TIMEZONES,
     RESOURCE_MOVIE_GENRES,
-    RESOURCE_AUTHENTICATE,
     RESOURCE_TV_GENRES,
-    RESOURCE_REQ_AUTH_TOKEN,
-    REQ_LOGIN_WITH_AUTH_TOKEN
+    RESOURCE_USER_DETAILS
 } from '../Utilities/Urls';
 
 export const timezones = timezones => ({ // eslint-disable-line
@@ -24,9 +22,13 @@ export const tvGenres = tvGenres => ({ // eslint-disable-line
     tvGenres
 });
 
-export const loadUser = user => ({
+export const loadUser = userInfo => ({
     type: ActionConstants.USER_INFO,
-    user
+    userInfo
+});
+
+export const loadUserFailed = () => ({
+    type: ActionConstants.USER_INFO_FAILED
 });
 
 export const fetchTimezones = () => dispatch => axios.get(RESOURCE_TIMEZONES)
@@ -48,21 +50,9 @@ export const fetchTvGenres = () => dispatch => axios.get(RESOURCE_TV_GENRES)
     }, (error) => { // eslint-disable-line
     });
 
-export const authenticate = (username, password) => dispatch => axios.post(RESOURCE_AUTHENTICATE,
-    { username, password })
+export const fetchUserDetails = () => dispatch => axios.get(RESOURCE_USER_DETAILS)
     .then((response) => {
         dispatch(loadUser(response.data));
     }, (error) => { // eslint-disable-line
-    });
-
-export const getReqToken = () => dispatch => axios.get(RESOURCE_REQ_AUTH_TOKEN) // eslint-disable-line
-    .then((response) => {
-        axios.get(REQ_LOGIN_WITH_AUTH_TOKEN, {
-            params: {
-                reqToken: response.data.request_token
-            }
-        }).then((res) => { // eslint-disable-line
-        }, () => {
-        });
-    }, (error) => { // eslint-disable-line
+        dispatch(loadUserFailed);
     });

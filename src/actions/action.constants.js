@@ -2,6 +2,7 @@
 export const TIMEZONES = 'TIMEZONES';
 export const MOVIE_GENRES = 'MOVIE_GENRES';
 export const USER_INFO = 'USER_INFO';
+export const USER_INFO_FAILED = 'USER_INFO_FAILED';
 export const TV_GENRES = 'TV_GENRES';
 
 // home page

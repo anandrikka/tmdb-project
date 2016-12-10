@@ -8,10 +8,10 @@ import {
     RESOURCE_TOP_RATED_MOVIES
 } from '../Utilities/Urls';
 
-export const loadMovies = (movies, page) => ({
+export const loadMovies = (movies, page = 1) => ({
     type: ActionConstants.FETCH_MOVIES,
     movies,
-    page: page || 1
+    page
 });
 
 export const fetchMovies = (type, page = 1) => ((dispatch) => {
