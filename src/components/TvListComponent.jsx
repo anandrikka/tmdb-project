@@ -5,6 +5,7 @@ import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import RevealCardComponent from './RevealCardComponent.jsx';
+import FilterComponent from './FilterComponent.jsx';
 import axios from 'axios';
 
 class TvListComponent extends Component {
@@ -60,18 +61,21 @@ class TvListComponent extends Component {
         return (
             <div>
                 <div className="row">
-                    <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
-                    {
-                        this.props.tvData.search.list.map((item, index) => {
-                            return (
-                                <div className="col s12 m12 l6" key={index}>
-                                    <RevealCardComponent item={item}
-                                        genres={this.props.appData.tvGenres}>
-                                    </RevealCardComponent>
-                                </div>
-                            );
-                        })
-                    }
+                    <FilterComponent {...this.props.appData}></FilterComponent>
+                    <div className="col s12 m8 l9">
+                        <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
+                        {
+                            this.props.tvData.search.list.map((item, index) => {
+                                return (
+                                    <div className="col s12 m12 l6" key={index}>
+                                        <RevealCardComponent item={item}
+                                            genres={this.props.appData.tvGenres}>
+                                        </RevealCardComponent>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
                 </div>
                 {
                     !this.state.loading ? (
