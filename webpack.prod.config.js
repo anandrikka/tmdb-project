@@ -21,6 +21,9 @@ module.exports = {
         filename: '[name].[hash].bundle.js',
         publicPath: 'dist/'
     },
+    resolve: {
+        extensions: ["", ".js", ".jsx"]
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {

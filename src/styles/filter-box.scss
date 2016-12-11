@@ -1,0 +1,38 @@
+.filter-box {
+    
+    // .filter-label {
+    //     padding: 0;
+    //     margin: 0;
+    // }
+
+    .row {
+        margin-bottom: 0px;
+    }
+
+    .divider {
+        margin: 5px 0px;
+    }
+
+    h6 {
+        //padding: 0 0.75rem;
+        margin-top: 30px !important;
+    }
+
+    /* Let's get this party started */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }
+}
+

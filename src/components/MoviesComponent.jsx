@@ -6,6 +6,7 @@ import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import RevealCardComponent from './RevealCardComponent.jsx';
+import FilterComponent from './FilterComponent.jsx';
 import axios from 'axios';
 
 class MoviesComponent extends Component {
@@ -23,16 +24,11 @@ class MoviesComponent extends Component {
         return (
             <div className="container" style={{ marginTop: '20px' }}>
                 <div className="row">
-                    <form className="col s12">
-                        <div className="row col s12">
-                            <div className="input-field">
-                                <i className="material-icons prefix">search</i>
-                                <input id="icon_prefix" type="text" className="validate" />
-                            </div>
-                        </div>
-                    </form>
+                    <FilterComponent {...this.props.appData}></FilterComponent>
+                    <div className="col s12 m8 l9">
+                        {children}
+                    </div>
                 </div>
-                {children}
             </div>
         );
     }

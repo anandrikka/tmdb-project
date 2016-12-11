@@ -73,9 +73,11 @@ app.get('/api/callback', function (req, res) {
             res.redirect('/');
             //req.session.cookie = sessionResult.data.session_id;
             //res.sendStatus(500).redirect('/');
+        }, function (error) {
+            console.log(error);
         })
     } else {
-        
+        res.redirect('/');
     }
 })
 

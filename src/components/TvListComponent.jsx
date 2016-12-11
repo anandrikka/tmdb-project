@@ -64,7 +64,7 @@ class TvListComponent extends Component {
                     {
                         this.props.tvData.search.list.map((item, index) => {
                             return (
-                                <div className="col s12 m2 l4" key={index}>
+                                <div className="col s12 m12 l6" key={index}>
                                     <RevealCardComponent item={item}
                                         genres={this.props.appData.tvGenres}>
                                     </RevealCardComponent>

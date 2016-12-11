@@ -7,6 +7,8 @@ import css from '../styles/navbar.scss';
 
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import UserComponent  from './UserDropdownComponent.jsx';
+import { languages } from '../../dist/assets/data/language-countries';
 
 export default class NavbarComponent extends React.Component {
 
@@ -17,7 +19,7 @@ export default class NavbarComponent extends React.Component {
     componentDidMount() {
         
     }
-
+    
     loginPopup() {
         // href="/api/login" target="popup" onClick={this.loginPopup}
         window.open('/api/login', 'popup', 'width=600,height=600');
@@ -25,7 +27,14 @@ export default class NavbarComponent extends React.Component {
     }    
 
     render() {
-        
+        const userButton = !this.props.details.userAuthenticated ?
+            (
+                <li>
+                    <a href="/api/login" data-hover="true" data-activates="account">Login
+                        <i className="material-icons right">account_circle</i>
+                    </a>
+                </li>
+            ) : <UserComponent {...this.props}/>    
         return (
             <div>
                 <nav>
@@ -48,24 +57,10 @@ export default class NavbarComponent extends React.Component {
                                     <i className="material-icons left">people</i>
                                 </Link>
                             </li>
-                            {
-                                !this.props.details.userAuthenticated ? (
-                                    <li>
-                                        <a href="/api/login">Login
-                                            <i className="material-icons right">account_circle</i>
-                                        </a>
-                                    </li>
-                                ) : (
-                                    <li>
-                                        <a href="#!"> {this.props.details.username}
-                                        <i className="material-icons right">account_circle</i>
-                                        </a>
-                                    </li>    
-                                )
-                            }
+                            {userButton}
                         </ul>
                         <ul className="side-nav" id="mobile-menu">
-                            <li><a href="#!">Login</a></li>
+                            <li><a href="/api/login">Login</a></li>
                             <li><a href="/movies">Movies</a></li>
                             <li><a href="/tv">Television</a></li>
                             <li><a href="/people">People</a></li>
@@ -83,6 +78,9 @@ export default class NavbarComponent extends React.Component {
                     <li><Link to="/tv?type=onAir">On The Air</Link></li>
                     <li><Link to="/tv?type=popular">Popular</Link></li>
                     <li><Link to="/tv?type=topRated">Top Rated</Link></li>
+                </ul>
+                <ul id="account" className="dropdown-content">
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
             </div>
         );

@@ -9,7 +9,8 @@ const defaultState = {
         list: [],
         successful: false
     },
-    movieGenres: {},
+    movieGenres: [],
+    movieGenreMap: {},
     tvGenres: {},
     timezones: {
         list: [],
@@ -31,14 +32,15 @@ function app(state = defaultState, action) {
         return modifiedState.toJS();
     }
     case ActionConstants.MOVIE_GENRES: {
-        const movieGenres = {};
+        const movieGenresMap = {};
         for (const genre of action.movieGenres) { // eslint-disable-line
-            movieGenres[genre.id] = genre;
+            movieGenresMap[genre.id] = genre;
         }
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.mergeDeep({
-            movieGenres
+            movieGenresMap
         });
+        modifiedState = modifiedState.updateIn(['movieGenres'], movieGenres => action.movieGenres); // eslint-disable-line
         return modifiedState.toJS();
     }
     case ActionConstants.TV_GENRES: {

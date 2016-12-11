@@ -7,6 +7,10 @@ class RevealCardComponent extends Component {
         super(props);
     }
 
+    componentDidMount() {
+
+    }
+    
     getImageSrc(path) {
         if (path) {
             return IMAGE_URI_ORIGINAL + path;
@@ -30,21 +34,27 @@ class RevealCardComponent extends Component {
         }
 
         return (
-            <div className="card c-card">
+            <div className="card ccard">
                 <div className="card-image ">
-                    <img className="activator" src={this.getImageSrc(item.backdrop_path || item.profile_path)} />
-                    <span className="card-title">{item.original_title || item.original_name}</span>
-
+                    <img src={this.getImageSrc(item.backdrop_path || item.profile_path)} />
                 </div>
-                <div className="card-content ccard-content">
-                    <span className="activator ccard">
+                <div className="card-content">
+                    <span className="activator">
                         {item.original_title || item.original_name}<i style={{ cursor: 'pointer' }} className="material-icons right">more_vert</i>
                     </span>
-                    <div className="valign-wrapper">
-                        <p className="valign">
-                            <span className="material-icons">date_range</span>{item.release_date}
-                        </p>
-                    </div>
+                    <div className="row2">
+                        <i className="fa fa-star"></i>
+						<i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+						<i className="fa fa-star-o"></i>
+						<i className="fa fa-star-o"></i>
+						<span className="right"><i className="fa fa-calendar"> 10-Nov-2016</i></span>
+                    </div>  
                 </div>
                 <div className="card-reveal">
                     <span className="card-title grey-text text-darken-4">Overview
