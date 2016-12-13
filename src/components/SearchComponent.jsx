@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
 class SearchComponent extends Component {
+
+    componentDidMount() {
+        
+    }
+        
+
     render() {
         return (
             <div className="row search-bar">

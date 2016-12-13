@@ -4,7 +4,8 @@ import * as ActionConstants from '../actions/action.constants';
 const defaultState = {
     search: {
         list: []
-    }
+    },
+    results: {}
 };
 
 const moviesReducer = (state = defaultState, action) => {
@@ -22,6 +23,12 @@ const moviesReducer = (state = defaultState, action) => {
             }
         });
         return modifiedState.toJS();
+    case ActionConstants.FETCH_MOVIE_DETAILS: {
+        const movie = action.movie;
+        modifiedState = Immutable.Map(state);
+        modifiedState = modifiedState.setIn(['results'], { [movie.id]: movie });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

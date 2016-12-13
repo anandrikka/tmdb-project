@@ -29,8 +29,10 @@ Object.keys(tmdbResources.apis).forEach(function (api) {
             query = query || {};
             query.api_key = this.apiKey;
             params = params || {};
+            // Deep copy resource, so that apiItem resource will not be changed
+            var resource = JSON.parse(JSON.stringify(apiItem.resource));
             //replace all the params with the params from input
-            apiItem.resource = apiItem.resource
+            resource = resource
                 .replace(':genreId', params.genreId)
                 .replace(':externalId', params.externalId)
                 .replace(':movieId', params.movieId)
@@ -50,9 +52,9 @@ Object.keys(tmdbResources.apis).forEach(function (api) {
                 .replace(':collectionId', params.collectionId)
                 .replace(':accountId', params.accountId);
             if (apiItem.method === 'GET') {
-                return this.axiosInstance.get(apiItem.resource + '?' + queryString.stringify(query));
+                return this.axiosInstance.get(resource + '?' + queryString.stringify(query));
             } else {
-                return this.axiosInstance.post(apiItem.resource + '?' + queryString.stringify(query), body);
+                return this.axiosInstance.post(resource + '?' + queryString.stringify(query), body);
             }
         }
     })

@@ -1,14 +1,21 @@
-'use strict';
-
-import React, { Component, PropTypes } from 'react';
-import FilterComponent from './FilterComponent.jsx';
+import React, {Component, PropTypes} from 'react';
 
 class TvComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.fetchTv(this.props.params.id);
+    }
+    
     render() {
-        let children = React.cloneElement(this.props.children, this.props);
+        console.log('TvComponent', this.props);
         return (
-            <div className="container" style={{ marginTop: '20px' }}>
-                {children}
+            <div>
+                <pre>
+                    {JSON.stringify(this.props.tvData.results[this.props.params.id], null, 2)}
+                </pre>
             </div>
         );
     }

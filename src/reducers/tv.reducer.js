@@ -4,7 +4,8 @@ import * as ActionConstants from '../actions/action.constants';
 const defaultState = {
     search: {
         list: []
-    }
+    },
+    results: {}
 };
 
 const tvReducer = (state = defaultState, action) => {
@@ -22,6 +23,12 @@ const tvReducer = (state = defaultState, action) => {
             }
         });
         return modifiedState.toJS();
+    case ActionConstants.FETCH_TV_DETAILS: {
+        const tv = action.tv;
+        modifiedState = Immutable.Map(state);
+        modifiedState = modifiedState.setIn(['results'], { [tv.id]: tv });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

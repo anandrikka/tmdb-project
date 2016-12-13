@@ -5,6 +5,7 @@ class RevealCardComponent extends Component {
 
     constructor(props) {
         super(props);
+        this.gotoMovie = this.gotoMovie.bind(this);
     }
 
     componentDidMount() {
@@ -17,6 +18,10 @@ class RevealCardComponent extends Component {
         } else {
             return '../../dist/assets/images/placeholder.jpg';
         }
+    }
+
+    gotoMovie(id) {
+        this.props.gotoMovie(id);
     }
 
     render() {
@@ -36,7 +41,7 @@ class RevealCardComponent extends Component {
         return (
             <div className="card ccard">
                 <div className="card-image ">
-                    <img src={this.getImageSrc(item.backdrop_path || item.profile_path)} />
+                    <img onClick={() => {this.props.gotoMovie(item.id)}} src={this.getImageSrc(item.backdrop_path || item.profile_path)} className="pointer"/>
                 </div>
                 <div className="card-content">
                     <span className="activator">

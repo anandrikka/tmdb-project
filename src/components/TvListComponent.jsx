@@ -61,9 +61,9 @@ class TvListComponent extends Component {
         return (
             <div>
                 <div className="row">
-                    <FilterComponent {...this.props.appData}></FilterComponent>
+                    <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
+                    <FilterComponent {...this.props.appData} type="television"></FilterComponent>
                     <div className="col s12 m8 l9">
-                        <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
                         {
                             this.props.tvData.search.list.map((item, index) => {
                                 return (

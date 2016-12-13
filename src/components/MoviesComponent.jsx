@@ -15,14 +15,10 @@ class MoviesComponent extends Component {
         super(props);
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         let children = React.cloneElement(this.props.children, this.props);
         return (
-            <div className="container" style={{ marginTop: '20px' }}>
+            <div className="container top">
                 {children}
             </div>
         );

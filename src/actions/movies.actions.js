@@ -8,10 +8,17 @@ import {
     RESOURCE_TOP_RATED_MOVIES
 } from '../Utilities/Urls';
 
+import { MOVIES_APPEND_TO_RESPONSE } from '../Utilities/AppConstants';
+
 export const loadMovies = (movies, page = 1) => ({
     type: ActionConstants.FETCH_MOVIES,
     movies,
     page
+});
+
+export const loadMovieDetails = movie => ({
+    type: ActionConstants.FETCH_MOVIE_DETAILS,
+    movie
 });
 
 export const fetchMovies = (type, page = 1) => ((dispatch) => {
@@ -38,3 +45,15 @@ export const fetchMovies = (type, page = 1) => ((dispatch) => {
     }, (error) => { // eslint-disable-line
     });
 });
+
+export const fetchMovie = id => (dispatch) => {
+    const resource = `/api/movies/${id}`;
+    return axios.get(resource, {
+        params: {
+            append_to_response: MOVIES_APPEND_TO_RESPONSE
+        }
+    }).then((response) => {
+        dispatch(loadMovieDetails(response.data));
+    }, (error) => { // eslint-disable-line
+    });
+};

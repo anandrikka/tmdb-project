@@ -1,27 +1,29 @@
 import React, {Component, PropTypes} from 'react'
 
-class MoviesListComponent extends Component {
+class MovieComponent extends Component {
     
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        
+        this.props.fetchMovie(this.props.params.id);
     }
     
     render() {
         console.log('MovieComponent', this.props);
         return (
             <div>
-                Movie Component
+                <pre>
+                    {JSON.stringify(this.props.moviesData.results[this.props.params.id], null, 2)}
+                </pre>
             </div>
         );
     }
 }
 
-MoviesListComponent.propTypes = {
-
+MovieComponent.propTypes = {
+    
 }
 
-export default MoviesListComponent;
+export default MovieComponent;

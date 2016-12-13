@@ -6,7 +6,9 @@ import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import RevealCardComponent from './RevealCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
+import SearchListComponent from './SearchListComponent.jsx';
 import axios from 'axios';
+
 
 class MoviesListComponent extends Component {
 
@@ -19,10 +21,12 @@ class MoviesListComponent extends Component {
         }
         this.pageSelect = this.pageSelect.bind(this);
         this.loadMoviesOnType = this.loadMoviesOnType.bind(this);
+        this.gotoMovie = this.gotoMovie.bind(this);
     }
 
     componentDidMount() {
         this.loadMoviesOnType();
+        $('select').material_select();
     }
 
     loadMoviesOnType(page, movieCategory) {
@@ -58,29 +62,25 @@ class MoviesListComponent extends Component {
         this.loadMoviesOnType(page);
     }
 
+    gotoMovie(id) {
+        this.props.history.push('movies/' + id);
+    }
+
     render() {
         return (
             <div>
                 <div className="row">
-                    <FilterComponent {...this.props.appData}></FilterComponent>
+                    <FilterComponent {...this.props.appData} type="movies"></FilterComponent>
                     <div className="col s12 m8 l9">
                         <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
-                        {
-                            this.props.moviesData.search.list.map((item, index) => {
-                                return (
-                                    <div className="col s12 m12 l6" key={index}>
-                                        <RevealCardComponent item={item}
-                                            genres={this.props.appData.movieGenres}>
-                                        </RevealCardComponent>
-                                    </div>
-                                );
-                            })
-                        }
+                        <SearchListComponent searchList={this.props.moviesData.search.list}
+                            movieGenres={this.props.appData.movieGenres} gotoMovie={this.gotoMovie}>
+                        </SearchListComponent>
                     </div>
                 </div>
                 {
                     !this.state.loading ? (
-                        <div style={{ float: 'right' }}>
+                        <div style={{ float:'right'}}>
                             <PaginationComponent
                                 pages={this.props.moviesData.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>

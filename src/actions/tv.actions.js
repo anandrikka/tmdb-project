@@ -7,11 +7,17 @@ import {
     RESOURCE_TV_ON_AIR,
     RESOURCE_TV_POPULAR
 } from '../Utilities/Urls';
+import TV_APPEND_TO_RESPONSE from '../Utilities/AppConstants';
 
 export const loadTvList = (tvList, page = 1) => ({
     type: ActionConstants.FETCH_TV_LIST,
     tvList,
     page
+});
+
+export const loadTvDetails = tv => ({
+    type: ActionConstants.FETCH_TV_DETAILS,
+    tv
 });
 
 export const fetchTvList = (type, page = 1) => ((dispatch) => {
@@ -38,3 +44,15 @@ export const fetchTvList = (type, page = 1) => ((dispatch) => {
     }, (error) => { // eslint-disable-line
     });
 });
+
+export const fetchTv = id => (dispatch) => {
+    const resource = `/api/tv/${id}`;
+    return axios.get(resource, {
+        params: {
+            append_to_response: TV_APPEND_TO_RESPONSE
+        }
+    }).then((response) => {
+        dispatch(loadTvDetails(response.data));
+    }, (error) => { // eslint-disable-line
+    });
+};
