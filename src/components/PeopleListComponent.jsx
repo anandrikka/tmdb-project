@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import PaginationComponent from './PaginationComponent.jsx';
 import RevealCardComponent from './RevealCardComponent.jsx';
 import LoadingComponent from './LoadingComponent.jsx';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
+import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 import axios from 'axios';
 
 class PeopleListComponent extends Component {

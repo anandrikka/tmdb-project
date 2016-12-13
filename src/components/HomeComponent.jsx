@@ -8,7 +8,7 @@ import css from '../styles/home.scss';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimplePaginationComponent from './SimplePaginationComponent.jsx';
-import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
+import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 
 import axios from '../Utilities/axios';
 

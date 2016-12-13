@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { COUNTRY_LANGUAGE_LIST } from '../../dist/assets/data/language-countries';
+import { Ratings } from '../Utilities/AppConstants';
 
 class FilterComponent extends Component {
     render() {
@@ -12,17 +13,19 @@ class FilterComponent extends Component {
                         <label htmlFor="search_text">Search Text</label>
                     </div>
                 </div>
-                <div className="input-field col s12 no-p">
-                    <select>
-                        <option value="en-US" defaultValue>United States</option>
-                        {
-                            COUNTRY_LANGUAGE_LIST.map((countryLanguage, index) => {
-                                return <option key={index} value={countryLanguage.language}
-                                    defaultValue>{countryLanguage.country}</option>
-                           })
-                        }
-                    </select>
-                    <label>Language</label>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <select>
+                            <option value="en-US" defaultValue>United States</option>
+                            {
+                                COUNTRY_LANGUAGE_LIST.map((countryLanguage, index) => {
+                                    return <option key={index} value={countryLanguage.language}
+                                        defaultValue>{countryLanguage.country}</option>
+                            })
+                            }
+                        </select>
+                        <label>Language</label>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12 no-p">
@@ -42,6 +45,54 @@ class FilterComponent extends Component {
                             )
                         })
                     }
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input type="date" className="datepicker" id="movie_released_before"/>
+                        <label htmlFor="movie_released_before">Released Before</label>
+                    </div>    
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input type="date" className="datepicker" id="movie_released_after"/>
+                        <label htmlFor="movie_released_after">Released After</label>
+                    </div>    
+                </div>
+                <div className="row">
+                    <div className="input-field col s6">
+                        <select>
+                            <option value="" defaultValue>Any</option>
+                            {
+                                Ratings.map((rating, index) => {
+                                    return <option key={index} value={rating}
+                                        defaultValue>{rating}</option>
+                                })
+                            }
+                        </select>
+                        <label>Min Rating</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <select>
+                            <option value="" defaultValue>Any</option>
+                            {
+                                Ratings.map((rating, index) => {
+                                    return <option key={index} value={rating}
+                                        defaultValue>{rating}</option>
+                                })
+                            }
+                        </select>
+                        <label>Max Rating</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s6">
+                        <input id="movie_min_vote_count" type="text" className="validate" />
+                        <label htmlFor="movie_min_vote_count">Min Vote Count</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <input id="movie_max_vote_count" type="text" className="validate" />
+                        <label htmlFor="movie_max_vote_count">Max Vote Count</label>
+                    </div>
                 </div>
             </div>
         )

@@ -12,12 +12,6 @@ class AppComponent extends Component {
     }
 
     componentDidMount() {
-        $(document).ready(function() {
-            $('select').material_select();
-            $(".button-collapse").sideNav();
-            $('.dropdown-button').dropdown();
-            $('.modal-trigger').leanModal();
-        });
         this.props.fetchUserDetails();
         this.props.fetchTimezones();
         this.props.fetchMovieGenres();
@@ -30,9 +24,9 @@ class AppComponent extends Component {
             fetchUserDetails: this.props.fetchUserDetails
         }
         return (
-            <div className="main">
+            <div className="main" id="wrapper">
                 <NavbarComponent details = {userDetails} actions = {userActions} />
-                {this.props.children}
+                <div id="mainview">{this.props.children}</div>
                 <FooterComponent></FooterComponent>
             </div>
         )

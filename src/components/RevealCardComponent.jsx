@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/tmdbConstants';
+import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 
 class RevealCardComponent extends Component {
 

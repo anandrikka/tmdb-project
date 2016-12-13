@@ -13,6 +13,17 @@
         <div id="app"></div>
         <script src="/dist/assets/js/jquery.min.js"></script>
         <script src="/dist/assets/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('select').material_select();
+                $(".button-collapse").sideNav();
+                $('.dropdown-button').dropdown();
+                $('.modal-trigger').leanModal();
+                $('.datepicker').pickadate({
+                    editable: true
+                });
+            });
+        </script>
         <script type="text/javascript" src="/dist/react-assets.bundle.js"></script>
     <script type="text/javascript" src="/dist/app.bundle.js"></script></body>
 </html>

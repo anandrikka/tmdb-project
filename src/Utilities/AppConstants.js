@@ -7,3 +7,5 @@ export const IMAGE_URI_780W = `${IMAGE_BASE_URI}w780`;
 export const IMAGE_URI_1280W = `${IMAGE_BASE_URI}w1280`;
 
 export const IMAGE_URI_ORIGINAL = `${IMAGE_BASE_URI}original`;
+
+export const Ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

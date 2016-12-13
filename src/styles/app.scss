@@ -62,3 +62,20 @@ footer.page-footer {
     z-index:9999;
 }
 
+#wrapper {
+    min-height:100vh;
+    position:relative;
+}
+#mainview {
+    padding-bottom:7.5vh;
+}
+
+footer.page-footer {
+    padding-top:0px;
+    background-color: #3A6073;
+    height:7vh;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    text-align:center;
+}
