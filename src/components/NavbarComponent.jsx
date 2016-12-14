@@ -36,7 +36,7 @@ export default class NavbarComponent extends React.Component {
                 </li>
             ) : <UserComponent {...this.props}/>    
         return (
-            <div>
+            <div className="navbar-fixed">
                 <nav>
                     <div className="nav-wrapper">
                         <Link to="/" className="brand-logo">TMDB</Link>
