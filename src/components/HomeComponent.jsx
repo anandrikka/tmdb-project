@@ -15,24 +15,26 @@ import axios from '../Utilities/axios';
 class HomeComponent extends Component {
 
 	constructor(props) {
-        super(props);
-        this.state = {
-			loading:true
+		super(props);
+		this.state = {
+			loading: true
 		}
 		this.gotoMovies = this.gotoMovies.bind(this);
 	}
 
 	componentDidMount() {
-		axios.all([this.props.fetchMovies(),
-        this.props.fetchTvAiringToday()]).then((data) => {
-            this.setState({
+		axios.all([
+			this.props.actions.fetchMovies(),
+			this.props.actions.fetchTvAiringToday()
+		]).then((data) => {
+			this.setState({
 				loading: false
 			})
-        }, (error) => {
-			
+		}, (error) => {
+
 		})
-    }
-	
+	}
+
 	gotoMovies() {
 		this.props.history.push('/movies');
 	}
@@ -41,62 +43,59 @@ class HomeComponent extends Component {
 		this.props.history.push('/tv');
 	}
 
-    render() {
+	render() {
+		console.log('HomeComponent: ', this.props);
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;
-        let getImageClass = (index) => {
-            if (index%4 == 1) {
+		let getImageClass = (index) => {
+			if (index % 4 == 1) {
 				return 'img-300';
 			}
-			if (index%3 === 0) {
-				return 'img-350';
-			}
-			if (index%7 === 0) {
+			if (index % 3 === 0) {
 				return 'img-400';
 			}
+			if (index % 7 === 0) {
+				return 'img-450';
+			}
 		}
-        return (
+		return (
 			<div className="container">
-                {
-                    !this.state.loading ? (
-                        <div>
-							<h5>Movies in Theaters</h5>
-							<section className="home-photos" onClick={this.gotoMovies}>
-								{
-									nowPlaying.list.map((item, index) => {
-										if (item.poster_path) {
-											return (
-												<img style={{ cursor: 'pointer' }} key={index}
-													className={getImageClass(index)}
-													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-													onError={(e)=>{$(e.target).hide()}}/>
-											);
-										}
-									})
+				<div>
+					<h5>Movies in Theaters</h5>
+					<section className="home-photos" onClick={this.gotoMovies}>
+						{
+							nowPlaying.list.map((item, index) => {
+								if (item.poster_path) {
+									return (
+										<img style={{ cursor: 'pointer' }} key={index}
+											className={getImageClass(index)}
+											src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+											onError={(e) => { $(e.target).hide() } } />
+									);
 								}
-							</section>
-							<div className="clearfix"></div>
-							<h5>Television Airings Today</h5>
-							<section className="home-photos" onClick={this.gotoTv}>
-								{
-									tvAiringToday.list.map((item, index) => {
-										if (item.poster_path) {
-											return (
-												<img key={index} style={{ cursor: 'pointer' }}
-													className={getImageClass(index)}
-													src={IMAGE_URI_ORIGINAL + (item.poster_path)}
-													onError={(e)=>{$(e.target).hide()}}/>
-											);
-										}
-										
-									})
+							})
+						}
+					</section>
+					<div className="clearfix"></div>
+					<h5>Television Airings Today</h5>
+					<section className="home-photos" onClick={this.gotoTv}>
+						{
+							tvAiringToday.list.map((item, index) => {
+								if (item.poster_path) {
+									return (
+										<img key={index} style={{ cursor: 'pointer' }}
+											className={getImageClass(index)}
+											src={IMAGE_URI_ORIGINAL + (item.poster_path)}
+											onError={(e) => { $(e.target).hide() } } />
+									);
 								}
-							</section>
-                        </div>
-                    ) : (<LoadingComponent isLoading={this.state.loading}></LoadingComponent>)
-				}
+
+							})
+						}
+					</section>
+				</div>
 			</div>
-			
+
 		);
 	}
 }

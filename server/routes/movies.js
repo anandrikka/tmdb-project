@@ -18,6 +18,8 @@ router.get('/topRated', reqFn('getTopRatedMovies'));
 
 router.get('/upcoming', reqFn('getUpcomingMovies'));
 
-router.get('/:movieId', reqFn('getMovieDetails'))
+router.get('/:movieId', reqFn('getMovieDetails'));
+
+router.get('/search', reqFn('searchMovies'));
 
 module.exports = router;

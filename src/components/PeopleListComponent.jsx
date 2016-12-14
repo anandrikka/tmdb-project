@@ -22,7 +22,7 @@ class PeopleListComponent extends Component {
     }
 
     loadPeopleListOnType(page, peopleCategory) {
-        this.props.fetchPeople(peopleCategory || this.state.peopleCategory, page || 1).then(() => {
+        this.props.actions.fetchPeople(peopleCategory || this.state.peopleCategory, page || 1).then(() => {
             let posters = [];
             for (let tv in this.props.peopleData.search.list) {
                 posters.push(IMAGE_URI_ORIGINAL + this.props.peopleData.search.list[tv].profile_path);

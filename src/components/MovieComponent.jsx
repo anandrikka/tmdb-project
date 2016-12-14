@@ -7,7 +7,7 @@ class MovieComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchMovie(this.props.params.id);
+        this.props.actions.fetchMovie(this.props.params.id);
     }
     
     render() {

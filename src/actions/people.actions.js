@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
+import { showLoading, hideLoading } from './app.actions';
 import {
     RESOURCE_PEOPLE_POPULAR
 } from '../Utilities/Urls';
@@ -20,12 +21,15 @@ export const fetchPeople = (type, page = 1) => ((dispatch) => {
     default:
         resource = RESOURCE_PEOPLE_POPULAR;
     }
+    dispatch(showLoading());
     return axios.get(resource, {
         params: {
             page
         }
     }).then((response) => {
         dispatch(loadPeople(response.data, page));
+        dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
     });
 });

@@ -16,6 +16,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(TvActions, dispatch);
+const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(TvActions, dispatch) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TVsComponent);

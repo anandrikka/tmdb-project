@@ -22,6 +22,14 @@ export const tvGenres = tvGenres => ({ // eslint-disable-line
     tvGenres
 });
 
+export const showLoading = () => ({
+    type: ActionConstants.LOADING_STARTED
+});
+
+export const hideLoading = () => ({
+    type: ActionConstants.LOADING_STOPPED
+});
+
 export const loadUser = userInfo => ({
     type: ActionConstants.USER_INFO,
     userInfo

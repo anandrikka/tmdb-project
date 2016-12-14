@@ -6,7 +6,7 @@ class TvComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchTv(this.props.params.id);
+        this.props.actions.fetchTv(this.props.params.id);
     }
     
     render() {

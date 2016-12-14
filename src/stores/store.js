@@ -9,7 +9,8 @@ const loggerMiddleware = createLogger({
     diff: true
 });
 
-const defaultState = {};
+const defaultState = {
+};
 
 // function sampleMiddileware({getState}) {
 //     return (next) => (action) => {

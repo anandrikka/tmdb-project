@@ -2,8 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import NavbarComponent from './NavbarComponent.jsx';
-import css from '../styles/app.scss';
 import FooterComponent from './FooterComponent.jsx';
+import LoadingComponent from './LoadingComponent.jsx';
+import css from '../styles/app.scss';
 
 class AppComponent extends Component {
 
@@ -12,19 +13,21 @@ class AppComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchUserDetails();
-        this.props.fetchTimezones();
-        this.props.fetchMovieGenres();
-        this.props.fetchTvGenres();
+        this.props.actions.fetchUserDetails();
+        this.props.actions.fetchTimezones();
+        this.props.actions.fetchMovieGenres();
+        this.props.actions.fetchTvGenres();
     }
     
     render() {
+        console.log('AppComponent', this.props)
         const userDetails = this.props.appData.userInfo;
         const userActions = {
-            fetchUserDetails: this.props.fetchUserDetails
+            fetchUserDetails: this.props.actions.fetchUserDetails
         }
         return (
             <div className="main" id="wrapper">
+                <LoadingComponent isLoading={this.props.appData.isLoading}></LoadingComponent>
                 <NavbarComponent details = {userDetails} actions = {userActions} />
                 <div id="mainview">{this.props.children}</div>
                 <FooterComponent></FooterComponent>
@@ -34,10 +37,7 @@ class AppComponent extends Component {
 }
 
 AppComponent.propTypes = {
-    timezones: React.PropTypes.func.isRequired,
-    movieGenres: React.PropTypes.func.isRequired,
-    fetchTimezones: React.PropTypes.func.isRequired,
-    fetchMovieGenres: React.PropTypes.func.isRequired
+    actions: React.PropTypes.object.isRequired
 }
 
 export default AppComponent;

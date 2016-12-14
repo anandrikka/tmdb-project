@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
+import { showLoading, hideLoading } from './app.actions';
 import {
     RESOURCE_PLAYING_MOVIES,
     RESOURCE_POPULAR_MOVIES,
@@ -21,6 +22,10 @@ export const loadMovieDetails = movie => ({
     movie
 });
 
+export const clearList = () => ({
+    type: ActionConstants.CLEAR_MOVIE_LIST
+});
+
 export const fetchMovies = (type, page = 1) => ((dispatch) => {
     let resource;
     switch (type) {
@@ -36,24 +41,31 @@ export const fetchMovies = (type, page = 1) => ((dispatch) => {
     default:
         resource = RESOURCE_PLAYING_MOVIES;
     }
+    dispatch(showLoading());
+    dispatch(clearList());
     return axios.get(resource, {
         params: {
             page
         }
     }).then((response) => {
         dispatch(loadMovies(response.data, page));
+        dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
     });
 });
 
 export const fetchMovie = id => (dispatch) => {
     const resource = `/api/movies/${id}`;
+    dispatch(showLoading());
     return axios.get(resource, {
         params: {
             append_to_response: MOVIES_APPEND_TO_RESPONSE
         }
     }).then((response) => {
+        dispatch(hideLoading());
         dispatch(loadMovieDetails(response.data));
     }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
     });
 };

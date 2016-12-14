@@ -16,6 +16,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(PeopleActions, dispatch);
+const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(PeopleActions, dispatch) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleComponent);

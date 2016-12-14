@@ -25,7 +25,7 @@ class TvListComponent extends Component {
     }
 
     loadTvListOnType(page, tvCategory) {
-        this.props.fetchTvList(tvCategory || this.state.tvCategory, page || 1).then(() => {
+        this.props.actions.fetchTvList(tvCategory || this.state.tvCategory, page || 1).then(() => {
             let posters = [];
             for (let tv in this.props.tvData.search.list) {
                 posters.push(IMAGE_URI_ORIGINAL + this.props.tvData.search.list[tv].poster_path);

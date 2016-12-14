@@ -10,7 +10,6 @@ class SearchListComponent extends Component {
         
 
     render() {
-        console.log('SearchListComponent', this.props);
         return (
             <div>
                 {

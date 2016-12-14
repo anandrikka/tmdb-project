@@ -8,12 +8,13 @@ import * as HomeActions from '../actions/home.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { homeData } = state;
+    const { homeData, appData } = state;
     return {
-        homeData
+        homeData,
+        appData
     };
 };
 
-const mapDispatchToProps = dispatch => (bindActionCreators(HomeActions, dispatch));
+const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(HomeActions, dispatch) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);

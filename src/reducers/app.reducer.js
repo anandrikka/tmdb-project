@@ -9,6 +9,7 @@ const defaultState = {
         list: [],
         successful: false
     },
+    isLoading: false,
     movieGenres: [],
     movieGenreMap: {},
     tvGenres: {},
@@ -71,6 +72,16 @@ function app(state = defaultState, action) {
                 userAuthenticated: false
             }
         });
+        return modifiedState.toJS();
+    }
+    case ActionConstants.LOADING_STARTED: {
+        modifiedState = Immutable.Map(state);
+        modifiedState = modifiedState.setIn(['isLoading'], true);
+        return modifiedState.toJS();
+    }
+    case ActionConstants.LOADING_STOPPED: {
+        modifiedState = Immutable.Map(state);
+        modifiedState = modifiedState.setIn(['isLoading'], false);
         return modifiedState.toJS();
     }
     default:

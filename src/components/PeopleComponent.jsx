@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 class PeopleComponent extends Component {
 
     componentDidMount () {
-        this.props.fetchPeople().then(() => {
+        this.props.actions.fetchPeople().then(() => {
             
         })
     }

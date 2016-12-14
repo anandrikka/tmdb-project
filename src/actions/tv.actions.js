@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
+import { showLoading, hideLoading } from './app.actions';
 import {
     RESOURCE_TODAY_SERIALS,
     RESOURCE_TV_TOP_RATED,
@@ -35,24 +36,30 @@ export const fetchTvList = (type, page = 1) => ((dispatch) => {
     default:
         resource = RESOURCE_TODAY_SERIALS;
     }
+    dispatch(showLoading());
     return axios.get(resource, {
         params: {
             page
         }
     }).then((response) => {
         dispatch(loadTvList(response.data, page));
+        dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
     });
 });
 
 export const fetchTv = id => (dispatch) => {
     const resource = `/api/tv/${id}`;
+    dispatch(showLoading());
     return axios.get(resource, {
         params: {
             append_to_response: TV_APPEND_TO_RESPONSE
         }
     }).then((response) => {
         dispatch(loadTvDetails(response.data));
+        dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
     });
 };

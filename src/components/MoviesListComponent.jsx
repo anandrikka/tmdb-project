@@ -30,7 +30,7 @@ class MoviesListComponent extends Component {
     }
 
     loadMoviesOnType(page, movieCategory) {
-        this.props.fetchMovies(movieCategory || this.state.movieCategory, page || 1).then(() => {
+        this.props.actions.fetchMovies(movieCategory || this.state.movieCategory, page || 1).then(() => {
             let posters = [];
             for (let movie in this.props.moviesData.search.list) {
                 posters.push(IMAGE_URI_ORIGINAL + this.props.moviesData.search.list[movie].poster_path);
@@ -70,9 +70,9 @@ class MoviesListComponent extends Component {
         return (
             <div>
                 <div className="row">
-                    <FilterComponent {...this.props.appData} type="movies"></FilterComponent>
+                    <FilterComponent {...this.props.appData} type="movies"
+                        actions={this.props.actions}></FilterComponent>
                     <div className="col s12 m8 l9">
-                        <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
                         <SearchListComponent searchList={this.props.moviesData.search.list}
                             movieGenres={this.props.appData.movieGenres} gotoMovie={this.gotoMovie}>
                         </SearchListComponent>
