@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 
-class MovieComponent extends Component {
+class MovieDetailsComponent extends Component {
     
     constructor(props) {
         super(props);
@@ -11,7 +11,7 @@ class MovieComponent extends Component {
     }
     
     render() {
-        console.log('MovieComponent', this.props);
+        console.log('MovieDetailsComponent', this.props);
         return (
             <div>
                 <pre>
@@ -22,8 +22,8 @@ class MovieComponent extends Component {
     }
 }
 
-MovieComponent.propTypes = {
+MovieDetailsComponent.propTypes = {
     
 }
 
-export default MovieComponent;
+export default MovieDetailsComponent;

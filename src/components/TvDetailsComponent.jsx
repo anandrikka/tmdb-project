@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-class TvComponent extends Component {
+class TvDetailsComponent extends Component {
     constructor(props) {
         super(props);
     }
@@ -10,7 +10,7 @@ class TvComponent extends Component {
     }
     
     render() {
-        console.log('TvComponent', this.props);
+        console.log('TvDetailsComponent', this.props);
         return (
             <div>
                 <pre>
@@ -21,8 +21,8 @@ class TvComponent extends Component {
     }
 }
 
-TvComponent.propTypes = {
+TvDetailsComponent.propTypes = {
 
 };
 
-export default TvComponent;
+export default TvDetailsComponent;

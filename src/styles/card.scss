@@ -55,6 +55,7 @@
     .card-content {
         padding: 16px !important;
         background: #F2F2F3 !important;
+        
         .material-icons {
             font-size: 20px;
         }
@@ -63,5 +64,8 @@
             padding-top: 5px;
         }
 
+        .card-title {
+            font-size: 20px;
+        }
     }
 }

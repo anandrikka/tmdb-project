@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import FilterComponent from './FilterComponent.jsx';
 
-class TVsComponent extends Component {
+class TelevisionComponent extends Component {
     render() {
         let children = React.cloneElement(this.props.children, this.props);
         return (
@@ -14,8 +14,8 @@ class TVsComponent extends Component {
     }
 }
 
-TVsComponent.propTypes = {
+TelevisionComponent.propTypes = {
 
 };
 
-export default TVsComponent;
+export default TelevisionComponent;

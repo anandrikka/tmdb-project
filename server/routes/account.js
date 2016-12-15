@@ -9,7 +9,7 @@ router.use(ApiUtils.reqMiddleware);
 router.use(function (req, res, next) {
     var cookie = new Cookies(req, res).get('tmdbredux');
     if (!cookie) {
-        res.sendStatus(401);
+        return;
     } else {
         cookie = ApiUtils.decrypt(cookie);
     }

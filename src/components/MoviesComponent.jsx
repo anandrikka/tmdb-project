@@ -5,7 +5,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
-import RevealCardComponent from './RevealCardComponent.jsx';
+import SimpleCardComponent from './SimpleCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 import axios from 'axios';
 

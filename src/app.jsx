@@ -9,9 +9,10 @@ import MoviesContainer from './containers/MoviesContainer';
 import TvContainer from './containers/TvContainer';
 import PeopleContainer from './containers/PeopleContainer';
 import MoviesComponent from './components/MoviesComponent.jsx'
-import MovieComponent from './components/MovieComponent.jsx';
-import MoviesListComponent from './components/MoviesListComponent.jsx';
-import TvListComponent from './components/TvListComponent.jsx';
+import MovieDetailsComponent from './components/MovieDetailsComponent.jsx';
+import MoviesSearchListComponent from './components/MoviesSearchListComponent.jsx';
+import TvSearchListComponent from './components/TvSearchListComponent.jsx';
+import TvDetailsComponent from './components/TvDetailsComponent.jsx';
 import PeopleListComponent from './components/PeopleListComponent.jsx';
 import AppContainer from './containers/AppContainer';
 
@@ -24,11 +25,12 @@ const router = (
                 <IndexRoute component={HomeContainer} />
                 <Route path="/home" component={HomeContainer}></Route>
                 <Route path="/movies" component={MoviesContainer}>
-                    <IndexRoute component={MoviesListComponent}></IndexRoute>
-                    <Route path="/movies/:id" component={MovieComponent}></Route>
+                    <IndexRoute component={MoviesSearchListComponent}></IndexRoute>
+                    <Route path="/movies/:id" component={MovieDetailsComponent}></Route>
                 </Route>
                 <Route path="/tv" component={TvContainer}>
-                    <IndexRoute component={TvListComponent}></IndexRoute>
+                    <IndexRoute component={TvSearchListComponent}></IndexRoute>
+                    <Route path="/tv/:id" component={TvDetailsComponent}></Route>
                 </Route>
                 <Route path="/people" component={PeopleContainer}>
                     <IndexRoute component={PeopleListComponent}></IndexRoute>

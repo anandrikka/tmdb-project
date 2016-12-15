@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import PaginationComponent from './PaginationComponent.jsx';
-import RevealCardComponent from './RevealCardComponent.jsx';
+import SimpleCardComponent from './SimpleCardComponent.jsx';
 import LoadingComponent from './LoadingComponent.jsx';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 import axios from 'axios';
@@ -43,18 +43,37 @@ class PeopleListComponent extends Component {
         this.loadPeopleListOnType(page);
     }
 
+    prepareList(list) {
+        const listLength = list.length;
+        const modifiedList = [];
+        for (let i = 0; i < listLength; i++) {
+            const listItem = list[i];
+            modifiedList.push({
+                id: listItem.id,
+                image_path: listItem.profile_path,
+                title: name
+            });
+        }
+        return modifiedList;
+    }
+
+    gotoPeople(id) {
+        this.props.history.push('people/' + id);
+    }
+
     render() {
+        const list = this.prepareList(this.props.peopleData.search.list);
         return (
             <div>
                 <div className="row">
-                    <LoadingComponent isLoading={this.state.loading}></LoadingComponent>
                     {
-                        this.props.peopleData.search.list.map((item, index) => {
+                        list.map((item, index) => {
                             return (
                                 <div className="col s12 m2 l4" key={index}>
-                                    <RevealCardComponent item={item}
-                                        genres={this.props.appData.tvGenres}>
-                                    </RevealCardComponent>
+                                    <SimpleCardComponent item={item}
+                                        genres={this.props.appData.tvGenres}
+                                        gotoItem={this.gotoPeople}>
+                                    </SimpleCardComponent>
                                 </div>
                             );
                         })

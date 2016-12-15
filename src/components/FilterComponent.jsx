@@ -8,6 +8,9 @@ class FilterComponent extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            genres: []
+        };
         this.searchTextChanged = this.searchTextChanged.bind(this);
     }
 
@@ -65,7 +68,8 @@ class FilterComponent extends Component {
                         this.props.movieGenres.map((genre, index) => {
                             return (
                                 <div className="input-field col s12 no-p" key={index}>
-                                    <input type="checkbox" className="filled-in" id={'genre_'+genre.id}/>
+                                    <input type="checkbox"
+                                        className="filled-in" id={'genre_' + genre.id} />
                                     <label htmlFor={'genre_'+genre.id}>{genre.name}</label>
                                 </div>
                             )

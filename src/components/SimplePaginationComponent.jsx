@@ -1,22 +1,21 @@
 import React from 'react';
 
 export default class SimplePaginationComponent extends React.Component {
-  
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-  	return (
-      <div className="simple-pagination">
-  		<span className="fa fa-2x fa-chevron-circle-left" onClick={this.props.prevPageSelect}/>
-  		<span className="display">
-  			Page {this.props.page} of {this.props.totalPages} ({this.props.totalResults} Results)
-  		</span>
-  		<span className="fa fa-2x fa-chevron-circle-right" onClick={this.props.nextPageSelect}/>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="simple-pagination">
+				<span className="fa fa-2x fa-chevron-circle-left"
+					onClick={this.props.prevPageSelect} />
+				<span className="display">
+					Page {this.props.page} of {this.props.totalPages} ({this.props.totalResults} Results)
+  			</span>
+				<span className="fa fa-2x fa-chevron-circle-right"
+					onClick={this.props.nextPageSelect} />
+			</div>
+		);
+	}
+	
 }
 
 SimplePaginationComponent.PropTypes = {

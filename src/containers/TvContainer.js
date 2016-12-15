@@ -3,7 +3,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import TVsComponent from '../components/TVsComponent.jsx';
+import TelevisionComponent from '../components/TelevisionComponent.jsx';
 import * as TvActions from '../actions/tv.actions';
 
 /* eslint-enable */
@@ -18,4 +18,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(TvActions, dispatch) });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TVsComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(TelevisionComponent);

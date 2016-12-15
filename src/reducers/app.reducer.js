@@ -12,7 +12,8 @@ const defaultState = {
     isLoading: false,
     movieGenres: [],
     movieGenreMap: {},
-    tvGenres: {},
+    tvGenres: [],
+    tvGenreMap: {},
     timezones: {
         list: [],
         successful: false
@@ -33,26 +34,27 @@ function app(state = defaultState, action) {
         return modifiedState.toJS();
     }
     case ActionConstants.MOVIE_GENRES: {
-        const movieGenresMap = {};
+        const movieGenreMap = {};
         for (const genre of action.movieGenres) { // eslint-disable-line
-            movieGenresMap[genre.id] = genre;
+            movieGenreMap[genre.id] = genre;
         }
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.mergeDeep({
-            movieGenresMap
+            movieGenreMap
         });
         modifiedState = modifiedState.updateIn(['movieGenres'], movieGenres => action.movieGenres); // eslint-disable-line
         return modifiedState.toJS();
     }
     case ActionConstants.TV_GENRES: {
-        const tvGenres = {};
+        const tvGenreMap = {};
         for (const genre of action.tvGenres) { // eslint-disable-line
-            tvGenres[genre.id] = genre;
+            tvGenreMap[genre.id] = genre;
         }
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.mergeDeep({
-            tvGenres
+            tvGenreMap
         });
+        modifiedState = modifiedState.updateIn(['tvGenres'], tvGenres => action.tvGenres); // eslint-disable-line
         return modifiedState.toJS();
     }
     case ActionConstants.USER_INFO: {

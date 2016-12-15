@@ -6,7 +6,7 @@ class FooterComponent extends Component {
             <footer className="page-footer">
                 <div className="footer-copyright">
                     <div className="container">
-                        © 2016 All Content belongs to TMDB. This is a non profit website which using APIs provided by TMDB.
+                        © 2016 This product uses the TMDb API but is not endorsed or certified by TMDb.
                         <a className="grey-text text-lighten-4 right" href="#!"></a>
                     </div>
                 </div>

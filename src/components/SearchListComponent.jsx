@@ -1,30 +1,25 @@
 import React, {Component, PropTypes} from 'react';
 
-import RevealCardComponent from './RevealCardComponent';
+import SimpleCardComponent from './SimpleCardComponent';
 
 class SearchListComponent extends Component {
-
-    componentDidMount() {
-         
-    }
-        
-
+    
     render() {
         return (
             <div>
                 {
-                    this.props.searchList.length > 0 ? (
-                        this.props.searchList.map((item, index) => {
+                    this.props.list.length > 0 ? (
+                        this.props.list.map((item, index) => {
                             return (
                                 <div className="col s12 m12 l6" key={index}>
-                                    <RevealCardComponent item={item}
-                                        genres={this.props.movieGenres} gotoMovie={this.props.gotoMovie}>
-                                    </RevealCardComponent>
+                                    <SimpleCardComponent item={item}
+                                        genres={this.props.genres}
+                                        gotoItem={this.props.gotoItem}>
+                                    </SimpleCardComponent>
                                 </div>
                             );
                         })
-                    ): ""
-                    
+                    ): ''
                 }
             </div>
         );
@@ -32,7 +27,11 @@ class SearchListComponent extends Component {
 }
 
 SearchListComponent.propTypes = {
-    searchList: React.PropTypes.array.isRequired
+    list: React.PropTypes.array.isRequired,
+    gotoItem: React.PropTypes.func.isRequired,
+    genres: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    cardType: React.PropTypes.string.isRequired
 };
 
 export default SearchListComponent;
