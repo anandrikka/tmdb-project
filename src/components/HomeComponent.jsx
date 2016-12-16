@@ -43,8 +43,17 @@ class HomeComponent extends Component {
 		this.props.history.push('/tv');
 	}
 
+	inlineStyles() {
+		return {
+			cursor: {
+				cursor: 'pointer'
+			}
+		}
+	}
+
 	render() {
 		console.log('HomeComponent: ', this.props);
+		const styles = this.inlineStyles();
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;
 		let getImageClass = (index) => {
@@ -67,7 +76,7 @@ class HomeComponent extends Component {
 							nowPlaying.list.map((item, index) => {
 								if (item.poster_path) {
 									return (
-										<img style={{ cursor: 'pointer' }} key={index}
+										<img style={styles.cursor} key={index}
 											className={getImageClass(index)}
 											src={IMAGE_URI_ORIGINAL + (item.poster_path)}
 											onError={(e) => { $(e.target).hide() } } />
@@ -83,7 +92,7 @@ class HomeComponent extends Component {
 							tvAiringToday.list.map((item, index) => {
 								if (item.poster_path) {
 									return (
-										<img key={index} style={{ cursor: 'pointer' }}
+										<img key={index} style={styles.cursor}
 											className={getImageClass(index)}
 											src={IMAGE_URI_ORIGINAL + (item.poster_path)}
 											onError={(e) => { $(e.target).hide() } } />

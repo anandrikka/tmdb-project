@@ -9,6 +9,7 @@ router.use(ApiUtils.reqMiddleware);
 router.use(function (req, res, next) {
     var cookie = new Cookies(req, res).get('tmdbredux');
     if (!cookie) {
+        res.send({authenticationFalied: true});
         return;
     } else {
         cookie = ApiUtils.decrypt(cookie);
@@ -18,6 +19,6 @@ router.use(function (req, res, next) {
 });
 
 router.get('/getAccountDetails', reqFn('getAccountDetails'));
-router.post('/:accountId/addToWatchlist', reqFn('addToWatchlist'))
+router.post('/:accountId/addToWatchlist', reqFn('addToWatchlist'));
 
 module.exports = router;

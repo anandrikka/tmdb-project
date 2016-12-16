@@ -4,13 +4,14 @@ import * as ActionConstants from '../actions/action.constants';
 const defaultState = {
     search: {
         list: []
-    }
+    },
+    results: {}
 };
 
 const peopleReducer = (state = defaultState, action) => {
     let modifiedState;
     switch (action.type) {
-    case ActionConstants.FETCH_PEOPLE_LIST:
+    case ActionConstants.FETCH_PEOPLE_LIST: {
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.updateIn(['search', 'list'],
             list => action.peopleList.results); // eslint-disable-line
@@ -22,6 +23,13 @@ const peopleReducer = (state = defaultState, action) => {
             }
         });
         return modifiedState.toJS();
+    }
+    case ActionConstants.FETCH_PEOPLE_DETAILS: {
+        const { peopleDetails } = action;
+        modifiedState = Immutable.Map(state);
+        modifiedState = modifiedState.setIn(['results'], { [peopleDetails.id]: peopleDetails });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

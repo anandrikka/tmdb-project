@@ -18,13 +18,6 @@ module.exports = {
                 name: 'createSession'
             }
         ],
-        configuration: [
-            {
-                resource: '/configuration',
-                method: 'GET',
-                name: 'getConfigurationDetails'
-            }
-        ],
         user: [
             {
                 resource: '/account',

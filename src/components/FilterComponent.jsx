@@ -14,9 +14,8 @@ class FilterComponent extends Component {
         this.searchTextChanged = this.searchTextChanged.bind(this);
     }
 
-    componentDidMount () {
-        
-    }
+    componentDidMount () {}
+
     
     searchTextChanged() {
         
@@ -33,7 +32,7 @@ class FilterComponent extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field col s12 country-label">
                         <select>
                             <option value="en-US" defaultValue>United States</option>
                             {

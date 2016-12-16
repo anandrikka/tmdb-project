@@ -11,11 +11,17 @@ class SearchListComponent extends Component {
                     this.props.list.length > 0 ? (
                         this.props.list.map((item, index) => {
                             return (
-                                <div className="col s12 m12 l6" key={index}>
-                                    <SimpleCardComponent item={item}
-                                        genres={this.props.genres}
-                                        gotoItem={this.props.gotoItem}>
-                                    </SimpleCardComponent>
+                                <div>
+                                    <div className="col s12 m12 l6" key={index}>
+                                        <SimpleCardComponent
+                                            item={item} genres={this.props.genres} gotoItem={this.props.gotoItem}>
+                                        </SimpleCardComponent>
+                                    </div>
+                                    {
+                                        (index % 2 === 1) ? (
+                                            <div className="clearfix"></div>
+                                        ) : ''
+                                    }
                                 </div>
                             );
                         })

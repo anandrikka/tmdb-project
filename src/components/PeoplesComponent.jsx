@@ -2,15 +2,12 @@
 
 import React, { Component, PropTypes } from 'react';
 
-class PeopleComponent extends Component {
+class PeoplesComponent extends Component {
 
     componentDidMount () {
-        this.props.actions.fetchPeople().then(() => {
-            
-        })
+        this.props.actions.fetchPeople();
     }
-        
-
+    
     render() {
         let children = React.cloneElement(this.props.children, this.props);
         return (
@@ -31,8 +28,8 @@ class PeopleComponent extends Component {
     }
 }
 
-PeopleComponent.propTypes = {
+PeoplesComponent.propTypes = {
 
 };
 
-export default PeopleComponent;
+export default PeoplesComponent;

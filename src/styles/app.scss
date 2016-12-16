@@ -1,10 +1,10 @@
 body {
-    background: #F2F2F3!important;
+    background: #F2F2F3 !important;
 }
 
 @media only screen and (min-width: 993px){
     .container{
-        width:90%
+        width:90%;
     }
 }
 
@@ -27,6 +27,14 @@ a:focus {
 
 .dropdown-content {
     z-index:9999;
+}
+
+.country-label {
+    .dropdown-content {
+        span {
+            font-size: 14px;
+        }
+    }
 }
 
 .container {
@@ -76,7 +84,7 @@ a:focus {
 }
 
 footer.page-footer {
-    padding-top:0px;
+    padding-top:0;
     background-color: #3A6073;
     height:7vh;
     position:absolute;
@@ -90,5 +98,5 @@ footer.page-footer {
 }
 
 .clear {
-    clear: 'both';
+    clear: both;
 }

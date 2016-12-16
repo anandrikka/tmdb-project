@@ -16,25 +16,39 @@ export default class NavbarComponent extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-        
-    }
-    
     loginPopup() {
         // href="/api/login" target="popup" onClick={this.loginPopup}
         window.open('/api/login', 'popup', 'width=600,height=600');
         return false;
-    }    
+    }
 
-    render() {
-        const userButton = !this.props.details.userAuthenticated ?
+    showAccountDropdown() {
+        $('account').show();
+    }
+
+    renderUserButton() {
+        const userButton = this.props.details.authenticationFalied ?
             (
                 <li>
                     <a href="/api/login" data-hover="true" data-activates="account">Login
                         <i className="material-icons right">account_circle</i>
                     </a>
                 </li>
-            ) : <UserComponent {...this.props}/>    
+            ) : (
+            <li>
+                <a className="dropdown-button" onMouseEnter={this.showAccountDropdown}
+                   data-beloworigin="true" href="#!" id="account_user" data-constrainwidth="false" data-activates="account">{this.props.details.username + ' '}
+                    <i className="fa fa-chevron-down"></i>
+                </a>
+                <ul id="account" className="dropdown-content">
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </li>
+        );
+        return userButton;
+    }
+
+    render() {
         return (
             <div className="navbar-fixed">
                 <nav>
@@ -57,7 +71,7 @@ export default class NavbarComponent extends React.Component {
                                     <i className="material-icons left">people</i>
                                 </Link>
                             </li>
-                            {userButton}
+                            {this.renderUserButton()}
                         </ul>
                         <ul className="side-nav" id="mobile-menu">
                             <li><a href="/api/login">Login</a></li>

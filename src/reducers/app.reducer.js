@@ -63,7 +63,7 @@ function app(state = defaultState, action) {
         modifiedState = modifiedState.toJS();
         modifiedState = Immutable.Map(modifiedState);
         const userInfo = modifiedState.get('userInfo');
-        userInfo.userAuthenticated = true;
+        userInfo.authenticationFalied = action.userInfo.authenticationFalied;
         modifiedState = modifiedState.set('userInfo', userInfo);
         return modifiedState.toJS();
     }

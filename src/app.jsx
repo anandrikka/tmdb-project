@@ -14,6 +14,7 @@ import MoviesSearchListComponent from './components/MoviesSearchListComponent.js
 import TvSearchListComponent from './components/TvSearchListComponent.jsx';
 import TvDetailsComponent from './components/TvDetailsComponent.jsx';
 import PeopleListComponent from './components/PeopleListComponent.jsx';
+import PeopleDetailsComponent from './components/PeopleDetailsComponent.jsx';
 import AppContainer from './containers/AppContainer';
 
 import css from './styles/main.scss'; // eslint-ignore-line
@@ -34,6 +35,7 @@ const router = (
                 </Route>
                 <Route path="/people" component={PeopleContainer}>
                     <IndexRoute component={PeopleListComponent}></IndexRoute>
+                    <Route path="/people/:id" component={PeopleDetailsComponent}></Route>
                 </Route>                
             </Route>
         </Router>

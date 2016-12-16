@@ -4,8 +4,8 @@
     width:100%;
     height:100%;
     position:absolute;
-    top:0px;
-    left:0px;
+    top:0;
+    left:0;
     z-index:9999;
     transition: opacity 0.3s linear;
 }
@@ -13,7 +13,7 @@
 .loadingBar {
     margin: auto;
     text-align: center;
-    padding: 10px 0px;
+    padding: 10px 0;
     height:100%;
     position: fixed;
     top: 50%;

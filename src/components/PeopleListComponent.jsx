@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import PaginationComponent from './PaginationComponent.jsx';
-import SimpleCardComponent from './SimpleCardComponent.jsx';
+import PeopleCardComponent from './PeopleCardComponent.jsx';
 import LoadingComponent from './LoadingComponent.jsx';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
 import axios from 'axios';
@@ -15,6 +15,7 @@ class PeopleListComponent extends Component {
         }
         this.pageSelect = this.pageSelect.bind(this);
         this.loadPeopleListOnType = this.loadPeopleListOnType.bind(this);
+        this.gotoPeople = this.gotoPeople.bind(this);
     }
 
     componentDidMount() {
@@ -43,37 +44,43 @@ class PeopleListComponent extends Component {
         this.loadPeopleListOnType(page);
     }
 
-    prepareList(list) {
-        const listLength = list.length;
-        const modifiedList = [];
-        for (let i = 0; i < listLength; i++) {
-            const listItem = list[i];
-            modifiedList.push({
-                id: listItem.id,
-                image_path: listItem.profile_path,
-                title: name
-            });
-        }
-        return modifiedList;
-    }
+    // prepareList(list) {
+    //     const listLength = list.length;
+    //     const modifiedList = [];
+    //     for (let i = 0; i < listLength; i++) {
+    //         const listItem = list[i];
+    //         modifiedList.push({
+    //             id: listItem.id,
+    //             image_path: listItem.profile_path,
+    //             title: name
+    //         });
+    //     }
+    //     return modifiedList;
+    // }
 
     gotoPeople(id) {
         this.props.history.push('people/' + id);
     }
 
     render() {
-        const list = this.prepareList(this.props.peopleData.search.list);
+        const list = this.props.peopleData.search.list;
         return (
             <div>
                 <div className="row">
                     {
                         list.map((item, index) => {
                             return (
-                                <div className="col s12 m2 l4" key={index}>
-                                    <SimpleCardComponent item={item}
-                                        genres={this.props.appData.tvGenres}
-                                        gotoItem={this.gotoPeople}>
-                                    </SimpleCardComponent>
+                                <div>
+                                    <div className="col s12 m2 l4" key={index}>
+                                        <PeopleCardComponent item={item}
+                                                             gotoItem={this.gotoPeople}>
+                                        </PeopleCardComponent>
+                                    </div>
+                                    {
+                                        (index % 3 === 2) ? (
+                                            <div className="clearfix"></div>
+                                        ) : ''
+                                    }
                                 </div>
                             );
                         })

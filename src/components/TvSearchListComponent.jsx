@@ -100,7 +100,7 @@ class TvSearchListComponent extends Component {
      */
     inlineStyles() {
         return {
-            pages_to_right: {
+            paginationRight: {
                 float: 'right'
             }
         };
@@ -126,7 +126,7 @@ class TvSearchListComponent extends Component {
                 </div>
                 {
                     !this.state.loading ? (
-                        <div>
+                        <div style={styles.paginationRight}>
                             <PaginationComponent
                                 pages={this.props.tvData.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>

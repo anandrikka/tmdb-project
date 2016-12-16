@@ -84,9 +84,17 @@ class MoviesSearchListComponent extends Component {
         this.props.history.push('movies/' + id);
     }
 
+    inlineStyles() {
+        return {
+            paginationRight: {
+                float: 'right'
+            }
+        }
+    }
+
     render() {
         const list = this.prepareList(this.props.moviesData.search.list);
-        console.log('this.state.loading', this.state.loading);
+        const styles = this.inlineStyles();
         return (
             <div>
                 <div className="row">
@@ -103,7 +111,7 @@ class MoviesSearchListComponent extends Component {
                 </div>
                 {
                     !this.state.loading ? (
-                        <div>
+                        <div style={styles.paginationRight}>
                             <PaginationComponent
                                 pages={this.props.moviesData.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>
