@@ -23,7 +23,7 @@ export default class NavbarComponent extends React.Component {
     }
 
     showAccountDropdown() {
-        $('account').show();
+        //$('account').show();
     }
 
     renderUserButton() {
@@ -37,12 +37,9 @@ export default class NavbarComponent extends React.Component {
             ) : (
             <li>
                 <a className="dropdown-button" onMouseEnter={this.showAccountDropdown}
-                   data-beloworigin="true" href="#!" id="account_user" data-constrainwidth="false" data-activates="account">{this.props.details.username + ' '}
-                    <i className="fa fa-chevron-down"></i>
+                   data-beloworigin="true" href="#!" data-hover="true" id="account_user" data-activates="account">{this.props.details.username ? this.props.details.username : ''} 
+                   {this.props.details.username ? <i className="fa fa-chevron-down"></i>: ''}
                 </a>
-                <ul id="account" className="dropdown-content">
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
             </li>
         );
         return userButton;
@@ -63,7 +60,8 @@ export default class NavbarComponent extends React.Component {
                                 <i className="material-icons left nav-i-left">local_movies</i>
                                 </a></li>
                             <li>
-                                <a className="dropdown-button" data-hover="true" data-beloworigin="true" href="#!" data-activates="tv">Television<i className="material-icons left">tv</i>
+                                <a className="dropdown-button" data-hover="true"
+                                   data-beloworigin="true" href="#!" data-activates="tv">Television<i className="material-icons left">tv</i>
                                 </a>
                             </li>
                             <li>
@@ -94,6 +92,9 @@ export default class NavbarComponent extends React.Component {
                     <li><Link to="/tv?type=topRated">Top Rated</Link></li>
                 </ul>
                 <ul id="account" className="dropdown-content">
+                    <li><a href="#">Favorites</a></li>
+                    <li><a href="#">Watchlist</a></li>
+                    <li><a href="#">Rated</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </div>

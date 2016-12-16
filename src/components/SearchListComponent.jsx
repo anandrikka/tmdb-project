@@ -11,8 +11,8 @@ class SearchListComponent extends Component {
                     this.props.list.length > 0 ? (
                         this.props.list.map((item, index) => {
                             return (
-                                <div>
-                                    <div className="col s12 m12 l6" key={index}>
+                                <div key={index}>
+                                    <div className="col s12 m12 l6">
                                         <SimpleCardComponent
                                             item={item} genres={this.props.genres} gotoItem={this.props.gotoItem}>
                                         </SimpleCardComponent>
