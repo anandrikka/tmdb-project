@@ -1,9 +1,17 @@
+// account
+export const USER_INFO = 'USER_INFO';
+export const MOVIE_WATCHLIST = 'MOVIE_WATCHLIST';
+export const MOVIES_RATED = 'MOVIES_RATED';
+export const MOVIES_FAVORITE = 'MOVIES_FAVORTIE';
+export const TV_WATCHLIST = 'TV_WATCHLIST';
+export const TV_RATED = 'TV_RATED';
+export const TV_FAVORITE = 'TV_FAVORITE';
+
 // common
 export const LOADING_STARTED = 'LOADING_STARTED';
 export const LOADING_STOPPED = 'LOADING_STOPPED';
 export const TIMEZONES = 'TIMEZONES';
 export const MOVIE_GENRES = 'MOVIE_GENRES';
-export const USER_INFO = 'USER_INFO';
 export const USER_INFO_FAILED = 'USER_INFO_FAILED';
 export const TV_GENRES = 'TV_GENRES';
 

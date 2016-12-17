@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var logger = require('morgan');
-var jwt = require('jsonwebtoken');
 var Cookies = require('cookies');
 var bodyParser = require('body-parser');
 var ApiUtils = require('./server/ApiUtils');
@@ -54,11 +53,13 @@ app.get('/api/callback', function (req, res) {
         tmdbApi.createSession({ request_token: req.query.request_token }).then(function (sessionResult) {
             var cookies = new Cookies(req, res);
             var encryptedSessionId = ApiUtils.encrypt(sessionResult.data.session_id);
-            var cookieOptions = {};
-            cookieOptions.http = true;
-            if (isProd) {
-                //cookieOptions.secure = true;
-            }
+            var oneDayMilliSeconds = 24 * 60 * 60 * 1000;
+            var expiryDateInMilliSeconds = Date.now() + oneDayMilliSeconds;
+            var cookieOptions = {
+                http: true
+                //expires: new Date(expiryDateInMilliSeconds),
+                //secure: isProd ? true : false
+            };
             try {
                 cookies.set('tmdbredux', encryptedSessionId, cookieOptions);
             } catch (e) {
@@ -66,13 +67,7 @@ app.get('/api/callback', function (req, res) {
                 res.sendStatus(500);
                 return;
             }
-            
-            // res.cookie('tmdbredux', sessionResult.data.session_id);
-            // var token = jwt.sign({'id':sessionResult.data.session_id}, '123456');
-            //res.cookie('token', token);
             res.redirect('/');
-            //req.session.cookie = sessionResult.data.session_id;
-            //res.sendStatus(500).redirect('/');
         }, function (error) {
             console.log(error);
         })
@@ -80,6 +75,11 @@ app.get('/api/callback', function (req, res) {
         res.redirect('/');
     }
 })
+
+app.get('/api/logout', function (req, res) {
+    res.clearCookie('tmdbredux');
+    res.redirect('/');
+});
 
 /**
  *Static file serving from dist folder with /dist path

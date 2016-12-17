@@ -15,7 +15,7 @@ export default class NavbarComponent extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    
     loginPopup() {
         // href="/api/login" target="popup" onClick={this.loginPopup}
         window.open('/api/login', 'popup', 'width=600,height=600');
@@ -38,10 +38,8 @@ export default class NavbarComponent extends React.Component {
                     {this.props.details.username ? this.props.details.username : ''} {this.props.details.username ? <i className="fa fa-chevron-down"></i>: ''}
                 </a>
                 <ul id="account" className="dropdown-content">
-                    <li><a href="#">Favorites</a></li>
-                    <li><a href="#">Watchlist</a></li>
-                    <li><a href="#">Rated</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/api/logout">Logout</a></li>
                 </ul>
             </li>
         );

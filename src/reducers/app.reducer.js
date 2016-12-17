@@ -6,8 +6,7 @@ const defaultState = {
         userAuthenticated: false
     },
     translations: {
-        list: [],
-        successful: false
+        list: []
     },
     isLoading: false,
     movieGenres: [],
@@ -15,8 +14,7 @@ const defaultState = {
     tvGenres: [],
     tvGenreMap: {},
     timezones: {
-        list: [],
-        successful: false
+        list: []
     }
 };
 
@@ -26,11 +24,6 @@ function app(state = defaultState, action) {
     case ActionConstants.TIMEZONES: {
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.updateIn(['timezones', 'list'], list => action.timezones); // eslint-disable-line
-        modifiedState = modifiedState.mergeDeep({
-            timezones: {
-                successful: true
-            }
-        });
         return modifiedState.toJS();
     }
     case ActionConstants.MOVIE_GENRES: {
@@ -67,6 +60,16 @@ function app(state = defaultState, action) {
         modifiedState = modifiedState.set('userInfo', userInfo);
         return modifiedState.toJS();
     }
+    case ActionConstants.MOVIES_FAVORITE: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['favoriteMovies'], favoriteMovies => action.favoriteMovies);  // eslint-disable-line
+        return modifiedState.toJS();
+    }
+    case ActionConstants.TV_FAVORITE: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['favoriteTv'], favoriteTv => action.favoriteTv);  // eslint-disable-line
+        return modifiedState.toJS();
+    }
     case ActionConstants.USER_INFO_FAILED: {
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.mergeDeep({
@@ -90,5 +93,5 @@ function app(state = defaultState, action) {
         return state;
     }
 }
-
 export default app;
+

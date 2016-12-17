@@ -20,7 +20,7 @@ class AppComponent extends Component {
     }
     
     render() {
-        console.log('AppComponent', this.props)
+        //let children = React.cloneElement(this.props.children, this.props);
         const userDetails = this.props.appData.userInfo;
         const userActions = {
             fetchUserDetails: this.props.actions.fetchUserDetails
@@ -29,7 +29,7 @@ class AppComponent extends Component {
             <div className="main" id="wrapper">
                 <LoadingComponent isLoading={this.props.appData.isLoading}></LoadingComponent>
                 <NavbarComponent details = {userDetails} actions = {userActions} />
-                <div id="mainview">{this.props.children}</div>
+                <div id="mainview" className="container top">{this.props.children}</div>
                 <FooterComponent></FooterComponent>
             </div>
         )

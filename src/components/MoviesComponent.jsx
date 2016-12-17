@@ -19,7 +19,7 @@ class MoviesComponent extends Component {
         console.log('MoviesComponent', this.props);
         let children = React.cloneElement(this.props.children, this.props);
         return (
-            <div className="container top">
+            <div>
                 {children}
             </div>
         );

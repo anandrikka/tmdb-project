@@ -11,7 +11,7 @@ class PeoplesComponent extends Component {
     render() {
         let children = React.cloneElement(this.props.children, this.props);
         return (
-            <div className="container" style={{ marginTop: '20px' }}>
+            <div>
                 <div className="row">
                     <form className="col s12">
                         <div className="row col s12">

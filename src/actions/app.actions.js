@@ -7,21 +7,6 @@ import {
     RESOURCE_USER_DETAILS
 } from '../Utilities/Urls';
 
-export const timezones = timezones => ({ // eslint-disable-line
-    type: ActionConstants.TIMEZONES,
-    timezones
-});
-
-export const movieGenres = movieGenres => ({ // eslint-disable-line
-    type: ActionConstants.MOVIE_GENRES,
-    movieGenres
-});
-
-export const tvGenres = tvGenres => ({ // eslint-disable-line
-    type: ActionConstants.TV_GENRES,
-    tvGenres
-});
-
 export const showLoading = () => ({
     type: ActionConstants.LOADING_STARTED
 });
@@ -30,13 +15,13 @@ export const hideLoading = () => ({
     type: ActionConstants.LOADING_STOPPED
 });
 
-export const loadUser = userInfo => ({
-    type: ActionConstants.USER_INFO,
-    userInfo
-});
-
 export const loadUserFailed = () => ({
     type: ActionConstants.USER_INFO_FAILED
+});
+
+export const timezones = timezones => ({ // eslint-disable-line
+    type: ActionConstants.TIMEZONES,
+    timezones
 });
 
 export const fetchTimezones = () => dispatch => axios.get(RESOURCE_TIMEZONES)
@@ -45,6 +30,10 @@ export const fetchTimezones = () => dispatch => axios.get(RESOURCE_TIMEZONES)
     }, (error) => { // eslint-disable-line
     });
 
+export const movieGenres = movieGenres => ({ // eslint-disable-line
+    type: ActionConstants.MOVIE_GENRES,
+    movieGenres
+});
 
 export const fetchMovieGenres = () => dispatch => axios.get(RESOURCE_MOVIE_GENRES)
     .then((response) => {
@@ -52,11 +41,21 @@ export const fetchMovieGenres = () => dispatch => axios.get(RESOURCE_MOVIE_GENRE
     }, (error) => { // eslint-disable-line
     });
 
+export const tvGenres = tvGenres => ({ // eslint-disable-line
+    type: ActionConstants.TV_GENRES,
+    tvGenres
+});
+
 export const fetchTvGenres = () => dispatch => axios.get(RESOURCE_TV_GENRES)
     .then((response) => {
         dispatch(tvGenres(response.data.genres));
     }, (error) => { // eslint-disable-line
     });
+
+export const loadUser = userInfo => ({
+    type: ActionConstants.USER_INFO,
+    userInfo
+});
 
 export const fetchUserDetails = () => dispatch => axios.get(RESOURCE_USER_DETAILS)
     .then((response) => {

@@ -11,8 +11,8 @@ import * as TvActions from '../actions/tv.actions';
 const mapStateToProps = (state) => {
     const { tvData, appData } = state;
     return {
-        appData,
-        tvData
+        tvData,
+        appData
     };
 };
 

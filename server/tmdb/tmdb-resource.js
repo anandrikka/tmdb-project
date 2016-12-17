@@ -53,7 +53,7 @@ module.exports = {
                 resource: '/account/:accountId/rated/tv/episodes',
                 method: 'GET',
                 name: 'getRatedTvEpisodes'
-            },
+            },  
             {
                 resource: '/account/:accountId/watchlist/movies',
                 method: 'GET',

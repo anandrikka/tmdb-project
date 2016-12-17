@@ -1,6 +1,7 @@
 const baseUrl = '/api';
 const constructUrl = path => (baseUrl + path);
 
+// account
 export const RESOURCE_USER_DETAILS = constructUrl('/account/getAccountDetails');
 export const RESOURCE_REQ_AUTH_TOKEN = constructUrl('/authenticate/loginReqToken');
 export const REQ_LOGIN_WITH_AUTH_TOKEN = constructUrl('/authenticate/dialogWithReqToken');

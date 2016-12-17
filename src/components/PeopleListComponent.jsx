@@ -70,14 +70,14 @@ class PeopleListComponent extends Component {
                     {
                         list.map((item, index) => {
                             return (
-                                <div>
-                                    <div className="col s12 m2 l4" key={index}>
+                                <div key={index}>
+                                    <div className="col s12 m4 l3">
                                         <PeopleCardComponent item={item}
                                                              gotoItem={this.gotoPeople}>
                                         </PeopleCardComponent>
                                     </div>
                                     {
-                                        (index % 3 === 2) ? (
+                                        (index % 4 === 3) ? (
                                             <div className="clearfix"></div>
                                         ) : ''
                                     }

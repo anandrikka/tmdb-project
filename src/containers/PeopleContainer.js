@@ -11,8 +11,8 @@ import * as PeopleActions from '../actions/people.actions';
 const mapStateToProps = (state) => {
     const { peopleData, appData } = state;
     return {
-        appData,
-        peopleData
+        peopleData,
+        appData
     };
 };
 

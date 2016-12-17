@@ -68,7 +68,7 @@ class HomeComponent extends Component {
 			}
 		}
 		return (
-			<div className="container">
+			<div>
 				<div>
 					<h5>Movies in Theaters</h5>
 					<section className="home-photos" onClick={this.gotoMovies}>

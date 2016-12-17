@@ -8,11 +8,10 @@ import * as MovieActions from '../actions/movies.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { moviesData, appData, isLoading } = state;
+    const { moviesData, appData } = state;
     return {
-        appData,
         moviesData,
-        isLoading
+        appData
     };
 };
 
