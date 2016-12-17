@@ -14,7 +14,9 @@ class SearchListComponent extends Component {
                                 <div key={index}>
                                     <div className="col s12 m12 l6">
                                         <SimpleCardComponent
-                                            item={item} genres={this.props.genres} gotoItem={this.props.gotoItem}>
+                                            item={item} genres={this.props.genres}
+                                            gotoItem={this.props.gotoItem}
+                                            saveFav={this.props.saveFav}>
                                         </SimpleCardComponent>
                                     </div>
                                     {

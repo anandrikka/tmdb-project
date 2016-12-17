@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import MoviesComponent from '../components/MoviesComponent.jsx';
 import * as MovieActions from '../actions/movies.actions';
-
+import { saveFavorite } from '../actions/profile.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
@@ -14,6 +14,8 @@ const mapStateToProps = (state) => {
         appData
     };
 };
+
+MovieActions.saveFavorite = saveFavorite;
 
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(MovieActions, dispatch) });
 

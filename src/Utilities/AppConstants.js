@@ -15,3 +15,7 @@ export const MOVIES_APPEND_TO_RESPONSE = 'videos,images,keywords,companies,recom
 export const TV_APPEND_TO_RESPONSE = 'alternative_titles,content_ratings,credits,external_ids,images,keywords,recommendations,similar,translations,videos';
 
 export const PEOPLE_APPEND_TO_RESPONSE = 'movie_credits,tv_credits,external_ids,images,tagged_images';
+
+export const MEDIA_TYPE_MOVIE = 'movie';
+
+export const MEDIA_TYPE_TV = 'tv';

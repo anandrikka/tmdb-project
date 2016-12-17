@@ -98,3 +98,17 @@ export const fetchRatedTv = accountId => (dispatch) => {
         dispatch(hideLoading());
     });
 };
+
+export const saveFavorite = (accountId, mediaType, mediaId, favoriteFlag) => (dispatch) => { // eslint-disable-line
+    const resource = `/api/account/${accountId}/favorite`;
+    const body = {
+        media_type: mediaType,
+        media_id: mediaId,
+        favorite: favoriteFlag
+    };
+    axios.post(resource, body).then((response) => {
+        console.log(response.data);
+    }, (error) => { // eslint-disable-line
+
+    });
+};

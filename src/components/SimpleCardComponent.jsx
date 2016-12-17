@@ -3,13 +3,21 @@ import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities
 
 class SimpleCardComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.addToWatchList = this.addToWatchList.bind(this);
+        this.addToFavorites = this.addToFavorites.bind(this);
+    }
+
     componentDidMount () {
-        $('.card-top').hide();
-        $('.card-image').hover(function() {
-            $('.card-top').fadeIn(400);
-        }, function() {
-            $('.card-top').fadeOut(400);
+        
+        $('#card-top').hide();
+            $( ".card-image" ).hover(() => {
+                $('#card-top').fadeIn(400);
+            }, () => {
+            $('#card-top').fadeOut(400);
         });
+    
     }
     
 
@@ -72,19 +80,38 @@ class SimpleCardComponent extends Component {
         }
     }
 
+    addToWatchList(id) {
+        console.log(id);
+    }
+
+    addToFavorites(id) {
+        this.props.saveFav(id, true)
+    }
+
+    jQueryImplementations(item) {
+        $('#card-top-'+item.id).hide();
+        $('#card-image-'+item.id).hover(() => {
+            $('#card-top-'+item.id).fadeIn(400);
+        }, () => {
+        $('#card-top-'+item.id).fadeOut(400);
+        });
+    }
+
     render() {
         const item = this.props.item;
         const genresString = this.getGenres(item.genre_ids, this.props.genres);
         const styles = this.inlineStyles();
+        this.jQueryImplementations(item);
+        console.log('SimpleCard', this.props);
         return (
             <div className="card ccard">
-                <div className="card-image c2">
+                <div className="card-image" id={"card-image-"+item.id}>
                     <img onClick={() => { this.props.gotoItem(item.id) } }
                         src={this.getImageSrc(item.image_path)} className="pointer" />
-                    <div style={styles.toggleBookmarkFav} id="card-top">
+                    <div style={styles.toggleBookmarkFav} id={"card-top-"+item.id}>
                         <span>
-                            <i className="fa fa-bookmark-o pointer"></i> &nbsp;
-                            <i className="fa fa-heart-o pointer"></i>
+                            <i className="fa fa-bookmark-o pointer" onClick={() => this.addToWatchList(item.id)}></i> &nbsp;
+                            <i className="fa fa-heart-o pointer" onClick={() => this.addToFavorites(item.id)}></i>
                         </span>
                     </div>
                     <div style={styles.cardBottom}>

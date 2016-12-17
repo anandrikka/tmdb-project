@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE } from '../Utilities/AppConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
@@ -23,6 +23,7 @@ class MoviesSearchListComponent extends Component {
         this.pageSelect = this.pageSelect.bind(this);
         this.loadMoviesOnType = this.loadMoviesOnType.bind(this);
         this.gotoMovie = this.gotoMovie.bind(this);
+        this.saveFav = this.saveFav.bind(this);
     }
 
     componentDidMount() {
@@ -92,6 +93,11 @@ class MoviesSearchListComponent extends Component {
         }
     }
 
+    saveFav(id, flag) {
+        const accountId = this.props.appData.userInfo.id;
+        this.props.actions.saveFavorite(accountId, MEDIA_TYPE_MOVIE, id, flag)
+    }
+
     render() {
         const list = this.prepareList(this.props.moviesData.search.list);
         const styles = this.inlineStyles();
@@ -104,6 +110,7 @@ class MoviesSearchListComponent extends Component {
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}
                             gotoItem={this.gotoMovie}
+                            saveFav = {this.saveFav}
                             type="movies"
                             cardType={this.state.cardType}>
                         </SearchListComponent>
