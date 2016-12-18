@@ -11,7 +11,6 @@ class MovieDetailsComponent extends Component {
     }
     
     render() {
-        console.log('MovieDetailsComponent', this.props);
         return (
             <div>
                 <pre>

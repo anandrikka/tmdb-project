@@ -7,6 +7,7 @@ import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 import SearchListComponent from './SearchListComponent.jsx';
+import { tvSortOptions } from '../Utilities/sort-options';
 import axios from 'axios';
 
 class TvSearchListComponent extends Component {
@@ -112,8 +113,9 @@ class TvSearchListComponent extends Component {
         return (
             <div>
                 <div className="row">
-                    <FilterComponent {...this.props.appData}
-                        type="television">
+                    <FilterComponent type="television"
+                        genres={this.props.appData.tvGenres}    
+                        sortOptions={tvSortOptions}>
                     </FilterComponent>
                     <div className="col s12 m8 l9">
                         <SearchListComponent list={list}

@@ -1,7 +1,8 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE, MEDIA_TYPE_TV} from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE, MEDIA_TYPE_TV } from '../Utilities/AppConstants';
+import { movieSortOptions } from '../Utilities/sort-options';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
@@ -25,6 +26,8 @@ class MoviesSearchListComponent extends Component {
         this.gotoMovie = this.gotoMovie.bind(this);
         this.saveFav = this.saveFav.bind(this);
         this.saveWatchlist = this.saveWatchlist.bind(this);
+        this.loadPosters = this.loadPosters.bind(this);
+        this.searchMovie = this.searchMovie.bind(this);
     }
 
     componentDidMount() {
@@ -32,20 +35,33 @@ class MoviesSearchListComponent extends Component {
         $('select').material_select();
     }
 
+    /**
+     * To Load Movies Most Popular, Top Rated, Upcoming & Now Playing with page numbers
+     * @param page
+     * @param movieCategory
+     */
     loadMoviesOnType(page=1, movieCategory) {
         this.props.actions.fetchMovies(movieCategory || this.state.movieCategory, page).then(() => {
-            let posters = [];
-            for (let movie in this.props.moviesData.search.list) {
-                posters.push(IMAGE_URI_ORIGINAL + this.props.moviesData.search.list[movie].poster_path);
-            }
-            axios.all(posters).then(function() {
-                this.setState({
-                    loading: false
-                })
-            }.bind(this))
+            this.loadPosters(this.props.moviesData.search.list);
         })
     }
 
+    loadPosters(list) {
+        let posters = [];
+        for (let movie in list) {
+            posters.push(IMAGE_URI_ORIGINAL + list[movie].poster_path);
+        }
+        axios.all(posters).then(function() {
+            this.setState({
+                loading: false
+            })
+        }.bind(this))
+    }
+
+    /**
+     * when there is change in query paramter a call is triggered to load the movies of respective categories
+     * @param nextProps
+     */
     componentWillReceiveProps(nextProps) {
         if (this.props.location.query && nextProps.location.query &&
             this.props.location.query.type !== nextProps.location.query.type) {
@@ -56,6 +72,11 @@ class MoviesSearchListComponent extends Component {
         }
     }
 
+    /**
+     * Prepares list with common object pattern for card
+     * @param list
+     * @returns {Array}
+     */
     prepareList(list) {
         const listLength = list.length;
         const modifiedList = [];
@@ -72,8 +93,12 @@ class MoviesSearchListComponent extends Component {
             });
         }
         return modifiedList;
-    }    
+    }
 
+    /**
+     * Triggered when page number is selected
+     * @param page
+     */
     pageSelect(page) {
         this.setState({
             loading: true,
@@ -82,10 +107,18 @@ class MoviesSearchListComponent extends Component {
         this.loadMoviesOnType(page);
     }
 
+    /**
+     * Redirects to another page when a movie is selected
+     * @param id
+     */
     gotoMovie(id) {
         this.props.history.push('movies/' + id);
     }
 
+    /**
+     * Styles object used for inline styling
+     * @returns {{paginationRight: {float: string}}}
+     */
     inlineStyles() {
         return {
             paginationRight: {
@@ -94,16 +127,38 @@ class MoviesSearchListComponent extends Component {
         }
     }
 
+    /**
+     * When save favorite icon clicked
+     * @param id
+     * @param flag
+     */
     saveFav(id, flag) {
         const accountId = this.props.appData.userInfo.id;
         this.props.actions.saveFavorite(accountId, MEDIA_TYPE_MOVIE, id, flag)
     }
 
+    /**
+     * When save to watchlist icon clicked
+     * @param id
+     * @param flag
+     */
     saveWatchlist(id, flag) {
         const accountId = this.props.appData.userInfo.id;
         this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_TV, id, flag);
     }
 
+    searchMovie(searchQuery) {
+        this.props.actions.searchMovies(searchQuery);
+    }
+
+    discoverMovie(discoverQuery) {
+        console.log('Movie Discover Query: ', discoverQuery);
+    }
+
+    /**
+     * Main mathod to render UI
+     * @returns {XML}
+     */
     render() {
         const list = this.prepareList(this.props.moviesData.search.list);
         const styles = this.inlineStyles();
@@ -116,8 +171,11 @@ class MoviesSearchListComponent extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <FilterComponent {...this.props.appData} type="movies"
-                        actions={this.props.actions}></FilterComponent>
+                    <FilterComponent type="movies"
+                        genres={this.props.appData.movieGenres}
+                        sortOptions = {movieSortOptions}
+                        search = {this.searchMovie}
+                        discover = {this.discoverMovie}></FilterComponent>
                     <div className="col s12 m8 l9">
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}

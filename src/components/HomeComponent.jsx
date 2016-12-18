@@ -52,7 +52,6 @@ class HomeComponent extends Component {
 	}
 
 	render() {
-		console.log('HomeComponent: ', this.props);
 		const styles = this.inlineStyles();
 		let nowPlaying = this.props.homeData.nowPlaying;
 		let tvAiringToday = this.props.homeData.tvAiringToday;

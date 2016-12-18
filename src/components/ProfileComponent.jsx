@@ -16,7 +16,6 @@ class ProfileComponent extends Component {
     }
 
     render() {
-        console.log('ProfileComponent', this.props);
         return (
             <div>
                 <div className="section">

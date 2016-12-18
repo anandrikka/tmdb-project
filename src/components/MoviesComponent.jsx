@@ -1,5 +1,4 @@
 'use strict';
-
 import React, { Component, PropTypes } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
@@ -16,7 +15,6 @@ class MoviesComponent extends Component {
     }
 
     render() {
-        console.log('MoviesComponent', this.props);
         let children = React.cloneElement(this.props.children, this.props);
         return (
             <div>

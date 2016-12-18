@@ -6,7 +6,8 @@ import {
     RESOURCE_PLAYING_MOVIES,
     RESOURCE_POPULAR_MOVIES,
     RESOURCE_UPCOMING_MOVIES,
-    RESOURCE_TOP_RATED_MOVIES
+    RESOURCE_TOP_RATED_MOVIES,
+    RESOURCE_SEARCH_MOVIES
 } from '../Utilities/Urls';
 
 import { MOVIES_APPEND_TO_RESPONSE } from '../Utilities/AppConstants';
@@ -65,6 +66,17 @@ export const fetchMovie = id => (dispatch) => {
     }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadMovieDetails(response.data));
+    }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
+    });
+};
+
+export const searchMovies = (searchQuery, page = 1) => (dispatch) => {
+    dispatch(showLoading());
+    // dispatch(clearList());
+    return axios.get(RESOURCE_SEARCH_MOVIES, { params: searchQuery }).then((response) => {
+        dispatch(hideLoading());
+        dispatch(loadMovies(response.data, page));
     }, (error) => { // eslint-disable-line
         dispatch(hideLoading());
     });

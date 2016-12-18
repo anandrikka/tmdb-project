@@ -7,7 +7,6 @@ class PeopleDetailsComponent extends Component {
     }
 
     render() {
-        console.log('PeopleDetailsComponent', this.props);
         return (
             <div>
                 <pre>

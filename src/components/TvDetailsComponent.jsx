@@ -10,7 +10,6 @@ class TvDetailsComponent extends Component {
     }
     
     render() {
-        console.log('TvDetailsComponent', this.props);
         return (
             <div>
                 <pre>
