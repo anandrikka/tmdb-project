@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE } from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE, MEDIA_TYPE_TV} from '../Utilities/AppConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
@@ -24,6 +24,7 @@ class MoviesSearchListComponent extends Component {
         this.loadMoviesOnType = this.loadMoviesOnType.bind(this);
         this.gotoMovie = this.gotoMovie.bind(this);
         this.saveFav = this.saveFav.bind(this);
+        this.saveWatchlist = this.saveWatchlist.bind(this);
     }
 
     componentDidMount() {
@@ -98,11 +99,22 @@ class MoviesSearchListComponent extends Component {
         this.props.actions.saveFavorite(accountId, MEDIA_TYPE_MOVIE, id, flag)
     }
 
+    saveWatchlist(id, flag) {
+        const accountId = this.props.appData.userInfo.id;
+        this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_TV, id, flag);
+    }
+
     render() {
         const list = this.prepareList(this.props.moviesData.search.list);
         const styles = this.inlineStyles();
         return (
             <div>
+                <div className="row">
+                    <div className="col offset-s8 s4 offset-m11 m1">
+                        <i className="fa fa-th-list fa-2x" style={{color: '#2bbbad'}}></i> &nbsp;
+                        <i className="fa fa-th-large fa-2x" style={{color: '#2bbbad'}}></i>   
+                    </div>
+                </div>
                 <div className="row">
                     <FilterComponent {...this.props.appData} type="movies"
                         actions={this.props.actions}></FilterComponent>
@@ -110,7 +122,8 @@ class MoviesSearchListComponent extends Component {
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}
                             gotoItem={this.gotoMovie}
-                            saveFav = {this.saveFav}
+                            saveFav={this.saveFav}
+                            saveWatchlist={this.saveWatchlist}
                             type="movies"
                             cardType={this.state.cardType}>
                         </SearchListComponent>

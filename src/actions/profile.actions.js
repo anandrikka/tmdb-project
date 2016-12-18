@@ -107,7 +107,21 @@ export const saveFavorite = (accountId, mediaType, mediaId, favoriteFlag) => (di
         favorite: favoriteFlag
     };
     axios.post(resource, body).then((response) => {
-        console.log(response.data);
+        console.log('fav added: ', response.data);
+    }, (error) => { // eslint-disable-line
+
+    });
+};
+
+export const saveWatchlist = (accountId, mediaType, mediaId, watchlistFlag) => (dispatch) => { // eslint-disable-line
+    const resource = `/api/account/${accountId}/watchlist`;
+    const body = {
+        media_type: mediaType,
+        media_id: mediaId,
+        watchlist: watchlistFlag
+    };
+    axios.post(resource, body).then((response) => {
+        console.log('watchlist added: ', response.data);
     }, (error) => { // eslint-disable-line
 
     });

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
+import DateUtils from '../Utilities/date-utils';
 
 class SimpleCardComponent extends Component {
 
@@ -53,18 +54,6 @@ class SimpleCardComponent extends Component {
 
     inlineStyles() {
         return {
-            cardBottom: {
-                position: 'absolute',
-                zIndex: 2,
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                padding: '8px',
-                color: '#fff',
-                fontSize: '14px',
-                fontWeight: 500,
-                background: 'rgba(0, 0, 0, 0.3)'
-            },
             toggleBookmarkFav: {
                 position: 'absolute',
                 zIndex: 2,
@@ -81,11 +70,11 @@ class SimpleCardComponent extends Component {
     }
 
     addToWatchList(id) {
-        console.log(id);
+        this.props.saveWatchlist(id, true);
     }
 
     addToFavorites(id) {
-        this.props.saveFav(id, true)
+        this.props.saveFav(id, true);
     }
 
     jQueryImplementations(item) {
@@ -101,21 +90,28 @@ class SimpleCardComponent extends Component {
         const item = this.props.item;
         const genresString = this.getGenres(item.genre_ids, this.props.genres);
         const styles = this.inlineStyles();
-        this.jQueryImplementations(item);
-        console.log('SimpleCard', this.props);
+        //this.jQueryImplementations(item);
+        const date = DateUtils.createDate(item.date);
+        console.log('SimpleCardComponent', item);
         return (
             <div className="card ccard">
                 <div className="card-image" id={"card-image-"+item.id}>
                     <img onClick={() => { this.props.gotoItem(item.id) } }
                         src={this.getImageSrc(item.image_path)} className="pointer" />
-                    <div style={styles.toggleBookmarkFav} id={"card-top-"+item.id}>
+                    <div className="card-bookmark-fav" id={"card-top-"+item.id}>
                         <span>
                             <i className="fa fa-bookmark-o pointer" onClick={() => this.addToWatchList(item.id)}></i> &nbsp;
                             <i className="fa fa-heart-o pointer" onClick={() => this.addToFavorites(item.id)}></i>
                         </span>
                     </div>
-                    <div style={styles.cardBottom}>
+                    <div className="ccard-title">
                         {item.title}
+                        <span className="right">{item.vote_average + '/10'}</span>
+                    </div>
+                    <div className="card-date">
+                        <span className="day">{date.format('DD')}</span>
+                        <span className="month">{date.format('MMM')}</span>
+                        <span className="year">{date.year()}</span>
                     </div>
                 </div>
             </div>

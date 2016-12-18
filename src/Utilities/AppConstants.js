@@ -19,3 +19,10 @@ export const PEOPLE_APPEND_TO_RESPONSE = 'movie_credits,tv_credits,external_ids,
 export const MEDIA_TYPE_MOVIE = 'movie';
 
 export const MEDIA_TYPE_TV = 'tv';
+
+export const DateUtils = {
+    DAY_FORMAT_DO: 'Do',
+    DAY_NUMBER: 'DD',
+    MONTH_FORMAT_NAME_SHORT: 'MMM',
+    YEAR: 'YYYY'
+};

@@ -29,7 +29,7 @@ class AppComponent extends Component {
             <div className="main" id="wrapper">
                 <LoadingComponent isLoading={this.props.appData.isLoading}></LoadingComponent>
                 <NavbarComponent details = {userDetails} actions = {userActions} />
-                <div id="mainview" className="container top">{this.props.children}</div>
+                <div id="mainview" className="container" style={{marginTop: '20px'}}>{this.props.children}</div>
                 <FooterComponent></FooterComponent>
             </div>
         )

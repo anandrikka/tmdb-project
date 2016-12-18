@@ -4,18 +4,20 @@ import { connect } from 'react-redux';
 
 import MoviesComponent from '../components/MoviesComponent.jsx';
 import * as MovieActions from '../actions/movies.actions';
-import { saveFavorite } from '../actions/profile.actions';
+import { saveFavorite, saveWatchlist } from '../actions/profile.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { moviesData, appData } = state;
+    const { moviesData, appData, profileData } = state;
     return {
         moviesData,
-        appData
+        appData,
+        profileData
     };
 };
 
 MovieActions.saveFavorite = saveFavorite;
+MovieActions.saveWatchlist = saveWatchlist;
 
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(MovieActions, dispatch) });
 

@@ -16,7 +16,8 @@ class SearchListComponent extends Component {
                                         <SimpleCardComponent
                                             item={item} genres={this.props.genres}
                                             gotoItem={this.props.gotoItem}
-                                            saveFav={this.props.saveFav}>
+                                            saveFav={this.props.saveFav}
+                                            saveWatchlist={this.props.saveWatchlist}>
                                         </SimpleCardComponent>
                                     </div>
                                     {

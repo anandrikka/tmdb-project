@@ -32,6 +32,6 @@ router.get('/:accountId/rated/movies', reqFn('getRatedMovies'));
 router.get('/:accountId/rated/tv', reqFn('getRatedTvShows'));
 
 router.post('/:accountId/favorite', reqFn('markAsFavorite'));
-router.post('/:accountId/addToWatchlist', reqFn('addToWatchlist'));
+router.post('/:accountId/watchlist', reqFn('addToWatchlist'));
 
 module.exports = router;
