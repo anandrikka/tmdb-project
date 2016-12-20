@@ -7,7 +7,7 @@ import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 import SearchListComponent from './SearchListComponent.jsx';
-import { tvSortOptions } from '../Utilities/sort-options';
+import { tvSortOptions } from '../Utilities/app-options';
 import axios from 'axios';
 
 class TvSearchListComponent extends Component {

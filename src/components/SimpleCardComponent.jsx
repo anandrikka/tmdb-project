@@ -90,8 +90,9 @@ class SimpleCardComponent extends Component {
         const item = this.props.item;
         const genresString = this.getGenres(item.genre_ids, this.props.genres);
         const styles = this.inlineStyles();
-        //this.jQueryImplementations(item);
+        // this.jQueryImplementations(item);
         const date = DateUtils.createDate(item.date);
+        // console.log('SimpleCardComponent', item);
         return (
             <div className="card ccard">
                 <div className="card-image" id={"card-image-"+item.id}>

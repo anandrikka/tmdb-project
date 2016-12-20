@@ -1,5 +1,9 @@
 export const movieSortOptions = [
     {
+        name: 'Most Popular',
+        value: 'popularity.desc'
+    },
+    {
         name: 'Least Popular',
         value: 'popularity.asc'
     },
@@ -61,5 +65,28 @@ export const tvSortOptions = [
     {
         name: 'Air Date Descending',
         value: 'first_air_date.desc'
+    }
+];
+
+export const moviesQuickSearchOptions = [
+    {
+        value: '',
+        name: ''
+    },
+    {
+        name: 'Now Playing',
+        value: 'nowPlaying'
+    },
+    {
+        name: 'Upcoming',
+        value: 'upcoming'
+    },
+    {
+        name: 'Popular',
+        value: 'popular'
+    },
+    {
+        name: 'Top Rated',
+        value: 'topRated'
     }
 ];

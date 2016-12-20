@@ -12,6 +12,7 @@ export const RESOURCE_UPCOMING_MOVIES = constructUrl('/movies/upcoming');
 export const RESOURCE_POPULAR_MOVIES = constructUrl('/movies/popular');
 export const RESOURCE_TOP_RATED_MOVIES = constructUrl('/movies/topRated');
 export const RESOURCE_SEARCH_MOVIES = constructUrl('/movies/search');
+export const RESOURCE_DISCOVER_MOVIES = constructUrl('/movies/discover');
 
 // tv
 export const RESOURCE_TODAY_SERIALS = constructUrl('/tv/airingToday');

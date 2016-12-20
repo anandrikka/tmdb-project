@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE, MEDIA_TYPE_TV } from '../Utilities/AppConstants';
-import { movieSortOptions } from '../Utilities/sort-options';
+import { movieSortOptions, moviesQuickSearchOptions } from '../Utilities/app-options';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
@@ -28,6 +28,7 @@ class MoviesSearchListComponent extends Component {
         this.saveWatchlist = this.saveWatchlist.bind(this);
         this.loadPosters = this.loadPosters.bind(this);
         this.searchMovie = this.searchMovie.bind(this);
+        this.discoverMovies = this.discoverMovies.bind(this);
     }
 
     componentDidMount() {
@@ -147,12 +148,32 @@ class MoviesSearchListComponent extends Component {
         this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_TV, id, flag);
     }
 
+    /**
+     * Search Movie with query string
+     * @param searchQuery
+     */
     searchMovie(searchQuery) {
+        if (searchQuery.query.length <= 0) {
+            return;
+        } 
         this.props.actions.searchMovies(searchQuery);
     }
 
-    discoverMovie(discoverQuery) {
-        console.log('Movie Discover Query: ', discoverQuery);
+    /**
+     * Filter movies based on various parameters
+     * @param discoverQuery
+     */
+    discoverMovies(discoverQuery) {
+        const genres = discoverQuery.with_genres;
+        let genresComma = '';
+        for (let i = 0; i < genres.length; i++) {
+            genresComma = genresComma + genres[i];
+            if (i < genres.length-1) {
+                genresComma = genresComma + ','
+            }
+        }
+        discoverQuery.with_genres = genresComma;
+        this.props.actions.discoverMovies(discoverQuery);
     }
 
     /**
@@ -174,8 +195,9 @@ class MoviesSearchListComponent extends Component {
                     <FilterComponent type="movies"
                         genres={this.props.appData.movieGenres}
                         sortOptions = {movieSortOptions}
+                        quickSearchOptions = {moviesQuickSearchOptions}
                         search = {this.searchMovie}
-                        discover = {this.discoverMovie}></FilterComponent>
+                        discover = {this.discoverMovies}></FilterComponent>
                     <div className="col s12 m8 l9">
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}
