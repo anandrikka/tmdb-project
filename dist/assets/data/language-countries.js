@@ -1,1274 +1,1359 @@
 /* eslint-disable */
 
-export const COUNTRY_LANGUAGE_LIST = [
+export const languageCodes = [
     {
-        "country": "Afghanistan-Dari (prs-AF)",
+        "name": "Afghanistan-Dari",
         "language": "prs-AF"
     },
     {
-        "country": "Afghanistan-Pashto (ps-AF)",
+        "name": "Afghanistan-Pashto",
         "language": "ps-AF"
     },
     {
-        "country": "Albania-Albanian (sq-AL)",
+        "name": "Albania-Albanian",
         "language": "sq-AL"
     },
     {
-        "country": "Algeria-Arabic (ar-DZ)",
+        "name": "Algeria-Arabic",
         "language": "ar-DZ"
     },
     {
-        "country": "Algeria-Tamazight (Latin) (tzm-DZ)",
+        "name": "Algeria-Tamazight (Latin)",
         "language": "tzm-DZ"
     },
     {
-        "country": "Argentina-Spanish (es-AR)",
+        "name": "Argentina-Spanish",
         "language": "es-AR"
     },
     {
-        "country": "Armenia-Armenian (hy-AM)",
+        "name": "Armenia-Armenian",
         "language": "hy-AM"
     },
     {
-        "country": "Australia-English (en-AU)",
+        "name": "Australia-English",
         "language": "en-AU"
     },
     {
-        "country": "Austria-German (de-AT)",
+        "name": "Austria-German",
         "language": "de-AT"
     },
     {
-        "country": "Azerbaijan-Azeri (Cyrillic) (az-AZ)",
+        "name": "Azerbaijan-Azeri (Cyrillic)",
         "language": "az-AZ"
     },
     {
-        "country": "Azerbaijan-Azeri (Latin) (az-AZ)",
+        "name": "Azerbaijan-Azeri (Latin)",
         "language": "az-AZ"
     },
     {
-        "country": "Bahrain-Arabic (ar-BH)",
+        "name": "Bahrain-Arabic",
         "language": "ar-BH"
     },
     {
-        "country": "Bangladesh-Bengali (bn-BD)",
+        "name": "Bangladesh-Bengali",
         "language": "bn-BD"
     },
     {
-        "country": "Belarus-Belarusian (be-BY)",
+        "name": "Belarus-Belarusian",
         "language": "be-BY"
     },
     {
-        "country": "Belgium-Dutch (nl-BE)",
+        "name": "Belgium-Dutch",
         "language": "nl-BE"
     },
     {
-        "country": "Belgium-French (fr-BE)",
+        "name": "Belgium-French",
         "language": "fr-BE"
     },
     {
-        "country": "Belize-English (en-BZ)",
+        "name": "Belize-English",
         "language": "en-BZ"
     },
     {
-        "country": "Bolivarian Republic of Venezuela-Spanish (es-VE)",
+        "name": "Bolivarian Republic of Venezuela-Spanish",
         "language": "es-VE"
     },
     {
-        "country": "Bolivia-Quechua (quz-BO)",
+        "name": "Bolivia-Quechua",
         "language": "quz-BO"
     },
     {
-        "country": "Bolivia-Spanish (es-BO)",
+        "name": "Bolivia-Spanish",
         "language": "es-BO"
     },
     {
-        "country": "Bosnia and Herzegovina-Bosnian (Cyrillic) (bs-BA)",
+        "name": "Bosnia and Herzegovina-Bosnian (Cyrillic)",
         "language": "bs-BA"
     },
     {
-        "country": "Bosnia and Herzegovina-Bosnian (Latin) (bs-BA)",
+        "name": "Bosnia and Herzegovina-Bosnian (Latin)",
         "language": "bs-BA"
     },
     {
-        "country": "Bosnia and Herzegovina-Croatian (hr-BA)",
+        "name": "Bosnia and Herzegovina-Croatian",
         "language": "hr-BA"
     },
     {
-        "country": "Bosnia and Herzegovina-Serbian (Cyrillic) (sr-BA)",
+        "name": "Bosnia and Herzegovina-Serbian (Cyrillic)",
         "language": "sr-BA"
     },
     {
-        "country": "Bosnia and Herzegovina-Serbian (Latin) (sr-BA)",
+        "name": "Bosnia and Herzegovina-Serbian (Latin)",
         "language": "sr-BA"
     },
     {
-        "country": "Brazil-Portuguese (pt-BR)",
+        "name": "Brazil-Portuguese",
         "language": "pt-BR"
     },
     {
-        "country": "Brunei Darussalam-Malay (ms-BN)",
+        "name": "Brunei Darussalam-Malay",
         "language": "ms-BN"
     },
     {
-        "country": "Bulgaria-Bulgarian (bg-BG)",
+        "name": "Bulgaria-Bulgarian",
         "language": "bg-BG"
     },
     {
-        "country": "Cambodia-Khmer (km-KH)",
+        "name": "Cambodia-Khmer",
         "language": "km-KH"
     },
     {
-        "country": "Canada-English (en-CA)",
+        "name": "Canada-English",
         "language": "en-CA"
     },
     {
-        "country": "Canada-French (fr-CA)",
+        "name": "Canada-French",
         "language": "fr-CA"
     },
     {
-        "country": "Canada-Inuktitut (Latin) (iu-CA)",
+        "name": "Canada-Inuktitut (Latin)",
         "language": "iu-CA"
     },
     {
-        "country": "Canada-Inuktitut (Syllabics) (iu-CA)",
+        "name": "Canada-Inuktitut (Syllabics)",
         "language": "iu-CA"
     },
     {
-        "country": "Canada-Mohawk (moh-CA)",
+        "name": "Canada-Mohawk",
         "language": "moh-CA"
     },
     {
-        "country": "Caribbean-English (en-029)",
+        "name": "Caribbean-English",
         "language": "en-029"
     },
     {
-        "country": "Chile-Mapudungun (arn-CL)",
+        "name": "Chile-Mapudungun",
         "language": "arn-CL"
     },
     {
-        "country": "Chile-Spanish (es-CL)",
+        "name": "Chile-Spanish",
         "language": "es-CL"
     },
     {
-        "country": "Colombia-Spanish (es-CO)",
+        "name": "Colombia-Spanish",
         "language": "es-CO"
     },
     {
-        "country": "Costa Rica-Spanish (es-CR)",
+        "name": "Costa Rica-Spanish",
         "language": "es-CR"
     },
     {
-        "country": "Croatia-Croatian (hr-HR)",
+        "name": "Croatia-Croatian",
         "language": "hr-HR"
     },
     {
-        "country": "Czech Republic-Czech (cs-CZ)",
+        "name": "Czech Republic-Czech",
         "language": "cs-CZ"
     },
     {
-        "country": "Denmark-Danish (da-DK)",
+        "name": "Denmark-Danish",
         "language": "da-DK"
     },
     {
-        "country": "Dominican Republic-Spanish (es-DO)",
+        "name": "Dominican Republic-Spanish",
         "language": "es-DO"
     },
     {
-        "country": "Ecuador-Quechua (quz-EC)",
+        "name": "Ecuador-Quechua",
         "language": "quz-EC"
     },
     {
-        "country": "Ecuador-Spanish (es-EC)",
+        "name": "Ecuador-Spanish",
         "language": "es-EC"
     },
     {
-        "country": "Egypt-Arabic (ar-EG)",
+        "name": "Egypt-Arabic",
         "language": "ar-EG"
     },
     {
-        "country": "El Salvador-Spanish (es-SV)",
+        "name": "El Salvador-Spanish",
         "language": "es-SV"
     },
     {
-        "country": "Estonia-Estonian (et-EE)",
+        "name": "Estonia-Estonian",
         "language": "et-EE"
     },
     {
-        "country": "Ethiopia-Amharic (am-ET)",
+        "name": "Ethiopia-Amharic",
         "language": "am-ET"
     },
     {
-        "country": "Faroe Islands-Faroese (fo-FO)",
+        "name": "Faroe Islands-Faroese",
         "language": "fo-FO"
     },
     {
-        "country": "Finland-Finnish (fi-FI)",
+        "name": "Finland-Finnish",
         "language": "fi-FI"
     },
     {
-        "country": "Finland-Sami (Inari) (smn-FI)",
+        "name": "Finland-Sami (Inari)",
         "language": "smn-FI"
     },
     {
-        "country": "Finland-Sami (Northern) (se-FI)",
+        "name": "Finland-Sami (Northern)",
         "language": "se-FI"
     },
     {
-        "country": "Finland-Sami (Skolt) (sms-FI)",
+        "name": "Finland-Sami (Skolt)",
         "language": "sms-FI"
     },
     {
-        "country": "Finland-Swedish (sv-FI)",
+        "name": "Finland-Swedish",
         "language": "sv-FI"
     },
     {
-        "country": "France-Alsatian (gsw-FR)",
+        "name": "France-Alsatian",
         "language": "gsw-FR"
     },
     {
-        "country": "France-Breton (br-FR)",
+        "name": "France-Breton",
         "language": "br-FR"
     },
     {
-        "country": "France-Corsican (co-FR)",
+        "name": "France-Corsican",
         "language": "co-FR"
     },
     {
-        "country": "France-French (fr-FR)",
+        "name": "France-French",
         "language": "fr-FR"
     },
     {
-        "country": "France-Occitan (oc-FR)",
+        "name": "France-Occitan",
         "language": "oc-FR"
     },
     {
-        "country": "Georgia-Georgian (ka-GE)",
+        "name": "Georgia-Georgian",
         "language": "ka-GE"
     },
     {
-        "country": "Germany-German (de-DE)",
+        "name": "Germany-German",
         "language": "de-DE"
     },
     {
-        "country": "Germany-Lower Sorbian (dsb-DE)",
+        "name": "Germany-Lower Sorbian",
         "language": "dsb-DE"
     },
     {
-        "country": "Germany-Upper Sorbian (hsb-DE)",
+        "name": "Germany-Upper Sorbian",
         "language": "hsb-DE"
     },
     {
-        "country": "Greece-Greek (el-GR)",
+        "name": "Greece-Greek",
         "language": "el-GR"
     },
     {
-        "country": "Greenland-Greenlandic (kl-GL)",
+        "name": "Greenland-Greenlandic",
         "language": "kl-GL"
     },
     {
-        "country": "Guatemala-K'iche (qut-GT)",
+        "name": "Guatemala-K'iche",
         "language": "qut-GT"
     },
     {
-        "country": "Guatemala-Spanish (es-GT)",
+        "name": "Guatemala-Spanish",
         "language": "es-GT"
     },
     {
-        "country": "Honduras-Spanish (es-HN)",
+        "name": "Honduras-Spanish",
         "language": "es-HN"
     },
     {
-        "country": "Hong Kong S.A.R.-Chinese (Traditional) Legacy (zh-HK)",
+        "name": "Hong Kong S.A.R.-Chinese (Traditional) Legacy",
         "language": "zh-HK"
     },
     {
-        "country": "Hungary-Hungarian (hu-HU)",
+        "name": "Hungary-Hungarian",
         "language": "hu-HU"
     },
     {
-        "country": "Iceland-Icelandic (is-IS)",
+        "name": "Iceland-Icelandic",
         "language": "is-IS"
     },
     {
-        "country": "India-Assamese (as-IN)",
+        "name": "India-Assamese",
         "language": "as-IN"
     },
     {
-        "country": "India-Bengali (bn-IN)",
+        "name": "India-Bengali",
         "language": "bn-IN"
     },
     {
-        "country": "India-English (en-IN)",
+        "name": "India-English",
         "language": "en-IN"
     },
     {
-        "country": "India-Gujarati (gu-IN)",
+        "name": "India-Gujarati",
         "language": "gu-IN"
     },
     {
-        "country": "India-Hindi (hi-IN)",
+        "name": "India-Hindi",
         "language": "hi-IN"
     },
     {
-        "country": "India-Kannada (kn-IN)",
+        "name": "India-Kannada",
         "language": "kn-IN"
     },
     {
-        "country": "India-Konkani (kok-IN)",
+        "name": "India-Konkani",
         "language": "kok-IN"
     },
     {
-        "country": "India-Malayalam (ml-IN)",
+        "name": "India-Malayalam",
         "language": "ml-IN"
     },
     {
-        "country": "India-Marathi (mr-IN)",
+        "name": "India-Marathi",
         "language": "mr-IN"
     },
     {
-        "country": "India-Oriya (or-IN)",
+        "name": "India-Oriya",
         "language": "or-IN"
     },
     {
-        "country": "India-Punjabi (pa-IN)",
+        "name": "India-Punjabi",
         "language": "pa-IN"
     },
     {
-        "country": "India-Sanskrit (sa-IN)",
+        "name": "India-Sanskrit",
         "language": "sa-IN"
     },
     {
-        "country": "India-Tamil (ta-IN)",
+        "name": "India-Tamil",
         "language": "ta-IN"
     },
     {
-        "country": "India-Telugu (te-IN)",
+        "name": "India-Telugu",
         "language": "te-IN"
     },
     {
-        "country": "Indonesia-Indonesian (id-ID)",
+        "name": "Indonesia-Indonesian",
         "language": "id-ID"
     },
     {
-        "country": "Iran-Persian (fa-IR)",
+        "name": "Iran-Persian",
         "language": "fa-IR"
     },
     {
-        "country": "Iraq-Arabic (ar-IQ)",
+        "name": "Iraq-Arabic",
         "language": "ar-IQ"
     },
     {
-        "country": "Ireland-English (en-IE)",
+        "name": "Ireland-English",
         "language": "en-IE"
     },
     {
-        "country": "Ireland-Irish (ga-IE)",
+        "name": "Ireland-Irish",
         "language": "ga-IE"
     },
     {
-        "country": "Islamic Republic of Pakistan-Urdu (ur-PK)",
+        "name": "Islamic Republic of Pakistan-Urdu",
         "language": "ur-PK"
     },
     {
-        "country": "Israel-Hebrew (he-IL)",
+        "name": "Israel-Hebrew",
         "language": "he-IL"
     },
     {
-        "country": "Italy-Italian (it-IT)",
+        "name": "Italy-Italian",
         "language": "it-IT"
     },
     {
-        "country": "Jamaica-English (en-JM)",
+        "name": "Jamaica-English",
         "language": "en-JM"
     },
     {
-        "country": "Japan-Japanese (ja-JP)",
+        "name": "Japan-Japanese",
         "language": "ja-JP"
     },
     {
-        "country": "Jordan-Arabic (ar-JO)",
+        "name": "Jordan-Arabic",
         "language": "ar-JO"
     },
     {
-        "country": "Kazakhstan-Kazakh (kk-KZ)",
+        "name": "Kazakhstan-Kazakh",
         "language": "kk-KZ"
     },
     {
-        "country": "Kenya-Kiswahili (sw-KE)",
+        "name": "Kenya-Kiswahili",
         "language": "sw-KE"
     },
     {
-        "country": "Korea-Korean (ko-KR)",
+        "name": "Korea-Korean",
         "language": "ko-KR"
     },
     {
-        "country": "Kuwait-Arabic (ar-KW)",
+        "name": "Kuwait-Arabic",
         "language": "ar-KW"
     },
     {
-        "country": "Kyrgyzstan-Kyrgyz (ky-KG)",
+        "name": "Kyrgyzstan-Kyrgyz",
         "language": "ky-KG"
     },
     {
-        "country": "Lao P.D.R.-Lao (lo-LA)",
+        "name": "Lao P.D.R.-Lao",
         "language": "lo-LA"
     },
     {
-        "country": "Latvia-Latvian (lv-LV)",
+        "name": "Latvia-Latvian",
         "language": "lv-LV"
     },
     {
-        "country": "Lebanon-Arabic (ar-LB)",
+        "name": "Lebanon-Arabic",
         "language": "ar-LB"
     },
     {
-        "country": "Libya-Arabic (ar-LY)",
+        "name": "Libya-Arabic",
         "language": "ar-LY"
     },
     {
-        "country": "Liechtenstein-German (de-LI)",
+        "name": "Liechtenstein-German",
         "language": "de-LI"
     },
     {
-        "country": "Lithuania-Lithuanian (lt-LT)",
+        "name": "Lithuania-Lithuanian",
         "language": "lt-LT"
     },
     {
-        "country": "Luxembourg-French (fr-LU)",
+        "name": "Luxembourg-French",
         "language": "fr-LU"
     },
     {
-        "country": "Luxembourg-German (de-LU)",
+        "name": "Luxembourg-German",
         "language": "de-LU"
     },
     {
-        "country": "Luxembourg-Luxembourgish (lb-LU)",
+        "name": "Luxembourg-Luxembourgish",
         "language": "lb-LU"
     },
     {
-        "country": "Macao S.A.R.-Chinese (Traditional) Legacy (zh-MO)",
+        "name": "Macao S.A.R.-Chinese (Traditional) Legacy",
         "language": "zh-MO"
     },
     {
-        "country": "Macedonia (FYROM)-Macedonian (FYROM) (mk-MK)",
+        "name": "Macedonia (FYROM)-Macedonian (FYROM)",
         "language": "mk-MK"
     },
     {
-        "country": "Malaysia-English (en-MY)",
+        "name": "Malaysia-English",
         "language": "en-MY"
     },
     {
-        "country": "Malaysia-Malay (ms-MY)",
+        "name": "Malaysia-Malay",
         "language": "ms-MY"
     },
     {
-        "country": "Maldives-Divehi (dv-MV)",
+        "name": "Maldives-Divehi",
         "language": "dv-MV"
     },
     {
-        "country": "Malta-Maltese (mt-MT)",
+        "name": "Malta-Maltese",
         "language": "mt-MT"
     },
     {
-        "country": "Mexico-Spanish (es-MX)",
+        "name": "Mexico-Spanish",
         "language": "es-MX"
     },
     {
-        "country": "Mongolia-Mongolian (Cyrillic) (mn-MN)",
+        "name": "Mongolia-Mongolian (Cyrillic)",
         "language": "mn-MN"
     },
     {
-        "country": "Montenegro-Serbian (Cyrillic) (sr-ME)",
+        "name": "Montenegro-Serbian (Cyrillic)",
         "language": "sr-ME"
     },
     {
-        "country": "Montenegro-Serbian (Latin) (sr-ME)",
+        "name": "Montenegro-Serbian (Latin)",
         "language": "sr-ME"
     },
     {
-        "country": "Morocco-Arabic (ar-MA)",
+        "name": "Morocco-Arabic",
         "language": "ar-MA"
     },
     {
-        "country": "Nepal-Nepali (ne-NP)",
+        "name": "Nepal-Nepali",
         "language": "ne-NP"
     },
     {
-        "country": "Netherlands-Dutch (nl-NL)",
+        "name": "Netherlands-Dutch",
         "language": "nl-NL"
     },
     {
-        "country": "Netherlands-Frisian (fy-NL)",
+        "name": "Netherlands-Frisian",
         "language": "fy-NL"
     },
     {
-        "country": "New Zealand-English (en-NZ)",
+        "name": "New Zealand-English",
         "language": "en-NZ"
     },
     {
-        "country": "New Zealand-Maori (mi-NZ)",
+        "name": "New Zealand-Maori",
         "language": "mi-NZ"
     },
     {
-        "country": "Nicaragua-Spanish (es-NI)",
+        "name": "Nicaragua-Spanish",
         "language": "es-NI"
     },
     {
-        "country": "Nigeria-Hausa (Latin) (ha-NG)",
+        "name": "Nigeria-Hausa (Latin)",
         "language": "ha-NG"
     },
     {
-        "country": "Nigeria-Igbo (ig-NG)",
+        "name": "Nigeria-Igbo",
         "language": "ig-NG"
     },
     {
-        "country": "Nigeria-Yoruba (yo-NG)",
+        "name": "Nigeria-Yoruba",
         "language": "yo-NG"
     },
     {
-        "country": "Norway-Norwegian (Bokmal) (nb-NO)",
+        "name": "Norway-Norwegian (Bokmal)",
         "language": "nb-NO"
     },
     {
-        "country": "Norway-Norwegian (Nynorsk) (nn-NO)",
+        "name": "Norway-Norwegian (Nynorsk)",
         "language": "nn-NO"
     },
     {
-        "country": "Norway-Sami (Lule) (smj-NO)",
+        "name": "Norway-Sami (Lule)",
         "language": "smj-NO"
     },
     {
-        "country": "Norway-Sami (Northern) (se-NO)",
+        "name": "Norway-Sami (Northern)",
         "language": "se-NO"
     },
     {
-        "country": "Norway-Sami (Southern) (sma-NO)",
+        "name": "Norway-Sami (Southern)",
         "language": "sma-NO"
     },
     {
-        "country": "Oman-Arabic (ar-OM)",
+        "name": "Oman-Arabic",
         "language": "ar-OM"
     },
     {
-        "country": "Panama-Spanish (es-PA)",
+        "name": "Panama-Spanish",
         "language": "es-PA"
     },
     {
-        "country": "Paraguay-Spanish (es-PY)",
+        "name": "Paraguay-Spanish",
         "language": "es-PY"
     },
     {
-        "country": "People's Republic of China-Chinese (Simplified) Legacy (zh-CN)",
+        "name": "People's Republic of China-Chinese (Simplified) Legacy",
         "language": "zh-CN"
     },
     {
-        "country": "People's Republic of China-Mongolian (Traditional Mongolian) (mn-CN)",
+        "name": "People's Republic of China-Mongolian (Traditional Mongolian)",
         "language": "mn-CN"
     },
     {
-        "country": "People's Republic of China-Tibetan (bo-CN)",
+        "name": "People's Republic of China-Tibetan",
         "language": "bo-CN"
     },
     {
-        "country": "People's Republic of China-Uyghur (ug-CN)",
+        "name": "People's Republic of China-Uyghur",
         "language": "ug-CN"
     },
     {
-        "country": "People's Republic of China-Yi (ii-CN)",
+        "name": "People's Republic of China-Yi",
         "language": "ii-CN"
     },
     {
-        "country": "Peru-Quechua (quz-PE)",
+        "name": "Peru-Quechua",
         "language": "quz-PE"
     },
     {
-        "country": "Peru-Spanish (es-PE)",
+        "name": "Peru-Spanish",
         "language": "es-PE"
     },
     {
-        "country": "Philippines-Filipino (fil-PH)",
+        "name": "Philippines-Filipino",
         "language": "fil-PH"
     },
     {
-        "country": "Poland-Polish (pl-PL)",
+        "name": "Poland-Polish",
         "language": "pl-PL"
     },
     {
-        "country": "Portugal-Portuguese (pt-PT)",
+        "name": "Portugal-Portuguese",
         "language": "pt-PT"
     },
     {
-        "country": "Principality of Monaco-French (fr-MC)",
+        "name": "Principality of Monaco-French",
         "language": "fr-MC"
     },
     {
-        "country": "Puerto Rico-Spanish (es-PR)",
+        "name": "Puerto Rico-Spanish",
         "language": "es-PR"
     },
     {
-        "country": "Qatar-Arabic (ar-QA)",
+        "name": "Qatar-Arabic",
         "language": "ar-QA"
     },
     {
-        "country": "Republic of the Philippines-English (en-PH)",
+        "name": "Republic of the Philippines-English",
         "language": "en-PH"
     },
     {
-        "country": "Romania-Romanian (ro-RO)",
+        "name": "Romania-Romanian",
         "language": "ro-RO"
     },
     {
-        "country": "Russia-Bashkir (ba-RU)",
+        "name": "Russia-Bashkir",
         "language": "ba-RU"
     },
     {
-        "country": "Russia-Russian (ru-RU)",
+        "name": "Russia-Russian",
         "language": "ru-RU"
     },
     {
-        "country": "Russia-Tatar (tt-RU)",
+        "name": "Russia-Tatar",
         "language": "tt-RU"
     },
     {
-        "country": "Russia-Yakut (sah-RU)",
+        "name": "Russia-Yakut",
         "language": "sah-RU"
     },
     {
-        "country": "Rwanda-Kinyarwanda (rw-RW)",
+        "name": "Rwanda-Kinyarwanda",
         "language": "rw-RW"
     },
     {
-        "country": "Saudi Arabia-Arabic (ar-SA)",
+        "name": "Saudi Arabia-Arabic",
         "language": "ar-SA"
     },
     {
-        "country": "Senegal-Wolof (wo-SN)",
+        "name": "Senegal-Wolof",
         "language": "wo-SN"
     },
     {
-        "country": "Serbia-Serbian (Cyrillic) (sr-RS)",
+        "name": "Serbia-Serbian (Cyrillic)",
         "language": "sr-RS"
     },
     {
-        "country": "Serbia-Serbian (Latin) (sr-RS)",
+        "name": "Serbia-Serbian (Latin)",
         "language": "sr-RS"
     },
     {
-        "country": "Serbia and Montenegro (Former)-Serbian (Cyrillic) (sr-CS)",
+        "name": "Serbia and Montenegro (Former)-Serbian (Cyrillic)",
         "language": "sr-CS"
     },
     {
-        "country": "Serbia and Montenegro (Former)-Serbian (Latin) (sr-CS)",
+        "name": "Serbia and Montenegro (Former)-Serbian (Latin)",
         "language": "sr-CS"
     },
     {
-        "country": "Singapore-Chinese (Simplified) Legacy (zh-SG)",
+        "name": "Singapore-Chinese (Simplified) Legacy",
         "language": "zh-SG"
     },
     {
-        "country": "Singapore-English (en-SG)",
+        "name": "Singapore-English",
         "language": "en-SG"
     },
     {
-        "country": "Slovakia-Slovak (sk-SK)",
+        "name": "Slovakia-Slovak",
         "language": "sk-SK"
     },
     {
-        "country": "Slovenia-Slovenian (sl-SI)",
+        "name": "Slovenia-Slovenian",
         "language": "sl-SI"
     },
     {
-        "country": "South Africa-Afrikaans (af-ZA)",
+        "name": "South Africa-Afrikaans",
         "language": "af-ZA"
     },
     {
-        "country": "South Africa-English (en-ZA)",
+        "name": "South Africa-English",
         "language": "en-ZA"
     },
     {
-        "country": "South Africa-isiXhosa (xh-ZA)",
+        "name": "South Africa-isiXhosa",
         "language": "xh-ZA"
     },
     {
-        "country": "South Africa-isiZulu (zu-ZA)",
+        "name": "South Africa-isiZulu",
         "language": "zu-ZA"
     },
     {
-        "country": "South Africa-Sesotho sa Leboa (nso-ZA)",
+        "name": "South Africa-Sesotho sa Leboa",
         "language": "nso-ZA"
     },
     {
-        "country": "South Africa-Setswana (tn-ZA)",
+        "name": "South Africa-Setswana",
         "language": "tn-ZA"
     },
     {
-        "country": "Spain-Basque (eu-ES)",
+        "name": "Spain-Basque",
         "language": "eu-ES"
     },
     {
-        "country": "Spain-Catalan (ca-ES)",
+        "name": "Spain-Catalan",
         "language": "ca-ES"
     },
     {
-        "country": "Spain-Galician (gl-ES)",
+        "name": "Spain-Galician",
         "language": "gl-ES"
     },
     {
-        "country": "Spain-Spanish (es-ES)",
+        "name": "Spain-Spanish",
         "language": "es-ES"
     },
     {
-        "country": "Sri Lanka-Sinhala (si-LK)",
+        "name": "Sri Lanka-Sinhala",
         "language": "si-LK"
     },
     {
-        "country": "Sweden-Sami (Lule) (smj-SE)",
+        "name": "Sweden-Sami (Lule)",
         "language": "smj-SE"
     },
     {
-        "country": "Sweden-Sami (Northern) (se-SE)",
+        "name": "Sweden-Sami (Northern)",
         "language": "se-SE"
     },
     {
-        "country": "Sweden-Sami (Southern) (sma-SE)",
+        "name": "Sweden-Sami (Southern)",
         "language": "sma-SE"
     },
     {
-        "country": "Sweden-Swedish (sv-SE)",
+        "name": "Sweden-Swedish",
         "language": "sv-SE"
     },
     {
-        "country": "Switzerland-French (fr-CH)",
+        "name": "Switzerland-French",
         "language": "fr-CH"
     },
     {
-        "country": "Switzerland-German (de-CH)",
+        "name": "Switzerland-German",
         "language": "de-CH"
     },
     {
-        "country": "Switzerland-Italian (it-CH)",
+        "name": "Switzerland-Italian",
         "language": "it-CH"
     },
     {
-        "country": "Switzerland-Romansh (rm-CH)",
+        "name": "Switzerland-Romansh",
         "language": "rm-CH"
     },
     {
-        "country": "Syria-Arabic (ar-SY)",
+        "name": "Syria-Arabic",
         "language": "ar-SY"
     },
     {
-        "country": "Syria-Syriac (syr-SY)",
+        "name": "Syria-Syriac",
         "language": "syr-SY"
     },
     {
-        "country": "Taiwan-Chinese (Traditional) Legacy (zh-TW)",
+        "name": "Taiwan-Chinese (Traditional) Legacy",
         "language": "zh-TW"
     },
     {
-        "country": "Tajikistan-Tajik (Cyrillic) (tg-TJ)",
+        "name": "Tajikistan-Tajik (Cyrillic)",
         "language": "tg-TJ"
     },
     {
-        "country": "Thailand-Thai (th-TH)",
+        "name": "Thailand-Thai",
         "language": "th-TH"
     },
     {
-        "country": "Trinidad and Tobago-English (en-TT)",
+        "name": "Trinidad and Tobago-English",
         "language": "en-TT"
     },
     {
-        "country": "Tunisia-Arabic (ar-TN)",
+        "name": "Tunisia-Arabic",
         "language": "ar-TN"
     },
     {
-        "country": "Turkey-Turkish (tr-TR)",
+        "name": "Turkey-Turkish",
         "language": "tr-TR"
     },
     {
-        "country": "Turkmenistan-Turkmen (tk-TM)",
+        "name": "Turkmenistan-Turkmen",
         "language": "tk-TM"
     },
     {
-        "country": "U.A.E.-Arabic (ar-AE)",
+        "name": "U.A.E.-Arabic",
         "language": "ar-AE"
     },
     {
-        "country": "Ukraine-Ukrainian (uk-UA)",
+        "name": "Ukraine-Ukrainian",
         "language": "uk-UA"
     },
     {
-        "country": "United Kingdom-English (en-GB)",
+        "name": "United Kingdom-English",
         "language": "en-GB"
     },
     {
-        "country": "United Kingdom-Scottish Gaelic (gd-GB)",
+        "name": "United Kingdom-Scottish Gaelic",
         "language": "gd-GB"
     },
     {
-        "country": "United Kingdom-Welsh (cy-GB)",
+        "name": "United Kingdom-Welsh",
         "language": "cy-GB"
     },
     {
-        "country": "United States-English (en-US)",
+        "name": "United States-English",
         "language": "en-US"
     },
     {
-        "country": "United States-Spanish (es-US)",
+        "name": "United States-Spanish",
         "language": "es-US"
     },
     {
-        "country": "Uruguay-Spanish (es-UY)",
+        "name": "Uruguay-Spanish",
         "language": "es-UY"
     },
     {
-        "country": "Uzbekistan-Uzbek (Cyrillic) (uz-UZ)",
+        "name": "Uzbekistan-Uzbek (Cyrillic)",
         "language": "uz-UZ"
     },
     {
-        "country": "Uzbekistan-Uzbek (Latin) (uz-UZ)",
+        "name": "Uzbekistan-Uzbek (Latin)",
         "language": "uz-UZ"
     },
     {
-        "country": "Vietnam-Vietnamese (vi-VN)",
+        "name": "Vietnam-Vietnamese",
         "language": "vi-VN"
     },
     {
-        "country": "Yemen-Arabic (ar-YE)",
+        "name": "Yemen-Arabic",
         "language": "ar-YE"
     },
     {
-        "country": "Zimbabwe-English (en-ZW)",
+        "name": "Zimbabwe-English",
         "language": "en-ZW"
     }
 ];
 
-export const COUNTRY_LANGUAGE = {
-    'Afghanistan-Dari': 'prs-AF',
-    'Afghanistan-Pashto': 'ps-AF',
-    'Albania-Albanian': 'sq-AL',
-    'Algeria-Arabic': 'ar-DZ',
-    'Algeria-Tamazight (Latin)': 'tzm-DZ',
-    'Argentina-Spanish': 'es-AR',
-    'Armenia-Armenian': 'hy-AM',
-    'Australia-English': 'en-AU',
-    'Austria-German': 'de-AT',
-    'Azerbaijan-Azeri (Cyrillic)': 'az-AZ',
-    'Azerbaijan-Azeri (Latin)': 'az-AZ',
-    'Bahrain-Arabic': 'ar-BH',
-    'Bangladesh-Bengali': 'bn-BD',
-    'Belarus-Belarusian': 'be-BY',
-    'Belgium-Dutch': 'nl-BE',
-    'Belgium-French': 'fr-BE',
-    'Belize-English': 'en-BZ',
-    'Bolivarian Republic of Venezuela-Spanish': 'es-VE',
-    'Bolivia-Quechua': 'quz-BO',
-    'Bolivia-Spanish': 'es-BO',
-    'Bosnia and Herzegovina-Bosnian (Cyrillic)': 'bs-BA',
-    'Bosnia and Herzegovina-Bosnian (Latin)': 'bs-BA',
-    'Bosnia and Herzegovina-Croatian': 'hr-BA',
-    'Bosnia and Herzegovina-Serbian (Cyrillic)': 'sr-BA',
-    'Bosnia and Herzegovina-Serbian (Latin)': 'sr-BA',
-    'Brazil-Portuguese': 'pt-BR',
-    'Brunei Darussalam-Malay': 'ms-BN',
-    'Bulgaria-Bulgarian': 'bg-BG',
-    'Cambodia-Khmer': 'km-KH',
-    'Canada-English': 'en-CA',
-    'Canada-French': 'fr-CA',
-    'Canada-Inuktitut (Latin)': 'iu-CA',
-    'Canada-Inuktitut (Syllabics)': 'iu-CA',
-    'Canada-Mohawk': 'moh-CA',
-    'Caribbean-English': 'en-029',
-    'Chile-Mapudungun': 'arn-CL',
-    'Chile-Spanish': 'es-CL',
-    'Colombia-Spanish': 'es-CO',
-    'Costa Rica-Spanish': 'es-CR',
-    'Croatia-Croatian': 'hr-HR',
-    'Czech Republic-Czech': 'cs-CZ',
-    'Denmark-Danish': 'da-DK',
-    'Dominican Republic-Spanish': 'es-DO',
-    'Ecuador-Quechua': 'quz-EC',
-    'Ecuador-Spanish': 'es-EC',
-    'Egypt-Arabic': 'ar-EG',
-    'El Salvador-Spanish': 'es-SV',
-    'Estonia-Estonian': 'et-EE',
-    'Ethiopia-Amharic': 'am-ET',
-    'Faroe Islands-Faroese': 'fo-FO',
-    'Finland-Finnish': 'fi-FI',
-    'Finland-Sami (Inari)': 'smn-FI',
-    'Finland-Sami (Northern)': 'se-FI',
-    'Finland-Sami (Skolt)': 'sms-FI',
-    'Finland-Swedish': 'sv-FI',
-    'France-Alsatian': 'gsw-FR',
-    'France-Breton': 'br-FR',
-    'France-Corsican': 'co-FR',
-    'France-French': 'fr-FR',
-    'France-Occitan': 'oc-FR',
-    'Georgia-Georgian': 'ka-GE',
-    'Germany-German': 'de-DE',
-    'Germany-Lower Sorbian': 'dsb-DE',
-    'Germany-Upper Sorbian': 'hsb-DE',
-    'Greece-Greek': 'el-GR',
-    'Greenland-Greenlandic': 'kl-GL',
-    'Guatemala-K\'iche': 'qut-GT',
-    'Guatemala-Spanish': 'es-GT',
-    'Honduras-Spanish': 'es-HN',
-    'Hong Kong S.A.R.-Chinese (Traditional) Legacy': 'zh-HK',
-    'Hungary-Hungarian': 'hu-HU',
-    'Iceland-Icelandic': 'is-IS',
-    'India-Assamese': 'as-IN',
-    'India-Bengali': 'bn-IN',
-    'India-English': 'en-IN',
-    'India-Gujarati': 'gu-IN',
-    'India-Hindi': 'hi-IN',
-    'India-Kannada': 'kn-IN',
-    'India-Konkani': 'kok-IN',
-    'India-Malayalam': 'ml-IN',
-    'India-Marathi': 'mr-IN',
-    'India-Oriya': 'or-IN',
-    'India-Punjabi': 'pa-IN',
-    'India-Sanskrit': 'sa-IN',
-    'India-Tamil': 'ta-IN',
-    'India-Telugu': 'te-IN',
-    'Indonesia-Indonesian': 'id-ID',
-    'Iran-Persian': 'fa-IR',
-    'Iraq-Arabic': 'ar-IQ',
-    'Ireland-English': 'en-IE',
-    'Ireland-Irish': 'ga-IE',
-    'Islamic Republic of Pakistan-Urdu': 'ur-PK',
-    'Israel-Hebrew': 'he-IL',
-    'Italy-Italian': 'it-IT',
-    'Jamaica-English': 'en-JM',
-    'Japan-Japanese': 'ja-JP',
-    'Jordan-Arabic': 'ar-JO',
-    'Kazakhstan-Kazakh': 'kk-KZ',
-    'Kenya-Kiswahili': 'sw-KE',
-    'Korea-Korean': 'ko-KR',
-    'Kuwait-Arabic': 'ar-KW',
-    'Kyrgyzstan-Kyrgyz': 'ky-KG',
-    'Lao P.D.R.-Lao': 'lo-LA',
-    'Latvia-Latvian': 'lv-LV',
-    'Lebanon-Arabic': 'ar-LB',
-    'Libya-Arabic': 'ar-LY',
-    'Liechtenstein-German': 'de-LI',
-    'Lithuania-Lithuanian': 'lt-LT',
-    'Luxembourg-French': 'fr-LU',
-    'Luxembourg-German': 'de-LU',
-    'Luxembourg-Luxembourgish': 'lb-LU',
-    'Macao S.A.R.-Chinese (Traditional) Legacy': 'zh-MO',
-    'Macedonia (FYROM)-Macedonian (FYROM)': 'mk-MK',
-    'Malaysia-English': 'en-MY',
-    'Malaysia-Malay': 'ms-MY',
-    'Maldives-Divehi': 'dv-MV',
-    'Malta-Maltese': 'mt-MT',
-    'Mexico-Spanish': 'es-MX',
-    'Mongolia-Mongolian (Cyrillic)': 'mn-MN',
-    'Montenegro-Serbian (Cyrillic)': 'sr-ME',
-    'Montenegro-Serbian (Latin)': 'sr-ME',
-    'Morocco-Arabic': 'ar-MA',
-    'Nepal-Nepali': 'ne-NP',
-    'Netherlands-Dutch': 'nl-NL',
-    'Netherlands-Frisian': 'fy-NL',
-    'New Zealand-English': 'en-NZ',
-    'New Zealand-Maori': 'mi-NZ',
-    'Nicaragua-Spanish': 'es-NI',
-    'Nigeria-Hausa (Latin)': 'ha-NG',
-    'Nigeria-Igbo': 'ig-NG',
-    'Nigeria-Yoruba': 'yo-NG',
-    'Norway-Norwegian (Bokmal)': 'nb-NO',
-    'Norway-Norwegian (Nynorsk)': 'nn-NO',
-    'Norway-Sami (Lule)': 'smj-NO',
-    'Norway-Sami (Northern)': 'se-NO',
-    'Norway-Sami (Southern)': 'sma-NO',
-    'Oman-Arabic': 'ar-OM',
-    'Panama-Spanish': 'es-PA',
-    'Paraguay-Spanish': 'es-PY',
-    'People\'s Republic of China-Chinese (Simplified) Legacy': 'zh-CN',
-    'People\'s Republic of China-Mongolian (Traditional Mongolian)': 'mn-CN',
-    'People\'s Republic of China-Tibetan': 'bo-CN',
-    'People\'s Republic of China-Uyghur': 'ug-CN',
-    'People\'s Republic of China-Yi': 'ii-CN',
-    'Peru-Quechua': 'quz-PE',
-    'Peru-Spanish': 'es-PE',
-    'Philippines-Filipino': 'fil-PH',
-    'Poland-Polish': 'pl-PL',
-    'Portugal-Portuguese': 'pt-PT',
-    'Principality of Monaco-French': 'fr-MC',
-    'Puerto Rico-Spanish': 'es-PR',
-    'Qatar-Arabic': 'ar-QA',
-    'Republic of the Philippines-English': 'en-PH',
-    'Romania-Romanian': 'ro-RO',
-    'Russia-Bashkir': 'ba-RU',
-    'Russia-Russian': 'ru-RU',
-    'Russia-Tatar': 'tt-RU',
-    'Russia-Yakut': 'sah-RU',
-    'Rwanda-Kinyarwanda': 'rw-RW',
-    'Saudi Arabia-Arabic': 'ar-SA',
-    'Senegal-Wolof': 'wo-SN',
-    'Serbia-Serbian (Cyrillic)': 'sr-RS',
-    'Serbia-Serbian (Latin)': 'sr-RS',
-    'Serbia and Montenegro (Former)-Serbian (Cyrillic)': 'sr-CS',
-    'Serbia and Montenegro (Former)-Serbian (Latin)': 'sr-CS',
-    'Singapore-Chinese (Simplified) Legacy': 'zh-SG',
-    'Singapore-English': 'en-SG',
-    'Slovakia-Slovak': 'sk-SK',
-    'Slovenia-Slovenian': 'sl-SI',
-    'South Africa-Afrikaans': 'af-ZA',
-    'South Africa-English': 'en-ZA',
-    'South Africa-isiXhosa': 'xh-ZA',
-    'South Africa-isiZulu': 'zu-ZA',
-    'South Africa-Sesotho sa Leboa': 'nso-ZA',
-    'South Africa-Setswana': 'tn-ZA',
-    'Spain-Basque': 'eu-ES',
-    'Spain-Catalan': 'ca-ES',
-    'Spain-Galician': 'gl-ES',
-    'Spain-Spanish': 'es-ES',
-    'Sri Lanka-Sinhala': 'si-LK',
-    'Sweden-Sami (Lule)': 'smj-SE',
-    'Sweden-Sami (Northern)': 'se-SE',
-    'Sweden-Sami (Southern)': 'sma-SE',
-    'Sweden-Swedish': 'sv-SE',
-    'Switzerland-French': 'fr-CH',
-    'Switzerland-German': 'de-CH',
-    'Switzerland-Italian': 'it-CH',
-    'Switzerland-Romansh': 'rm-CH',
-    'Syria-Arabic': 'ar-SY',
-    'Syria-Syriac': 'syr-SY',
-    'Taiwan-Chinese (Traditional) Legacy': 'zh-TW',
-    'Tajikistan-Tajik (Cyrillic)': 'tg-TJ',
-    'Thailand-Thai': 'th-TH',
-    'Trinidad and Tobago-English': 'en-TT',
-    'Tunisia-Arabic': 'ar-TN',
-    'Turkey-Turkish': 'tr-TR',
-    'Turkmenistan-Turkmen': 'tk-TM',
-    'U.A.E.-Arabic': 'ar-AE',
-    'Ukraine-Ukrainian': 'uk-UA',
-    'United Kingdom-English': 'en-GB',
-    'United Kingdom-Scottish Gaelic': 'gd-GB',
-    'United Kingdom-Welsh': 'cy-GB',
-    'United States-English': 'en-US',
-    'United States-Spanish': 'es-US',
-    'Uruguay-Spanish': 'es-UY',
-    'Uzbekistan-Uzbek (Cyrillic)': 'uz-UZ',
-    'Uzbekistan-Uzbek (Latin)': 'uz-UZ',
-    'Vietnam-Vietnamese': 'vi-VN',
-    'Yemen-Arabic': 'ar-YE',
-    'Zimbabwe-English': 'en-ZW'
-};
-
-export const COUNTRIES = [
-  "Afghanistan-Dari",
-  "Afghanistan-Pashto",
-  "Albania-Albanian",
-  "Algeria-Arabic",
-  "Algeria-Tamazight (Latin)",
-  "Argentina-Spanish",
-  "Armenia-Armenian",
-  "Australia-English",
-  "Austria-German",
-  "Azerbaijan-Azeri (Cyrillic)",
-  "Azerbaijan-Azeri (Latin)",
-  "Bahrain-Arabic",
-  "Bangladesh-Bengali",
-  "Belarus-Belarusian",
-  "Belgium-Dutch",
-  "Belgium-French",
-  "Belize-English",
-  "Bolivarian Republic of Venezuela-Spanish",
-  "Bolivia-Quechua",
-  "Bolivia-Spanish",
-  "Bosnia and Herzegovina-Bosnian (Cyrillic)",
-  "Bosnia and Herzegovina-Bosnian (Latin)",
-  "Bosnia and Herzegovina-Croatian",
-  "Bosnia and Herzegovina-Serbian (Cyrillic)",
-  "Bosnia and Herzegovina-Serbian (Latin)",
-  "Brazil-Portuguese",
-  "Brunei Darussalam-Malay",
-  "Bulgaria-Bulgarian",
-  "Cambodia-Khmer",
-  "Canada-English",
-  "Canada-French",
-  "Canada-Inuktitut (Latin)",
-  "Canada-Inuktitut (Syllabics)",
-  "Canada-Mohawk",
-  "Caribbean-English",
-  "Chile-Mapudungun",
-  "Chile-Spanish",
-  "Colombia-Spanish",
-  "Costa Rica-Spanish",
-  "Croatia-Croatian",
-  "Czech Republic-Czech",
-  "Denmark-Danish",
-  "Dominican Republic-Spanish",
-  "Ecuador-Quechua",
-  "Ecuador-Spanish",
-  "Egypt-Arabic",
-  "El Salvador-Spanish",
-  "Estonia-Estonian",
-  "Ethiopia-Amharic",
-  "Faroe Islands-Faroese",
-  "Finland-Finnish",
-  "Finland-Sami (Inari)",
-  "Finland-Sami (Northern)",
-  "Finland-Sami (Skolt)",
-  "Finland-Swedish",
-  "France-Alsatian",
-  "France-Breton",
-  "France-Corsican",
-  "France-French",
-  "France-Occitan",
-  "Georgia-Georgian",
-  "Germany-German",
-  "Germany-Lower Sorbian",
-  "Germany-Upper Sorbian",
-  "Greece-Greek",
-  "Greenland-Greenlandic",
-  "Guatemala-K'iche",
-  "Guatemala-Spanish",
-  "Honduras-Spanish",
-  "Hong Kong S.A.R.-Chinese (Traditional) Legacy",
-  "Hungary-Hungarian",
-  "Iceland-Icelandic",
-  "India-Assamese",
-  "India-Bengali",
-  "India-English",
-  "India-Gujarati",
-  "India-Hindi",
-  "India-Kannada",
-  "India-Konkani",
-  "India-Malayalam",
-  "India-Marathi",
-  "India-Oriya",
-  "India-Punjabi",
-  "India-Sanskrit",
-  "India-Tamil",
-  "India-Telugu",
-  "Indonesia-Indonesian",
-  "Iran-Persian",
-  "Iraq-Arabic",
-  "Ireland-English",
-  "Ireland-Irish",
-  "Islamic Republic of Pakistan-Urdu",
-  "Israel-Hebrew",
-  "Italy-Italian",
-  "Jamaica-English",
-  "Japan-Japanese",
-  "Jordan-Arabic",
-  "Kazakhstan-Kazakh",
-  "Kenya-Kiswahili",
-  "Korea-Korean",
-  "Kuwait-Arabic",
-  "Kyrgyzstan-Kyrgyz",
-  "Lao P.D.R.-Lao",
-  "Latvia-Latvian",
-  "Lebanon-Arabic",
-  "Libya-Arabic",
-  "Liechtenstein-German",
-  "Lithuania-Lithuanian",
-  "Luxembourg-French",
-  "Luxembourg-German",
-  "Luxembourg-Luxembourgish",
-  "Macao S.A.R.-Chinese (Traditional) Legacy",
-  "Macedonia (FYROM)-Macedonian (FYROM)",
-  "Malaysia-English",
-  "Malaysia-Malay",
-  "Maldives-Divehi",
-  "Malta-Maltese",
-  "Mexico-Spanish",
-  "Mongolia-Mongolian (Cyrillic)",
-  "Montenegro-Serbian (Cyrillic)",
-  "Montenegro-Serbian (Latin)",
-  "Morocco-Arabic",
-  "Nepal-Nepali",
-  "Netherlands-Dutch",
-  "Netherlands-Frisian",
-  "New Zealand-English",
-  "New Zealand-Maori",
-  "Nicaragua-Spanish",
-  "Nigeria-Hausa (Latin)",
-  "Nigeria-Igbo",
-  "Nigeria-Yoruba",
-  "Norway-Norwegian (Bokmal)",
-  "Norway-Norwegian (Nynorsk)",
-  "Norway-Sami (Lule)",
-  "Norway-Sami (Northern)",
-  "Norway-Sami (Southern)",
-  "Oman-Arabic",
-  "Panama-Spanish",
-  "Paraguay-Spanish",
-  "People's Republic of China-Chinese (Simplified) Legacy",
-  "People's Republic of China-Mongolian (Traditional Mongolian)",
-  "People's Republic of China-Tibetan",
-  "People's Republic of China-Uyghur",
-  "People's Republic of China-Yi",
-  "Peru-Quechua",
-  "Peru-Spanish",
-  "Philippines-Filipino",
-  "Poland-Polish",
-  "Portugal-Portuguese",
-  "Principality of Monaco-French",
-  "Puerto Rico-Spanish",
-  "Qatar-Arabic",
-  "Republic of the Philippines-English",
-  "Romania-Romanian",
-  "Russia-Bashkir",
-  "Russia-Russian",
-  "Russia-Tatar",
-  "Russia-Yakut",
-  "Rwanda-Kinyarwanda",
-  "Saudi Arabia-Arabic",
-  "Senegal-Wolof",
-  "Serbia-Serbian (Cyrillic)",
-  "Serbia-Serbian (Latin)",
-  "Serbia and Montenegro (Former)-Serbian (Cyrillic)",
-  "Serbia and Montenegro (Former)-Serbian (Latin)",
-  "Singapore-Chinese (Simplified) Legacy",
-  "Singapore-English",
-  "Slovakia-Slovak",
-  "Slovenia-Slovenian",
-  "South Africa-Afrikaans",
-  "South Africa-English",
-  "South Africa-isiXhosa",
-  "South Africa-isiZulu",
-  "South Africa-Sesotho sa Leboa",
-  "South Africa-Setswana",
-  "Spain-Basque",
-  "Spain-Catalan",
-  "Spain-Galician",
-  "Spain-Spanish",
-  "Sri Lanka-Sinhala",
-  "Sweden-Sami (Lule)",
-  "Sweden-Sami (Northern)",
-  "Sweden-Sami (Southern)",
-  "Sweden-Swedish",
-  "Switzerland-French",
-  "Switzerland-German",
-  "Switzerland-Italian",
-  "Switzerland-Romansh",
-  "Syria-Arabic",
-  "Syria-Syriac",
-  "Taiwan-Chinese (Traditional) Legacy",
-  "Tajikistan-Tajik (Cyrillic)",
-  "Thailand-Thai",
-  "Trinidad and Tobago-English",
-  "Tunisia-Arabic",
-  "Turkey-Turkish",
-  "Turkmenistan-Turkmen",
-  "U.A.E.-Arabic",
-  "Ukraine-Ukrainian",
-  "United Kingdom-English",
-  "United Kingdom-Scottish Gaelic",
-  "United Kingdom-Welsh",
-  "United States-English",
-  "United States-Spanish",
-  "Uruguay-Spanish",
-  "Uzbekistan-Uzbek (Cyrillic)",
-  "Uzbekistan-Uzbek (Latin)",
-  "Vietnam-Vietnamese",
-  "Yemen-Arabic",
-  "Zimbabwe-English"
-];
-
-export const LANGUAGES = [
-    "prs-AF" , "ps-AF" , "sq-AL" , "ar-DZ" , "tzm-DZ" , "es-AR" , "hy-AM" , "en-AU" , "de-AT" , "az-AZ" , "az-AZ" , "ar-BH" , "bn-BD" , "be-BY" , "nl-BE" , "fr-BE" , "en-BZ" , "es-VE" , "quz-BO" , "es-BO" , "bs-BA" , "bs-BA" , "hr-BA" , "sr-BA" , "sr-BA" , "pt-BR" , "ms-BN" , "bg-BG" , "km-KH" , "en-CA" , "fr-CA" , "iu-CA" , "iu-CA" , "moh-CA" , "en-029" , "arn-CL" , "es-CL" , "es-CO" , "es-CR" , "hr-HR" , "cs-CZ" , "da-DK" , "es-DO" , "quz-EC" , "es-EC" , "ar-EG" , "es-SV" , "et-EE" , "am-ET" , "fo-FO" , "fi-FI" , "smn-FI" , "se-FI" , "sms-FI" , "sv-FI" , "gsw-FR" , "br-FR" , "co-FR" , "fr-FR" , "oc-FR" , "ka-GE" , "de-DE" , "dsb-DE" , "hsb-DE" , "el-GR" , "kl-GL" , "qut-GT" , "es-GT" , "es-HN" , "zh-HK" , "hu-HU" , "is-IS" , "as-IN" , "bn-IN" , "en-IN" , "gu-IN" , "hi-IN" , "kn-IN" , "kok-IN" , "ml-IN" , "mr-IN" , "or-IN" , "pa-IN" , "sa-IN" , "ta-IN" , "te-IN" , "id-ID" , "fa-IR" , "ar-IQ" , "en-IE" , "ga-IE" , "ur-PK" , "he-IL" , "it-IT" , "en-JM" , "ja-JP" , "ar-JO" , "kk-KZ" , "sw-KE" , "ko-KR" , "ar-KW" , "ky-KG" , "lo-LA" , "lv-LV" , "ar-LB" , "ar-LY" , "de-LI" , "lt-LT" , "fr-LU" , "de-LU" , "lb-LU" , "zh-MO" , "mk-MK" , "en-MY" , "ms-MY" , "dv-MV" , "mt-MT" , "es-MX" , "mn-MN" , "sr-ME" , "sr-ME" , "ar-MA" , "ne-NP" , "nl-NL" , "fy-NL" , "en-NZ" , "mi-NZ" , "es-NI" , "ha-NG" , "ig-NG" , "yo-NG" , "nb-NO" , "nn-NO" , "smj-NO" , "se-NO" , "sma-NO" , "ar-OM" , "es-PA" , "es-PY" , "zh-CN" , "mn-CN" , "bo-CN" , "ug-CN" , "ii-CN" , "quz-PE" , "es-PE" , "fil-PH" , "pl-PL" , "pt-PT" , "fr-MC" , "es-PR" , "ar-QA" , "en-PH" , "ro-RO" , "ba-RU" , "ru-RU" , "tt-RU" , "sah-RU" , "rw-RW" , "ar-SA" , "wo-SN" , "sr-RS" , "sr-RS" , "sr-CS" , "sr-CS" , "zh-SG" , "en-SG" , "sk-SK" , "sl-SI" , "af-ZA" , "en-ZA" , "xh-ZA" , "zu-ZA" , "nso-ZA" , "tn-ZA" , "eu-ES" , "ca-ES" , "gl-ES" , "es-ES" , "si-LK" , "smj-SE" , "se-SE" , "sma-SE" , "sv-SE" , "fr-CH" , "de-CH" , "it-CH" , "rm-CH" , "ar-SY" , "syr-SY" , "zh-TW" , "tg-TJ" , "th-TH" , "en-TT" , "ar-TN" , "tr-TR" , "tk-TM" , "ar-AE" , "uk-UA" , "en-GB" , "gd-GB" , "cy-GB" , "en-US" , "es-US" , "es-UY" , "uz-UZ" , "uz-UZ" , "vi-VN" , "ar-YE" , "en-ZW"
+export const countryCodes = [
+    {
+        "name": "Afghanistan",
+        "code": "AF"
+    },
+    {
+        "name": "Albania",
+        "code": "AL"
+    },
+    {
+        "name": "Algeria",
+        "code": "DZ"
+    },
+    {
+        "name": "Argentina",
+        "code": "AR"
+    },
+    {
+        "name": "Armenia",
+        "code": "AM"
+    },
+    {
+        "name": "Australia",
+        "code": "AU"
+    },
+    {
+        "name": "Austria",
+        "code": "AT"
+    },
+    {
+        "name": "Azerbaijan",
+        "code": "AZ"
+    },
+    {
+        "name": "Bahrain",
+        "code": "BH"
+    },
+    {
+        "name": "Bangladesh",
+        "code": "BD"
+    },
+    {
+        "name": "Belarus",
+        "code": "BY"
+    },
+    {
+        "name": "Belgium",
+        "code": "BE"
+    },
+    {
+        "name": "Belize",
+        "code": "BZ"
+    },
+    {
+        "name": "Bolivarian Republic of Venezuela",
+        "code": "VE"
+    },
+    {
+        "name": "Bolivia",
+        "code": "BO"
+    },
+    {
+        "name": "Bosnia and Herzegovina",
+        "code": "BA"
+    },
+    {
+        "name": "Brazil",
+        "code": "BR"
+    },
+    {
+        "name": "Brunei Darussalam",
+        "code": "BN"
+    },
+    {
+        "name": "Bulgaria",
+        "code": "BG"
+    },
+    {
+        "name": "Cambodia",
+        "code": "KH"
+    },
+    {
+        "name": "Canada",
+        "code": "CA"
+    },
+    {
+        "name": "Caribbean",
+        "code": "029"
+    },
+    {
+        "name": "Chile",
+        "code": "CL"
+    },
+    {
+        "name": "Colombia",
+        "code": "CO"
+    },
+    {
+        "name": "Costa Rica",
+        "code": "CR"
+    },
+    {
+        "name": "Croatia",
+        "code": "HR"
+    },
+    {
+        "name": "Czech Republic",
+        "code": "CZ"
+    },
+    {
+        "name": "Denmark",
+        "code": "DK"
+    },
+    {
+        "name": "Dominican Republic",
+        "code": "DO"
+    },
+    {
+        "name": "Ecuador",
+        "code": "EC"
+    },
+    {
+        "name": "Egypt",
+        "code": "EG"
+    },
+    {
+        "name": "El Salvador",
+        "code": "SV"
+    },
+    {
+        "name": "Estonia",
+        "code": "EE"
+    },
+    {
+        "name": "Ethiopia",
+        "code": "ET"
+    },
+    {
+        "name": "Faroe Islands",
+        "code": "FO"
+    },
+    {
+        "name": "Finland",
+        "code": "FI"
+    },
+    {
+        "name": "France",
+        "code": "FR"
+    },
+    {
+        "name": "Georgia",
+        "code": "GE"
+    },
+    {
+        "name": "Germany",
+        "code": "DE"
+    },
+    {
+        "name": "Greece",
+        "code": "GR"
+    },
+    {
+        "name": "Greenland",
+        "code": "GL"
+    },
+    {
+        "name": "Guatemala",
+        "code": "GT"
+    },
+    {
+        "name": "Honduras",
+        "code": "HN"
+    },
+    {
+        "name": "Hong Kong S.A.R.",
+        "code": "HK"
+    },
+    {
+        "name": "Hungary",
+        "code": "HU"
+    },
+    {
+        "name": "Iceland",
+        "code": "IS"
+    },
+    {
+        "name": "India",
+        "code": "IN"
+    },
+    {
+        "name": "Indonesia",
+        "code": "ID"
+    },
+    {
+        "name": "Iran",
+        "code": "IR"
+    },
+    {
+        "name": "Iraq",
+        "code": "IQ"
+    },
+    {
+        "name": "Ireland",
+        "code": "IE"
+    },
+    {
+        "name": "Islamic Republic of Pakistan",
+        "code": "PK"
+    },
+    {
+        "name": "Israel",
+        "code": "IL"
+    },
+    {
+        "name": "Italy",
+        "code": "IT"
+    },
+    {
+        "name": "Jamaica",
+        "code": "JM"
+    },
+    {
+        "name": "Japan",
+        "code": "JP"
+    },
+    {
+        "name": "Jordan",
+        "code": "JO"
+    },
+    {
+        "name": "Kazakhstan",
+        "code": "KZ"
+    },
+    {
+        "name": "Kenya",
+        "code": "KE"
+    },
+    {
+        "name": "Korea",
+        "code": "KR"
+    },
+    {
+        "name": "Kuwait",
+        "code": "KW"
+    },
+    {
+        "name": "Kyrgyzstan",
+        "code": "KG"
+    },
+    {
+        "name": "Lao P.D.R.",
+        "code": "LA"
+    },
+    {
+        "name": "Latvia",
+        "code": "LV"
+    },
+    {
+        "name": "Lebanon",
+        "code": "LB"
+    },
+    {
+        "name": "Libya",
+        "code": "LY"
+    },
+    {
+        "name": "Liechtenstein",
+        "code": "LI"
+    },
+    {
+        "name": "Lithuania",
+        "code": "LT"
+    },
+    {
+        "name": "Luxembourg",
+        "code": "LU"
+    },
+    {
+        "name": "Macao S.A.R.",
+        "code": "MO"
+    },
+    {
+        "name": "Macedonia (FYROM)",
+        "code": "MK"
+    },
+    {
+        "name": "Malaysia",
+        "code": "MY"
+    },
+    {
+        "name": "Maldives",
+        "code": "MV"
+    },
+    {
+        "name": "Malta",
+        "code": "MT"
+    },
+    {
+        "name": "Mexico",
+        "code": "MX"
+    },
+    {
+        "name": "Mongolia",
+        "code": "MN"
+    },
+    {
+        "name": "Montenegro",
+        "code": "ME"
+    },
+    {
+        "name": "Morocco",
+        "code": "MA"
+    },
+    {
+        "name": "Nepal",
+        "code": "NP"
+    },
+    {
+        "name": "Netherlands",
+        "code": "NL"
+    },
+    {
+        "name": "New Zealand",
+        "code": "NZ"
+    },
+    {
+        "name": "Nicaragua",
+        "code": "NI"
+    },
+    {
+        "name": "Nigeria",
+        "code": "NG"
+    },
+    {
+        "name": "Norway",
+        "code": "NO"
+    },
+    {
+        "name": "Oman",
+        "code": "OM"
+    },
+    {
+        "name": "Panama",
+        "code": "PA"
+    },
+    {
+        "name": "Paraguay",
+        "code": "PY"
+    },
+    {
+        "name": "People's Republic of China",
+        "code": "CN"
+    },
+    {
+        "name": "Peru",
+        "code": "PE"
+    },
+    {
+        "name": "Philippines",
+        "code": "PH"
+    },
+    {
+        "name": "Poland",
+        "code": "PL"
+    },
+    {
+        "name": "Portugal",
+        "code": "PT"
+    },
+    {
+        "name": "Principality of Monaco",
+        "code": "MC"
+    },
+    {
+        "name": "Puerto Rico",
+        "code": "PR"
+    },
+    {
+        "name": "Qatar",
+        "code": "QA"
+    },
+    {
+        "name": "Republic of the Philippines",
+        "code": "PH"
+    },
+    {
+        "name": "Romania",
+        "code": "RO"
+    },
+    {
+        "name": "Russia",
+        "code": "RU"
+    },
+    {
+        "name": "Rwanda",
+        "code": "RW"
+    },
+    {
+        "name": "Saudi Arabia",
+        "code": "SA"
+    },
+    {
+        "name": "Senegal",
+        "code": "SN"
+    },
+    {
+        "name": "Serbia",
+        "code": "RS"
+    },
+    {
+        "name": "Serbia and Montenegro (Former)",
+        "code": "CS"
+    },
+    {
+        "name": "Singapore",
+        "code": "SG"
+    },
+    {
+        "name": "Slovakia",
+        "code": "SK"
+    },
+    {
+        "name": "Slovenia",
+        "code": "SI"
+    },
+    {
+        "name": "South Africa",
+        "code": "ZA"
+    },
+    {
+        "name": "Spain",
+        "code": "ES"
+    },
+    {
+        "name": "Sri Lanka",
+        "code": "LK"
+    },
+    {
+        "name": "Sweden",
+        "code": "SE"
+    },
+    {
+        "name": "Switzerland",
+        "code": "CH"
+    },
+    {
+        "name": "Syria",
+        "code": "SY"
+    },
+    {
+        "name": "Taiwan",
+        "code": "TW"
+    },
+    {
+        "name": "Tajikistan",
+        "code": "TJ"
+    },
+    {
+        "name": "Thailand",
+        "code": "TH"
+    },
+    {
+        "name": "Trinidad and Tobago",
+        "code": "TT"
+    },
+    {
+        "name": "Tunisia",
+        "code": "TN"
+    },
+    {
+        "name": "Turkey",
+        "code": "TR"
+    },
+    {
+        "name": "Turkmenistan",
+        "code": "TM"
+    },
+    {
+        "name": "U.A.E.",
+        "code": "AE"
+    },
+    {
+        "name": "Ukraine",
+        "code": "UA"
+    },
+    {
+        "name": "United Kingdom",
+        "code": "GB"
+    },
+    {
+        "name": "United States",
+        "code": "US"
+    },
+    {
+        "name": "Uruguay",
+        "code": "UY"
+    },
+    {
+        "name": "Uzbekistan",
+        "code": "UZ"
+    },
+    {
+        "name": "Vietnam",
+        "code": "VN"
+    },
+    {
+        "name": "Yemen",
+        "code": "YE"
+    },
+    {
+        "name": "Zimbabwe",
+        "code": "ZW"
+    }
 ];

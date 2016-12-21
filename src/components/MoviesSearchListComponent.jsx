@@ -15,38 +15,114 @@ class MoviesSearchListComponent extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             loading: true,
             cardType: 'simple',
             activePage: 1,
-            movieCategory: this.props.location.query.type || 'latest'
+            movieCategory: this.props.location.query.type || 'latest',
+            searchType: 'quickSearch',
+            quickSearchType: 'nowPlaying',
+            searchQuery: {},
+            discoverQuery: {}
         }
+        //Bind functions to this that need props
         this.pageSelect = this.pageSelect.bind(this);
-        this.loadMoviesOnType = this.loadMoviesOnType.bind(this);
         this.gotoMovie = this.gotoMovie.bind(this);
         this.saveFav = this.saveFav.bind(this);
         this.saveWatchlist = this.saveWatchlist.bind(this);
         this.loadPosters = this.loadPosters.bind(this);
         this.searchMovie = this.searchMovie.bind(this);
         this.discoverMovies = this.discoverMovies.bind(this);
+        this.quickSearchChanged = this.quickSearchChanged.bind(this);
+        this.loadMoviesByType = this.loadMoviesByType.bind(this);
     }
 
+    /**
+     * DOM Loaded
+     */
     componentDidMount() {
-        this.loadMoviesOnType();
+        this.loadMoviesByType().loadMoviesByQuickSearch();
         $('select').material_select();
     }
 
     /**
-     * To Load Movies Most Popular, Top Rated, Upcoming & Now Playing with page numbers
-     * @param page
-     * @param movieCategory
+     * Load Movies based on filter
      */
-    loadMoviesOnType(page=1, movieCategory) {
-        this.props.actions.fetchMovies(movieCategory || this.state.movieCategory, page).then(() => {
-            this.loadPosters(this.props.moviesData.search.list);
-        })
+    loadMoviesByType() {
+        const loadActions = {
+            loadMoviesByQuickSearch: (quickSearchType) => {
+                let movies;
+                const state = this.state;
+                if(quickSearchType) {
+                    state.activePage = 1;
+                    state.quickSearchType = quickSearchType;
+                }
+                state.searchType = 'quickSearch';
+                this.setState(state);
+                switch (this.state.quickSearchType) {
+                    case 'topRated':
+                        movies = this.props.actions.fetchTopRated;
+                        break;
+                    case 'upcoming':
+                        movies = this.props.actions.fetchUpcoming;
+                        break;
+                    case 'popular':
+                        movies = this.props.actions.fetchPopular;
+                        break;
+                    default:
+                        movies = this.props.actions.fetchNowPlaying;
+                }
+                movies(this.state.activePage).then(() => {
+                    this.loadPosters(this.props.moviesData.search.list);
+                });
+            },
+            searchMovies: (searchQuery) => {
+                const state = this.state;
+                if(searchQuery) {
+                    state.activePage = 1;
+                    state.searchQuery = JSON.parse(JSON.stringify(searchQuery));
+                    state.searchType = 'search';
+                }
+                state.searchQuery.page = this.state.activePage;
+                this.setState(state);
+                if (this.state.searchQuery.query.length <= 0) {
+                    return;
+                }
+                this.props.actions.searchMovies(this.state.searchQuery).then(() => {
+                    this.loadPosters(this.props.moviesData.search.list);
+                });
+            },
+            discoverMovies: (discoverQuery) => {
+                const state = this.state;
+                if(discoverQuery) {
+                    state.activePage = 1;
+                    state.discoverQuery = JSON.parse(JSON.stringify(discoverQuery));
+                    const genres = discoverQuery.with_genres;
+                    let genresComma = '';
+                    for (let i = 0; i < genres.length; i++) {
+                        genresComma = genresComma + genres[i];
+                        if (i < genres.length-1) {
+                            genresComma = genresComma + ','
+                        }
+                    }
+                    state.discoverQuery.with_genres = genresComma;
+                    state.searchType = 'discover';
+                }
+                state.discoverQuery.page = this.state.activePage;
+                this.setState(state);
+                this.props.actions.discoverMovies(this.state.discoverQuery).then(() => {
+                    this.loadPosters(this.props.moviesData.search.list);
+                });
+            }
+        }
+        return loadActions;
     }
 
+    /**
+     * Load Posters
+     * @param list
+     */
     loadPosters(list) {
         let posters = [];
         for (let movie in list) {
@@ -56,21 +132,7 @@ class MoviesSearchListComponent extends Component {
             this.setState({
                 loading: false
             })
-        }.bind(this))
-    }
-
-    /**
-     * when there is change in query paramter a call is triggered to load the movies of respective categories
-     * @param nextProps
-     */
-    componentWillReceiveProps(nextProps) {
-        if (this.props.location.query && nextProps.location.query &&
-            this.props.location.query.type !== nextProps.location.query.type) {
-            this.setState({
-                movieCategory: nextProps.location.query.type
-            })
-            this.loadMoviesOnType(null, nextProps.location.query.type);
-        }
+        }.bind(this));
     }
 
     /**
@@ -101,11 +163,17 @@ class MoviesSearchListComponent extends Component {
      * @param page
      */
     pageSelect(page) {
-        this.setState({
-            loading: true,
-            activePage: page
-        });
-        this.loadMoviesOnType(page);
+        const state = this.state;
+        state.loading = true;
+        state.activePage = page;
+        this.setState(state);
+        if(this.state.searchType === 'search') {
+            this.loadMoviesByType().searchMovies();
+        }else if(this.state.searchType === 'discover') {
+            this.loadMoviesByType().discoverMovies();
+        }else {
+            this.loadMoviesByType().loadMoviesByQuickSearch();
+        }
     }
 
     /**
@@ -145,7 +213,7 @@ class MoviesSearchListComponent extends Component {
      */
     saveWatchlist(id, flag) {
         const accountId = this.props.appData.userInfo.id;
-        this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_TV, id, flag);
+        this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_MOVIE, id, flag);
     }
 
     /**
@@ -153,6 +221,7 @@ class MoviesSearchListComponent extends Component {
      * @param searchQuery
      */
     searchMovie(searchQuery) {
+
         if (searchQuery.query.length <= 0) {
             return;
         } 
@@ -176,6 +245,26 @@ class MoviesSearchListComponent extends Component {
         this.props.actions.discoverMovies(discoverQuery);
     }
 
+    quickSearchChanged(e) {
+        const state = this.state;
+        state.quickSearchType = e.target.value;
+        this.setState(state);
+    }
+
+    uiElements() {
+        const uiElements = {
+            quickSearchOptions: (options) => {
+                const quickSearchOptions = [];
+                for(let i=0; i < options.length; i++) {
+                    const option = options[i];
+                    quickSearchOptions.push(<option key={i} value={option.value}>{option.name}</option>);
+                }
+                return quickSearchOptions;
+            }
+        }
+        return uiElements;
+    }
+
     /**
      * Main mathod to render UI
      * @returns {XML}
@@ -183,21 +272,18 @@ class MoviesSearchListComponent extends Component {
     render() {
         const list = this.prepareList(this.props.moviesData.search.list);
         const styles = this.inlineStyles();
+        const loadActions = this.loadMoviesByType();
         return (
             <div>
-                <div className="row">
-                    <div className="col offset-s8 s4 offset-m11 m1">
-                        <i className="fa fa-th-list fa-2x" style={{color: '#2bbbad'}}></i> &nbsp;
-                        <i className="fa fa-th-large fa-2x" style={{color: '#2bbbad'}}></i>   
-                    </div>
-                </div>
                 <div className="row">
                     <FilterComponent type="movies"
                         genres={this.props.appData.movieGenres}
                         sortOptions = {movieSortOptions}
                         quickSearchOptions = {moviesQuickSearchOptions}
-                        search = {this.searchMovie}
-                        discover = {this.discoverMovies}></FilterComponent>
+                        search = {loadActions.searchMovies}
+                        discover = {loadActions.discoverMovies}
+                        quickSearch = {loadActions.loadMoviesByQuickSearch}>
+                    </FilterComponent>
                     <div className="col s12 m8 l9">
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}

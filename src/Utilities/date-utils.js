@@ -6,8 +6,7 @@ const dateUtils = {
             return new Moment(dateString);
         }
         return new Moment();
-    },
-    getDay: (format, date) => date.format(format)
+    }
 };
 
 export default dateUtils;
