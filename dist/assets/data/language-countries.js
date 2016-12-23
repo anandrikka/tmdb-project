@@ -2,6 +2,10 @@
 
 export const languageCodes = [
     {
+        "name": "",
+        "language":""
+    },
+    {
         "name": "Afghanistan-Dari",
         "language": "prs-AF"
     },
@@ -844,6 +848,10 @@ export const languageCodes = [
 ];
 
 export const countryCodes = [
+    {
+        "name": "",
+        "code":""
+    },
     {
         "name": "Afghanistan",
         "code": "AF"

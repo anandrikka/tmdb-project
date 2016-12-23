@@ -1,5 +1,9 @@
 export const movieSortOptions = [
     {
+        name: '',
+        value: ''
+    },
+    {
         name: 'Most Popular',
         value: 'popularity.desc'
     },
@@ -42,6 +46,10 @@ export const movieSortOptions = [
 ];
 
 export const tvSortOptions = [
+    {
+        name: '',
+        value: ''
+    },
     {
         name: 'Least Popular',
         value: 'popularity.asc'

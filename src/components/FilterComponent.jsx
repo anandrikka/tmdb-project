@@ -9,38 +9,49 @@ class FilterComponent extends Component {
         super(props);
         this.state = {
             quickSearch: 'nowPlaying',
+            language: 'en-US',
+            region: 'US',
             search: {
                 query: '',
-                language: 'en-US',
-                region: 'US',
                 include_adult: false
             },
             discover: {
-                language: 'en-US',
-                region: 'US',
                 include_adult: false,
                 with_genres: [],
                 sort_by: 'popularity.desc',
-                'release_date.lte': '',
                 'release_date.gte': '',
                 'vote_average.gte': '',
                 'vote_average.lte': '',
                 'vote_count.gte': '',
                 'vote_count.lte': ''
             },
-            searchTimeout: null
+            searchTimeout: null,
+            minVoteCountTimeout: null,
+            maxVoteCountTimeout: null
         }
         //bindings of all methods to class to use props
         this.filterActions = this.filterActions.bind(this);
     }
 
     componentDidMount() {
-        // materialize css select onChange doesn't work properly so add this jquery on component mount for select.
-        //let languageSelect = $(ReactDOM.findDOMNode(this.refs.languages));
-        //languageSelect.on('change', this.languageChanged);
-        //let quickSearchSelect = $(ReactDOM.findDOMNode(this.refs.quickSearch));
-        //quickSearchSelect.on('change', this.quickSearchChanged);
-        $('.datepicker').pickadate();
+        const releasedBeforePicker = $('#released_before').pickadate().pickadate('picker');
+        releasedBeforePicker.on('close', ()=> {
+            $(document.activeElement).blur();
+            const state = this.state;
+            state.search.query = '';
+            state.discover['release_date.lte'] = releasedBeforePicker.get('select', 'yyyy-mm-dd');
+            this.setState(state);
+            this.props.discover(this.state);
+        });
+        const releasedAfterPicker = $('#released_after').pickadate().pickadate('picker');
+        releasedAfterPicker.on('close', ()=> {
+            $(document.activeElement).blur();
+            const state = this.state;
+            state.search.query = '';
+            state.discover['release_date.gte'] = releasedAfterPicker.get('select', 'yyyy-mm-dd');
+            this.setState(state);
+            this.props.discover(this.state);
+        });
     }
 
     filterActions() {
@@ -64,59 +75,103 @@ class FilterComponent extends Component {
                 state.quickSearch = e.target.value;
                 state.search.query = '';
                 this.setState(state);
-                this.props.quickSearch(this.state.quickSearch);
+                this.props.quickSearch(this.state);
             },
             languageChanged: (e) => {
                 const state = this.state;
-                state.search.language = e.target.value;
-                state.discover.language = e.target.value;
+                state.language = e.target.value,
                 this.setState(state);
                 if (this.state.search.query.length > 0) {
-                    this.props.search(this.state.search);
-                } else {
-                    this.props.discover(this.state.discover);
+                    this.props.search(this.state);
+                } else if(this.state.quickSearch) {
+                    this.props.quickSearch(this.state);
+                }else {
+                    this.props.discover(this.state);
                 }
             },
             regionChanged: (e) => {
                 const state = this.state;
-                state.search.region = e.target.value;
-                state.discover.region = e.target.value;
+                state.region = e.target.value;
                 this.setState(state);
                 if (this.state.search.query.length > 0) {
-                    this.props.search(this.state.search);
-                } else {
-                    this.props.discover(this.state.discover);
+                    this.props.search(this.state);
+                } else if(this.state.quickSearch) {
+                    this.props.quickSearch(this.state);
+                }else {
+                    this.props.discover(this.state);
                 }
             },
             includeAdultChanged: (e) => {
                 const state = this.state;
                 state.search.include_adult = e.target.checked;
                 state.discover.include_adult = e.target.checked;
+                state.quickSearch = '';
                 this.setState(state);
                 if (this.state.search.query.length > 0) {
-                    this.props.search(this.state.search);
+                    this.props.search(this.state);
                 } else {
-                    this.props.discover(this.state.discover);
+                    this.props.discover(this.state);
                 }
             },
             genreChanged: (id) => {
                 const state = this.state;
+                state.search.query = '';
+                state.quickSearch = '';
                 let genres = state.discover.with_genres;
                 var index = genres.indexOf(id);
-                if(index !== -1) {
+                if(index > -1) {
                     genres.splice(index, 1);
                 } else {
                     genres.push(id);
                 }
                 this.setState(state);
-                this.props.discover(JSON.parse(JSON.stringify(this.state.discover)));
+                this.props.discover(this.state);
             },
             sortByChanged: (e) => {
                 const state = this.state;
-                state.sort_by = e.target.value;
+                state.search.query = '';
+                state.discover.sort_by = e.target.value;
                 this.setState(state);
+                this.props.discover(this.state);
+            },
+            minRatingChanged: (e) => {
+                const state = this.state;
+                state.discover.min_rating = e.target.value;
+                this.setState(state);
+                this.props.discover(this.state);
+            },
+            maxRatingChanged: (e) => {
+                const state = this.state;
+                state.discover.max_rating = e.target.value;
+                this.setState(state);
+                this.props.discover(this.state);
+            },
+            minVoteCountChanged: (e) => {
+                const state = this.state;
+                state.discover.min_vote_count = e.target.value;
+                this.setState(state);
+                if(this.state.minVoteCountTimeout) {
+                    clearTimeout(this.state.minVoteCountTimeout);
+                }
+                this.setState({
+                    minVoteCountTimeout: setTimeout(function() {
+                        this.props.discover(this.state);
+                    }.bind(this), 1000)
+                });
+            },
+            maxVoteCountChanged: (e) => {
+                const state = this.state;
+                state.discover.max_vote_count = e.target.value;
+                this.setState(state);
+                if(this.state.maxVoteCountTimeout) {
+                    clearTimeout(this.state.maxVoteCountTimeout);
+                }
+                this.setState({
+                    maxVoteCountTimeout: setTimeout(function() {
+                        this.props.discover(this.state);
+                    }.bind(this), 1000)
+                });
             }
-
         }
         return actions;
     }
@@ -217,8 +272,8 @@ class FilterComponent extends Component {
                 <div className="row no-bm">
                     <div className="col s12">
                         <p className="movie-select-label">Language</p>
-                        <select className="browser-default" value={this.state.search.language}
-                            onChange={this.languageChanged}>
+                        <select className="browser-default" value={this.state.language}
+                            onChange={filterActions.languageChanged}>
                             {languageOptions}
                         </select>
                     </div>
@@ -226,8 +281,8 @@ class FilterComponent extends Component {
                 <div className="row">
                     <div className=" col s12">
                         <p className="movie-select-label">Region</p>
-                        <select className="browser-default" value={this.state.search.region}
-                                onChange={this.regionChanged}>
+                        <select className="browser-default" value={this.state.region}
+                                onChange={filterActions.regionChanged}>
                             {regionOptions}
                         </select>
                     </div>
@@ -235,7 +290,7 @@ class FilterComponent extends Component {
                 <div className="row">
                     <div className="input-field col s12 no-p no-tm">
                         <input type="checkbox" value={this.state.search.include_adult}
-                            className="filled-in" id="include_adult" onChange={this.includeAdultChanged}/>
+                            className="filled-in" id="include_adult" onChange={filterActions.includeAdultChanged}/>
                         <label htmlFor="include_adult">Include Adult</label>
                     </div>
                 </div>
@@ -247,7 +302,7 @@ class FilterComponent extends Component {
                                 return (
                                     <div className="input-field col s12 no-p" key={index}>
                                         <input type="checkbox"
-                                            onChange={() => this.genreChanged(genre.id)}
+                                            onChange={() => filterActions.genreChanged(genre.id)}
                                             className="filled-in" id={'genre_' + genre.id} />
                                         <label htmlFor={'genre_'+genre.id}>{genre.name}</label>
                                     </div>
@@ -261,7 +316,7 @@ class FilterComponent extends Component {
                     <div className="col s12">
                         <select className="browser-default" id="sort_option"
                                 value={this.state.discover.sort_by}
-                                onChange={this.sortByChanged}>
+                                onChange={filterActions.sortByChanged}>
                             {sortOptions}
                         </select>
                     </div>
@@ -281,24 +336,33 @@ class FilterComponent extends Component {
                 <div className="row">
                     <div className="col s6">
                         <p className="movie-select-label">Min Rating</p>
-                        <select id="min_rating" className="browser-default">
+                        <select id="min_rating" className="browser-default"
+                                value={this.state.discover.min_rating}
+                                onChange={filterActions.minRatingChanged}>
                             {ratings}
                         </select>
                     </div>
                     <div className="col s6">
                         <p className="movie-select-label">Max Rating</p>
-                        <select id="max_rating" className="browser-default">
+                        <select id="max_rating" className="browser-default"
+                                value={this.state.discover.max_rating}
+                                onChange={filterActions.maxRatingChanged}>
                             {ratings}
                         </select>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s6">
-                        <input id="min_vote_count" type="number" placeholder="0" className="validate" />
+                        <input id="min_vote_count" type="number"
+                               placeholder="0" className="validate"
+                                value={this.state.discover.min_vote_count}
+                                onChange={filterActions.minVoteCountChanged}/>
                         <label htmlFor="min_vote_count" className="active">Min Vote Count</label>
                     </div>
                     <div className="input-field col s6">
-                        <input id="max_vote_count" type="number" placeholder="999" className="validate" />
+                        <input id="max_vote_count" type="number" placeholder="999" className="validate"
+                               value={this.state.discover.max_vote_count}
+                               onChange={filterActions.maxVoteCountChanged}/>
                         <label htmlFor="max_vote_count" className="active">Max Vote Count</label>
                     </div>
                 </div>

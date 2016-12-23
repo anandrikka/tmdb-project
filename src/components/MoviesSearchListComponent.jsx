@@ -22,9 +22,7 @@ class MoviesSearchListComponent extends Component {
             activePage: 1,
             movieCategory: this.props.location.query.type || 'latest',
             searchType: 'quickSearch',
-            quickSearchType: 'nowPlaying',
-            searchQuery: {},
-            discoverQuery: {}
+            quickSearchType: 'nowPlaying'
         }
         //Bind functions to this that need props
         this.pageSelect = this.pageSelect.bind(this);
@@ -32,9 +30,6 @@ class MoviesSearchListComponent extends Component {
         this.saveFav = this.saveFav.bind(this);
         this.saveWatchlist = this.saveWatchlist.bind(this);
         this.loadPosters = this.loadPosters.bind(this);
-        this.searchMovie = this.searchMovie.bind(this);
-        this.discoverMovies = this.discoverMovies.bind(this);
-        this.quickSearchChanged = this.quickSearchChanged.bind(this);
         this.loadMoviesByType = this.loadMoviesByType.bind(this);
     }
 
@@ -51,12 +46,14 @@ class MoviesSearchListComponent extends Component {
      */
     loadMoviesByType() {
         const loadActions = {
-            loadMoviesByQuickSearch: (quickSearchType) => {
+            loadMoviesByQuickSearch: (filterState) => {
                 let movies;
                 const state = this.state;
-                if(quickSearchType) {
+                if(filterState) {
                     state.activePage = 1;
-                    state.quickSearchType = quickSearchType;
+                    state.quickSearchType = filterState.quickSearch;
+                    state.language = filterState.language;
+                    state.region = filterState.region;
                 }
                 state.searchType = 'quickSearch';
                 this.setState(state);
@@ -73,16 +70,26 @@ class MoviesSearchListComponent extends Component {
                     default:
                         movies = this.props.actions.fetchNowPlaying;
                 }
-                movies(this.state.activePage).then(() => {
+                var quickSearchQuery = {
+                    language: this.state.language,
+                    region: this.state.region,
+                    page: this.state.activePage
+                };
+                movies(quickSearchQuery).then(() => {
                     this.loadPosters(this.props.moviesData.search.list);
                 });
             },
-            searchMovies: (searchQuery) => {
+            searchMovies: (filterState) => {
                 const state = this.state;
-                if(searchQuery) {
+                if(filterState) {
                     state.activePage = 1;
-                    state.searchQuery = JSON.parse(JSON.stringify(searchQuery));
+                    const filterStateQuery = JSON.parse(JSON.stringify(filterState));
+                    state.searchQuery = filterStateQuery.search
                     state.searchType = 'search';
+                    state.language = filterStateQuery.language;
+                    state.region = filterStateQuery.region;
+                    state.searchQuery.language = filterStateQuery.language;
+                    state.searchQuery.region = filterStateQuery.region;
                 }
                 state.searchQuery.page = this.state.activePage;
                 this.setState(state);
@@ -93,12 +100,17 @@ class MoviesSearchListComponent extends Component {
                     this.loadPosters(this.props.moviesData.search.list);
                 });
             },
-            discoverMovies: (discoverQuery) => {
+            discoverMovies: (filterState) => {
                 const state = this.state;
-                if(discoverQuery) {
+                if(filterState) {
                     state.activePage = 1;
-                    state.discoverQuery = JSON.parse(JSON.stringify(discoverQuery));
-                    const genres = discoverQuery.with_genres;
+                    const filterDiscoverQuery = JSON.parse(JSON.stringify(filterState)); 
+                    state.discoverQuery = filterDiscoverQuery.discover;
+                    state.language = filterDiscoverQuery.language;
+                    state.region = filterDiscoverQuery.region;
+                    state.discoverQuery.language = filterDiscoverQuery.language;
+                    state.discoverQuery.region = filterDiscoverQuery.region;
+                    const genres = filterDiscoverQuery.discover.with_genres;
                     let genresComma = '';
                     for (let i = 0; i < genres.length; i++) {
                         genresComma = genresComma + genres[i];
@@ -214,41 +226,6 @@ class MoviesSearchListComponent extends Component {
     saveWatchlist(id, flag) {
         const accountId = this.props.appData.userInfo.id;
         this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_MOVIE, id, flag);
-    }
-
-    /**
-     * Search Movie with query string
-     * @param searchQuery
-     */
-    searchMovie(searchQuery) {
-
-        if (searchQuery.query.length <= 0) {
-            return;
-        } 
-        this.props.actions.searchMovies(searchQuery);
-    }
-
-    /**
-     * Filter movies based on various parameters
-     * @param discoverQuery
-     */
-    discoverMovies(discoverQuery) {
-        const genres = discoverQuery.with_genres;
-        let genresComma = '';
-        for (let i = 0; i < genres.length; i++) {
-            genresComma = genresComma + genres[i];
-            if (i < genres.length-1) {
-                genresComma = genresComma + ','
-            }
-        }
-        discoverQuery.with_genres = genresComma;
-        this.props.actions.discoverMovies(discoverQuery);
-    }
-
-    quickSearchChanged(e) {
-        const state = this.state;
-        state.quickSearchType = e.target.value;
-        this.setState(state);
     }
 
     uiElements() {
