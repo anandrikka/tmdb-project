@@ -13,7 +13,8 @@ module.exports = {
             'react-dom',
             'react-router',
             'react-redux',
-            'react-bootstrap'
+            'react-bootstrap',
+            'react-materialize'
         ]
     },
     output: {

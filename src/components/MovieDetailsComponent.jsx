@@ -4,7 +4,6 @@ import { IMAGE_URI_ORIGINAL, IMAGE_URI_500W } from '../Utilities/AppConstants';
 import DateUtils from '../Utilities/date-utils';
 import ReactStars from './react-stars';
 import { Chip, Tabs, Tab, Modal, Button } from 'react-materialize';
-import Slider from 'react-image-slider';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
 
 
