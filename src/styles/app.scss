@@ -35,6 +35,14 @@ a:focus {
     }
 }
 
+.w100 {
+    width: 100%;
+}
+
+.h100 {
+    height: 100%;
+}
+
 .no-m {
     margin: 0 !important;
 }
@@ -78,9 +86,10 @@ a:focus {
 footer.page-footer {
     padding-top:0;
     background:rgba(0, 0, 0, 0.8);
-    height:7vh;
+    height:7.1vh;
     position:absolute;
     bottom:0;
+    z-index: 999;
     width:100%;
     text-align:center;
 }

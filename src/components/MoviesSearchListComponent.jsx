@@ -104,7 +104,7 @@ class MoviesSearchListComponent extends Component {
                 const state = this.state;
                 if(filterState) {
                     state.activePage = 1;
-                    const filterDiscoverQuery = JSON.parse(JSON.stringify(filterState)); 
+                    const filterDiscoverQuery = JSON.parse(JSON.stringify(filterState));
                     state.discoverQuery = filterDiscoverQuery.discover;
                     state.language = filterDiscoverQuery.language;
                     state.region = filterDiscoverQuery.region;
@@ -247,6 +247,7 @@ class MoviesSearchListComponent extends Component {
      * @returns {XML}
      */
     render() {
+        console.log('MoviesSearchListComponent: ', this.props);
         const list = this.prepareList(this.props.moviesData.search.list);
         const styles = this.inlineStyles();
         const loadActions = this.loadMoviesByType();
@@ -261,7 +262,7 @@ class MoviesSearchListComponent extends Component {
                         discover = {loadActions.discoverMovies}
                         quickSearch = {loadActions.loadMoviesByQuickSearch}>
                     </FilterComponent>
-                    <div className="col s12 m8 l9">
+                    <div className="col s12 m8 l9">  
                         <SearchListComponent list={list}
                             genres={this.props.appData.movieGenreMap}
                             gotoItem={this.gotoMovie}

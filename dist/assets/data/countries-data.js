@@ -1487,6 +1487,7 @@ export const test_countries_codes = [
 ];
 
 export const test_countries = [
+    "",
     "Afghanistan",
     "Afghanistan",
     "Albania",

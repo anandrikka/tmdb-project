@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { languageCodes, countryCodes } from '../../dist/assets/data/language-countries';
+import { languageCountryCodes, countryCodes } from '../../dist/assets/data/language-countries';
 import { Ratings } from '../Utilities/AppConstants';
 
 class FilterComponent extends Component {
@@ -66,7 +66,7 @@ class FilterComponent extends Component {
                 }
                 this.setState({
                     searchTimeout: setTimeout(function() {
-                        this.props.search(this.state.search);
+                        this.props.search(this.state);
                     }.bind(this), 1000)
                 });
             },
@@ -183,8 +183,8 @@ class FilterComponent extends Component {
         const uiElements = {
             languageOptions: () => {
                 const languageOptions = [];
-                for (let i = 0; i < languageCodes.length; i++) {
-                    const languageOption = languageCodes[i];
+                for (let i = 0; i < languageCountryCodes.length; i++) {
+                    const languageOption = languageCountryCodes[i];
                     languageOptions.push(
                         <option key={i} value={languageOption.language}>
                             {languageOption.name}
