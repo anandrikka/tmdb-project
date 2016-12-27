@@ -73,6 +73,16 @@ a:focus {
 .no-bp {
     padding-bottom: 0!important;
 }
+.inline-block {
+    display: inline-block !important;
+}
+.block {
+    display: block !important;
+}
+.inline {
+    display: inline !important;
+}
+
 
 #wrapper {
     min-height:100vh;

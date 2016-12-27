@@ -18,7 +18,19 @@ class SimpleCardComponent extends Component {
             }, () => {
             $('#card-top').fadeOut(400);
         });
-    
+        
+        lazy.init({
+            callback: function (elem) {
+                console.log(elem);
+            }
+        });
+        
+        //$('img').unveil();
+
+    }
+
+    componentDidUpdate() {
+        
     }
     
 
@@ -97,7 +109,7 @@ class SimpleCardComponent extends Component {
             <div className="card ccard">
                 <div className="card-image" id={"card-image-"+item.id}>
                     <img onClick={() => { this.props.gotoItem(item.id) } }
-                        src={this.getImageSrc(item.image_path)} className="pointer" />
+                        src="../../dist/assets/images/placeholder.jpg" data-lazy={this.getImageSrc(item.image_path)} className="pointer" />
                     <div className="card-bookmark-fav" id={"card-top-"+item.id}>
                         <span>
                             <i className="fa fa-bookmark-o pointer" onClick={() => this.addToWatchList(item.id)}></i> &nbsp;

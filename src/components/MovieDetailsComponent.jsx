@@ -28,22 +28,26 @@ class MovieDetailsComponent extends Component {
         });
         $('.materialboxed').materialbox();
         $('.collapsible').collapsible();
-    }
-
-    movieGenres(movieGenres) {
-        let genreString = '';
-        for (let i = 0; i < movieGenres.length; i++) {
-            const movieGenre = movieGenres[i];
-            genreString = genreString + movieGenre.name;
-            if (i !== movieGenres.length - 1) {
-                genreString = genreString + ', ';
-            }
+        const movie = this.props.moviesData.results[this.props.params.id];
+        let rating = 0;
+        if (movie) {
+            rating = movie.vote_average;
         }
-        
-    }
-
-    ratingChanged(rating) {
-        console.log('rating: ', rating);
+        $('#movieRating').rateYo({
+            starWidth: '18px',
+            halfStar: true,
+            precision: 5,
+            padding: '5px',
+            numStars: 10,
+            maxValue: 10
+        });
+        $('#movieRating').rateYo('rating', rating);
+        $('#slicktest').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            nextArrow: '<button type="button" class="slick-next">Next</button>'
+        });
     }
 
     getImageSrc(path) {
@@ -81,7 +85,8 @@ class MovieDetailsComponent extends Component {
                 },
                 image: {
                     marginLeft: '5px',
-                    marginTop: '3px'
+                    marginTop: '3px',
+                    maxHeight: '100px !important'
                 }
             }
         }
@@ -92,19 +97,26 @@ class MovieDetailsComponent extends Component {
         const styles = this.inlineStyles().mcard;
         const castUI = cast.map((c, index) => {
             return (
-                <div className="col s12 m6 l3" key={index}>
-                    <div style={styles.card}>
-                        <div className="row valign-wrapper">
-                            <div className="col s4" style={styles.image}>
-                                <img className="responsive-img circle" src={this.getImageSrc(c.profile_path)} />
-                            </div>
-                            <div className="col s8">
-                                <p style={styles.fname}>{c.name}</p>
-                                <p style={styles.f12}>{c.character}</p>
+                <div key={index}>
+                    <div className="col s12 m6 l3">
+                        <div style={styles.card}>
+                            <div className="row valign-wrapper">
+                                <div className="col s4" style={{marginLeft: '5px', marginTop:'3px', maxHeight:'100px !important'}}>
+                                    <img className="responsive-img circle" src={this.getImageSrc(c.profile_path)} />
+                                </div>
+                                <div className="col s8">
+                                    <p style={styles.fname}>{c.name}</p>
+                                    <p style={styles.f12}>{c.character}</p>
+                                </div>
                             </div>
                         </div>
+                        {
+                            index % 4 === 3 ?
+                                <div className="hide-on-small-only" style={{ clear: 'both' }}></div> : ''
+                        }
                     </div>
-                </div>);
+                </div>
+                );
         });
         return castUI;
     }
@@ -118,7 +130,8 @@ class MovieDetailsComponent extends Component {
                         <div style={styles.card}>
                             <div className="row valign-wrapper">
                                 <div className="col s4" style={styles.image}>
-                                    <img className="responsive-img circle" src={this.getImageSrc(c.profile_path)} />
+                                    <img className="responsive-img circle materialboxed"
+                                        src='../../dist/assets/images/placeholder-profile.jpg' data-src={this.getImageSrc(c.profile_path)} />
                                 </div>
                                 <div className="col-s8">
                                     <p style={styles.fname}>{c.name}</p>
@@ -146,16 +159,24 @@ class MovieDetailsComponent extends Component {
         return postersUI;
     }
 
+    keywordSelected(keyword) {
+        console.log('chip clicked');
+    }
+
+    genreSelected(genre) {
+        console.log('genre selected');
+    }
+
     render() {
         const movie = this.props.moviesData.results[this.props.params.id];
         if (movie) {
+            this.state.rating = movie.vote_average;
             const rating = {
                 size: 24,
                 count: 10,
                 edit: false,
                 value: movie.vote_average
             }
-            const genres = this.movieGenres(movie.genres);
             const releaseDate = DateUtils.formatDate(movie.release_date);
             var divStyle = {
                 backgroundImage: 'url(' + IMAGE_URI_ORIGINAL + movie.backdrop_path + ')'
@@ -184,7 +205,9 @@ class MovieDetailsComponent extends Component {
                                     </a>
                                 </h5>
                                 {movie.genres.map((genre, index) => {
-                                    return (<Chip key={index}>{genre.name}</Chip>)
+                                    return (<Chip key={index}>
+                                        <span className="pointer" onClick={() => this.genreSelected(genre)}>{genre.name}</span>
+                                    </Chip>)
                                 })}
                                 <p>{movie.overview}</p>
                                 <div className="row">
@@ -198,18 +221,42 @@ class MovieDetailsComponent extends Component {
                                         <label>Language:</label> {languageCodeNames[movie.original_language]}    
                                     </div>
                                 </div>
-                                <div>
-                                    Rating: <ReactStars onChange={this.ratingChanged} {...rating}/>
+                                <div className="row">
+                                    <div className="valign-wrapper">
+                                        <div className="col s1">
+                                            <label>Rating:</label>
+                                        </div>
+                                        <div className="col s11">
+                                            <span className="inline-block" id="movieRating" />
+                                            <span> ({movie.vote_average})</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                {
-                                    movie.keywords.keywords.map((keyword, index) => {
-                                        return (<Chip key={index}>{keyword.name}</Chip>)
-                                    }) 
-                                }
-                                <p>Budget: {movie.budget}</p>
-                                <p>Revenue: {movie.revenue}</p>
-                                
-                                <div id="rateYo"></div>
+                                <div className="row">
+                                    <div className="col s12">
+                                        <p>Tags: </p>    
+                                        {
+                                            movie.keywords.keywords.map((keyword, index) => {
+                                                return (
+                                                    <Chip key={index}>
+                                                        <span className="pointer"
+                                                            onClick={() => this.keywordSelected(keyword)}>
+                                                            {keyword.name}
+                                                        </span>
+                                                    </Chip>
+                                                )
+                                            }) 
+                                        }
+                                    </div>    
+                                </div>
+                                <div className="row">
+                                    <div className="col s6 m3">
+                                        <label>Budget:</label> {movie.budget}   
+                                    </div> 
+                                    <div className="col s6 m3">
+                                        <label>Revenue:</label> {movie.revenue}   
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                         <div className="row">
@@ -226,12 +273,24 @@ class MovieDetailsComponent extends Component {
                                     </li>
                                 </ul>
                             </div>
-                             <div id="cast" className="col s12">
+                            <div id="cast" className="col s12">
+                                <div id="slicktest" >
+                                    {
+                                        movie.images.posters.map((poster, index) => {
+                                            return (
+                                                <div className="col s3" key={index}>
+                                                    <img className="responsive-img"
+                                                        data-lazy={IMAGE_URI_ORIGINAL + poster.file_path} />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                                 <div className="row">
                                     {this.renderCast(movie.credits.cast)}
                                 </div>
                             </div>
-                            <div id="crew" className="col s12">
+                             <div id="crew" className="col s12">   
                                 <div className="row">
                                     {this.renderCrew(movie.credits.crew)}    
                                 </div> 
@@ -257,9 +316,10 @@ class MovieDetailsComponent extends Component {
                         </div>
                     </div>
                     <div id="movie-trailer" className="modal">
-                        <div className="modal-content">
-                            <h4>Modal Header</h4>
-                            <p>A bunch of text</p>
+                        <div className="modal-content no-p no-m">
+                            <div className="video-container">
+                                <iframe width="853" height="480" src="https://www.youtube.com/watch?html5=1&v=ZGLDLE8wOSI" frameBorder="0" allowFullScreen></iframe>
+                            </div>
                         </div>  
                     </div>
                 </div>

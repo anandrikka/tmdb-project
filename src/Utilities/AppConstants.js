@@ -8,6 +8,8 @@ export const IMAGE_URI_1280W = `${IMAGE_BASE_URI}w1280`;
 
 export const IMAGE_URI_ORIGINAL = `${IMAGE_BASE_URI}original`;
 
+export const YOUTUBE_URL = 'https://www.youtube.com/embed/Q8TXgCzxEnw?rel=0&html5=1';
+
 export const Ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const MOVIES_APPEND_TO_RESPONSE = 'videos,images,keywords,companies,recommendations,similar,reviews,credits,translations,alternative_titles'; // lists
