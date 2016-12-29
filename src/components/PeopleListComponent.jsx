@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import PaginationComponent from './PaginationComponent.jsx';
 import PeopleCardComponent from './PeopleCardComponent.jsx';
 import LoadingComponent from './LoadingComponent.jsx';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
 import axios from 'axios';
 
 class PeopleListComponent extends Component {
@@ -25,8 +25,8 @@ class PeopleListComponent extends Component {
     loadPeopleListOnType(page, peopleCategory) {
         this.props.actions.fetchPeople(peopleCategory || this.state.peopleCategory, page || 1).then(() => {
             let posters = [];
-            for (let tv in this.props.peopleData.search.list) {
-                posters.push(IMAGE_URI_ORIGINAL + this.props.peopleData.search.list[tv].profile_path);
+            for (let tv in this.props.people.search.list) {
+                posters.push(IMAGE_URI_ORIGINAL + this.props.people.search.list[tv].profile_path);
             }
             axios.all(posters).then(function() {
                 this.setState({
@@ -63,7 +63,7 @@ class PeopleListComponent extends Component {
     }
 
     render() {
-        const list = this.props.peopleData.search.list;
+        const list = this.props.people.search.list;
         return (
             <div>
                 <div className="row">
@@ -90,7 +90,7 @@ class PeopleListComponent extends Component {
                     !this.state.loading ? (
                         <div style={{ float: 'right' }}>
                             <PaginationComponent
-                                pages={this.props.peopleData.search.totalPages}
+                                pages={this.props.people.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>
                             </PaginationComponent>
                         </div>

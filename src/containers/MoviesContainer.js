@@ -8,17 +8,20 @@ import { saveFavorite, saveWatchlist } from '../actions/profile.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { moviesData, appData, profileData } = state;
+    const { movies, app, profile } = state;
     return {
-        moviesData,
-        appData,
-        profileData
+        movies,
+        app,
+        profile
     };
 };
 
+// Adding these two from profile actions because they need to be performed from here
 MovieActions.saveFavorite = saveFavorite;
 MovieActions.saveWatchlist = saveWatchlist;
 
-const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(MovieActions, dispatch) });
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(MovieActions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesComponent);

@@ -8,6 +8,11 @@ root.lazy = {
         delay = options.delay || 0;
         callback = options.callback || callback;
         if(document.addEventListener) {
+            root.onload = function () {
+                setTimeout(function(){
+                    lazy.loadImage();
+                }, delay);
+            }
             root.addEventListener('scroll', lazy.engine, false);
             root.addEventListener('load', lazy.engine, false);
         } else {
@@ -24,7 +29,7 @@ root.lazy = {
     loadImage : function(){
         var elements = document.querySelectorAll('img[data-lazy]');
         for(var i = 0; i<elements.length; i++) {
-            if(lazy.isVisible(elements[i])) {
+            if (lazy.isVisible(elements[i])) {
                 if(elements[i].getAttribute("data-lazy") !== null) {
                     if(elements[i].getAttribute("data-lazy") !== elements[i].getAttribute("src")) {
                         elements[i].src = elements[i].getAttribute("data-lazy");

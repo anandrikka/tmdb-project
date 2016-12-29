@@ -3,7 +3,7 @@ import * as ActionConstants from './action.constants';
 
 import { showLoading, hideLoading } from './app.actions';
 
-export const loadFavoriteMovies = favoriteMovies => ({
+const loadFavoriteMovies = favoriteMovies => ({
     type: ActionConstants.MOVIES_FAVORITE,
     favoriteMovies
 });
@@ -19,7 +19,7 @@ export const fetchMovieFavorites = accountId => (dispatch) => {
     });
 };
 
-export const loadFavoriteTv = favoriteTv => ({
+const loadFavoriteTv = favoriteTv => ({
     type: ActionConstants.TV_FAVORITE,
     favoriteTv
 });
@@ -35,7 +35,7 @@ export const fetchTvFavorites = accountId => (dispatch) => {
     });
 };
 
-export const loadMovieWatchlist = movieWatchlist => ({
+const loadMovieWatchlist = movieWatchlist => ({
     type: ActionConstants.MOVIE_WATCHLIST,
     movieWatchlist
 });
@@ -51,7 +51,7 @@ export const fetchMovieWatchlist = accountId => (dispatch) => {
     });
 };
 
-export const loadTvWatchlist = tvWatchlist => ({
+const loadTvWatchlist = tvWatchlist => ({
     type: ActionConstants.TV_WATCHLIST,
     tvWatchlist
 });
@@ -67,7 +67,7 @@ export const fetchTvWatchlist = accountId => (dispatch) => {
     });
 };
 
-export const loadRatedMovies = ratedMovies => ({
+const loadRatedMovies = ratedMovies => ({
     type: ActionConstants.MOVIES_RATED,
     ratedMovies
 });
@@ -83,12 +83,12 @@ export const fetchRatedMovies = accountId => (dispatch) => {
     });
 };
 
-export const loadRatedTv = ratedTv => ({
+const loadRatedTv = ratedTv => ({
     type: ActionConstants.TV_RATED,
     ratedTv
 });
 
-export const fetchRatedTv = accountId => (dispatch) => {
+const fetchRatedTv = accountId => (dispatch) => { // eslint-disable-line
     const resource = `/api/account/${accountId}/rated/tv`;
     dispatch(showLoading());
     axios.get(resource).then((response) => {

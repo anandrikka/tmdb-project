@@ -7,35 +7,33 @@ import LoadingComponent from './LoadingComponent.jsx';
 import css from '../styles/app.scss';
 
 class AppComponent extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
+    
+    /**
+     *Load user details, movie genres and tv genres on load
+     */
     componentDidMount() {
         this.props.actions.fetchUserDetails();
-        this.props.actions.fetchTimezones();
         this.props.actions.fetchMovieGenres();
         this.props.actions.fetchTvGenres();
+        this.props.actions.fetchConfiguration();
     }
     
     render() {
-        //let children = React.cloneElement(this.props.children, this.props);
-        const userDetails = this.props.appData.userInfo;
-        const userActions = {
-            fetchUserDetails: this.props.actions.fetchUserDetails
-        }
         return (
             <div className="main" id="wrapper">
-                <LoadingComponent isLoading={this.props.appData.isLoading}></LoadingComponent>
-                <NavbarComponent details = {userDetails} actions = {userActions} />
-                <div id="mainview" className="container" style={{marginTop: '20px'}}>{this.props.children}</div>
+                <LoadingComponent isLoading={this.props.app.isLoading}></LoadingComponent>
+                <NavbarComponent profile = {this.props.app.userInfo} />
+                <div id="mainview" className="container container-top">                         {this.props.children}
+                </div>
                 <FooterComponent></FooterComponent>
             </div>
         )
     }
 }
 
+/**
+ *Mandatory fields that need to be present on component
+ */
 AppComponent.propTypes = {
     actions: React.PropTypes.object.isRequired
 }

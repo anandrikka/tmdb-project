@@ -2,29 +2,22 @@ import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
 import { showLoading, hideLoading } from './app.actions';
-import {
-    RESOURCE_PLAYING_MOVIES,
-    RESOURCE_POPULAR_MOVIES,
-    RESOURCE_UPCOMING_MOVIES,
-    RESOURCE_TOP_RATED_MOVIES,
-    RESOURCE_SEARCH_MOVIES,
-    RESOURCE_DISCOVER_MOVIES
-} from '../Utilities/Urls';
+import * as Resources from '../utilities/ResourceURI';
 
-import { MOVIES_APPEND_TO_RESPONSE } from '../Utilities/AppConstants';
+import { MOVIES_APPEND_TO_RESPONSE } from '../utilities/AppConstants';
 
-export const loadMovies = (movies, page = 1) => ({
+const loadMovies = (movies, page = 1) => ({
     type: ActionConstants.FETCH_MOVIES,
     movies,
     page
 });
 
-export const loadMovieDetails = movie => ({
+const loadMovieDetails = movie => ({
     type: ActionConstants.FETCH_MOVIE_DETAILS,
     movie
 });
 
-export const clearList = () => ({
+const clearList = () => ({
     type: ActionConstants.CLEAR_MOVIE_LIST
 });
 
@@ -32,16 +25,16 @@ export const fetchMovies = (type, page = 1) => ((dispatch) => {
     let resource;
     switch (type) {
     case 'upcoming':
-        resource = RESOURCE_UPCOMING_MOVIES;
+        resource = Resources.UPCOMING_MOVIES;
         break;
     case 'topRated':
-        resource = RESOURCE_TOP_RATED_MOVIES;
+        resource = Resources.TOP_RATED_MOVIES;
         break;
     case 'popular':
-        resource = RESOURCE_POPULAR_MOVIES;
+        resource = Resources.POPULAR_MOVIES;
         break;
     default:
-        resource = RESOURCE_PLAYING_MOVIES;
+        resource = Resources.PLAYING_MOVIES;
     }
     dispatch(showLoading());
     dispatch(clearList());
@@ -60,7 +53,7 @@ export const fetchMovies = (type, page = 1) => ((dispatch) => {
 export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_PLAYING_MOVIES, {
+    return axios.get(Resources.PLAYING_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
         dispatch(loadMovies(response.data, quickSearchQuery.page));
@@ -73,7 +66,7 @@ export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
 export const fetchUpcoming = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_UPCOMING_MOVIES, {
+    return axios.get(Resources.UPCOMING_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
         dispatch(loadMovies(response.data, quickSearchQuery.page));
@@ -86,7 +79,7 @@ export const fetchUpcoming = quickSearchQuery => ((dispatch) => {
 export const fetchPopular = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_POPULAR_MOVIES, {
+    return axios.get(Resources.POPULAR_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
         dispatch(loadMovies(response.data, quickSearchQuery.page));
@@ -99,7 +92,7 @@ export const fetchPopular = quickSearchQuery => ((dispatch) => {
 export const fetchTopRated = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_TOP_RATED_MOVIES, {
+    return axios.get(Resources.TOP_RATED_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
         dispatch(loadMovies(response.data, quickSearchQuery.page));
@@ -112,7 +105,7 @@ export const fetchTopRated = quickSearchQuery => ((dispatch) => {
 export const searchMovies = searchQuery => (dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_SEARCH_MOVIES, { params: searchQuery }).then((response) => {
+    return axios.get(Resources.SEARCH_MOVIES, { params: searchQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadMovies(response.data, searchQuery.page || 1));
     }, (error) => { // eslint-disable-line
@@ -123,7 +116,7 @@ export const searchMovies = searchQuery => (dispatch) => {
 export const discoverMovies = discoverQuery => (dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
-    return axios.get(RESOURCE_DISCOVER_MOVIES, { params: discoverQuery }).then((response) => {
+    return axios.get(Resources.DISCOVER_MOVIES, { params: discoverQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadMovies(response.data, discoverQuery.page || 1));
     }, (error) => { // eslint-disable-line

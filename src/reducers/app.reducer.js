@@ -5,27 +5,17 @@ const defaultState = {
     userInfo: {
         userAuthenticated: false
     },
-    translations: {
-        list: []
-    },
+    config: {},
     isLoading: false,
     movieGenres: [],
     movieGenreMap: {},
     tvGenres: [],
-    tvGenreMap: {},
-    timezones: {
-        list: []
-    }
+    tvGenreMap: {}
 };
 
 function app(state = defaultState, action) {
     let modifiedState;
     switch (action.type) {
-    case ActionConstants.TIMEZONES: {
-        modifiedState = Immutable.fromJS(state);
-        modifiedState = modifiedState.updateIn(['timezones', 'list'], list => action.timezones); // eslint-disable-line
-        return modifiedState.toJS();
-    }
     case ActionConstants.MOVIE_GENRES: {
         const movieGenreMap = {};
         for (const genre of action.movieGenres) { // eslint-disable-line
@@ -70,15 +60,6 @@ function app(state = defaultState, action) {
         modifiedState = modifiedState.updateIn(['favoriteTv'], favoriteTv => action.favoriteTv);  // eslint-disable-line
         return modifiedState.toJS();
     }
-    case ActionConstants.USER_INFO_FAILED: {
-        modifiedState = Immutable.fromJS(state);
-        modifiedState = modifiedState.mergeDeep({
-            userInfo: {
-                userAuthenticated: false
-            }
-        });
-        return modifiedState.toJS();
-    }
     case ActionConstants.LOADING_STARTED: {
         modifiedState = Immutable.Map(state);
         modifiedState = modifiedState.setIn(['isLoading'], true);
@@ -87,6 +68,11 @@ function app(state = defaultState, action) {
     case ActionConstants.LOADING_STOPPED: {
         modifiedState = Immutable.Map(state);
         modifiedState = modifiedState.setIn(['isLoading'], false);
+        return modifiedState.toJS();
+    }
+    case ActionConstants.CONFIGURATION: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['config'], value => action.config);  // eslint-disable-line
         return modifiedState.toJS();
     }
     default:

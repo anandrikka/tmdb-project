@@ -10,7 +10,7 @@ class PeopleDetailsComponent extends Component {
         return (
             <div>
                 <pre>
-                    {JSON.stringify(this.props.peopleData.results[this.props.params.id], null, 2)}
+                    {JSON.stringify(this.props.people.results[this.props.params.id], null, 2)}
                 </pre>
             </div>
         );

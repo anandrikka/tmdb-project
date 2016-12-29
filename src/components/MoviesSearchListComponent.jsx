@@ -1,21 +1,18 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL, MEDIA_TYPE_MOVIE, MEDIA_TYPE_TV } from '../Utilities/AppConstants';
-import { movieSortOptions, moviesQuickSearchOptions } from '../Utilities/app-options';
-import LoadingComponent from './LoadingComponent.jsx';
+import axios from 'axios';
+import * as AppConstants from '../utilities/AppConstants';
+import { movieSortOptions, moviesQuickSearchOptions } from '../utilities/AppData';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 import SearchListComponent from './SearchListComponent.jsx';
-import axios from 'axios';
-
 
 class MoviesSearchListComponent extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             loading: true,
             cardType: 'simple',
@@ -38,7 +35,6 @@ class MoviesSearchListComponent extends Component {
      */
     componentDidMount() {
         this.loadMoviesByType().loadMoviesByQuickSearch();
-        $('select').material_select();
     }
 
     /**
@@ -76,7 +72,7 @@ class MoviesSearchListComponent extends Component {
                     page: this.state.activePage
                 };
                 movies(quickSearchQuery).then(() => {
-                    this.loadPosters(this.props.moviesData.search.list);
+                    this.loadPosters(this.props.movies.search.list);
                 });
             },
             searchMovies: (filterState) => {
@@ -97,7 +93,7 @@ class MoviesSearchListComponent extends Component {
                     return;
                 }
                 this.props.actions.searchMovies(this.state.searchQuery).then(() => {
-                    this.loadPosters(this.props.moviesData.search.list);
+                    this.loadPosters(this.props.movies.search.list);
                 });
             },
             discoverMovies: (filterState) => {
@@ -124,7 +120,7 @@ class MoviesSearchListComponent extends Component {
                 state.discoverQuery.page = this.state.activePage;
                 this.setState(state);
                 this.props.actions.discoverMovies(this.state.discoverQuery).then(() => {
-                    this.loadPosters(this.props.moviesData.search.list);
+                    this.loadPosters(this.props.movies.search.list);
                 });
             }
         }
@@ -138,7 +134,7 @@ class MoviesSearchListComponent extends Component {
     loadPosters(list) {
         let posters = [];
         for (let movie in list) {
-            posters.push(IMAGE_URI_ORIGINAL + list[movie].poster_path);
+            posters.push(AppConstants.OriginalImageUrl + list[movie].poster_path);
         }
         axios.all(posters).then(function() {
             this.setState({
@@ -214,8 +210,8 @@ class MoviesSearchListComponent extends Component {
      * @param flag
      */
     saveFav(id, flag) {
-        const accountId = this.props.appData.userInfo.id;
-        this.props.actions.saveFavorite(accountId, MEDIA_TYPE_MOVIE, id, flag)
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.saveFavorite(accountId,AppConstants.MEDIA_TYPE_MOVIE, id, flag)
     }
 
     /**
@@ -224,8 +220,8 @@ class MoviesSearchListComponent extends Component {
      * @param flag
      */
     saveWatchlist(id, flag) {
-        const accountId = this.props.appData.userInfo.id;
-        this.props.actions.saveWatchlist(accountId, MEDIA_TYPE_MOVIE, id, flag);
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_MOVIE, id, flag);
     }
 
     uiElements() {
@@ -237,6 +233,29 @@ class MoviesSearchListComponent extends Component {
                     quickSearchOptions.push(<option key={i} value={option.value}>{option.name}</option>);
                 }
                 return quickSearchOptions;
+            },
+            searchList: (list) => {
+                const cards = list.map((item, index) => {
+                    return (
+                        <div key={index}>
+                            <div className="col s12 m12 l6">
+                                <SimpleCardComponent
+                                    item={item} genres={this.props.app.movieGenreMap}
+                                    gotoItem={this.gotoMovie}
+                                    saveFav={this.saveFav}
+                                    saveWatchlist={this.saveWatchlist}
+                                    type={'movie'}>
+                                </SimpleCardComponent>
+                            </div>
+                            {
+                                (index % 2 === 1) ? (
+                                    <div className="clearfix"></div>
+                                ) : ''
+                            }
+                        </div>
+                    );
+                });
+                return cards;
             }
         }
         return uiElements;
@@ -247,45 +266,41 @@ class MoviesSearchListComponent extends Component {
      * @returns {XML}
      */
     render() {
-        console.log('MoviesSearchListComponent: ', this.props);
-        const list = this.prepareList(this.props.moviesData.search.list);
+        const list = this.prepareList(this.props.movies.search.list);
         const styles = this.inlineStyles();
         const loadActions = this.loadMoviesByType();
-        return (
-            <div>
-                <div className="row">
-                    <FilterComponent type="movies"
-                        genres={this.props.appData.movieGenres}
-                        sortOptions = {movieSortOptions}
-                        quickSearchOptions = {moviesQuickSearchOptions}
-                        search = {loadActions.searchMovies}
-                        discover = {loadActions.discoverMovies}
-                        quickSearch = {loadActions.loadMoviesByQuickSearch}>
-                    </FilterComponent>
-                    <div className="col s12 m8 l9">  
-                        <SearchListComponent list={list}
-                            genres={this.props.appData.movieGenreMap}
-                            gotoItem={this.gotoMovie}
-                            saveFav={this.saveFav}
-                            saveWatchlist={this.saveWatchlist}
-                            type="movies"
-                            cardType={this.state.cardType}>
-                        </SearchListComponent>
-                    </div>
-                </div>
-                {
-                    !this.state.loading ? (
-                        <div style={styles.paginationRight}>
-                            <PaginationComponent
-                                pages={this.props.moviesData.search.totalPages}
-                                activePage={this.state.activePage} pageSelect={this.pageSelect}>
-                            </PaginationComponent>
+        if (this.props.movies.search.list.length > 0) {
+            return (
+                <div>
+                    <div className="row">
+                        <FilterComponent type="movies"
+                            genres={this.props.app.movieGenres}
+                            sortOptions = {movieSortOptions}
+                            quickSearchOptions = {moviesQuickSearchOptions}
+                            search = {loadActions.searchMovies}
+                            discover = {loadActions.discoverMovies}
+                            quickSearch = {loadActions.loadMoviesByQuickSearch}>
+                        </FilterComponent>
+                        <div className="col s12 m8 l9">  
+                            {this.uiElements().searchList(list)}
                         </div>
-                    ) : ''
-                }
-                <div className="clear"></div>
-            </div>
-        );
+                    </div>
+                    {!this.state.loading &&
+                        (<div className="right">
+                            <PaginationComponent
+                                pages={this.props.movies.search.totalPages}
+                                activePage={this.state.activePage}
+                                pageSelect={this.pageSelect}>
+                            </PaginationComponent>
+                        </div>)
+                    }
+                    <div className="clear"></div>
+                </div>
+            );
+        } else {
+            return <div/>;
+        }
+        
     }
 }
 

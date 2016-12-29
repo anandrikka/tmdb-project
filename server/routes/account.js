@@ -10,7 +10,7 @@ router.use(function (req, res, next) {
     var cookie = new Cookies(req, res).get('tmdbredux');
     if (!cookie) {
         if (req.url === '/getAccountDetails') {
-            res.send({authenticationFalied: true});
+            res.send({authenticationFailed: true});
         } else {
             res.status(401);
             res.send("UnAuthorized Request");

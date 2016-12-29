@@ -52,3 +52,22 @@
 .mcard-img {
   max-height: 100px !important;
 }
+
+.crew-collection {
+  .collection-item.avatar {
+    min-height:0;
+    .circle {
+      width: 42px !important;
+    }
+    .title {
+      font-weight: 500;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+.slick-prev:before, .slick-next:before {
+  color: black;
+}

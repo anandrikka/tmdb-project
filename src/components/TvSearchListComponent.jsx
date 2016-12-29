@@ -1,13 +1,13 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
 import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 import SearchListComponent from './SearchListComponent.jsx';
-import { tvSortOptions } from '../Utilities/app-options';
+import { tvSortOptions } from '../utilities/AppData';
 import axios from 'axios';
 
 class TvSearchListComponent extends Component {
@@ -34,8 +34,8 @@ class TvSearchListComponent extends Component {
     loadTvListOnType(page=1, tvCategory) {
         this.props.actions.fetchTvList(tvCategory || this.state.tvCategory, page).then(() => {
             let posters = [];
-            for (let tv in this.props.tvData.search.list) {
-                posters.push(IMAGE_URI_ORIGINAL + this.props.tvData.search.list[tv].backdrop_path);
+            for (let tv in this.props.tv.search.list) {
+                posters.push(IMAGE_URI_ORIGINAL + this.props.tv.search.list[tv].backdrop_path);
             }
             axios.all(posters).then(function () {
                 this.setState({
@@ -108,18 +108,18 @@ class TvSearchListComponent extends Component {
     }
 
     render() {
-        const list = this.prepareList(this.props.tvData.search.list);
+        const list = this.prepareList(this.props.tv.search.list);
         const styles = this.inlineStyles();
         return (
             <div>
                 <div className="row">
                     <FilterComponent type="television"
-                        genres={this.props.appData.tvGenres}    
+                        genres={this.props.app.tvGenres}    
                         sortOptions={tvSortOptions}>
                     </FilterComponent>
                     <div className="col s12 m8 l9">
                         <SearchListComponent list={list}
-                            genres={this.props.appData.tvGenreMap}
+                            genres={this.props.app.tvGenreMap}
                             gotoItem={this.gotoTv}
                             type="tv"
                             cardType={this.state.cardType}>
@@ -130,7 +130,7 @@ class TvSearchListComponent extends Component {
                     !this.state.loading ? (
                         <div style={styles.paginationRight}>
                             <PaginationComponent
-                                pages={this.props.tvData.search.totalPages}
+                                pages={this.props.tv.search.totalPages}
                                 activePage={this.state.activePage} pageSelect={this.pageSelect}>
                             </PaginationComponent>
                         </div>

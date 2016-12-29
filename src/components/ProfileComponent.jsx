@@ -6,7 +6,7 @@ import * as ProfileActions from '../actions/profile.actions';
 class ProfileComponent extends Component {
 
     componentDidMount() {
-        const accountId = this.props.appData.userInfo.accountId;
+        const accountId = this.props.app.userInfo.accountId;
         this.props.actions.fetchMovieFavorites(accountId);
         this.props.actions.fetchTvFavorites(accountId);
         this.props.actions.fetchMovieWatchlist(accountId);
@@ -52,10 +52,10 @@ ProfileComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const { profileData, appData } = state;
+    const { profile, app } = state;
     return {
-        appData,
-        profileData
+        app,
+        profile
     }
 }
 

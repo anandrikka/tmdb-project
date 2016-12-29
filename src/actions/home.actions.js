@@ -2,10 +2,7 @@ import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
 import { showLoading, hideLoading } from './app.actions';
-import {
-    RESOURCE_PLAYING_MOVIES,
-    RESOURCE_TODAY_SERIALS
-} from '../Utilities/Urls';
+import * as Resources from '../utilities/ResourceURI';
 
 export const loadMovies = nowPlaying => ({
     type: ActionConstants.FETCH_NOW_PLAYING_MOVIES,
@@ -25,7 +22,7 @@ export const updateErrorStatus = (type, status) => ({
 export const fetchMovies = (page = 1) => (dispatch) => {
     dispatch(showLoading());
     axios.get(
-        RESOURCE_PLAYING_MOVIES, {
+        Resources.PLAYING_MOVIES, {
             params: {
                 page
             }
@@ -41,7 +38,7 @@ export const fetchMovies = (page = 1) => (dispatch) => {
 export const fetchTvAiringToday = () => (dispatch) => {
     dispatch(showLoading());
     axios.get(
-        RESOURCE_TODAY_SERIALS).then((response) => {
+        Resources.TODAY_SERIALS).then((response) => {
             dispatch(loadTvAiringToday(response.data));
             dispatch(hideLoading());
         }, (error) => { // eslint-disable-line

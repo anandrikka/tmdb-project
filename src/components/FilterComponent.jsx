@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { languageCountryCodes, countryCodes } from '../../dist/assets/data/language-countries';
-import { Ratings } from '../Utilities/AppConstants';
+import { Ratings } from '../utilities/AppConstants';
 
 class FilterComponent extends Component {
 

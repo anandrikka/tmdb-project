@@ -8,9 +8,9 @@ import * as AppActions from '../actions/app.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { appData } = state;
+    const { app } = state;
     return {
-        appData
+        app
     };
 };
 

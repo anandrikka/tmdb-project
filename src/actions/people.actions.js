@@ -2,18 +2,16 @@ import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
 import { showLoading, hideLoading } from './app.actions';
-import {
-    RESOURCE_PEOPLE_POPULAR
-} from '../Utilities/Urls';
-import { PEOPLE_APPEND_TO_RESPONSE } from '../Utilities/AppConstants';
+import { PEOPLE_POPULAR } from '../utilities/ResourceURI';
+import { PEOPLE_APPEND_TO_RESPONSE } from '../utilities/AppConstants';
 
-export const loadPeople = (peopleList, page = 1) => ({
+const loadPeople = (peopleList, page = 1) => ({
     type: ActionConstants.FETCH_PEOPLE_LIST,
     peopleList,
     page
 });
 
-export const loadPeopleDetails = peopleDetails => ({
+const loadPeopleDetails = peopleDetails => ({
     type: ActionConstants.FETCH_PEOPLE_DETAILS,
     peopleDetails
 });
@@ -22,10 +20,10 @@ export const fetchPeople = (type, page = 1) => ((dispatch) => {
     let resource;
     switch (type) {
     case 'popular':
-        resource = RESOURCE_PEOPLE_POPULAR;
+        resource = PEOPLE_POPULAR;
         break;
     default:
-        resource = RESOURCE_PEOPLE_POPULAR;
+        resource = PEOPLE_POPULAR;
     }
     dispatch(showLoading());
     return axios.get(resource, {

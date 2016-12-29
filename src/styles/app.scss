@@ -29,10 +29,8 @@ a:focus {
     z-index:9999;
 }
 
-.container {
-    .top {
-        margin-top: 20px;
-    }
+.container-top {
+    margin-top: 20px;
 }
 
 .w100 {
@@ -82,7 +80,15 @@ a:focus {
 .inline {
     display: inline !important;
 }
-
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+.fixed {
+    position: fixed;
+}
 
 #wrapper {
     min-height:100vh;

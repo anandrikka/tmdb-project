@@ -29,15 +29,15 @@ const router = (
                 <Route path="/home" component={HomeContainer}></Route>
                 <Route path="/movies" component={MoviesContainer}>
                     <IndexRoute component={MoviesSearchListComponent}></IndexRoute>
-                    <Route path="/movies/:id" component={MovieDetailsComponent}></Route>
+                    <Route path=":id" component={MovieDetailsComponent}></Route>
                 </Route>
                 <Route path="/tv" component={TvContainer}>
                     <IndexRoute component={TvSearchListComponent}></IndexRoute>
-                    <Route path="/tv/:id" component={TvDetailsComponent}></Route>
+                    <Route path=":id" component={TvDetailsComponent}></Route>
                 </Route>
                 <Route path="/people" component={PeopleContainer}>
                     <IndexRoute component={PeopleListComponent}></IndexRoute>
-                    <Route path="/people/:id" component={PeopleDetailsComponent}></Route>
+                    <Route path=":id" component={PeopleDetailsComponent}></Route>
                 </Route>
             </Route>
         </Router>

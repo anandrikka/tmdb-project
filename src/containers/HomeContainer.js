@@ -8,10 +8,10 @@ import * as HomeActions from '../actions/home.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { homeData, appData } = state;
+    const { home, app } = state;
     return {
-        homeData,
-        appData
+        home,
+        app
     };
 };
 

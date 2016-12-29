@@ -1,11 +1,6 @@
 import axios from 'axios';
 import * as ActionConstants from './action.constants';
-import {
-    RESOURCE_TIMEZONES,
-    RESOURCE_MOVIE_GENRES,
-    RESOURCE_TV_GENRES,
-    RESOURCE_USER_DETAILS
-} from '../Utilities/Urls';
+import * as Resources from '../utilities/ResourceURI';
 
 export const showLoading = () => ({
     type: ActionConstants.LOADING_STARTED
@@ -15,27 +10,12 @@ export const hideLoading = () => ({
     type: ActionConstants.LOADING_STOPPED
 });
 
-export const loadUserFailed = () => ({
-    type: ActionConstants.USER_INFO_FAILED
-});
-
-export const timezones = timezones => ({ // eslint-disable-line
-    type: ActionConstants.TIMEZONES,
-    timezones
-});
-
-export const fetchTimezones = () => dispatch => axios.get(RESOURCE_TIMEZONES)
-    .then((response) => {
-        dispatch(timezones(response.data));
-    }, (error) => { // eslint-disable-line
-    });
-
-export const movieGenres = movieGenres => ({ // eslint-disable-line
+const movieGenres = movieGenres => ({ // eslint-disable-line
     type: ActionConstants.MOVIE_GENRES,
     movieGenres
 });
 
-export const fetchMovieGenres = () => dispatch => axios.get(RESOURCE_MOVIE_GENRES)
+export const fetchMovieGenres = () => dispatch => axios.get(Resources.MOVIE_GENRES)
     .then((response) => {
         dispatch(movieGenres(response.data.genres));
     }, (error) => { // eslint-disable-line
@@ -46,20 +26,31 @@ export const tvGenres = tvGenres => ({ // eslint-disable-line
     tvGenres
 });
 
-export const fetchTvGenres = () => dispatch => axios.get(RESOURCE_TV_GENRES)
+export const fetchTvGenres = () => dispatch => axios.get(Resources.TV_GENRES)
     .then((response) => {
         dispatch(tvGenres(response.data.genres));
     }, (error) => { // eslint-disable-line
     });
 
-export const loadUser = userInfo => ({
+const loadUser = userInfo => ({
     type: ActionConstants.USER_INFO,
     userInfo
 });
 
-export const fetchUserDetails = () => dispatch => axios.get(RESOURCE_USER_DETAILS)
+export const fetchUserDetails = () => dispatch => axios.get(Resources.USER_DETAILS)
     .then((response) => {
         dispatch(loadUser(response.data));
     }, (error) => { // eslint-disable-line
-        dispatch(loadUserFailed);
     });
+
+const loadConfig = config => ({
+    type: ActionConstants.CONFIGURATION,
+    config
+});
+
+export const fetchConfiguration = () => dispatch => axios.get(Resources.CONFIG)
+    .then((response) => {
+        dispatch(loadConfig(response.data));
+    }, (error) => { // eslint-disable-line
+    });
+

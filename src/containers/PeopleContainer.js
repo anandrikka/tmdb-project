@@ -9,10 +9,10 @@ import * as PeopleActions from '../actions/people.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { peopleData, appData } = state;
+    const { people, app } = state;
     return {
-        peopleData,
-        appData
+        people,
+        app
     };
 };
 

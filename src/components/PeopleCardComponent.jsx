@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { IMAGE_URI_ORIGINAL } from '../Utilities/AppConstants';
+import { IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
 
 class PeopleCardComponent extends Component {
 

@@ -9,10 +9,10 @@ import * as TvActions from '../actions/tv.actions';
 /* eslint-enable */
 
 const mapStateToProps = (state) => {
-    const { tvData, appData } = state;
+    const { tv, app } = state;
     return {
-        tvData,
-        appData
+        tv,
+        app
     };
 };
 
