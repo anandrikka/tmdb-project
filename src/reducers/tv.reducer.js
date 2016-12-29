@@ -5,7 +5,8 @@ const defaultState = {
     search: {
         list: []
     },
-    results: {}
+    results: {},
+    filter: {}
 };
 
 const tvReducer = (state = defaultState, action) => {
@@ -27,6 +28,12 @@ const tvReducer = (state = defaultState, action) => {
         const tv = action.tv;
         modifiedState = Immutable.Map(state);
         modifiedState = modifiedState.setIn(['results'], { [tv.id]: tv });
+        return modifiedState.toJS();
+    }
+    case ActionConstants.CLEAR_MOVIE_LIST: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['search', 'list'],
+            list => []); // eslint-disable-line
         return modifiedState.toJS();
     }
     default:

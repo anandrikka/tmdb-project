@@ -16,6 +16,10 @@ router.get('/topRated', reqFn('getTopRatedTvShows'));
 
 router.get('/airingNow', reqFn('getTvShowsCurrentlyAiring'));
 
+router.get('/search', reqFn('searchTv'));
+
+router.get('/discover', reqFn('discoverTv'));
+
 router.get('/:tvId', reqFn('getTvShowDetails'));
 
 module.exports = router;

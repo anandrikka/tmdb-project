@@ -98,3 +98,26 @@ export const moviesQuickSearchOptions = [
         value: 'topRated'
     }
 ];
+
+export const tvQuickSearchOptions = [
+    {
+        value: '',
+        name: ''
+    },
+    {
+        name: 'On Air',
+        value: 'onAir'
+    },
+    {
+        name: 'Airing Today',
+        value: 'today'
+    },
+    {
+        name: 'Popular',
+        value: 'popular'
+    },
+    {
+        name: 'Top Rated',
+        value: 'topRated'
+    }
+];

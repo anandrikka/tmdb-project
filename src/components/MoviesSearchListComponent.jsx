@@ -15,9 +15,7 @@ class MoviesSearchListComponent extends Component {
         super(props);
         this.state = {
             loading: true,
-            cardType: 'simple',
             activePage: 1,
-            movieCategory: this.props.location.query.type || 'latest',
             searchType: 'quickSearch',
             quickSearchType: 'nowPlaying'
         }
@@ -189,7 +187,7 @@ class MoviesSearchListComponent extends Component {
      * @param id
      */
     gotoMovie(id) {
-        this.props.history.push('movies/' + id);
+        this.context.router.push('movies/' + id);
     }
 
     /**
@@ -304,8 +302,8 @@ class MoviesSearchListComponent extends Component {
     }
 }
 
-MoviesSearchListComponent.propTypes = {
-
-};
+MoviesSearchListComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
 
 export default MoviesSearchListComponent;

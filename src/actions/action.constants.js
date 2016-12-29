@@ -34,6 +34,7 @@ export const CLEAR_MOVIE_LIST = 'CLEAR_MOVIE_LIST';
 export const FETCH_TV_LIST = 'FETCH_TV_LIST';
 export const FETCH_TV_DETAILS = 'FETCH_TV_DETAILS';
 export const FETCH_TV_LIST_FAILED = 'FETCH_TV_LIST_FAILED';
+export const CLEAR_TV_LIST = 'CLEAR_TV_LIST';
 
 // people
 export const FETCH_PEOPLE_LIST = 'FETCH_PEOPLE_LIST';

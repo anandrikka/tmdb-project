@@ -13,7 +13,7 @@ export default class NavbarComponent extends Component {
 
     constructor(props) {
         super(props);
-    }    
+    }
 
     render() {
         return (
@@ -81,11 +81,12 @@ class NavType extends Component {
     render() {
         return (
             <li>
-                <a href={this.props.link}>{this.props.title}
+                <Link to={this.props.link}>
+                    {this.props.title}
                     {this.props.iconClass &&
                         <i className={this.props.iconClass}></i>
                     }
-                </a>
+                </Link>
             </li>
         )
     }

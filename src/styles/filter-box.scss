@@ -1,7 +1,4 @@
 .filter-box {
-    .row {
-       // margin-bottom: 0;
-    }
     .divider {
         margin: 5px 0;
     }
@@ -32,4 +29,26 @@
             font-size: 14px;
         }
     }
+}
+
+.search-filter {
+    label{
+        color: rgba(0, 0, 0, 0.87) !important;
+        font-size: 14px !important;
+    }
+}
+.search-select-label {
+    color: rgba(0, 0, 0, 0.87) !important;
+    margin: 10px 0;
+    font-weight: 400;
+}
+
+.search-background {
+    background-color: #fff;
+}
+
+.genre-scroll {
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-top: 5px;
 }

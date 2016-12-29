@@ -19,6 +19,8 @@ export const TODAY_SERIALS = constructUrl('/tv/airingToday');
 export const TV_POPULAR = constructUrl('/tv/popular');
 export const TV_TOP_RATED = constructUrl('/tv/topRated');
 export const TV_ON_AIR = constructUrl('/tv/airingNow');
+export const SEARCH_TV = constructUrl('/movies/search');
+export const DISCOVER_TV = constructUrl('/movies/discover');
 
 // people
 export const PEOPLE_POPULAR = constructUrl('/people/popular');

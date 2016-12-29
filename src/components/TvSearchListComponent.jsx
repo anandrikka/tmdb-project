@@ -1,14 +1,11 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
-import LoadingComponent from './LoadingComponent.jsx';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
-import FilterComponent from './FilterComponent.jsx';
-import SearchListComponent from './SearchListComponent.jsx';
-import { tvSortOptions } from '../utilities/AppData';
-import axios from 'axios';
+import { tvSortOptions, tvQuickSearchOptions } from '../utilities/AppData';
+import { Ratings } from '../utilities/AppConstants';
+import css from '../styles/filter-box.scss';
 
 class TvSearchListComponent extends Component {
     
@@ -18,59 +15,216 @@ class TvSearchListComponent extends Component {
         this.state = {
             loading: true,
             activePage: 1,
-            cardType: 'simple',
-            tvCategory: this.props.location.query.type || 'airingToday'
+            searchType: 'quickSearch',
+            quickSearchType: 'onAir'
         }
-
+        this.loadQuickSearch = this.loadQuickSearch.bind(this);
         this.pageSelect = this.pageSelect.bind(this);
-        this.loadTvListOnType = this.loadTvListOnType.bind(this);
-        this.gotoTv = this.gotoTv.bind(this);
     }
 
     componentDidMount() {
-        this.loadTvListOnType();
+        this.loadQuickSearch();
     }
 
-    loadTvListOnType(page=1, tvCategory) {
-        this.props.actions.fetchTvList(tvCategory || this.state.tvCategory, page).then(() => {
-            let posters = [];
-            for (let tv in this.props.tv.search.list) {
-                posters.push(IMAGE_URI_ORIGINAL + this.props.tv.search.list[tv].backdrop_path);
+    render() {
+        return (
+            <div>
+                <div className="row">
+                    <div className="col s12 m4 l3">
+                        <SearchFilter genres={this.props.app.tvGenres}></SearchFilter>
+                    </div>
+                    <div className="col s12 m8 l9">
+                        <SearchList list={this.props.tv.search.list}
+                                    gotoTv={this.gotoTv}
+                                    saveToFav={this.saveToFav}
+                                    saveToWatchlist={this.saveToWatchlist}
+                                    movieGenres={this.props.app.tvGenreMap}/>
+                        <div className="right">
+                            <PaginationComponent
+                                pages={this.props.tv.search.totalPages}
+                                activePage={this.state.activePage}
+                                pageSelect={this.pageSelect}>
+                            </PaginationComponent>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    pageSelect() {
+
+    }
+
+    loadQuickSearch() {
+        const quickSearchQuery = {};
+        switch (this.props.quickSearchType) {
+            case 'topRated': {
+                this.props.actions.fetchTopRated(quickSearchQuery);
+                break;
             }
-            axios.all(posters).then(function () {
-                this.setState({
-                    loading: false
-                });
-            }.bind(this));
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // to check whether location query got changed or not, if changed call
-        //list to load again
-        if (this.props.location.query && nextProps.location.query &&
-            this.props.location.query.type !== nextProps.location.query.type) {
-            this.setState({
-                tvCategory: nextProps.location.query.type
-            });
-            this.loadTvListOnType(null, nextProps.location.query.type);
+            case 'popular': {
+                this.props.actions.fetchPopular(quickSearchQuery);
+                break;
+            }
+            case 'today': {
+                this.props.actions.fetchTodaySerials(quickSearchQuery);
+                break;
+            }
+            case 'onAir': {
+                this.props.actions.fetchOnAir(quickSearchQuery);
+                break;
+            }
+            default:
+                this.props.actions.fetchOnAir(quickSearchQuery);
         }
     }
 
-    /**
-     *Load Page list when page is selected
-     */
-    pageSelect(page) {
-        this.setState({
-            loading: true,
-            activePage: page
-        });
-        this.loadTvListOnType(page);
+    gotoTv() {
+
     }
 
-    /**
-     *Prepare list for cards
-     */
+    saveToFav() {
+
+    }
+
+    saveToWatchlist() {
+
+    }
+
+}
+
+TvSearchListComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
+export default TvSearchListComponent;
+
+class SearchFilter extends Component {
+
+    componentDidMount() {
+        $('#released_before').pickadate().pickadate('picker');
+        $('#released_after').pickadate().pickadate('picker');
+    }
+
+    render() {
+        return (
+            <div className="row col s12 z-depth-3 filter-box search-filter search-background">
+                <div className="row">
+                    <div className="col s12">
+                        <p className="search-select-label">Quick Search</p>
+                        <select className="browser-default">
+                            {
+                                tvQuickSearchOptions.map((quickSearch, index) => {
+                                    return <option key={index}
+                                        value={quickSearch.value}>{quickSearch.name}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input id="tv_search_text" type="text" />
+                        <label htmlFor="tv_search_text" className="active">
+                            Search Text (min 3 letters)
+                        </label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col s12">
+                        <p className="movie-select-label">Language</p>
+                        <select className="browser-default">
+
+                        </select>
+                    </div>
+                </div>
+                <div className="row">
+                    <h6>Genres</h6>
+                    <div className="genre-scroll">
+                        {
+                            this.props.genres.map((genre, index) => {
+                                return (
+                                    <div className="input-field col s12 no-p" key={index}>
+                                        <input type="checkbox" className="filled-in" id={'genre_' + genre.id} />
+                                        <label htmlFor={'genre_'+genre.id}>{genre.name}</label>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col s12">
+                        <p className="movie-select-label">Order By</p>
+                        <select className="browser-default">
+                            {
+                                tvSortOptions.map((sortOption, index) => {
+                                    return <option key={index} value={sortOption.value}>{sortOption.name}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input type="date" placeholder="01-Jan-2017" className="datepicker" id="released_before"/>
+                        <label htmlFor="released_before" className="active">Air Date Before</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input type="date" placeholder="01-Jan-2017" className="datepicker" id="released_after"/>
+                        <label htmlFor="released_after" className="active">Air Date After</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col s12">
+                        <p className="movie-select-label">Min Rating</p>
+                        <select id="min_rating" className="browser-default">
+                            <option value="" key={-1} defaultValue>Any</option>
+                            {
+                                Ratings.map((rating, index) => {
+                                    return <option key={index} value={rating}>{rating}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    
+}
+
+class SearchList extends Component {
+    render() {
+        const list = this.prepareList(this.props.list);
+        return (
+            <div>
+                {
+                    list.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="col s12 m12 l6">
+                                    <SimpleCardComponent
+                                        item={item}
+                                        gotoItem={this.props.gotoTv}
+                                        saveFav={this.props.saveToFav}
+                                        saveWatchlist={this.props.saveToWatchlist}
+                                        type={'tv'}>
+                                    </SimpleCardComponent>
+                                </div>
+                                { index % 2 === 1 && <div className="clearfix"></div> }
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        );
+    }
+
     prepareList(list) {
         const listLength = list.length;
         const modifiedList = [];
@@ -88,62 +242,4 @@ class TvSearchListComponent extends Component {
         }
         return modifiedList;
     }
-
-    /**
-     *Go to individual item when clicked
-     */
-    gotoTv(id) {
-        this.props.history.push('tv/' + id);
-    }
-
-    /**
-     *Inline styles
-     */
-    inlineStyles() {
-        return {
-            paginationRight: {
-                float: 'right'
-            }
-        };
-    }
-
-    render() {
-        const list = this.prepareList(this.props.tv.search.list);
-        const styles = this.inlineStyles();
-        return (
-            <div>
-                <div className="row">
-                    <FilterComponent type="television"
-                        genres={this.props.app.tvGenres}    
-                        sortOptions={tvSortOptions}>
-                    </FilterComponent>
-                    <div className="col s12 m8 l9">
-                        <SearchListComponent list={list}
-                            genres={this.props.app.tvGenreMap}
-                            gotoItem={this.gotoTv}
-                            type="tv"
-                            cardType={this.state.cardType}>
-                        </SearchListComponent>
-                    </div>
-                </div>
-                {
-                    !this.state.loading ? (
-                        <div style={styles.paginationRight}>
-                            <PaginationComponent
-                                pages={this.props.tv.search.totalPages}
-                                activePage={this.state.activePage} pageSelect={this.pageSelect}>
-                            </PaginationComponent>
-                        </div>
-                    ) : ''
-                }
-                <div className="clear"></div>
-            </div>
-        );
-    }
 }
-
-TvSearchListComponent.propTypes = {
-
-}
-
-export default TvSearchListComponent

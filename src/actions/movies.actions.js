@@ -21,35 +21,6 @@ const clearList = () => ({
     type: ActionConstants.CLEAR_MOVIE_LIST
 });
 
-export const fetchMovies = (type, page = 1) => ((dispatch) => {
-    let resource;
-    switch (type) {
-    case 'upcoming':
-        resource = Resources.UPCOMING_MOVIES;
-        break;
-    case 'topRated':
-        resource = Resources.TOP_RATED_MOVIES;
-        break;
-    case 'popular':
-        resource = Resources.POPULAR_MOVIES;
-        break;
-    default:
-        resource = Resources.PLAYING_MOVIES;
-    }
-    dispatch(showLoading());
-    dispatch(clearList());
-    return axios.get(resource, {
-        params: {
-            page
-        }
-    }).then((response) => {
-        dispatch(loadMovies(response.data, page));
-        dispatch(hideLoading());
-    }, (error) => { // eslint-disable-line
-        dispatch(hideLoading());
-    });
-});
-
 export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());

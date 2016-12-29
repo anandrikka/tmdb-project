@@ -248,7 +248,8 @@ class FilterComponent extends Component {
         const regionOptions = this.uiElements().regionOptions();
 
         return (
-            <div className="col s12 m4 l3 z-depth-3 filter-box movie-filter" style={{marginTop:'0.5rem', backgroundColor:'#fff'}}>
+            <div className="col s12 m4 l3 z-depth-3 filter-box movie-filter"
+                style={{ marginTop: '0.5rem', backgroundColor: '#fff' }}>
                 <div className="row">
                     <div className="col s12">
                         <p className="movie-select-label">Quick Search</p>
