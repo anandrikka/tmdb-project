@@ -88,7 +88,7 @@ const loadRatedTv = ratedTv => ({
     ratedTv
 });
 
-const fetchRatedTv = accountId => (dispatch) => { // eslint-disable-line
+export const fetchRatedTv = accountId => (dispatch) => { // eslint-disable-line
     const resource = `/api/account/${accountId}/rated/tv`;
     dispatch(showLoading());
     axios.get(resource).then((response) => {

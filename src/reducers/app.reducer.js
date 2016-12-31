@@ -2,9 +2,7 @@ import Immutable from 'immutable';
 import * as ActionConstants from '../actions/action.constants';
 
 const defaultState = {
-    userInfo: {
-        userAuthenticated: false
-    },
+    userInfo: {},
     config: {},
     isLoading: false,
     movieGenres: [],
@@ -46,18 +44,8 @@ function app(state = defaultState, action) {
         modifiedState = modifiedState.toJS();
         modifiedState = Immutable.Map(modifiedState);
         const userInfo = modifiedState.get('userInfo');
-        userInfo.authenticationFalied = action.userInfo.authenticationFalied;
+        userInfo.authenticationFailed = action.userInfo.authenticationFailed;
         modifiedState = modifiedState.set('userInfo', userInfo);
-        return modifiedState.toJS();
-    }
-    case ActionConstants.MOVIES_FAVORITE: {
-        modifiedState = Immutable.fromJS(state);
-        modifiedState = modifiedState.updateIn(['favoriteMovies'], favoriteMovies => action.favoriteMovies);  // eslint-disable-line
-        return modifiedState.toJS();
-    }
-    case ActionConstants.TV_FAVORITE: {
-        modifiedState = Immutable.fromJS(state);
-        modifiedState = modifiedState.updateIn(['favoriteTv'], favoriteTv => action.favoriteTv);  // eslint-disable-line
         return modifiedState.toJS();
     }
     case ActionConstants.LOADING_STARTED: {

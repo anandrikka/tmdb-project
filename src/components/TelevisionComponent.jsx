@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import FilterComponent from './FilterComponent.jsx';
 
 class TelevisionComponent extends Component {
     render() {
@@ -13,9 +12,5 @@ class TelevisionComponent extends Component {
         );
     }
 }
-
-TelevisionComponent.propTypes = {
-
-};
 
 export default TelevisionComponent;

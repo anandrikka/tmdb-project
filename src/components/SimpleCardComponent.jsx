@@ -8,7 +8,6 @@ class SimpleCardComponent extends Component {
         super(props);
         this.addToWatchList = this.addToWatchList.bind(this);
         this.addToFavorites = this.addToFavorites.bind(this);
-        
     }
 
     componentDidMount () {

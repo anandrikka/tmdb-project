@@ -3,8 +3,10 @@
 import React, { Component, PropTypes } from 'react';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
+import TvFilter from './TvSearchFilterComponent.jsx';
 import { tvSortOptions, tvQuickSearchOptions } from '../utilities/AppData';
-import { Ratings } from '../utilities/AppConstants';
+import * as AppConstants from '../utilities/AppConstants';
+import { commaSeparate} from '../utilities/AppUtils';
 import css from '../styles/filter-box.scss';
 
 class TvSearchListComponent extends Component {
@@ -16,10 +18,50 @@ class TvSearchListComponent extends Component {
             loading: true,
             activePage: 1,
             searchType: 'quickSearch',
-            quickSearchType: 'onAir'
-        }
+            filter: {
+                quickSearchType: 'onAir',
+                language: 'en-US',
+                region: 'US',
+                search: {
+                    query: ''
+                },
+                discover: {
+                    with_genres: [],
+                    ['vote_average.gte']:'',
+                    ['first_air_date.lte']: null,
+                    ['first_air_date.gte']: null,
+                    with_original_language:'en',
+                    sort_by: 'popularity.desc'
+                }
+            }
+        };
+
+        this.actions = {
+            quickSearchTypeChanged: this.quickSearchTypeChanged.bind(this),
+            queryChanged: this.queryChanged.bind(this),
+            translationLangChanged: this.translationLangChanged.bind(this),
+            genreChanged: this.genreChanged.bind(this),
+            sortBy: this.sortBy.bind(this),
+            minAirDateChanged: this.minAirDateChanged.bind(this),
+            maxAirDateChanged: this.maxAirDateChanged.bind(this),
+            originalLanguageChanged: this.originalLanguageChanged.bind(this),
+            firstAirDateYearChanged: this.firstAirDateYearChanged.bind(this),
+            searchTimeout: null,
+            firstAirDateYearTimeout:null
+        };
+
         this.loadQuickSearch = this.loadQuickSearch.bind(this);
         this.pageSelect = this.pageSelect.bind(this);
+        this.gotoTv = this.gotoTv.bind(this);
+        this.saveToFav = this.saveToFav.bind(this);
+        this.saveToWatchlist = this.saveToWatchlist.bind(this);
+    }
+
+    componentWillMount() {
+        if(!this.props.app.userInfo.authenticationFailed) {
+            this.props.actions.fetchTvFavorites();
+            this.props.actions.fetchTvWatchlist();
+        }
     }
 
     componentDidMount() {
@@ -31,14 +73,16 @@ class TvSearchListComponent extends Component {
             <div>
                 <div className="row">
                     <div className="col s12 m4 l3">
-                        <SearchFilter genres={this.props.app.tvGenres}></SearchFilter>
+                        <TvFilter genres={this.props.app.tvGenres}
+                                  actions={this.actions}
+                                  data={this.state.filter}/>
                     </div>
                     <div className="col s12 m8 l9">
                         <SearchList list={this.props.tv.search.list}
                                     gotoTv={this.gotoTv}
                                     saveToFav={this.saveToFav}
                                     saveToWatchlist={this.saveToWatchlist}
-                                    movieGenres={this.props.app.tvGenreMap}/>
+                                    tvGenres={this.props.app.tvGenreMap} />
                         <div className="right">
                             <PaginationComponent
                                 pages={this.props.tv.search.totalPages}
@@ -52,13 +96,22 @@ class TvSearchListComponent extends Component {
         )
     }
 
-    pageSelect() {
-
+    pageSelect(page) {
+        const state = this.state;
+        state.activePage = page;
+        this.setState(state);
+        if(this.state.searchType === 'search') {
+            this.loadBySearch();
+        }else if(this.state.searchType === 'discover') {
+            this.loadByDiscover();
+        }else {
+            this.loadQuickSearch()
+        }
     }
 
     loadQuickSearch() {
-        const quickSearchQuery = {};
-        switch (this.props.quickSearchType) {
+        const quickSearchQuery = this.getQuickSearchQuery();
+        switch (this.state.filter.quickSearchType) {
             case 'topRated': {
                 this.props.actions.fetchTopRated(quickSearchQuery);
                 break;
@@ -80,18 +133,179 @@ class TvSearchListComponent extends Component {
         }
     }
 
-    gotoTv() {
-
+    loadBySearch() {
+        const searchQuery = this.getSearchQuery();
+        this.props.actions.searchTv(searchQuery);
     }
 
-    saveToFav() {
+    loadByDiscover() {
+        const discoverQuery = this.getDiscoverQuery();
+        discoverQuery.with_genres = commaSeparate(discoverQuery.with_genres);
+        this.props.actions.discoverTv(discoverQuery);
+    }
 
+    gotoTv(id) {
+        this.context.router.push('tv/' + id);
+    }
+
+    saveToFav(id) {
+        const accountId = this.props.app.userInfo.id;
+        if(accountId) {
+            this.props.actions.saveFavorite(accountId, AppConstants.MEDIA_TYPE_TV, id, true);
+        }
     }
 
     saveToWatchlist() {
-
+        const accountId = this.props.app.userInfo.id;
+        if(accountId) {
+            this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_TV, id, flag);
+        }
     }
 
+    quickSearchTypeChanged(quickSearchType) {
+        const state = this.state;
+        state.filter.quickSearchType = quickSearchType;
+        state.searchType = 'quickSearch';
+        state.activePage = 1;
+        state.filter.discover = this.resetDiscover();
+        state.filter.search = this.resetSearch();
+        this.setState(state);
+        this.loadQuickSearch();
+    }
+
+    queryChanged(query) {
+        const state = this.state;
+        state.filter.search.query = query;
+        state.searchType = 'search';
+        state.activePage = 1;
+        this.setState(state);
+        if(this.actions.searchTimeout) {
+            clearTimeout(this.actions.searchTimeout);
+        }
+        this.actions.searchTimeout = setTimeout(function() {
+            this.loadBySearch();
+        }.bind(this), 1000);
+    }
+
+    translationLangChanged(lang) {
+        const state = this.state;
+        state.filter.language = lang;
+        state.searchType = 'search';
+        this.setState(state);
+        if(state.searchType === 'search') {
+            this.loadBySearch();
+        }else if(state.searchType === 'discover') {
+            this.loadByDiscover();
+        }else {
+            this.loadQuickSearch();
+        }
+    }
+
+    firstAirDateYearChanged(year) {
+        const state = this.state;
+        state.filter.search.first_air_date_year = year
+        this.setState(state);
+        if(state.filter.search.query.length > 0) {
+            this.loadBySearch();
+        }
+    }
+
+    genreChanged(genreId) {
+        const state = this.state;
+        let genres = state.filter.discover.with_genres;
+        var index = genres.indexOf(genreId);
+        if(index > -1) {
+            genres.splice(index, 1);
+        } else {
+            genres.push(genreId);
+        }
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    sortBy(sortBy) {
+        const state = this.state;
+        state.filter.discover.sort_by = sortBy;
+        state.searchType = 'discover';
+        this.setState(state);
+    }
+    
+    ratingChanged(rating) {
+        const state = this.state;
+        state.filter.discover['vote_average.gte'] = rating;
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    minAirDateChanged(date) {
+        const state = this.state;
+        state.filter.discover['first_air_date.gte'] = date;
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    maxAirDateChanged(date) {
+        const state = this.state;
+        state.filter.discover['first_air_date.lte'] = date;
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+    
+    originalLanguageChanged(lang) {
+        const state = this.state;
+        state.filter.discover.with_original_language = lang;
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+    
+    getQuickSearchQuery() {
+        const query = {
+            language: this.state.filter.language,
+            page: this.state.activePage
+        };
+        return query;
+    }
+    
+    getSearchQuery() {
+        const query = {
+            language: this.state.filter.language,
+            page: this.state.activePage
+        }
+        Object.assign(query, this.state.filter.search);
+        return query;
+    }
+
+    getDiscoverQuery() {
+        const query = {
+            language: this.state.filter.language,
+            page: this.state.activePage
+        }
+        Object.assign(query, this.state.filter.discover);
+        return query;
+    }
+
+    resetDiscover() {
+        return {
+            with_genres: [],
+            sort_by: '',
+            ['vote_average.gte']:'',
+            ['first_air_date.lte']: null,
+            ['first_air_date.gte']: null,
+            with_original_language:'en'
+        };
+    }
+
+    resetSearch() {
+        return {
+            query: ''
+        };
+    }
+    
 }
 
 TvSearchListComponent.contextTypes = {
@@ -99,104 +313,6 @@ TvSearchListComponent.contextTypes = {
 }
 
 export default TvSearchListComponent;
-
-class SearchFilter extends Component {
-
-    componentDidMount() {
-        $('#released_before').pickadate().pickadate('picker');
-        $('#released_after').pickadate().pickadate('picker');
-    }
-
-    render() {
-        return (
-            <div className="row col s12 z-depth-3 filter-box search-filter search-background">
-                <div className="row">
-                    <div className="col s12">
-                        <p className="search-select-label">Quick Search</p>
-                        <select className="browser-default">
-                            {
-                                tvQuickSearchOptions.map((quickSearch, index) => {
-                                    return <option key={index}
-                                        value={quickSearch.value}>{quickSearch.name}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="tv_search_text" type="text" />
-                        <label htmlFor="tv_search_text" className="active">
-                            Search Text (min 3 letters)
-                        </label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s12">
-                        <p className="movie-select-label">Language</p>
-                        <select className="browser-default">
-
-                        </select>
-                    </div>
-                </div>
-                <div className="row">
-                    <h6>Genres</h6>
-                    <div className="genre-scroll">
-                        {
-                            this.props.genres.map((genre, index) => {
-                                return (
-                                    <div className="input-field col s12 no-p" key={index}>
-                                        <input type="checkbox" className="filled-in" id={'genre_' + genre.id} />
-                                        <label htmlFor={'genre_'+genre.id}>{genre.name}</label>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s12">
-                        <p className="movie-select-label">Order By</p>
-                        <select className="browser-default">
-                            {
-                                tvSortOptions.map((sortOption, index) => {
-                                    return <option key={index} value={sortOption.value}>{sortOption.name}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input type="date" placeholder="01-Jan-2017" className="datepicker" id="released_before"/>
-                        <label htmlFor="released_before" className="active">Air Date Before</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input type="date" placeholder="01-Jan-2017" className="datepicker" id="released_after"/>
-                        <label htmlFor="released_after" className="active">Air Date After</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s12">
-                        <p className="movie-select-label">Min Rating</p>
-                        <select id="min_rating" className="browser-default">
-                            <option value="" key={-1} defaultValue>Any</option>
-                            {
-                                Ratings.map((rating, index) => {
-                                    return <option key={index} value={rating}>{rating}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    
-}
 
 class SearchList extends Component {
     render() {
@@ -234,7 +350,7 @@ class SearchList extends Component {
                 id: listItem.id,
                 image_path: listItem.backdrop_path,
                 genre_ids: listItem.genre_ids,
-                title: listItem.original_name,
+                title: listItem.original_name || listItem.original_title,
                 overview: listItem.overview,
                 date: listItem.first_air_date,
                 vote_average: listItem.vote_average

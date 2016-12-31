@@ -54,8 +54,7 @@ class UserButton extends Component {
     render() {
         if (this.props.profile.authenticationFailed) {
             return (
-                <NavType link="/api/login" title="Login"
-                    iconClass="fa fa-user-circle fa-2x right" />
+                <li><a href="/api/login">Login<i className="fa fa-user-circle fa-2x right"></i></a></li>
             );
         } else {
             return (
@@ -65,7 +64,7 @@ class UserButton extends Component {
                     </a>
                     <ul id="account" className="dropdown-content">
                         <NavType link="/Profile" title="Profile" />
-                        <NavType link="/api/logout" title="Logout"/>
+                        <li><a href="/api/logout">Logout</a></li>
                     </ul>
                 </li>
             )    

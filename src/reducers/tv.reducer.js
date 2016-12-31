@@ -30,7 +30,7 @@ const tvReducer = (state = defaultState, action) => {
         modifiedState = modifiedState.setIn(['results'], { [tv.id]: tv });
         return modifiedState.toJS();
     }
-    case ActionConstants.CLEAR_MOVIE_LIST: {
+    case ActionConstants.CLEAR_TV_LIST: {
         modifiedState = Immutable.fromJS(state);
         modifiedState = modifiedState.updateIn(['search', 'list'],
             list => []); // eslint-disable-line

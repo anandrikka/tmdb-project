@@ -51,6 +51,7 @@ Object.keys(tmdbResources.apis).forEach(function (api) {
                 .replace(':companyId', params.companyId)
                 .replace(':collectionId', params.collectionId)
                 .replace(':accountId', params.accountId);
+            console.log('Server Query: ', resource + '?' + queryString.stringify(query));
             if (apiItem.method === 'GET') {
                 return this.axiosInstance.get(resource + '?' + queryString.stringify(query));
             } else {

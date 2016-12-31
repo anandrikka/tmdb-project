@@ -4,10 +4,10 @@ import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import * as AppConstants from '../utilities/AppConstants';
 import { movieSortOptions, moviesQuickSearchOptions } from '../utilities/AppData';
+import { commaSeparate} from '../utilities/AppUtils';
 import PaginationComponent from './PaginationComponent.jsx';
 import SimpleCardComponent from './SimpleCardComponent.jsx';
-import FilterComponent from './FilterComponent.jsx';
-import SearchListComponent from './SearchListComponent.jsx';
+import MoviesFilter from './MoviesSearchFilterComponent.jsx';
 
 class MoviesSearchListComponent extends Component {
 
@@ -17,135 +17,386 @@ class MoviesSearchListComponent extends Component {
             loading: true,
             activePage: 1,
             searchType: 'quickSearch',
-            quickSearchType: 'nowPlaying'
+            filter: {
+                quickSearchType: 'nowPlaying',
+                language: 'en-US',
+                region: 'US',
+                include_adult: false,
+                search: {
+                    query: ''
+                },
+                discover: {
+                    with_genres: [],
+                    sort_by: 'popularity.desc',
+                    with_original_language: 'en',
+                    'release_date.gte': '',
+                    'release_date.lte': '',
+                    'vote_average.gte': '',
+                    'vote_average.lte': '',
+                    'vote_count.gte': '',
+                    'vote_count.lte': ''
+                }
+            }
         }
+
+        this.actions = {
+            quickSearchChanged: this.quickSearchChanged.bind(this),
+            queryChanged: this.queryChanged.bind(this),
+            translationLangChanged: this.translationLangChanged.bind(this),
+            regionChanged: this.regionChanged.bind(this),
+            includeAdultChanged: this.includeAdultChanged.bind(this),
+            genreChanged: this.genreChanged.bind(this),
+            sortByChanged: this.sortByChanged.bind(this),
+            minRatingChanged: this.minRatingChanged.bind(this),
+            maxRatingChanged: this.maxRatingChanged.bind(this),
+            minVoteCountChanged: this.minVoteCountChanged.bind(this),
+            maxVoteCountChanged: this.maxVoteCountChanged.bind(this),
+            originalLanguageChanged: this.originalLanguageChanged.bind(this),
+            releasedBeforeChanged: this.releasedBeforeChanged.bind(this),
+            releasedAfterChanged: this.releasedAfterChanged.bind(this),
+            searchTimeout: null,
+            minVoteCountTimeout: null,
+            maxVoteCountTimeout: null
+        };
+
         //Bind functions to this that need props
         this.pageSelect = this.pageSelect.bind(this);
         this.gotoMovie = this.gotoMovie.bind(this);
         this.saveFav = this.saveFav.bind(this);
         this.saveWatchlist = this.saveWatchlist.bind(this);
-        this.loadPosters = this.loadPosters.bind(this);
-        this.loadMoviesByType = this.loadMoviesByType.bind(this);
     }
 
-    /**
-     * DOM Loaded
-     */
     componentDidMount() {
-        this.loadMoviesByType().loadMoviesByQuickSearch();
+        this.loadQuickSearch();
     }
 
-    /**
-     * Load Movies based on filter
-     */
-    loadMoviesByType() {
-        const loadActions = {
-            loadMoviesByQuickSearch: (filterState) => {
-                let movies;
-                const state = this.state;
-                if(filterState) {
-                    state.activePage = 1;
-                    state.quickSearchType = filterState.quickSearch;
-                    state.language = filterState.language;
-                    state.region = filterState.region;
-                }
-                state.searchType = 'quickSearch';
-                this.setState(state);
-                switch (this.state.quickSearchType) {
-                    case 'topRated':
-                        movies = this.props.actions.fetchTopRated;
-                        break;
-                    case 'upcoming':
-                        movies = this.props.actions.fetchUpcoming;
-                        break;
-                    case 'popular':
-                        movies = this.props.actions.fetchPopular;
-                        break;
-                    default:
-                        movies = this.props.actions.fetchNowPlaying;
-                }
-                var quickSearchQuery = {
-                    language: this.state.language,
-                    region: this.state.region,
-                    page: this.state.activePage
-                };
-                movies(quickSearchQuery).then(() => {
-                    this.loadPosters(this.props.movies.search.list);
-                });
-            },
-            searchMovies: (filterState) => {
-                const state = this.state;
-                if(filterState) {
-                    state.activePage = 1;
-                    const filterStateQuery = JSON.parse(JSON.stringify(filterState));
-                    state.searchQuery = filterStateQuery.search
-                    state.searchType = 'search';
-                    state.language = filterStateQuery.language;
-                    state.region = filterStateQuery.region;
-                    state.searchQuery.language = filterStateQuery.language;
-                    state.searchQuery.region = filterStateQuery.region;
-                }
-                state.searchQuery.page = this.state.activePage;
-                this.setState(state);
-                if (this.state.searchQuery.query.length <= 0) {
-                    return;
-                }
-                this.props.actions.searchMovies(this.state.searchQuery).then(() => {
-                    this.loadPosters(this.props.movies.search.list);
-                });
-            },
-            discoverMovies: (filterState) => {
-                const state = this.state;
-                if(filterState) {
-                    state.activePage = 1;
-                    const filterDiscoverQuery = JSON.parse(JSON.stringify(filterState));
-                    state.discoverQuery = filterDiscoverQuery.discover;
-                    state.language = filterDiscoverQuery.language;
-                    state.region = filterDiscoverQuery.region;
-                    state.discoverQuery.language = filterDiscoverQuery.language;
-                    state.discoverQuery.region = filterDiscoverQuery.region;
-                    const genres = filterDiscoverQuery.discover.with_genres;
-                    let genresComma = '';
-                    for (let i = 0; i < genres.length; i++) {
-                        genresComma = genresComma + genres[i];
-                        if (i < genres.length-1) {
-                            genresComma = genresComma + ','
-                        }
-                    }
-                    state.discoverQuery.with_genres = genresComma;
-                    state.searchType = 'discover';
-                }
-                state.discoverQuery.page = this.state.activePage;
-                this.setState(state);
-                this.props.actions.discoverMovies(this.state.discoverQuery).then(() => {
-                    this.loadPosters(this.props.movies.search.list);
-                });
+    render() {
+        const movies = this.props.movies.search.list;
+        if(movies.length > 0) {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col s12 m4 l3">
+                            <MoviesFilter genres={this.props.app.movieGenres}
+                                          actions={this.actions}
+                                          data={this.state.filter}/>
+                        </div>
+                        <div className="col s12 m8 l9">
+                            <SearchList list={movies}
+                                        gotoMovie={this.gotoMovie}
+                                        saveToFav={this.saveToFav}
+                                        saveToWatchlist={this.saveToWatchlist}
+                                        movieGenres={this.props.app.movieGenreMap} />
+                            <div className="right">
+                                <PaginationComponent
+                                    pages={this.props.movies.search.totalPages}
+                                    activePage={this.state.activePage}
+                                    pageSelect={this.pageSelect}>
+                                </PaginationComponent>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        return (<div/>);
+    }
+
+    loadQuickSearch() {
+        const quickSearchQuery = this.getQuickSearchQuery();
+        switch (this.state.filter.quickSearchType) {
+            case 'topRated': {
+                this.props.actions.fetchTopRated(quickSearchQuery);
+                break;
             }
+            case 'upcoming': {
+                this.props.actions.fetchUpcoming(quickSearchQuery);
+                break;
+            }
+            case 'popular': {
+                this.props.actions.fetchPopular(quickSearchQuery);
+                break;
+            }
+            default:
+                this.props.actions.fetchNowPlaying(quickSearchQuery);
         }
-        return loadActions;
     }
 
-    /**
-     * Load Posters
-     * @param list
-     */
-    loadPosters(list) {
-        let posters = [];
-        for (let movie in list) {
-            posters.push(AppConstants.OriginalImageUrl + list[movie].poster_path);
-        }
-        axios.all(posters).then(function() {
-            this.setState({
-                loading: false
-            })
-        }.bind(this));
+    loadBySearch() {
+        const searchQuery = this.getSearchQuery();
+        this.props.actions.searchMovies(searchQuery);
     }
 
-    /**
-     * Prepares list with common object pattern for card
-     * @param list
-     * @returns {Array}
-     */
+    loadByDiscover() {
+        const discoverQuery = this.getDiscoverQuery();
+        discoverQuery.with_genres = commaSeparate(discoverQuery.with_genres);
+        this.props.actions.discoverMovies(discoverQuery);
+    }
+
+    pageSelect(page) {
+        const state = this.state;
+        state.activePage = page;
+        this.setState(state);
+        if(this.state.searchType === 'search') {
+            this.loadBySearch();
+        }else if(this.state.searchType === 'discover') {
+            this.loadByDiscover();
+        }else {
+            this.loadQuickSearch()
+        }
+    }
+
+    gotoMovie(id) {
+        this.context.router.push('movies/' + id);
+    }
+
+    saveFav(id, flag) {
+        const accountId = this.props.app.userInfo.id;
+        if(accountId) {
+            this.props.actions.saveFavorite(accountId, AppConstants.MEDIA_TYPE_MOVIE, id, flag)
+        }
+    }
+
+    saveWatchlist(id, flag) {
+        const accountId = this.props.app.userInfo.id;
+        if(accountId) {
+            this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_MOVIE, id, flag);
+        }
+    }
+
+    queryChanged(query) {
+        const state = this.state;
+        state.filter.search.query = query;
+        state.searchType = 'search';
+        state.activePage = 1;
+        this.setState(state);
+        if(this.actions.searchTimeout) {
+            clearTimeout(this.actions.searchTimeout);
+        }
+        this.actions.searchTimeout = setTimeout(function() {
+            this.loadBySearch();
+        }.bind(this), 1000);
+    }
+
+    quickSearchChanged(quickSearchType) {
+        const state = this.state;
+        state.filter.quickSearchType = quickSearchType;
+        state.searchType = 'quickSearch';
+        state.activePage = 1;
+        state.filter.discover = this.resetDiscover();
+        state.filter.search = this.resetSearch();
+        this.setState(state);
+        this.loadQuickSearch();
+    }
+
+    translationLangChanged(lang) {
+        const state = this.state;
+        state.filter.language = lang;
+        this.setState(state);
+        if(state.searchType === 'search') {
+            this.loadBySearch();
+        }else if(state.searchType === 'discover') {
+            this.loadByDiscover();
+        }else {
+            this.loadQuickSearch();
+        }
+    }
+
+    regionChanged(region) {
+        const state = this.state;
+        state.filter.region = region;
+        this.setState(state);
+        if(state.searchType === 'search') {
+            this.loadBySearch();
+        }else if(state.searchType === 'discover') {
+            this.loadByDiscover();
+        }else {
+            this.loadQuickSearch();
+        }
+    }
+
+    includeAdultChanged(isAdultIncluded) {
+        const state = this.state;
+        state.filter.include_adult = isAdultIncluded;
+        this.setState(state);
+        if(this.state.filter.search.query.length > 0) {
+            this.loadBySearch();
+        }else {
+            this.loadByDiscover();
+        }
+    }
+
+    genreChanged(genreId) {
+        const state = this.state;
+        let genres = state.filter.discover.with_genres;
+        var index = genres.indexOf(genreId);
+        if(index > -1) {
+            genres.splice(index, 1);
+        } else {
+            genres.push(genreId);
+        }
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    sortByChanged(sortType) {
+        const state = this.state;
+        state.filter.discover.sort_by = sortType;
+        state.searchType = 'discover';
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    minRatingChanged(minRating) {
+        const state = this.state;
+        state.filter.discover['vote_average.gte'] = minRating;
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    maxRatingChanged(maxRating) {
+        const state = this.state;
+        state.filter.discover['vote_average.lte'] = maxRating;
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    minVoteCountChanged(minVote) {
+        const state = this.state;
+        state.filter.discover['vote_count.gte'] = minVote;
+        this.setState(state);
+        if(this.state.minVoteCountTimeout) {
+            clearTimeout(this.state.minVoteCountTimeout);
+        }
+        this.setState({
+            minVoteCountTimeout: setTimeout(function(){
+                this.loadByDiscover();
+            }.bind(this), 1000)
+        })
+    }
+
+    maxVoteCountChanged(maxVote) {
+        const state = this.state;
+        state.filter.discover['vote_count.lte'] = maxVote;
+        this.setState(state);
+        if(this.state.maxVoteCountTimeout) {
+            clearTimeout(this.state.maxVoteCountTimeout);
+        }
+        this.setState({
+            maxVoteCountTimeout: setTimeout(function(){
+                this.loadByDiscover();
+            }.bind(this), 1000)
+        });
+    }
+
+    originalLanguageChanged(originalLang) {
+        const state = this.state;
+        state.filter.discover.with_original_language = originalLang;
+        this.setState(state);
+        this.loadByDiscover();
+    }
+    
+    releasedBeforeChanged(date) {
+        const state = this.state;
+        state.filter.discover['release_date.lte'] = date;
+        this.setState(state);
+        this.loadByDiscover();
+    }
+    
+    releasedAfterChanged(date) {
+        const state = this.state;
+        state.filter.discover['release_date.gte'] = date;
+        this.setState(state);
+        this.loadByDiscover();
+    }
+
+    getQuickSearchQuery() {
+        const query = {
+            language: this.state.filter.language,
+            region: this.state.filter.region,
+            page: this.state.activePage
+        };
+        return query;
+    }
+
+    getSearchQuery() {
+        const query = {
+            language: this.state.filter.language,
+            region: this.state.filter.region,
+            page: this.state.activePage,
+            include_adult: this.state.filter.include_adult
+        }
+        Object.assign(query, this.state.filter.search);
+        return query;
+    }
+
+    getDiscoverQuery() {
+        const query = {
+            language: this.state.filter.language,
+            region: this.state.filter.region,
+            page: this.state.activePage,
+            include_adult: this.state.filter.include_adult
+        }
+        Object.assign(query, this.state.filter.discover);
+        return query;
+    }
+
+    resetDiscover() {
+        return {
+            with_genres: [],
+            sort_by: 'popularity.desc',
+            with_original_language: 'en',
+            'release_date.gte': '',
+            'release_date.lte': '',
+            'vote_average.gte': '',
+            'vote_average.lte': '',
+            'vote_count.gte': '',
+            'vote_count.lte': ''
+        };
+    }
+
+    resetSearch() {
+        return {
+            query: ''
+        };
+    }
+
+}
+
+MoviesSearchListComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
+export default MoviesSearchListComponent;
+
+class SearchList extends Component {
+    render() {
+        const list = this.prepareList(this.props.list);
+        return (
+            <div>
+                {
+                    list.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="col s12 m12 l6">
+                                    <SimpleCardComponent
+                                        item={item}
+                                        gotoItem={this.props.gotoMovie}
+                                        saveFav={this.props.saveToFav}
+                                        saveWatchlist={this.props.saveToWatchlist}
+                                        type={'movie'}>
+                                    </SimpleCardComponent>
+                                </div>
+                                { index % 2 === 1 && <div className="clearfix"></div> }
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        );
+    }
+
     prepareList(list) {
         const listLength = list.length;
         const modifiedList = [];
@@ -163,147 +414,4 @@ class MoviesSearchListComponent extends Component {
         }
         return modifiedList;
     }
-
-    /**
-     * Triggered when page number is selected
-     * @param page
-     */
-    pageSelect(page) {
-        const state = this.state;
-        state.loading = true;
-        state.activePage = page;
-        this.setState(state);
-        if(this.state.searchType === 'search') {
-            this.loadMoviesByType().searchMovies();
-        }else if(this.state.searchType === 'discover') {
-            this.loadMoviesByType().discoverMovies();
-        }else {
-            this.loadMoviesByType().loadMoviesByQuickSearch();
-        }
-    }
-
-    /**
-     * Redirects to another page when a movie is selected
-     * @param id
-     */
-    gotoMovie(id) {
-        this.context.router.push('movies/' + id);
-    }
-
-    /**
-     * Styles object used for inline styling
-     * @returns {{paginationRight: {float: string}}}
-     */
-    inlineStyles() {
-        return {
-            paginationRight: {
-                float: 'right'
-            }
-        }
-    }
-
-    /**
-     * When save favorite icon clicked
-     * @param id
-     * @param flag
-     */
-    saveFav(id, flag) {
-        const accountId = this.props.app.userInfo.id;
-        this.props.actions.saveFavorite(accountId,AppConstants.MEDIA_TYPE_MOVIE, id, flag)
-    }
-
-    /**
-     * When save to watchlist icon clicked
-     * @param id
-     * @param flag
-     */
-    saveWatchlist(id, flag) {
-        const accountId = this.props.app.userInfo.id;
-        this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_MOVIE, id, flag);
-    }
-
-    uiElements() {
-        const uiElements = {
-            quickSearchOptions: (options) => {
-                const quickSearchOptions = [];
-                for(let i=0; i < options.length; i++) {
-                    const option = options[i];
-                    quickSearchOptions.push(<option key={i} value={option.value}>{option.name}</option>);
-                }
-                return quickSearchOptions;
-            },
-            searchList: (list) => {
-                const cards = list.map((item, index) => {
-                    return (
-                        <div key={index}>
-                            <div className="col s12 m12 l6">
-                                <SimpleCardComponent
-                                    item={item} genres={this.props.app.movieGenreMap}
-                                    gotoItem={this.gotoMovie}
-                                    saveFav={this.saveFav}
-                                    saveWatchlist={this.saveWatchlist}
-                                    type={'movie'}>
-                                </SimpleCardComponent>
-                            </div>
-                            {
-                                (index % 2 === 1) ? (
-                                    <div className="clearfix"></div>
-                                ) : ''
-                            }
-                        </div>
-                    );
-                });
-                return cards;
-            }
-        }
-        return uiElements;
-    }
-
-    /**
-     * Main mathod to render UI
-     * @returns {XML}
-     */
-    render() {
-        const list = this.prepareList(this.props.movies.search.list);
-        const styles = this.inlineStyles();
-        const loadActions = this.loadMoviesByType();
-        if (this.props.movies.search.list.length > 0) {
-            return (
-                <div>
-                    <div className="row">
-                        <FilterComponent type="movies"
-                            genres={this.props.app.movieGenres}
-                            sortOptions = {movieSortOptions}
-                            quickSearchOptions = {moviesQuickSearchOptions}
-                            search = {loadActions.searchMovies}
-                            discover = {loadActions.discoverMovies}
-                            quickSearch = {loadActions.loadMoviesByQuickSearch}>
-                        </FilterComponent>
-                        <div className="col s12 m8 l9">  
-                            {this.uiElements().searchList(list)}
-                        </div>
-                    </div>
-                    {!this.state.loading &&
-                        (<div className="right">
-                            <PaginationComponent
-                                pages={this.props.movies.search.totalPages}
-                                activePage={this.state.activePage}
-                                pageSelect={this.pageSelect}>
-                            </PaginationComponent>
-                        </div>)
-                    }
-                    <div className="clear"></div>
-                </div>
-            );
-        } else {
-            return <div/>;
-        }
-        
-    }
 }
-
-MoviesSearchListComponent.contextTypes = {
-    router: React.PropTypes.object.isRequired
-}
-
-export default MoviesSearchListComponent;
