@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import { IMAGE_URI_ORIGINAL, IMAGE_URI_500W, W300ImageUrl, H632ImageUrl, W45ImageUrl } from '../utilities/AppConstants';
+import Slider from 'react-slick';
+import { IMAGE_URI_ORIGINAL, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
 import numeral from 'numeral';
@@ -18,7 +19,7 @@ class MovieDetailsComponent extends Component {
     componentDidUpdate() {
         $('ul.tabs').tabs();
         $('.collapsible').collapsible();
-        const movie = this.props.movies.results[this.props.params.id];
+        const movie = this.props.movies.movie_results[this.props.params.id];
         let rating = 0;
         if (movie) {
             rating = movie.vote_average;
@@ -43,7 +44,7 @@ class MovieDetailsComponent extends Component {
     }
 
     render() {
-        const movie = this.props.movies.results[this.props.params.id];
+        const movie = this.props.movies.movie_results[this.props.params.id];
         if (movie) {
             const releaseDate = formatDate(movie.release_date);
             var divStyle = {
@@ -99,10 +100,10 @@ class MovieDetailsComponent extends Component {
                                 <div className="row">
                                     <MovieLabel className="col s6 m3"
                                         name="Budget: "
-                                        value={movie.budget ? numeral(movie.budget).format('$ 0,0') : 'NA'}/>
+                                        value={movie.budget ? numeral(movie.budget).format('$ 0,0.00') : 'NA'}/>
                                    <MovieLabel className="col s6 m3"
                                         name="Revenue: "
-                                        value={movie.revenue ? numeral(movie.revenue).format('$ 0,0') : 'NA'}/>
+                                        value={movie.revenue ? numeral(movie.revenue).format('$ 0,0.00') : 'NA'}/>
                                 </div>
                                 <div className="row">
                                     <div className="col s12">
@@ -114,7 +115,7 @@ class MovieDetailsComponent extends Component {
                                                         name={keyword.name}
                                                         selected={this.keywordSelected}/>
                                                 )
-                                            }) 
+                                            })
                                         }
                                     </div>    
                                 </div>
@@ -124,27 +125,38 @@ class MovieDetailsComponent extends Component {
                             <div className="col s12 m9" style={{marginBottom: '10px'}}>
                                 <ul className="tabs tabs-fixed-width">
                                     <li className="tab col s3 m3">
-                                        <a className="active"  href="#cast">Cast & Crew</a>
+                                        <a className="active"  href="#movie_cast">Cast & Crew</a>
                                     </li>
                                     <li className="tab col s3 m3">
-                                        <a href="#crew">Crew</a>
+                                        <a href="#movie_similar">Similar & Recommendations</a>
                                     </li>
                                     <li className="tab col s3 m3">
-                                        <a href="#images">Pictures & Videos</a>
+                                        <a href="#movie_images">Image Gallery</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div id="cast" className="col s12">
-                                <h5 style={{paddingLeft:'0.75rem'}}>Cast</h5>    
-                                <Casting cast={movie.credits.cast} />
-                                <h5 style={{paddingLeft:'0.75rem'}}>Crew Members</h5>
+                            <div id="movie_cast" className="col s12">
+                                <h5 className="center-align">CAST</h5>
+                                <div style={{padding: '0 25px'}}>
+                                    <Casting cast={movie.credits.cast} />
+                                </div>
+                                <h5 className="center-align">CREW MEMBERS</h5>
                                 <CrewMembers crew={movie.credits.crew} />
                             </div> 
-                             <div id="crew" className="col s12">   
-                                 
+                             <div id="movie_similar" className="col s12">
+                                 <h5 className="center-align">Similar Movies</h5>
+                                 <div style={{padding: '0 25px'}}>
+                                     <SimilarMovies movieId={movie.id} fetchSimilar={this.props.actions.similarMovies}
+                                        similar={movie.similar} />
+                                 </div>
+                                 <h5 className="center-align">Recommended Movies For You</h5>
+                                 <div style={{padding: '0 25px'}}>
+                                     <RecommendedMovies movieId={movie.id}
+                                        recommendations={movie.recommendations} />
+                                 </div>
                             </div>
-                            <div id="images" className="col s12">
-
+                            <div id="movie_images" className="col s12">
+                                Images
                             </div>
                         </div>
                     </div>
@@ -183,39 +195,29 @@ class Casting extends Component {
     componentDidMount() {
         $('#castSlick').slick({
             lazyLoad: 'ondemand',
-            slidesToShow: 6,
-            slidesToScroll: 3,
+            slidesToShow: 4,
+            slidesToScroll: 4,
             responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                    }
+                },
                 {
                     breakpoint: 768,
                     settings: {
                         arrows: true,
                         centerPadding: '20px',
                         slidesToShow: 2,
-                        slidesToScroll: 2,
+                        slidesToScroll: 2
                     }
                 }
             ]
         });
-    }
-    inlineStyles() {
-        const styles = {
-            castTitle: {
-                position: 'absolute',
-                zIndex: 2,
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                padding: '0.6em',
-                color: '#fff',
-                fontSize: '10px',
-                fontWeight: '500',
-                textAlign: 'center',
-                display: 'block',
-                background: 'rgba(0, 0, 0, 0.3)',
-            }
-        }
-        return styles;
     }
     render() {
         return (
@@ -228,11 +230,11 @@ class Casting extends Component {
                             src = H632ImageUrl + actor.profile_path;
                         }
                         return (
-                            <div className="col s6 m3 l2" key={index} >
+                            <div className="col s6 m4 l3" key={index} >
                                 <div className="relative">
                                     <img className="responsive-img pointer"
                                         key={index} data-lazy={src} />
-                                    <span style={this.inlineStyles().castTitle}>
+                                    <span className="cast-title">
                                         {actor.name} ({actor.character})
                                     </span>
                                 </div>
@@ -267,33 +269,40 @@ class CrewMembers extends Component {
         return (
             <div>
                 {
-                Object.keys(crew).map((cItem, index) => {
-                    return (
-                    <div className="col s12 m6 l4" key={index}>
-                        <div>
-                            <h6><strong>{cItem}</strong></h6>
-                            <ul className="collection crew-collection">
-                            {
-                            crew[cItem].map((cMember, index) => {
-                                const profile_path = cMember.profile_path;
-                                let src = '../../dist/assets/images/placeholder-profile.jpg'; 
-                                if (profile_path && profile_path !== null && profile_path.length > 0) {
-                                    src = W300ImageUrl + cMember.profile_path;
-                                }
-                                return (
-                                <li className="collection-item avatar" key={index}>
-                                    <img src={src} alt="" className="circle"/>
-                                    <span className="title">{cMember.name}</span>
-                                    <p>{cMember.job}</p>
-                                </li>
-                                )
-                            })
+                    this.props.crew.map((cItem, index) => {
+                        const profile_path = cItem.profile_path;
+                        let imageTag;
+                        if(profile_path && profile_path !== null) {
+                            const src = W154ImageUrl + cItem.profile_path;
+                            imageTag = <img src={src} className="responsive-img"/>
+                        }else {
+                            let name = '';
+                            let nameSplit = cItem.name.split(' ');
+                            if(nameSplit.length > 0) {
+                                nameSplit.forEach(function(n){
+                                    name = name + n.substr(0, 1);
+                                })
+                            }else {
+                                name = cItem.name.substr(0, 2);
                             }
-                            </ul>                                            
-                        </div>    
-                    </div>
-                    )
-                })
+                            imageTag = (<div className="responsive-img valign-wrapper"><h5 className="valign">{name}</h5></div>);
+                        }
+                        return (
+                            <div className="col s12 m2 l4" key={index}>
+                                <div className="card horizontal crew-card">
+                                    <div className="card-image">
+                                        {imageTag}
+                                    </div>
+                                    <div className="card-stacked">
+                                        <div className="card-content">
+                                            <p><b>{cItem.name}</b></p>
+                                            <p>{cItem.job}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
                 }
             </div>
         );
@@ -303,3 +312,166 @@ class CrewMembers extends Component {
 CrewMembers.PropTypes = {
     crew: React.PropTypes.array.isRequired
 };
+
+class SimilarMovies extends Component {
+
+    componentDidMount() {
+        $('#similar_movies').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                }
+            ]
+        });
+        $('#similar_movies').on('afterChange', function(slick, c) {
+            // const count = c.currentSlide + 4;
+            // let page = 1;
+            // const pageToGo = count/20;
+            // if(pageToGo >= 1 && pageToGo <= this.props.similar.total_pages) {
+            //     page = (count/20) + 1;
+            //     this.props.fetchSimilar(this.props.movieId, page);
+            // }
+        }.bind(this))
+    }
+
+    componentWillUpdate () {
+        // let src = '../../dist/assets/images/placeholder-movie.jpg';
+        // const x = (
+        //     `<div className="col s6 m4 l3">
+        //         <div className="relative">
+        //             <img className="responsive-img pointer" data-lazy=${src} />
+        //             <span className="cast-title">
+        //                 Test
+        //             </span>
+        //         </div>
+        //     </div>`
+        // )
+        // $('#similar_movies').slick('slickAdd', x);
+    }
+
+    componentWillReceiveProps() {
+
+    }
+
+    render() {
+        console.log('Similar', this.props);
+        const similarMovies = this.props.similar.results;
+        return (
+            <div id="similar_movies" >
+                {
+                    similarMovies.map((movie, index) => {
+                        const poster_path = movie.poster_path;
+                        let src = '../../dist/assets/images/placeholder-movie.jpg';
+                        if (poster_path && poster_path !== null && poster_path.length > 0) {
+                            src = IMAGE_URI_ORIGINAL + poster_path;
+                        }
+                        return (
+                            <div className="col s6 m4 l3" key={index} >
+                                <div className="relative">
+                                    <img className="responsive-img pointer" data-lazy={src} />
+                                    <span className="cast-title">
+                                        {movie.title}
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    }
+
+}
+
+SimilarMovies.PropTypes = {
+    movieId: React.PropTypes.string.isRequired,
+    similar: React.PropTypes.object.isRequired,
+    fetchSimilar: React.PropTypes.func.isRequired
+}
+
+class RecommendedMovies extends Component {
+
+    componentDidMount() {
+        $('#recommended_movies').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                }
+            ]
+        });
+
+    }
+
+    render() {
+        const recommendedMovies = this.props.recommendations.results;
+
+        return (
+            <div id="recommended_movies" >
+                {
+                    recommendedMovies.map((movie, index) => {
+                        const poster_path = movie.poster_path;
+                        let src = '../../dist/assets/images/placeholder-movie.jpg';
+                        if (poster_path && poster_path !== null && poster_path.length > 0) {
+                            src = IMAGE_URI_ORIGINAL + poster_path;
+                        }
+                        return (
+                            <div className="col s6 m4 l3" key={index} >
+                                <div className="relative">
+                                    <img className="responsive-img pointer"
+                                         key={index} data-lazy={src} />
+                                    <span className="cast-title">
+                                        {movie.title}
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    }
+
+}
+
+RecommendedMovies.PropTypes = {
+    movieId: React.PropTypes.string.isRequired,
+    recommendations: React.PropTypes.object.isRequired
+}
+

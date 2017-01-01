@@ -5,7 +5,7 @@ const defaultState = {
     search: {
         list: []
     },
-    results: {}
+    movie_results: {}
 };
 
 const moviesReducer = (state = defaultState, action) => {
@@ -27,7 +27,7 @@ const moviesReducer = (state = defaultState, action) => {
     case ActionConstants.FETCH_MOVIE_DETAILS: {
         const movie = action.movie;
         modifiedState = Immutable.Map(state);
-        modifiedState = modifiedState.setIn(['results'], { [movie.id]: movie });
+        modifiedState = modifiedState.setIn(['movie_results'], { [movie.id]: movie });
         return modifiedState.toJS();
     }
     case ActionConstants.CLEAR_MOVIE_LIST: {
@@ -35,6 +35,26 @@ const moviesReducer = (state = defaultState, action) => {
         modifiedState = modifiedState.updateIn(['search', 'list'],
             list => []); // eslint-disable-line
         return modifiedState.toJS();
+    }
+    case ActionConstants.FETCH_SIMILAR_MOVIES: {
+        const { similarMovies, id } = action;
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['movie_results', id+'', 'similar', 'results'], list => list.concat(similarMovies.results)); // eslint-disable-line
+        modifiedState = modifiedState.mergeDeep({
+            movie_results: {
+                [id]: {
+                    similar: {
+                        page: similarMovies.page,
+                        total_pages: similarMovies.total_pages,
+                        total_results: similarMovies.total_results
+                    }
+                }
+            }
+        });
+        return modifiedState.toJS();
+    }
+    case ActionConstants.FETCH_RECOMMENDED_MOVIES: {
+        return state;
     }
     default:
         return state;

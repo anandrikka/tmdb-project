@@ -28,7 +28,7 @@ class MoviesSearchListComponent extends Component {
                 discover: {
                     with_genres: [],
                     sort_by: 'popularity.desc',
-                    with_original_language: 'en',
+                    with_original_language: '',
                     'release_date.gte': '',
                     'release_date.lte': '',
                     'vote_average.gte': '',

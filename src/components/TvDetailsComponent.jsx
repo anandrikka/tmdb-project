@@ -13,7 +13,7 @@ class TvDetailsComponent extends Component {
         return (
             <div>
                 <pre>
-                    {JSON.stringify(this.props.tv.results[this.props.params.id], null, 2)}
+                    {JSON.stringify(this.props.tv.tv_results[this.props.params.id], null, 2)}
                 </pre>
             </div>
         );

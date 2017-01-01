@@ -21,6 +21,18 @@ const clearList = () => ({
     type: ActionConstants.CLEAR_MOVIE_LIST
 });
 
+const loadSimilarMovies = (id, similarMovies) => ({
+    type: ActionConstants.FETCH_SIMILAR_MOVIES,
+    id,
+    similarMovies
+});
+
+const loadRecommendedMovies = (id, recommendedMovies) => ({
+    type: ActionConstants.FETCH_RECOMMENDED_MOVIES,
+    id,
+    recommendedMovies
+});
+
 export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
     dispatch(clearList());
@@ -107,5 +119,32 @@ export const fetchMovie = id => (dispatch) => {
         dispatch(loadMovieDetails(response.data));
     }, (error) => { // eslint-disable-line
         dispatch(hideLoading());
+    });
+};
+
+export const similarMovies = (id, page = 1) => (dispatch) => {
+    const resource = `/api/movies/${id}/similar`;
+    return axios.get(resource, {
+        params: {
+            page
+        }
+    }).then((response) => {
+        dispatch(loadSimilarMovies(id, response.data));
+    }, (error) => { // eslint-disable-line
+
+    });
+};
+
+
+export const recommendedMovies = (id, page = 1) => (dispatch) => {
+    const resource = `/api/movies/${id}/recommendations`;
+    return axios.get(resource, {
+        params: {
+            page
+        }
+    }).then((response) => {
+        dispatch(loadRecommendedMovies(id, response.data));
+    }, (error) => { // eslint-disable-line
+
     });
 };

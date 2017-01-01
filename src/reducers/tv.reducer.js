@@ -5,7 +5,7 @@ const defaultState = {
     search: {
         list: []
     },
-    results: {},
+    tv_results: {},
     filter: {}
 };
 
@@ -27,7 +27,7 @@ const tvReducer = (state = defaultState, action) => {
     case ActionConstants.FETCH_TV_DETAILS: {
         const tv = action.tv;
         modifiedState = Immutable.Map(state);
-        modifiedState = modifiedState.setIn(['results'], { [tv.id]: tv });
+        modifiedState = modifiedState.setIn(['tv_results'], { [tv.id]: tv });
         return modifiedState.toJS();
     }
     case ActionConstants.CLEAR_TV_LIST: {

@@ -22,6 +22,10 @@ router.get('/discover', reqFn('discoverMovie'));
 
 router.get('/:movieId', reqFn('getMovieDetails'));
 
+router.get('/:movieId/similar', reqFn('getSimilarMovies'));
+
+router.get('/:movieId/recommendations', reqFn('getMovieRecommendations'));
+
 
 
 module.exports = router;
