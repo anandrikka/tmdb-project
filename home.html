@@ -7,6 +7,9 @@
         <link href="/dist/assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="/dist/assets/css/materialize.min.css" rel="stylesheet">
+        <link href="/dist/assets/css/jquery.rateyo.min.css" rel="stylesheet">
+        <link href="/dist/assets/css/slick.css" rel="stylesheet">
+        <link href="/dist/assets/css/slick-theme.css" rel="stylesheet">
     <link href="dist/assets/css/main.css" rel="stylesheet"></head>
     <body>
         <div id="app">
@@ -14,5 +17,18 @@
         </div>
         <script src="/dist/assets/js/jquery.min.js"></script>
         <script src="/dist/assets/js/materialize.min.js"></script>
+        <script src="/dist/assets/js/jquery.rateyo.min.js"></script>
+        <script src="/dist/assets/js/slick.min.js"></script>
+        <!--<script src="/dist/assets/js/jquery.unveil.js"></script>-->
+        <!--<script src="/dist/assets/js/blazy.min.js"></script>-->
+        <script src="/dist/assets/js/lazy.js"></script>
+        <!--<script src="/dist/assets/js/unveil.js"></script>-->
+        <script>
+            $(document).ready(function() {
+                $('select').material_select();
+                $('.button-collapse').sideNav();
+                $('.dropdown-button').dropdown();
+            });
+        </script>
     <script type="text/javascript" src="dist/react-assets.ae9fa6050fb96cbc84e8.bundle.js"></script><script type="text/javascript" src="dist/app.ae9fa6050fb96cbc84e8.bundle.js"></script></body>
 </html>
