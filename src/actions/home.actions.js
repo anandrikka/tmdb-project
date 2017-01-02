@@ -4,45 +4,47 @@ import * as ActionConstants from './action.constants';
 import { showLoading, hideLoading } from './app.actions';
 import * as Resources from '../utilities/ResourceURI';
 
-export const loadMovies = nowPlaying => ({
+const loadMovies = nowPlaying => ({
     type: ActionConstants.FETCH_NOW_PLAYING_MOVIES,
     nowPlaying
 });
 
-export const loadTvAiringToday = tvAiringToday => ({
+
+const loadUpcomingMovies = upcoming => ({
+    type: ActionConstants.FETCH_UPCOMING_MOVIES,
+    upcoming
+});
+
+const loadTvAiringToday = tvAiringToday => ({
     type: ActionConstants.FETCH_TV_AIRING_TODAY,
     tvAiringToday
 });
 
-export const updateErrorStatus = (type, status) => ({
-    type,
-    status
-});
-
-export const fetchMovies = (page = 1) => (dispatch) => {
+export const fetchMovies = () => (dispatch) => {
     dispatch(showLoading());
-    axios.get(
-        Resources.PLAYING_MOVIES, {
-            params: {
-                page
-            }
-        }).then((response) => {
-            dispatch(loadMovies(response.data));
-            dispatch(hideLoading());
-        }, (error) => { // eslint-disable-line
-            dispatch(updateErrorStatus(ActionConstants.FETCH_NOW_PLAYING_MOVIES_FAILURE, true));
-            dispatch(hideLoading());
-        });
+    return axios.get(Resources.PLAYING_MOVIES, { params: { region: 'US' } }).then((response) => {
+        dispatch(loadMovies(response.data));
+        dispatch(hideLoading());
+    }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
+    });
 };
 
 export const fetchTvAiringToday = () => (dispatch) => {
     dispatch(showLoading());
-    axios.get(
-        Resources.TODAY_SERIALS).then((response) => {
-            dispatch(loadTvAiringToday(response.data));
-            dispatch(hideLoading());
-        }, (error) => { // eslint-disable-line
-            dispatch(updateErrorStatus(ActionConstants.FETCH_TV_AIRING_TODAY_FAILURE, true));
-            dispatch(hideLoading());
-        });
+    return axios.get(Resources.TODAY_SERIALS).then((response) => {
+        dispatch(loadTvAiringToday(response.data));
+        dispatch(hideLoading());
+    }, (error) => { // eslint-disable-line
+    });
+};
+
+export const upcomingMovies = () => (dispatch) => {
+    dispatch(showLoading());
+    return axios.get(Resources.UPCOMING_MOVIES, { params: { region: 'US' } }).then((response) => {
+        dispatch(loadUpcomingMovies(response.data));
+        dispatch(hideLoading());
+    }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
+    });
 };

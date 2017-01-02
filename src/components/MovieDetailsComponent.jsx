@@ -156,7 +156,9 @@ class MovieDetailsComponent extends Component {
                                  </div>
                             </div>
                             <div id="movie_images" className="col s12">
-                                Images
+                                <div style={{padding: '0 25px'}}>
+                                    <ImageGallery posters={movie.images.posters} backdrops={movie.images.backdrops}/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -475,3 +477,80 @@ RecommendedMovies.PropTypes = {
     recommendations: React.PropTypes.object.isRequired
 }
 
+
+class ImageGallery extends Component {
+
+    componentDidMount() {
+        $('#image_gallery').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerPadding: '20px',
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+        $('#image_gallery').on('afterChange', function(slick, c) {
+            if(c.currentSlide >= this.props.backdrops.length) {
+                $('#image_gallery').slick('slickSetOption', 'slidesToShow', 3);
+                $('#image_gallery').slick('slickSetOption', 'slidesToScroll', 3);
+            }else {
+                $('#image_gallery').slick('slickSetOption', 'slidesToShow', 1);
+                $('#image_gallery').slick('slickSetOption', 'slidesToScroll', 1);
+            }
+        }.bind(this))
+    }
+
+    render() {
+        const images = this.props.backdrops.concat(this.props.posters);
+        return (
+            <div id="image_gallery" >
+                {
+                    images.map((image, index) => {
+                        const image_path = image.file_path;
+                        let src = '../../dist/assets/images/placeholder-movie.jpg';
+                        if (image_path && image_path !== null && image_path.length > 0) {
+                            src = IMAGE_URI_ORIGINAL + image_path;
+                        }
+                        let classImage = 'col s6 m4 l4';
+                        let styles = {maxHeight: '400px'}
+                        if(index < this.props.backdrops.length) {
+                            classImage = 'col s12';
+                            styles = {maxHeight: ''};
+                        }
+                        return (
+                            <div className={classImage} key={index} >
+                                <div className="relative"  styles={styles}>
+                                    <img className="responsive-img pointer"
+                                         key={index} data-lazy={src} />
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    }
+
+}
+
+ImageGallery.PropTypes = {
+    backdrops: React.PropTypes.array.isRequired,
+    posters: React.PropTypes.array.isRequired
+}
