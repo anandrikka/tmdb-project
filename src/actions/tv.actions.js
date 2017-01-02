@@ -16,6 +16,19 @@ const loadTvDetails = tv => ({
     tv
 });
 
+const loadTvSeason = (id, seasonNumber, details) => ({
+    type: ActionConstants.FETCH_TV_SEASON,
+    id,
+    seasonNumber,
+    details
+});
+
+const loadSimilarSerials = (id, similarSerials) => ({
+    type: ActionConstants.FETCH_SIMILAR_SERIALS,
+    id,
+    similarSerials
+});
+
 const clearList = () => ({
     type: ActionConstants.CLEAR_TV_LIST
 });
@@ -109,28 +122,26 @@ export const fetchTv = id => (dispatch) => {
     });
 };
 
-export const loadTvByQuickSearch = (quickSearchQuery, quickSearchType) => {
-    /* eslint-disable */
-    switch (quickSearchType) {
-        case 'topRated': {
-            fetchTopRated(quickSearchQuery);
-            break;
-        }
-        case 'popular': {
-            fetchPopular(quickSearchQuery);
-            break;
-        }
-        case 'today': {
-            fetchTodaySerials(quickSearchQuery);
-            break;
-        }
-        case 'onAir': {
-            fetchOnAir(quickSearchQuery);
-            break;
-        }
-        default:
-            fetchOnAir(quickSearchQuery);
-    }
-    /* eslint-enable */
+export const fetchTvSeason = (id, seasonNumber) => (dispatch) => {
+    const resource = `/api/tv/${id}/season/${seasonNumber}`;
+    dispatch(showLoading());
+    return axios.get(resource).then((response) => {
+        loadTvSeason(id, seasonNumber, response.data);
+    }, (error) => { // eslint-disable-line
+        dispatch(hideLoading());
+    });
 };
 
+
+export const similarSerials = (id, page = 1) => (dispatch) => {
+    const resource = `/api/tv/${id}/similar`;
+    return axios.get(resource, {
+        params: {
+            page
+        }
+    }).then((response) => {
+        dispatch(loadSimilarSerials(id, response.data));
+    }, (error) => { // eslint-disable-line
+
+    });
+};

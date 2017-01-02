@@ -36,6 +36,36 @@ const tvReducer = (state = defaultState, action) => {
             list => []); // eslint-disable-line
         return modifiedState.toJS();
     }
+    case ActionConstants.FETCH_TV_SEASON: {
+        modifiedState = Immutable.fromJS(state);
+        modifiedState.mergeDeep({
+            tv_results: {
+                [action.id]: {
+                    season_details: {
+                        [action.seasonNumber]: action.details
+                    }
+                }
+            }
+        });
+        return modifiedState.toJS();
+    }
+    case ActionConstants.FETCH_SIMILAR_SERIALS: {
+        const { similarSerials, id } = action;
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['tv_results', id+'', 'similar', 'results'], list => list.concat(similarSerials.results)); // eslint-disable-line
+        modifiedState = modifiedState.mergeDeep({
+            movie_results: {
+                [id]: {
+                    similar: {
+                        page: similarSerials.page,
+                        total_pages: similarSerials.total_pages,
+                        total_results: similarSerials.total_results
+                    }
+                }
+            }
+        });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

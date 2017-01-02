@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import Slider from 'react-slick';
 import { IMAGE_URI_ORIGINAL, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
@@ -18,7 +17,6 @@ class MovieDetailsComponent extends Component {
     
     componentDidUpdate() {
         $('ul.tabs').tabs();
-        $('.collapsible').collapsible();
         const movie = this.props.movies.movie_results[this.props.params.id];
         let rating = 0;
         if (movie) {
@@ -47,7 +45,7 @@ class MovieDetailsComponent extends Component {
         const movie = this.props.movies.movie_results[this.props.params.id];
         if (movie) {
             const releaseDate = formatDate(movie.release_date);
-            var divStyle = {
+            const divStyle = {
                 backgroundImage: 'url(' + IMAGE_URI_ORIGINAL + movie.backdrop_path + ')'
             }
             return (
@@ -111,9 +109,7 @@ class MovieDetailsComponent extends Component {
                                         {
                                             movie.keywords.keywords.map((keyword, index) => {
                                                 return (
-                                                    <ChipInfo id={keyword.id} key={index}
-                                                        name={keyword.name}
-                                                        selected={this.keywordSelected}/>
+                                                <div className="mitem-tag pointer" key={index}>{keyword.name}</div>
                                                 )
                                             })
                                         }
@@ -175,7 +171,7 @@ export default MovieDetailsComponent;
 class ChipInfo extends Component {
     render() {
         return (
-            <div className="chip">
+            <div className="mitem-chip">
                 <span className="pointer"
                     onClick={() => this.props.selected(this.props.id)}>{this.props.name}</span>
             </div>
@@ -370,10 +366,6 @@ class SimilarMovies extends Component {
         // $('#similar_movies').slick('slickAdd', x);
     }
 
-    componentWillReceiveProps() {
-
-    }
-
     render() {
         console.log('Similar', this.props);
         const similarMovies = this.props.similar.results;
@@ -536,7 +528,7 @@ class ImageGallery extends Component {
                         }
                         return (
                             <div className={classImage} key={index} >
-                                <div className="relative"  styles={styles}>
+                                <div className="relative"  style={styles}>
                                     <img className="responsive-img pointer"
                                          key={index} data-lazy={src} />
                                 </div>

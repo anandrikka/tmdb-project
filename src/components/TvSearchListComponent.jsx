@@ -83,13 +83,17 @@ class TvSearchListComponent extends Component {
                                     saveToFav={this.saveToFav}
                                     saveToWatchlist={this.saveToWatchlist}
                                     tvGenres={this.props.app.tvGenreMap} />
-                        <div className="right">
-                            <PaginationComponent
-                                pages={this.props.tv.search.totalPages}
-                                activePage={this.state.activePage}
-                                pageSelect={this.pageSelect}>
-                            </PaginationComponent>
-                        </div>
+                        {
+                            this.props.tv.search.list.length > 0 && (
+                                <div className="right">
+                                    <PaginationComponent
+                                        pages={this.props.tv.search.totalPages}
+                                        activePage={this.state.activePage}
+                                        pageSelect={this.pageSelect}>
+                                    </PaginationComponent>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
