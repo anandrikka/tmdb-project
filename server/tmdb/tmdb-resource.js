@@ -145,7 +145,7 @@ module.exports = {
                 name: 'searchMulti'
             },
             {
-                resource: 'search/people',
+                resource: 'search/person',
                 method: 'GET',
                 name: 'searchPeople'
             },

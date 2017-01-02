@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as ActionConstants from './action.constants';
 import { showLoading, hideLoading } from './app.actions';
-import { PEOPLE_POPULAR } from '../utilities/ResourceURI';
+import { PEOPLE_POPULAR, PEOPLE_SEARCH } from '../utilities/ResourceURI';
 import { PEOPLE_APPEND_TO_RESPONSE } from '../utilities/AppConstants';
 
 const loadPeople = (peopleList, page = 1) => ({
@@ -16,17 +16,19 @@ const loadPeopleDetails = peopleDetails => ({
     peopleDetails
 });
 
-export const fetchPeople = (type, page = 1) => ((dispatch) => {
-    let resource;
-    switch (type) {
-    case 'popular':
-        resource = PEOPLE_POPULAR;
-        break;
-    default:
-        resource = PEOPLE_POPULAR;
-    }
+const loadQueryPeople = queryDetails => ({
+    type: ActionConstants.FETCH_PEOPLE_QUERY_RESULTS,
+    queryDetails
+});
+
+export const clearQueryResults = () => ({
+    type: ActionConstants.CLEAR_PEOPLE_QUERY_RESULTS
+});
+
+export const fetchPeople = (page = 1) => ((dispatch) => {
     dispatch(showLoading());
-    return axios.get(resource, {
+    dispatch(clearQueryResults());
+    return axios.get(PEOPLE_POPULAR, {
         params: {
             page
         }
@@ -52,3 +54,10 @@ export const fetchPeopleDetails = id => (dispatch) => {
         dispatch(hideLoading());
     });
 };
+
+export const fetchQueryedPeople = query => dispatch =>
+    axios.get(PEOPLE_SEARCH, { params: { query } })
+    .then((response) => {
+        dispatch(loadQueryPeople(response.data));
+    },(error) => { // eslint-disable-line
+    });

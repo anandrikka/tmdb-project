@@ -5,7 +5,10 @@ const defaultState = {
     search: {
         list: []
     },
-    results: {}
+    people_results: {},
+    query_results: {
+        results: []
+    }
 };
 
 const peopleReducer = (state = defaultState, action) => {
@@ -27,7 +30,19 @@ const peopleReducer = (state = defaultState, action) => {
     case ActionConstants.FETCH_PEOPLE_DETAILS: {
         const { peopleDetails } = action;
         modifiedState = Immutable.Map(state);
-        modifiedState = modifiedState.setIn(['results'], { [peopleDetails.id]: peopleDetails });
+        modifiedState = modifiedState.setIn(['people_results'], { [peopleDetails.id]: peopleDetails });
+        return modifiedState.toJS();
+    }
+    case ActionConstants.FETCH_PEOPLE_QUERY_RESULTS: {
+        const { queryDetails } = action;
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['query_results'], queryResults => queryDetails); // eslint-disable-line
+        return modifiedState.toJS();
+    }
+    case ActionConstants.CLEAR_PEOPLE_QUERY_RESULTS: {
+        modifiedState = Immutable.fromJS(state);
+        const emptyQueryState = { results: [] };
+        modifiedState = modifiedState.updateIn(['query_results'], queryResults => emptyQueryState); // eslint-disable-line
         return modifiedState.toJS();
     }
     default:

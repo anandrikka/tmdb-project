@@ -24,6 +24,7 @@ export const DISCOVER_TV = constructUrl('/tv/discover');
 
 // people
 export const PEOPLE_POPULAR = constructUrl('/people/popular');
+export const PEOPLE_SEARCH = constructUrl('/people/search');
 
 // common
 export const RESOURCE_TIMEZONES = constructUrl('/common/timezones');
