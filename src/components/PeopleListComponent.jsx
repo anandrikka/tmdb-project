@@ -10,7 +10,8 @@ class PeopleListComponent extends Component {
         this.state = {
             activePage: 1,
             query: '',
-            queryTimeout: null
+            queryTimeout: null,
+            dropdownDisplay: { display: 'none' }
         }
         this.pageSelect = this.pageSelect.bind(this);
         this.gotoPeople = this.gotoPeople.bind(this);
@@ -18,6 +19,7 @@ class PeopleListComponent extends Component {
     }
 
     componentDidMount() {
+        this.props.actions.fetchPeople();
     }
 
     pageSelect(page) {
@@ -28,6 +30,7 @@ class PeopleListComponent extends Component {
     }
 
     gotoPeople(id) {
+        this.props.actions.clearQueryResults();
         this.context.router.push('people/' + id);
     }
 
@@ -39,7 +42,7 @@ class PeopleListComponent extends Component {
             dropdownDisplay = { display: 'block' };
         }
         $(window).click(function() {
-            //dropdownDisplay = { display: 'none' };
+            dropdownDisplay = { display: 'none' };
         }.bind(this));
         if(list.length > 0) {
             return (
@@ -50,7 +53,7 @@ class PeopleListComponent extends Component {
                                 <i className="material-icons prefix">search</i>
                                 <input id="icon_prefix" type="text" value={this.state.query}
                                        onChange={this.queryChanged}/>
-                                <div className="dropdown-container" style={dropdownDisplay}>
+                                <div className="dropdown-container" style={dropdownDisplay || this.state.dropdownDisplay}>
                                     <ul className="collection search-collection people-items">
                                         {
                                             searchList.map((people, index) => {

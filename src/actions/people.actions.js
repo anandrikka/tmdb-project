@@ -55,9 +55,14 @@ export const fetchPeopleDetails = id => (dispatch) => {
     });
 };
 
-export const fetchQueryedPeople = query => dispatch =>
-    axios.get(PEOPLE_SEARCH, { params: { query } })
-    .then((response) => {
-        dispatch(loadQueryPeople(response.data));
-    },(error) => { // eslint-disable-line
-    });
+export const fetchQueryedPeople = query => (dispatch) => {
+    dispatch(showLoading());
+    return axios.get(PEOPLE_SEARCH, { params: { query } })
+        .then((response) => {
+            dispatch(hideLoading());
+            dispatch(loadQueryPeople(response.data));
+        },(error) => { // eslint-disable-line
+            dispatch(hideLoading());
+        });
+};
+

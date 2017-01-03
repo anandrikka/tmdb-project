@@ -67,7 +67,9 @@ class MoviesSearchListComponent extends Component {
     }
 
     componentDidMount() {
-        this.loadQuickSearch();
+        this.loadQuickSearch().then(() => {
+            //lazy.init();
+        });
     }
 
     render() {
@@ -104,22 +106,24 @@ class MoviesSearchListComponent extends Component {
 
     loadQuickSearch() {
         const quickSearchQuery = this.getQuickSearchQuery();
+        let promise;
         switch (this.state.filter.quickSearchType) {
             case 'topRated': {
-                this.props.actions.fetchTopRated(quickSearchQuery);
+                promise = this.props.actions.fetchTopRated(quickSearchQuery);
                 break;
             }
             case 'upcoming': {
-                this.props.actions.fetchUpcoming(quickSearchQuery);
+                promise = this.props.actions.fetchUpcoming(quickSearchQuery);
                 break;
             }
             case 'popular': {
-                this.props.actions.fetchPopular(quickSearchQuery);
+                promise =this.props.actions.fetchPopular(quickSearchQuery);
                 break;
             }
             default:
-                this.props.actions.fetchNowPlaying(quickSearchQuery);
+                promise = this.props.actions.fetchNowPlaying(quickSearchQuery);
         }
+        return promise;
     }
 
     loadBySearch() {

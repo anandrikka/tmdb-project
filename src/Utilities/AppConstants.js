@@ -36,7 +36,7 @@ export const Ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const MOVIES_APPEND_TO_RESPONSE = 'videos,images,keywords,companies,recommendations,similar,reviews,credits,translations,alternative_titles'; // lists
 
-export const TV_APPEND_TO_RESPONSE = 'alternative_titles,content_ratings,credits,external_ids,images,keywords,recommendations,similar,translations,videos';
+export const TV_APPEND_TO_RESPONSE = 'content_ratings,credits,external_ids,images,keywords,recommendations,similar,videos'; // alternative_titles, translations
 
 export const PEOPLE_APPEND_TO_RESPONSE = 'movie_credits,tv_credits,external_ids,images,tagged_images';
 

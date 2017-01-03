@@ -96,7 +96,7 @@ class TvDetailsComponent extends Component {
                                 </div>
                                 <div className="row">
                                     <div className="valign-wrapper">
-                                        <MovieLabel className="col s1" name="Rating:" />
+                                        <TvLabel className="col s1" name="Rating:" />
                                         <div className="col s11">
                                             <span className="inline-block" id="tvRating" />
                                             <span> ({serial.vote_average})</span>

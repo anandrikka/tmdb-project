@@ -80,3 +80,59 @@
   }
 
 }
+
+
+.profile-parallax {
+  max-height: 500px;
+}
+
+.profile {
+  position: relative;
+  //background: #fff;
+  margin-top:100px;
+  //min-height: 300px;
+  z-index:2;
+  color: #fff;
+}
+
+.profile-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 500px;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .profile {
+    color: #000;
+    margin-top:0;
+  }
+}
+
+.biography-ellipses {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10; /* number of lines to show */
+  line-height: 1.5;        /* fallback */
+  max-height: 1.5 * 10;       /* fallback */
+}
+
+.personal-info {
+  p {
+    margin: 10px 0px;
+    font-weight: 800;
+  }
+}
+
+.people-tabs.tabs {
+  background-color: inherit;
+}
+
+.people-tabs.tabs.indicator {
+  background-color: #2bbbad;
+}
