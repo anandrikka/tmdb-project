@@ -82,11 +82,13 @@ class PeopleDetailsComponent extends Component {
             if(backdrop) {
                 backdrop = OriginalImageUrl + backdrop;
             }else {
-                backdrop =  '../../dist/assets/images/placeholder.jpg';
+                backdrop =  '../../dist/assets/images/placeholder-backdrop.jpg';
             }
             let profilePath = profile.profile_path;
             if(!profilePath) {
                 profilePath = '../../dist/assets/images/placeholder-profile.jpg'
+            }else {
+                profilePath = OriginalImageUrl + profilePath;
             }
             const divStyle = {
                 background: 'url(' + backdrop + ')'
@@ -100,7 +102,7 @@ class PeopleDetailsComponent extends Component {
                         <div className="col s12 m12 l3">
                             <div className="card">
                                 <div className="card-image pointer">
-                                    <img className="responsive-img" src={OriginalImageUrl + profile.profile_path} />
+                                    <img className="responsive-img" src={profilePath} />
                                 </div>
                             </div>
                         </div>
@@ -128,66 +130,17 @@ class PeopleDetailsComponent extends Component {
                                 <div id="people_timeline" className="col s12">
                                     <div style={{margin: '10px', float:'right'}}>
                                         <button className={this.state.moviesTimelineBtnClass} onClick={this.movieBtnClicked}>
-                                            MOVIES
+                                           <i className="fa fa-film"></i>
                                         </button>
                                         <button className={this.state.tvTimelineBtnClass} onClick={this.tvBtnClicked}>
-                                            TV
+                                            <i className="fa fa-television"></i>
                                         </button>
                                     </div>
                                     <div className="clearfix"/>
                                     {
-                                        this.state.showMovieTimeline && (
-                                            <div className="profile-timeline">
-                                                <ul className='timeline'>
-                                                    {
-                                                        movieTimelineData.years.map((year, index) => {
-                                                            return (
-                                                                <div key={index}>
-                                                                    <li className="year">{year}</li>
-                                                                    {
-                                                                        movieTimelineData[year].map((movie, key) => {
-                                                                            return(
-                                                                                <li className="event pointer" key={key}>
-                                                                                    <span className="movie-title">{movie.title}</span>
-                                                                                    <span>{movie.character}</span>
-                                                                                </li>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        )
-                                    }
-                                    {
-                                        !this.state.showMovieTimeline && (
-                                            <div className="profile-timeline">
-                                                <ul className='timeline'>
-                                                    {
-                                                        tvTimelineData.years.map((year, index) => {
-                                                            return (
-                                                                <div key={index}>
-                                                                    <li className="year">{year}</li>
-                                                                    {
-                                                                        tvTimelineData[year].map((tv, key) => {
-                                                                            return(
-                                                                                <li className="event pointer" key={key}>
-                                                                                    <span className="movie-title">{tv.original_name}</span>
-                                                                                    <span>{tv.character}</span>
-                                                                                </li>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        )
+                                        this.state.showMovieTimeline ? 
+                                            <ProfileTimeline timelineDate={movieTimelineData}></ProfileTimeline> :
+                                            <ProfileTimeline timelineDate={tvTimelineData}></ProfileTimeline>
                                     }
                                 </div>
                                 <div id="people_gallery" className="col s12">
@@ -241,6 +194,37 @@ class Profile extends Component {
                             profile.tv_credits.cast.length + profile.tv_credits.crew.length
                     }
                 </span>
+            </div>
+        )
+    }
+}
+
+class ProfileTimeline extends Component {
+    render() {
+        const timelineData = this.props.timelineDate;
+        return(
+            <div className="profile-timeline">
+                <ul className='timeline'>
+                    {
+                        timelineData.years.map((year, index) => {
+                            return (
+                                <div key={index}>
+                                    <li className="year">{year}</li>
+                                    {
+                                        timelineData[year].map((item, key) => {
+                                            return(
+                                                <li className="event pointer" key={key}>
+                                                    <span className="movie-title">{item.title || item.original_name}</span>
+                                                    <span>{item.character}</span>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                </ul>
             </div>
         )
     }

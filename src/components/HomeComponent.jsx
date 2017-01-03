@@ -107,7 +107,7 @@ class HomeComponent extends Component {
                                                          data-lazy={src} />
                                                     <div className="home-carousel-title hide-on-small-only" style={{top: '10%', left:'3%', width: '40%'}}>
                                                         <h3>{movie.original_title}</h3>
-                                                        <h5>{movie.overview}</h5>
+                                                        <h6>{movie.overview}</h6>
                                                     </div>
                                                     <div className="upcoming-title hide-on-med-and-up">
                                                         <p>{movie.original_title}</p>
