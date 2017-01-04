@@ -7,9 +7,11 @@ var bodyParser = require('body-parser');
 var ApiUtils = require('./server/ApiUtils');
 var tmdbApi = ApiUtils.tmdbApi;
 
+//import react from 'react';
+
 var isProd = process.env.PORT ? true : false;
 
-import react from 'react';
+
 
 // var React = require('react');
 // var ReactRouter = require('react-router');
