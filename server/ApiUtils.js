@@ -38,7 +38,8 @@ module.exports = {
                 var errorCode = error.response.data.status_code || 500;
                 var statusCode = error.response.status || 500;
                 res.status(statusCode);
-                res.send({apiMessage:message, message:error.message, code:errorCode});
+                res.send({ apiMessage: message, message: error.message, code: errorCode });
+                
             })
         }
     },

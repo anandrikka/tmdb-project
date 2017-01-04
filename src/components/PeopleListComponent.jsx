@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import PaginationComponent from './PaginationComponent.jsx';
+import LazyLoad from 'react-lazyload';
 import LoadingComponent from './LoadingComponent.jsx';
 import { OriginalImageUrl, W185ImageUrl} from '../utilities/AppConstants';
 import axios from 'axios';
@@ -172,11 +173,19 @@ export default PeopleListComponent;
 class PeopleCardComponent extends Component {
     render() {
         const item = this.props.item;
+        let src = '../../dist/assets/images/placeholder-profile.jpg'
+        if (item.profile_path) {
+            src = OriginalImageUrl + item.profile_path;
+        }
         return (
             <div className="card">
                 <div className="card-image pointer pcard">
-                    <img src={OriginalImageUrl + item.profile_path} onClick={() => this.props.gotoItem(item.id)}/>
-                    <div className="pcard-title">{item.name}</div>
+                    <LazyLoad height={400}>
+                        <div>
+                            <img src={src} onClick={() => this.props.gotoItem(item.id)}/>
+                            <div className="pcard-title">{item.name}</div>
+                        </div>
+                    </LazyLoad>    
                 </div>
             </div>
         );

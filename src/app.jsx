@@ -17,6 +17,7 @@ import PeopleListComponent from './components/PeopleListComponent.jsx';
 import PeopleDetailsComponent from './components/PeopleDetailsComponent.jsx';
 import AppContainer from './containers/AppContainer';
 import ProfileComponent from './components/ProfileComponent.jsx';
+import PageNotFound from './components/PageNotFound.jsx';
 
 import css from './styles/main.scss'; // eslint-ignore-line
 
@@ -39,6 +40,7 @@ const router = (
                     <IndexRoute component={PeopleListComponent}></IndexRoute>
                     <Route path=":id" component={PeopleDetailsComponent}></Route>
                 </Route>
+                <Route path="*" component={PageNotFound}></Route>
             </Route>
         </Router>
     </Provider>
