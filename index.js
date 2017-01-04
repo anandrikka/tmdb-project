@@ -1,5 +1,5 @@
 var express = require('express');
-require('babel-core');
+//require('babel-core');
 var app = express();
 var logger = require('morgan');
 var Cookies = require('cookies');
