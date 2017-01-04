@@ -170,3 +170,13 @@
   margin: 5px;
   text-decoration: underline
 }
+
+@media (max-width: 600px) {
+  .flex-s {
+    display: flex;
+    flex-direction: column; /* Stack on top */
+  }
+  .box-a {
+    order: 2; /* Go down, bring Box B up */
+  }
+}

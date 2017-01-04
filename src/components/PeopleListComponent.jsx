@@ -50,7 +50,7 @@ class PeopleListComponent extends Component {
                     <div className="row">
                         <div className="col s12 m8 l6 offset-m4 offset-l6">
                             <div className="input-field search-bar">
-                                <i className="material-icons prefix">search</i>
+                                <i className="fa fa-search right search-icon"></i>
                                 <input id="icon_prefix" type="text" value={this.state.query}
                                        onChange={this.queryChanged}/>
                                 <div className="dropdown-container" style={dropdownDisplay || this.state.dropdownDisplay}>

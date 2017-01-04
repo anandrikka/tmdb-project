@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment'; // eslint-disable-line
 import { OriginalImageUrl } from '../utilities/AppConstants';
 import { formatDate } from '../utilities/AppUtils';
+import PeopleTimeline from './PeopleTimelineComponent.jsx';
+import PeopleGallery from './PeopleGalleryComponent.jsx';
+import PeoplePersonalInfo from './PeoplePersonalInfoComponent.jsx';
 
 class PeopleDetailsComponent extends Component {
 
@@ -113,17 +116,23 @@ class PeopleDetailsComponent extends Component {
                     </div>
                     <div className="row">
                         <div className="col s12 l3 personal-info">
-                            <Profile profile={profile}/>
+                            <PeoplePersonalInfo profile={profile}/>
                         </div>
                         <div className="col s12 l9">
                             <div className="row">
                                 <div className="col s12">
                                     <ul className="people-tabs tabs tabs-fixed-width">
                                         <li className="tab col s6">
-                                            <a className="active"  href="#people_timeline">Timeline</a>
+                                            <a className="active" href="#people_timeline">
+                                                <span className="hide-on-small-only">Timeline</span>
+                                                <i className="fa fa-clock-o hide-on-med-and-up"></i>
+                                            </a>
                                         </li>
                                         <li className="tab col s6">
-                                            <a href="#people_gallery">Gallery</a>
+                                            <a href="#people_gallery">
+                                                <span className="hide-on-small-only">Gallery</span>
+                                                <i className="fa fa-picture-o hide-on-med-and-up"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -139,13 +148,13 @@ class PeopleDetailsComponent extends Component {
                                     <div className="clearfix"/>
                                     {
                                         this.state.showMovieTimeline ? 
-                                            <ProfileTimeline timelineDate={movieTimelineData}></ProfileTimeline> :
-                                            <ProfileTimeline timelineDate={tvTimelineData}></ProfileTimeline>
+                                            <PeopleTimeline timelineDate={movieTimelineData}></PeopleTimeline> :
+                                            <PeopleTimeline timelineDate={tvTimelineData}></PeopleTimeline>
                                     }
                                 </div>
                                 <div id="people_gallery" className="col s12">
                                     <div style={{padding: '25px'}}>
-                                        <ProfileGallery profileImages={profile.images.profiles}></ProfileGallery>
+                                        <PeopleGallery profileImages={profile.images.profiles}></PeopleGallery>
                                     </div>
                                 </div>
                             </div>
@@ -161,122 +170,4 @@ class PeopleDetailsComponent extends Component {
 
 export default PeopleDetailsComponent;
 
-class Profile extends Component {
-    render() {
-        const profile = this.props.profile;
-        return (
-            <div>
-                <h5>Personal Info</h5>
-                <p>Gender</p>
-                <span>{profile.gender===1 ? 'Female' : 'Male'}</span>
-                <p>Date of Birth</p>
-                <span>{ profile.birthday ? formatDate(profile.birthday) : 'Not Known'}</span>
-                <p>Place Of Birth</p>
-                <span>{ profile.place_of_birth ? profile.place_of_birth: 'Not Known'}</span>
-                {
-                    profile.also_known_as.length > 0 && (
-                        <div>
-                            <p>Also Known as</p>
-                            {
-                                profile.also_known_as.map((item, index) => {
-                                    return (<span style={{display:'block'}} key={index}>{item}</span>)
-                                })
-                            }
-                        </div>
-                    )
-                }
-                <p>Adult Actor</p>
-                <span>{profile.adult ? 'Yes': 'No'}</span>
-                <p>Total Known Credits</p>
-                <span>
-                    {
-                        profile.movie_credits.cast.length + profile.movie_credits.crew.length +
-                            profile.tv_credits.cast.length + profile.tv_credits.crew.length
-                    }
-                </span>
-            </div>
-        )
-    }
-}
 
-class ProfileTimeline extends Component {
-    render() {
-        const timelineData = this.props.timelineDate;
-        return(
-            <div className="profile-timeline">
-                <ul className='timeline'>
-                    {
-                        timelineData.years.map((year, index) => {
-                            return (
-                                <div key={index}>
-                                    <li className="year">{year}</li>
-                                    {
-                                        timelineData[year].map((item, key) => {
-                                            return(
-                                                <li className="event pointer" key={key}>
-                                                    <span className="movie-title">{item.title || item.original_name}</span>
-                                                    <span>{item.character}</span>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-        )
-    }
-}
-
-class ProfileGallery extends Component {
-
-    componentDidMount() {
-        $('#profileImagesSlick').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 2,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-    }
-
-    render() {
-        return (
-            <div id="profileImagesSlick" >
-                {
-                    this.props.profileImages.map((profileImage, index) => {
-                        let filePath = profileImage.file_path;
-                        if(filePath) {
-                            filePath = OriginalImageUrl + filePath;
-                            return (
-                                <div key={index} className="col s12 m2 l4">
-                                    <img className="responsive-img" data-lazy={filePath} />
-                                </div>
-                            )
-                        }
-                    })
-                }
-            </div>
-        )
-    }
-}

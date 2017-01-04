@@ -1,21 +1,26 @@
-import React, {Component} from 'react';
-import { IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
+import React, { Component } from 'react';
+import { OriginalImageUrl } from '../utilities/AppConstants';
+import LazyLoad from 'react-lazyload';
 
 class PeopleCardComponent extends Component {
     render() {
         const item = this.props.item;
-        const styles = this.inlineStyles();
+        let src = '../../dist/assets/images/placeholder-profile.jpg'
+        if (item.profile_path) {
+            src = OriginalImageUrl + item.profile_path;
+        }
         return (
             <div className="card">
                 <div className="card-image pointer pcard">
-                    <img src={IMAGE_URI_ORIGINAL + item.profile_path} onClick={() => this.props.gotoItem(item.id)}/>
-                    <div className="pcard-title">{item.name}</div>
+                    <LazyLoad height={400}>
+                        <img src={src}
+                            onClick={() => this.props.gotoItem(item.id)} />
+                        <div className="pcard-title">{item.name}</div>
+                    </LazyLoad>
                 </div>
             </div>
         );
     }
 }
-
-PeopleCardComponent.PropTypes = {};
 
 export default PeopleCardComponent;

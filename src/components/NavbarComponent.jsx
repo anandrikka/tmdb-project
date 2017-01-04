@@ -15,6 +15,10 @@ export default class NavbarComponent extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        $('.button-collapse').sideNav();
+    }
+    
     render() {
         return (
             <div className="navbar-fixed">
@@ -22,7 +26,7 @@ export default class NavbarComponent extends Component {
                     <div className="nav-wrapper">
                         <Link to="/" className="brand-logo">TMDB</Link>
                         <a href="#" data-activates="mobile-menu" className="button-collapse">
-                            <i className="material-icons">menu</i>
+                            <i className="fa fa-bars"></i>
                         </a>
                         <ul className="right hide-on-med-and-down">
                             <NavType link="/movies" title="Movies"

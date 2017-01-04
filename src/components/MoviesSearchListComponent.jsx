@@ -20,7 +20,7 @@ class MoviesSearchListComponent extends Component {
             filter: {
                 quickSearchType: 'nowPlaying',
                 language: 'en-US',
-                region: 'US',
+                region: '',
                 include_adult: false,
                 search: {
                     query: ''
@@ -74,21 +74,22 @@ class MoviesSearchListComponent extends Component {
 
     render() {
         const movies = this.props.movies.search.list;
-        if(movies.length > 0) {
-            return (
-                <div>
-                    <div className="row">
-                        <div className="col s12 m4 l3">
-                            <MoviesFilter genres={this.props.app.movieGenres}
-                                          actions={this.actions}
-                                          data={this.state.filter}/>
-                        </div>
-                        <div className="col s12 m8 l9">
-                            <SearchList list={movies}
-                                        gotoMovie={this.gotoMovie}
-                                        saveToFav={this.saveToFav}
-                                        saveToWatchlist={this.saveToWatchlist}
-                                        movieGenres={this.props.app.movieGenreMap} />
+        return (
+            <div>
+                <div className="row flex-s">
+                    <div className="col s12 m4 l3 box-a">
+                        <MoviesFilter genres={this.props.app.movieGenres}
+                                        actions={this.actions}
+                                        data={this.state.filter}/>
+                    </div>
+                    <div className="col s12 m8 l9 box-b">
+                        <SearchList list={movies}
+                                    gotoMovie={this.gotoMovie}
+                                    saveToFav={this.saveToFav}
+                                    saveToWatchlist={this.saveToWatchlist}
+                                    movieGenres={this.props.app.movieGenreMap} />
+                        {
+                            movies.length > 0 &&
                             <div className="right">
                                 <PaginationComponent
                                     pages={this.props.movies.search.totalPages}
@@ -96,12 +97,11 @@ class MoviesSearchListComponent extends Component {
                                     pageSelect={this.pageSelect}>
                                 </PaginationComponent>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
-            )
-        }
-        return (<div/>);
+            </div>
+        )
     }
 
     loadQuickSearch() {
@@ -377,28 +377,32 @@ export default MoviesSearchListComponent;
 class SearchList extends Component {
     render() {
         const list = this.prepareList(this.props.list);
-        return (
-            <div>
-                {
-                    list.map((item, index) => {
-                        return (
-                            <div key={index}>
-                                <div className="col s12 m12 l6">
-                                    <SimpleCardComponent
-                                        item={item}
-                                        gotoItem={this.props.gotoMovie}
-                                        saveFav={this.props.saveToFav}
-                                        saveWatchlist={this.props.saveToWatchlist}
-                                        type={'movie'}>
-                                    </SimpleCardComponent>
+        if (list.length > 0) {
+            return (
+                <div>
+                    {
+                        list.map((item, index) => {
+                            return (
+                                <div key={index}>
+                                    <div className="col s12 m12 l6">
+                                        <SimpleCardComponent
+                                            item={item}
+                                            gotoItem={this.props.gotoMovie}
+                                            saveFav={this.props.saveToFav}
+                                            saveWatchlist={this.props.saveToWatchlist}
+                                            type={'movie'}>
+                                        </SimpleCardComponent>
+                                    </div>
+                                    { index % 2 === 1 && <div className="clearfix"></div> }
                                 </div>
-                                { index % 2 === 1 && <div className="clearfix"></div> }
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        );
+                            )
+                        })
+                    }
+                </div>
+            );
+        } else {
+            return (<div style={{ margin: '25px', fontWeight: 800, textAlign: 'center' }}>No Movies Found</div>)
+        }
     }
 
     prepareList(list) {
