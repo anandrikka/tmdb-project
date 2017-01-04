@@ -13,8 +13,10 @@ module.exports = {
             'react-dom',
             'react-router',
             'react-redux',
+            'redux-thunk',
+            'redux-logger',
             'react-bootstrap',
-            'react-materialize'
+            'redux-router'
         ]
     },
     output: {

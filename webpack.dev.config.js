@@ -14,8 +14,7 @@ module.exports = {
             'react-bootstrap',
             'redux-thunk',
             'redux-logger',
-            'react-router-bootstrap',
-            'react-materialize'
+            'redux-router'
         ]
     },
     output: {
