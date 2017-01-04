@@ -1,6 +1,5 @@
-'use strict';
-
 import React, { Component, PropTypes } from 'react';
+import LazyLoad from 'react-lazyload';
 import { OriginalImageUrl } from '../utilities/AppConstants';
 import { formatDate } from '../utilities/AppUtils';
 import axios from 'axios';
@@ -105,7 +104,7 @@ class HomeComponent extends Component {
                                                 <div className="relative home-carousel">
                                                     <div className="home-carousel-overlay"></div>
                                                     <img className="responsive-img pointer"
-                                                         data-lazy={src} />
+                                                        data-lazy={src} />
                                                     <div className="home-carousel-title hide-on-small-only" style={{top: '10%', left:'3%', width: '40%'}}>
                                                         <h3>{movie.original_title}</h3>
                                                         <h6>{movie.overview}</h6>

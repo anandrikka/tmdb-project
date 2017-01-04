@@ -20,57 +20,57 @@ module.exports = {
         ],
         user: [
             {
-                resource: '/account',
+                resource: 'account',
                 method: 'GET',
                 name: 'getAccountDetails'
             },
             {
-                resource: '/account/:accountId/list',
+                resource: 'account/:accountId/list',
                 method: 'GET',
                 name: 'getCreatedLists'
             },
             {
-                resource: '/account/:accountId/favorite/movies',
+                resource: 'account/:accountId/favorite/movies',
                 method: 'GET',
                 name: 'getFavoriteMovies'
             },
             {
-                resource: '/account/:accountId/favorite/tv',
+                resource: 'account/:accountId/favorite/tv',
                 method: 'GET',
                 name: 'getFavoriteTvShows'
             },
             {
-                resource: '/account/:accountId/rated/movies',
+                resource: 'account/:accountId/rated/movies',
                 method: 'GET',
                 name: 'getRatedMovies'
             },
             {
-                resource: '/account/:accountId/rated/tv',
+                resource: 'account/:accountId/rated/tv',
                 method: 'GET',
                 name: 'getRatedTvShows'
             },
             {
-                resource: '/account/:accountId/rated/tv/episodes',
+                resource: 'account/:accountId/rated/tv/episodes',
                 method: 'GET',
                 name: 'getRatedTvEpisodes'
             },  
             {
-                resource: '/account/:accountId/watchlist/movies',
+                resource: 'account/:accountId/watchlist/movies',
                 method: 'GET',
                 name: 'getMoviesWatchlist'
             },
             {
-                resource: '/account/:accountId/watchlist/tv',
+                resource: 'account/:accountId/watchlist/tv',
                 method: 'GET',
                 name: 'getTvWatchlist'
             },
             {
-                resource: '/account/:accountId/favorite',
+                resource: 'account/:accountId/favorite',
                 method: 'POST',
                 name: 'markAsFavorite'
             },
             {
-                resource: '/account/:accountId/watchlist',
+                resource: 'account/:accountId/watchlist',
                 method: 'POST',
                 name: 'addToWatchlist'
             }

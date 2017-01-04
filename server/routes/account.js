@@ -18,7 +18,6 @@ router.use(function (req, res, next) {
         return;
     } else {
         cookie = ApiUtils.decrypt(cookie);
-        console.log('session-id: ', cookie);
     }
     req.query.session_id = cookie;
     next();

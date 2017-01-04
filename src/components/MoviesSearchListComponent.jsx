@@ -85,8 +85,8 @@ class MoviesSearchListComponent extends Component {
                     <div className="col s12 m8 l9 box-b">
                         <SearchList list={movies}
                                     gotoMovie={this.gotoMovie}
-                                    saveToFav={this.saveToFav}
-                                    saveToWatchlist={this.saveToWatchlist}
+                                    saveToFav={this.saveFav}
+                                    saveToWatchlist={this.saveWatchlist}
                                     movieGenres={this.props.app.movieGenreMap} />
                         {
                             movies.length > 0 &&

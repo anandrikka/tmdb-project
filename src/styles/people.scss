@@ -127,9 +127,9 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 10; /* number of lines to show */
+  -webkit-line-clamp: 9; /* number of lines to show */
   line-height: 1.5;        /* fallback */
-  max-height: 1.5 * 10;       /* fallback */
+  max-height: 1.5 * 9;       /* fallback */
 }
 
 .personal-info {

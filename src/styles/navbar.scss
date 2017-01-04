@@ -6,3 +6,16 @@ nav {
 .nav-wrapper {
     padding:0 5%;
 }
+
+.logo {
+    width: 100px;
+    height: 80px;
+    //display: inline;
+    background-image: url('../../dist/assets/images/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.brand-logo {
+    top: -10px;
+}

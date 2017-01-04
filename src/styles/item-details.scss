@@ -1,9 +1,10 @@
 .parallax {
-  max-height: 1000px;
+  height: 800px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 1 !important;
 }
 
 .movie {
@@ -11,16 +12,16 @@
   background: #fff;
   margin-top:200px;
   min-height: 1000px;
-  z-index:2;
+  z-index:3;
 }
 
 .movie-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  min-height: 1000px;
+  height: 800px;
   background-color: rgba(0,0,0,0.4);
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 }
 

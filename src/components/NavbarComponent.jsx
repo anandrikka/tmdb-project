@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import css from '../styles/navbar.scss';
-
-import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 import { languages } from '../../dist/assets/data/language-countries';
 
 export default class NavbarComponent extends Component {
@@ -25,7 +22,7 @@ export default class NavbarComponent extends Component {
                 <div className="navbar-fixed">
                     <nav>
                         <div className="nav-wrapper">
-                            <Link to="/" className="brand-logo">TMDB</Link>
+                            <Link to="/" className="brand-logo"><div className="logo"/></Link>
                             <a href="#" data-activates="mobile-menu" className="button-collapse">
                                 <i className="fa fa-bars"></i>
                             </a>

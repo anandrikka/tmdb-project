@@ -21,15 +21,6 @@ export const W300ImageUrl = IMAGE_BASE_URI + W_300;
 export const W342ImageUrl = IMAGE_BASE_URI + W_342;
 export const H632ImageUrl = IMAGE_BASE_URI + H_632;
 
-
-export const IMAGE_URI_500W = `${IMAGE_BASE_URI}w500`;
-
-export const IMAGE_URI_780W = `${IMAGE_BASE_URI}w780`;
-
-export const IMAGE_URI_1280W = `${IMAGE_BASE_URI}w1280`;
-
-export const IMAGE_URI_ORIGINAL = `${IMAGE_BASE_URI}original`;
-
 export const YOUTUBE_URL = 'https://www.youtube.com/embed/Q8TXgCzxEnw?rel=0&html5=1';
 
 export const Ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

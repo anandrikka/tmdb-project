@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router';
 
 class FooterComponent extends Component {
     render() {
@@ -6,11 +7,19 @@ class FooterComponent extends Component {
             <footer className="page-footer">
                 <div className="container hide-on-med-and-down">
                     <div className="row">
-                        <div className="col s12 l8 offset-l2 left-align">
-                            <h5 className="white-text">Film Talkies</h5>
-                            <p className="grey-text text-lighten-4">
-                                Entertainment Site Build using TMDB API.
-                            </p>
+                        <div className="col s12 l10 offset-l2">
+                            <div className="footer-title">
+                                <div className="logo"></div>
+                                <h5 className="white-text">
+                                    Movies, Television Shows, Celebrity Details. All at one place !!
+                                </h5>
+                            </div>
+                            <ul className="footer-links grey-text text-lighten-4 no-m">
+                                <li><Link to="/home">Home</Link></li>
+                                <li><Link to="/movies">Movies</Link></li>
+                                <li><Link to="/tv">Television</Link></li>
+                                <li><Link to="/people">People</Link></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import LazyLoad from 'react-lazyload';
-import { IMAGE_URI_500W, IMAGE_URI_780W, IMAGE_URI_ORIGINAL } from '../utilities/AppConstants';
+import { OriginalImageUrl } from '../utilities/AppConstants';
 import {createDate} from '../utilities/AppUtils';
 
 class SimpleCardComponent extends Component {
@@ -20,7 +20,7 @@ class SimpleCardComponent extends Component {
      */
     getImageSrc(path) {
         if (path) {
-            return IMAGE_URI_ORIGINAL + path;
+            return OriginalImageUrl + path;
         } else {
             return '../../dist/assets/images/placeholder-min.jpg';
         }

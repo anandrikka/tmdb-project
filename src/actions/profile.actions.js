@@ -8,10 +8,10 @@ const loadFavoriteMovies = favoriteMovies => ({
     favoriteMovies
 });
 
-export const fetchMovieFavorites = accountId => (dispatch) => {
+export const fetchMovieFavorites = (accountId, page = 1) => (dispatch) => {
     const resource = `/api/account/${accountId}/favorite/movies`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource, { params: { page } }).then((response) => { // eslint-disable-line
         dispatch(loadFavoriteMovies(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -24,10 +24,10 @@ const loadFavoriteTv = favoriteTv => ({
     favoriteTv
 });
 
-export const fetchTvFavorites = accountId => (dispatch) => {
+export const fetchTvFavorites = (accountId, page = 1) => (dispatch) => {
     const resource = `/api/account/${accountId}/favorite/tv`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource, { params: { page } }).then((response) => { // eslint-disable-line
         dispatch(loadFavoriteTv(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -40,10 +40,10 @@ const loadMovieWatchlist = movieWatchlist => ({
     movieWatchlist
 });
 
-export const fetchMovieWatchlist = accountId => (dispatch) => {
+export const fetchMovieWatchlist = (accountId, page = 1) => (dispatch) => {
     const resource = `/api/account/${accountId}/watchlist/movies`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource, { params: { page } }).then((response) => {
         dispatch(loadMovieWatchlist(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -56,10 +56,10 @@ const loadTvWatchlist = tvWatchlist => ({
     tvWatchlist
 });
 
-export const fetchTvWatchlist = accountId => (dispatch) => {
+export const fetchTvWatchlist = (accountId, page = 1) => (dispatch) => {
     const resource = `/api/account/${accountId}/watchlist/tv`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource,  { params: { page } }).then((response) => { // eslint-disable-line
         dispatch(loadTvWatchlist(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -72,10 +72,10 @@ const loadRatedMovies = ratedMovies => ({
     ratedMovies
 });
 
-export const fetchRatedMovies = accountId => (dispatch) => {
+export const fetchRatedMovies = (accountId, page = 1) => (dispatch) => {
     const resource = `/api/account/${accountId}/rated/movies`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource,  { params: { page } }).then((response) => { // eslint-disable-line
         dispatch(loadRatedMovies(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -88,10 +88,10 @@ const loadRatedTv = ratedTv => ({
     ratedTv
 });
 
-export const fetchRatedTv = accountId => (dispatch) => { // eslint-disable-line
+export const fetchRatedTv = (accountId, page = 1) => (dispatch) => { // eslint-disable-line
     const resource = `/api/account/${accountId}/rated/tv`;
     dispatch(showLoading());
-    axios.get(resource).then((response) => {
+    axios.get(resource,  { params: { page } }).then((response) => { // eslint-disable-line
         dispatch(loadRatedTv(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line

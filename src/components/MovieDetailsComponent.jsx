@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { IMAGE_URI_ORIGINAL, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
+import { OriginalImageUrl, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
 import numeral from 'numeral';
@@ -46,7 +46,7 @@ class MovieDetailsComponent extends Component {
         if (movie) {
             const releaseDate = formatDate(movie.release_date);
             const divStyle = {
-                backgroundImage: 'url(' + IMAGE_URI_ORIGINAL + movie.backdrop_path + ')'
+                backgroundImage: 'url(' + OriginalImageUrl + movie.backdrop_path + ')'
             }
             return (
                 <div> 
@@ -56,7 +56,7 @@ class MovieDetailsComponent extends Component {
                         <div className="row">
                             <div className="col s12 m3">   
                                 <img className="responsive-img"
-                                    src={IMAGE_URI_ORIGINAL + movie.poster_path} />
+                                    src={OriginalImageUrl + movie.poster_path} />
                                 <a className="btn waves-effect waves-light w100">Watch Trailer
                                     <i className="fa fa-youtube-play left" aria-hidden="true"/>
                                 </a>
@@ -376,7 +376,7 @@ class SimilarMovies extends Component {
                         const poster_path = movie.poster_path;
                         let src = '../../dist/assets/images/placeholder-movie.jpg';
                         if (poster_path && poster_path !== null && poster_path.length > 0) {
-                            src = IMAGE_URI_ORIGINAL + poster_path;
+                            src = OriginalImageUrl + poster_path;
                         }
                         return (
                             <div className="col s6 m4 l3" key={index} >
@@ -443,7 +443,7 @@ class RecommendedMovies extends Component {
                         const poster_path = movie.poster_path;
                         let src = '../../dist/assets/images/placeholder-movie.jpg';
                         if (poster_path && poster_path !== null && poster_path.length > 0) {
-                            src = IMAGE_URI_ORIGINAL + poster_path;
+                            src = OriginalImageUrl + poster_path;
                         }
                         return (
                             <div className="col s6 m4 l3" key={index} >
@@ -518,7 +518,7 @@ class ImageGallery extends Component {
                         const image_path = image.file_path;
                         let src = '../../dist/assets/images/placeholder-movie.jpg';
                         if (image_path && image_path !== null && image_path.length > 0) {
-                            src = IMAGE_URI_ORIGINAL + image_path;
+                            src = OriginalImageUrl + image_path;
                         }
                         let classImage = 'col s6 m4 l4';
                         let styles = {maxHeight: '400px'}
