@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../utilities/Axios';
 import * as ActionConstants from './action.constants';
 import * as Resources from '../utilities/ResourceURI';
 

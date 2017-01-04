@@ -21,31 +21,33 @@ export default class NavbarComponent extends Component {
     
     render() {
         return (
-            <div className="navbar-fixed">
-                <nav>
-                    <div className="nav-wrapper">
-                        <Link to="/" className="brand-logo">TMDB</Link>
-                        <a href="#" data-activates="mobile-menu" className="button-collapse">
-                            <i className="fa fa-bars"></i>
-                        </a>
-                        <ul className="right hide-on-med-and-down">
-                            <NavType link="/movies" title="Movies"
-                                iconClass="fa fa-film fa-2x left" />
-                            <NavType link="/tv" title="Television"
-                                iconClass="fa fa-television fa-2x left" />
-                            <NavType link="/people" title="People"
-                                iconClass="fa fa-users fa-2x left" />
-                            <UserButton profile={this.props.profile}></UserButton>
-                        </ul>
-                        <ul className="side-nav" id="mobile-menu">
-                            <li><a href="/api/login">Login</a></li>
-                            <li><a href="/movies">Movies</a></li>
-                            <li><a href="/tv">Television</a></li>
-                            <li><a href="/people">People</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+            <header>
+                <div className="navbar-fixed">
+                    <nav>
+                        <div className="nav-wrapper">
+                            <Link to="/" className="brand-logo">TMDB</Link>
+                            <a href="#" data-activates="mobile-menu" className="button-collapse">
+                                <i className="fa fa-bars"></i>
+                            </a>
+                            <ul className="right hide-on-med-and-down">
+                                <NavType link="/movies" title="Movies"
+                                         iconClass="fa fa-film fa-2x left" />
+                                <NavType link="/tv" title="Television"
+                                         iconClass="fa fa-television fa-2x left" />
+                                <NavType link="/people" title="People"
+                                         iconClass="fa fa-users fa-2x left" />
+                                <UserButton profile={this.props.profile}></UserButton>
+                            </ul>
+                            <ul className="side-nav" id="mobile-menu">
+                                <li><a href="/api/login">Login</a></li>
+                                <li><a href="/movies">Movies</a></li>
+                                <li><a href="/tv">Television</a></li>
+                                <li><a href="/people">People</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
         );
     }
 }

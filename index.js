@@ -1,5 +1,6 @@
+'use strict';
+
 var express = require('express');
-//require('babel-core');
 var app = express();
 var logger = require('morgan');
 var Cookies = require('cookies');
@@ -7,23 +8,7 @@ var bodyParser = require('body-parser');
 var ApiUtils = require('./server/ApiUtils');
 var tmdbApi = ApiUtils.tmdbApi;
 
-//import react from 'react';
-
 var isProd = process.env.PORT ? true : false;
-
-
-
-// var React = require('react');
-// var ReactRouter = require('react-router');
-// var RoutingContext = ReactRouter.RoutingContext;
-// var Router = ReactRouter.Router;
-// var configureStore = require('./src/stores/store');
-// // import { configureStore } from './src/Store';
-// // import { ReduxRouter } from 'redux-router';
-// // import { reduxReactRouter, match } from 'redux-router/server';
-// // import { Provider } from 'react-redux';
-// // import ReactDOMServer from 'react-dom/server';
-
 
 /**
  *Middleware for all requests
@@ -96,10 +81,6 @@ app.get('/api/callback', function (req, res) {
 app.get('/api/logout', function (req, res) {
     res.clearCookie('tmdbredux');
     res.redirect('/');
-});
-
-app.get('/api/error', function (req, res) {
-    res.sendFile(__dirname + '/home.html');
 });
 
 /**

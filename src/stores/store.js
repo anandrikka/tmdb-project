@@ -9,17 +9,10 @@ const loggerMiddleware = createLogger({
     diff: true
 });
 
-const defaultState = {
-};
-
-// function sampleMiddileware({getState}) {
-//     return (next) => (action) => {
-//         console.log(getState);
-//         return next(action);
-//     }
-// }
+const defaultState = {};
 
 export default createStore(
     rootReducer,
     defaultState,
-    applyMiddleware(thunkMiddleware, loggerMiddleware));
+    applyMiddleware(thunkMiddleware, loggerMiddleware)
+);

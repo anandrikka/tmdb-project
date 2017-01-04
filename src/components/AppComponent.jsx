@@ -15,15 +15,14 @@ class AppComponent extends Component {
         this.props.actions.fetchUserDetails();
         this.props.actions.fetchMovieGenres();
         this.props.actions.fetchTvGenres();
-        //this.props.actions.fetchConfiguration();
     }
     
     render() {
         return (
-            <div className="main" id="wrapper">
+            <div id="fullContent">
                 <LoadingComponent isLoading={this.props.app.isLoading}></LoadingComponent>
                 <NavbarComponent profile = {this.props.app.userInfo} />
-                <div id="mainview" className="container container-top">
+                <div id="main" className="container container-top">
                     {this.props.children}
                 </div>
                 <FooterComponent></FooterComponent>

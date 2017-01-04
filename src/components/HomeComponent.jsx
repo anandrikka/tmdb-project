@@ -89,6 +89,7 @@ class HomeComponent extends Component {
         const upcoming = this.props.home.upcoming.list;
         const nowPlaying = this.props.home.nowPlaying.list;
         const airingToday = this.props.home.tvAiringToday.list;
+        const showFlag = upcoming.length > 0 && nowPlaying.length > 0 && airingToday.length > 0;
         return (
             <div>
                 {
@@ -124,7 +125,7 @@ class HomeComponent extends Component {
                 {
                     nowPlaying.length > 0 && (
                         <div>
-                            <h5>WATCH IN THEATERS NOW</h5>
+                            {showFlag && <h5>WATCH IN THEATERS NOW</h5>}
                             <div style={{padding: '0 25px'}}>
                                 <HomeCarousel id="home_now_playing" list={nowPlaying}></HomeCarousel>
                             </div>
@@ -134,7 +135,7 @@ class HomeComponent extends Component {
                 {
                     airingToday && (
                         <div>
-                            <h5>WATCH TODAY IN TV</h5>
+                            {showFlag && <h5>WATCH TODAY IN TV</h5>}
                             <div style={{padding: '0 25px'}}>
                                 <HomeCarousel id="home_tv_airing_today" list={airingToday}></HomeCarousel>
                             </div>
