@@ -9,7 +9,7 @@ class FooterComponent extends Component {
                     <div className="row">
                         <div className="col s12 l10 offset-l2">
                             <div className="footer-title">
-                                <div className="logo"></div>
+                                <img className="logo" src="../../dist/assets/images/logo.png"></img>
                                 <h5 className="white-text">
                                     Movies, Television Shows, Celebrity Details. All at one place !!
                                 </h5>

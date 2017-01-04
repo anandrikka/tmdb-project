@@ -22,7 +22,7 @@ export default class NavbarComponent extends Component {
                 <div className="navbar-fixed">
                     <nav>
                         <div className="nav-wrapper">
-                            <Link to="/" className="brand-logo"><div className="logo"/></Link>
+                            <Link to="/" className="brand-logo"><img className="logo" src="../../dist/assets/images/logo.png"/></Link>
                             <a href="#" data-activates="mobile-menu" className="button-collapse">
                                 <i className="fa fa-bars"></i>
                             </a>
