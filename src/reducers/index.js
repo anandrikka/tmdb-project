@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
 import app from './app.reducer';
 import home from './home.reducer';
 import movies from './movies.reducer';
@@ -14,6 +13,5 @@ export default combineReducers({
     movies,
     tv,
     profile,
-    people,
-    router: routerStateReducer
+    people
 });

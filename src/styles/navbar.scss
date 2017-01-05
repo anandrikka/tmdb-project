@@ -10,12 +10,30 @@ nav {
 .logo {
     width: 100px;
     height: 100px;
-    //display: inline;
-    // background-image: url('../../dist/assets/images/logo.png');
-    // background-repeat: no-repeat;
-    // background-size: cover;
 }
 
 .brand-logo {
     top: -10px;
+}
+
+@media (max-width:600px) {
+    .logo {
+        width: 80px !important;
+        height: 80px;
+    }
+}
+
+.mobile-nav {
+    .nav-id {
+       div {
+           padding: 40px 0px;
+           background-color: #2bbbad;
+           color: white;
+           display: flex;
+           align-items: center;
+           h5 {
+               text-align: center;
+           }
+       }
+    }
 }

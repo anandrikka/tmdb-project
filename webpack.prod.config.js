@@ -16,7 +16,8 @@ module.exports = {
             'redux-thunk',
             'redux-logger',
             'react-bootstrap',
-            'redux-router'
+            'react-modal',
+            'react-player'
         ]
     },
     output: {

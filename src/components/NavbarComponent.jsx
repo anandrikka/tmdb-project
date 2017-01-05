@@ -13,7 +13,11 @@ export default class NavbarComponent extends Component {
     }
 
     componentDidMount() {
-        $('.button-collapse').sideNav();
+        $('.button-collapse').sideNav({
+            closeOnClick: true,
+            draggable: true,
+            menuWidth: 300
+        });
     }
     
     render() {
@@ -35,11 +39,35 @@ export default class NavbarComponent extends Component {
                                          iconClass="fa fa-users fa-2x left" />
                                 <UserButton profile={this.props.profile}></UserButton>
                             </ul>
-                            <ul className="side-nav" id="mobile-menu">
-                                <li><a href="/api/login">Login</a></li>
-                                <li><a href="/movies">Movies</a></li>
-                                <li><a href="/tv">Television</a></li>
-                                <li><a href="/people">People</a></li>
+                            <ul className="side-nav mobile-nav" id="mobile-menu">
+                                <div className="nav-id">
+                                    <div className="valign-wrapper">
+                                        <h5 className="valign">Film Talkies</h5>
+                                    </div>    
+                                    <li><Link to="/movies">Movies</Link></li>
+                                    <li><Link to="/tv">Television</Link></li>
+                                    <li><Link to="/people">People</Link></li>
+                                    {
+                                        this.props.profile.authenticationFailed ? (
+                                            <li>
+                                                <a href="/api/login">Login
+                                                    <i className="fa fa-user-circle right"></i>
+                                                </a>
+                                            </li>
+                                        ) : (
+                                            <li>
+                                                <a className="dropdown-button" data-beloworigin="true" href="#!" id="account_user" data-activates="mob-account">
+                                                    {this.props.profile.username} <i className="fa fa-chevron-down right"></i>
+                                                </a>
+                                                <ul id="mob-account" className="dropdown-content">
+                                                    <NavType link="/Profile" title="Profile" />
+                                                    <li><a href="/api/logout">Logout</a></li>
+                                                </ul>
+                                            </li>    
+                                        )
+                                    }
+                                </div>    
+                                
                             </ul>
                         </div>
                     </nav>

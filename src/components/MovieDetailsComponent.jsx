@@ -1,4 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
+import Modal from 'react-modal';
+import ReactPlayer from 'react-player';
 import { OriginalImageUrl, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
@@ -8,11 +10,59 @@ class MovieDetailsComponent extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            openDialog: false
+        }
+        this.openDialog = this.openDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
+        this.state.modalClass = {
+            overlay: {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                zIndex:999
+            },
+            content: {
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                overflow: 'auto',
+                WebkitOverflowScrolling: 'touch',
+                outline: 'none',
+                padding: '0 !important',
+                width: '640px',
+                height: '360px',
+                zIndex: 9999,
+                right: '0 !important',
+                bottom: '0 !important',
+                border: 'none !important',
+                overflow: 'none !important',
+                borderRadius: '0 !important',
+                backgroundColor: 'transparent'
+            }
+        };
     }
 
     componentDidMount() {
         this.props.actions.fetchMovie(this.props.params.id);
+        window.addEventListener('resize', function(event){
+            const state = this.state;
+            if(window.innerWidth < 900 && window.innerWidth > 720) {
+                state.modalClass.content.width = '480px';
+                state.modalClass.content.height = '320px';
+            }else if(window.innerWidth <= 600) {
+                state.modalClass.content.width = '320px';
+                state.modalClass.content.height = '240px';
+            }else if(window.innerWidth > 900) {
+                state.modalClass.content.width = '640px';
+                state.modalClass.content.height = '360px';
+            }
+            this.setState(state);
+        }.bind(this));
     }
     
     componentDidUpdate() {
@@ -41,6 +91,18 @@ class MovieDetailsComponent extends Component {
         console.log('genre selected', genre);
     }
 
+    openDialog() {
+        this.setState({
+            openDialog: true
+        });
+    }
+
+    closeDialog() {
+        this.setState({
+            openDialog: false
+        })
+    }
+
     render() {
         const movie = this.props.movies.movie_results[this.props.params.id];
         if (movie) {
@@ -57,7 +119,7 @@ class MovieDetailsComponent extends Component {
                             <div className="col s12 m3">   
                                 <img className="responsive-img"
                                     src={OriginalImageUrl + movie.poster_path} />
-                                <a className="btn waves-effect waves-light w100">Watch Trailer
+                                <a className="btn waves-effect waves-light w100" onClick={this.openDialog}>Watch Trailer 
                                     <i className="fa fa-youtube-play left" aria-hidden="true"/>
                                 </a>
                             </div>
@@ -158,6 +220,29 @@ class MovieDetailsComponent extends Component {
                             </div>
                         </div>
                     </div>
+                    <Modal
+                        isOpen={this.state.openDialog}
+                        shouldCloseOnOverlayClick={true}
+                        contentLabel="Modal"
+                        style={this.state.modalClass} onRequestClose={this.closeDialog}>
+                        <div className="relative">
+                            <i className="fa fa-times-circle-o fa-2x pointer" style={{position:'absolute', left: '100%', color: 'white', bottom: '95%'}} onClick={this.closeDialog}></i>
+                            {
+                                movie.videos.results.length > 0 ? (
+                                    <ReactPlayer 
+                                        width={this.state.modalClass.content.width}
+                                        height={this.state.modalClass.content.height}
+                                        url={'https://www.youtube.com/watch?v='+movie.videos.results[0].key} playing 
+                                        controls={true}/>
+                                ): (
+                                   <div style={{backgroundColor: '#fff', padding: '20px'}}> No Trailer To Play !!</div>
+                                )
+                            }
+                            
+                        </div>
+                        
+                        
+                    </Modal>
                 </div>
             )
         }else {
