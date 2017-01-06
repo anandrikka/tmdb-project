@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-modal';
 import ReactPlayer from 'react-player';
+import Rating from 'react-rating';
 import { OriginalImageUrl, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
 import numeral from 'numeral';
+import Casting from './CastingComponent.jsx';
+import Crew from './CrewComponent.jsx';
 
 class MovieDetailsComponent extends Component {
     
@@ -15,36 +18,7 @@ class MovieDetailsComponent extends Component {
         }
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
-        this.state.modalClass = {
-            overlay: {
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                zIndex:999
-            },
-            content: {
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                overflow: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                outline: 'none',
-                padding: '0 !important',
-                width: '640px',
-                height: '360px',
-                zIndex: 9999,
-                right: '0 !important',
-                bottom: '0 !important',
-                border: 'none !important',
-                overflow: 'none !important',
-                borderRadius: '0 !important',
-                backgroundColor: 'transparent'
-            }
-        };
+        this.state.modalClass = modalClass;
     }
 
     componentDidMount() {
@@ -103,6 +77,10 @@ class MovieDetailsComponent extends Component {
         })
     }
 
+    ratingSelected(rate, event) {
+        console.log(rate);
+    }
+
     render() {
         const movie = this.props.movies.movie_results[this.props.params.id];
         if (movie) {
@@ -115,7 +93,7 @@ class MovieDetailsComponent extends Component {
                     <div className="parallax" style={divStyle}></div>
                     <div className="movie-overlay"></div>  
                     <div className="movie card-panel">
-                        <div className="row">
+                        <div className="row no-bm">
                             <div className="col s12 m3">   
                                 <img className="responsive-img"
                                     src={OriginalImageUrl + movie.poster_path} />
@@ -135,39 +113,61 @@ class MovieDetailsComponent extends Component {
                                 </h5>
                                 {movie.genres.map((genre, index) => {
                                     return (
-                                        <ChipInfo id={genre.id} key={index}
-                                            name={genre.name} selected={this.genreSelected}/>
+                                        <div className="mitem-chip" key={index}>
+                                            <span className="pointer"
+                                                onClick={() => this.genreSelected(genre.id)}>{genre.name}</span>
+                                        </div>
                                     )
                                 })}
                                 <p>{movie.overview}</p>
-                                <div className="row">
-                                    <MovieLabel className="col s6 m3"
-                                        name="Release Date:" value={releaseDate} />
-                                    <MovieLabel className="col s6 m2"
-                                        name="Play Time:" value={movie.runtime}/>
-                                    <MovieLabel className="col s6 m3"
-                                        name="Language:" value={languageCodeNames[movie.original_language]} />
+                                <div className="row no-bm">
+                                    <div className="col s6 m3">
+                                        <p><b>Release Date</b></p>
+                                        <p>{releaseDate}</p>
+                                    </div>
+                                    <div className="col s6 m3">
+                                        <p><b>Play Time</b></p>
+                                        <p>{movie.runtime}</p>
+                                    </div>
+                                    <div className="col s6 m3">
+                                        <p><b>Language</b></p>
+                                        <p>{languageCodeNames[movie.original_language] || 'NA'}</p>
+                                    </div>
+                                    <div className="col s6 m3">
+                                        <p><b>IMDB ID</b></p>
+                                        <p>{movie.imdb_id || 'NA'}</p>
+                                    </div>
                                 </div>
-                                <div className="row">
-                                    <div className="valign-wrapper">
-                                        <MovieLabel className="col s1" name="Rating:" />
-                                        <div className="col s11">
-                                            <span className="inline-block" id="movieRating" />
-                                            <span> ({movie.vote_average})</span>
-                                        </div>
+                                <div className="row no-bm">
+                                    <div className="col s6 m3">
+                                        <p><b>Budget</b></p>
+                                        <p>{movie.budget ? numeral(movie.budget).format('$ 0,0.00') : 'NA'}</p>
+                                    </div>
+                                    <div className="col s6 m3">
+                                        <p><b>Revenue</b></p>
+                                        <p>{movie.revenue ? numeral(movie.revenue).format('$ 0,0.00') : 'NA'}</p>
+                                    </div>
+                                    <div className="col s6 m3">
+                                        <p><b>Status</b></p>
+                                        <p>{movie.status}</p>
+                                    </div>
+                                </div>
+                                <div className="row no-bm">
+                                    <div className="col s12">
+                                        <p className="inline-block"
+                                            style={{ paddingRight: '15px' }}><b>Rating: </b></p>
+                                        <Rating empty="fa fa-star-o"
+                                            full="fa fa-star" fractions={10} stop={10} 
+                                            initialRate={movie.vote_average} onClick={this.ratingSelected}/>
+                                        <p className="inline-block"
+                                            style={{ paddingLeft: '15px' }}>
+                                            <b>({movie.vote_average})</b>
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <MovieLabel className="col s6 m3"
-                                        name="Budget: "
-                                        value={movie.budget ? numeral(movie.budget).format('$ 0,0.00') : 'NA'}/>
-                                   <MovieLabel className="col s6 m3"
-                                        name="Revenue: "
-                                        value={movie.revenue ? numeral(movie.revenue).format('$ 0,0.00') : 'NA'}/>
-                                </div>
-                                <div className="row">
                                     <div className="col s12">
-                                        <p className="no-p inline-block">Tags:</p>  &nbsp;   
+                                        <p className="no-p inline-block"><b>Tags:</b></p>  &nbsp;   
                                         {
                                             movie.keywords.keywords.map((keyword, index) => {
                                                 return (
@@ -181,7 +181,7 @@ class MovieDetailsComponent extends Component {
                         </div>
                         <div className="row">
                             <div className="col s12 m9" style={{marginBottom: '10px'}}>
-                                <ul className="tabs tabs-fixed-width">
+                                <ul className="tabs tabs-fixed-width tab-color">
                                     <li className="tab col s3 m3">
                                         <a className="active"  href="#movie_cast">Cast & Crew</a>
                                     </li>
@@ -194,12 +194,18 @@ class MovieDetailsComponent extends Component {
                                 </ul>
                             </div>
                             <div id="movie_cast" className="col s12">
-                                <h5 className="center-align">CAST</h5>
-                                <div style={{padding: '0 25px'}}>
-                                    <Casting cast={movie.credits.cast} />
-                                </div>
-                                <h5 className="center-align">CREW MEMBERS</h5>
-                                <CrewMembers crew={movie.credits.crew} />
+                                {
+                                    movie.credits.cast.length > 0 || movie.credits.crew.length > 0 ?
+                                        (
+                                            <div>
+                                                <div style={{ padding: '0 25px' }}>
+                                                    <Casting cast={movie.credits.cast} id="movieCast"/>
+                                                </div>
+                                                <Crew crew={movie.credits.crew} />
+                                            </div>
+                                        ): <div>No Cast & Crew Details Found !!</div>    
+                                }    
+                                
                             </div> 
                              <div id="movie_similar" className="col s12">
                                  <h5 className="center-align">Similar Movies</h5>
@@ -240,8 +246,6 @@ class MovieDetailsComponent extends Component {
                             }
                             
                         </div>
-                        
-                        
                     </Modal>
                 </div>
             )
@@ -253,156 +257,14 @@ class MovieDetailsComponent extends Component {
 
 export default MovieDetailsComponent;
 
-class ChipInfo extends Component {
-    render() {
-        return (
-            <div className="mitem-chip">
-                <span className="pointer"
-                    onClick={() => this.props.selected(this.props.id)}>{this.props.name}</span>
-            </div>
-        )
-    }
-}
-
-class MovieLabel extends Component {
-    render() {
-        return (
-            <div className={this.props.className}>
-                <label>{this.props.name}</label> {this.props.value && this.props.value}
-            </div>
-        );
-    }
-}
-
-class Casting extends Component {
-    componentDidMount() {
-        $('#castSlick').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }
-            ]
-        });
-    }
-    render() {
-        return (
-            <div id="castSlick" >
-                {
-                    this.props.cast.map((actor, index) => {
-                        const profile_path = actor.profile_path;
-                        let src = '../../dist/assets/images/placeholder-profile.jpg'; 
-                        if (profile_path && profile_path !== null && profile_path.length > 0) {
-                            src = H632ImageUrl + actor.profile_path;
-                        }
-                        return (
-                            <div className="col s6 m4 l3" key={index} >
-                                <div className="relative">
-                                    <img className="responsive-img pointer"
-                                        key={index} data-lazy={src} />
-                                    <span className="cast-title">
-                                        {actor.name} ({actor.character})
-                                    </span>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
-}
-
-class CrewMembers extends Component {
-    
-    processCrewMembers(crewMembers) {
-        let crew = {};
-        for (let i = 0; i < crewMembers.length; i++) {
-            const crewMember = crewMembers[i];
-            const department = crewMember.department;
-            if (crew[department]) {
-                crew[department].push(crewMember);
-            } else {
-                crew[department] = [];
-                crew[department].push(crewMember);
-            }
-        }
-        return crew;
-    }
-    
-    render() {
-        const crew = this.processCrewMembers(this.props.crew);
-        return (
-            <div>
-                {
-                    this.props.crew.map((cItem, index) => {
-                        const profile_path = cItem.profile_path;
-                        let imageTag;
-                        if(profile_path && profile_path !== null) {
-                            const src = W154ImageUrl + cItem.profile_path;
-                            imageTag = <img src={src} className="responsive-img"/>
-                        }else {
-                            let name = '';
-                            let nameSplit = cItem.name.split(' ');
-                            if(nameSplit.length > 0) {
-                                nameSplit.forEach(function(n){
-                                    name = name + n.substr(0, 1);
-                                })
-                            }else {
-                                name = cItem.name.substr(0, 2);
-                            }
-                            imageTag = (<div className="responsive-img valign-wrapper"><h5 className="valign">{name}</h5></div>);
-                        }
-                        return (
-                            <div className="col s12 m6 l4" key={index}>
-                                <div className="card horizontal crew-card">
-                                    <div className="card-image">
-                                        {imageTag}
-                                    </div>
-                                    <div className="card-stacked">
-                                        <div className="card-content">
-                                            <p><b>{cItem.name}</b></p>
-                                            <p>{cItem.job}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        );
-    }
-}
-
-CrewMembers.PropTypes = {
-    crew: React.PropTypes.array.isRequired
-};
-
 class SimilarMovies extends Component {
 
     componentDidMount() {
         $('#similar_movies').slick({
             lazyLoad: 'ondemand',
-            slidesToShow: 4,
-            slidesToScroll: 4,
+            slidesToShow: 6,
+            slidesToScroll: 6,
+            adaptiveHeight: true,
             infinite: true,
             responsive: [
                 {
@@ -436,23 +298,7 @@ class SimilarMovies extends Component {
         }.bind(this))
     }
 
-    componentWillUpdate () {
-        // let src = '../../dist/assets/images/placeholder-movie.jpg';
-        // const x = (
-        //     `<div className="col s6 m4 l3">
-        //         <div className="relative">
-        //             <img className="responsive-img pointer" data-lazy=${src} />
-        //             <span className="cast-title">
-        //                 Test
-        //             </span>
-        //         </div>
-        //     </div>`
-        // )
-        // $('#similar_movies').slick('slickAdd', x);
-    }
-
     render() {
-        console.log('Similar', this.props);
         const similarMovies = this.props.similar.results;
         return (
             <div id="similar_movies" >
@@ -631,3 +477,35 @@ ImageGallery.PropTypes = {
     backdrops: React.PropTypes.array.isRequired,
     posters: React.PropTypes.array.isRequired
 }
+
+
+const modalClass = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex:999
+    },
+    content: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        outline: 'none',
+        padding: '0 !important',
+        width: '640px',
+        height: '360px',
+        zIndex: 9999,
+        right: '0 !important',
+        bottom: '0 !important',
+        border: 'none !important',
+        overflow: 'none !important',
+        borderRadius: '0 !important',
+        backgroundColor: 'transparent'
+    }
+};

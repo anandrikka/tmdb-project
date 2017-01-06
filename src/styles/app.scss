@@ -142,3 +142,13 @@ a:focus {
     clear: both;
 }
 
+.tab-color {
+  .tab {
+    a {
+      color: #2bbbad !important;
+    }
+  }
+  .indicator {
+    background-color: #2bbbad !important
+  }
+}

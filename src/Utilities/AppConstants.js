@@ -25,7 +25,8 @@ export const YOUTUBE_URL = 'https://www.youtube.com/embed/Q8TXgCzxEnw?rel=0&html
 
 export const Ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export const MOVIES_APPEND_TO_RESPONSE = 'videos,images,keywords,companies,recommendations,similar,reviews,credits,translations,alternative_titles'; // lists
+export const MOVIES_APPEND_TO_RESPONSE = 'videos,images,keywords,companies,recommendations,similar,credits';
+// lists,alternative_titles,translations,reviews
 
 export const TV_APPEND_TO_RESPONSE = 'content_ratings,credits,external_ids,images,keywords,recommendations,similar,videos'; // alternative_titles, translations
 

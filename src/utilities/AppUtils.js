@@ -9,6 +9,9 @@ export const createDate = (dateString) => {
 }
 
 export const formatDate = (dateString, format) => {
+    if (!dateString) {
+        return 'NA';
+    }
     let date = new moment();
     if (dateString) {
         date = new moment(dateString);
@@ -36,6 +39,9 @@ export const commaSeparate = (list, suffix) => {
 };
 
 export const commaSeparateObj = (list, key, suffix) => {
+    if (list.length < 1) {
+        return 'NA';
+    }
     let commaString = '';
     for (let i = 0; i < list.length; i++) { // eslint-disable-line
         commaString += list[i][key];
