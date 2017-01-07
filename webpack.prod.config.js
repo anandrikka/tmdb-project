@@ -17,7 +17,8 @@ module.exports = {
             'redux-logger',
             'react-bootstrap',
             'react-modal',
-            'react-player'
+            'react-player',
+            'react-slick'
         ]
     },
     output: {

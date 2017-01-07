@@ -120,6 +120,7 @@ export const saveWatchlist = (accountId, mediaType, mediaId, watchlistFlag) => (
         watchlist: watchlistFlag
     };
     axios.post(resource, body).then((response) => { // eslint-disable-line
+        
     }, (error) => { // eslint-disable-line
 
     });

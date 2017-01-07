@@ -54,7 +54,22 @@ const moviesReducer = (state = defaultState, action) => {
         return modifiedState.toJS();
     }
     case ActionConstants.FETCH_RECOMMENDED_MOVIES: {
-        return state;
+        const { recommendedMovies, id } = action;
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(['movie_results', `${id} + ''`, 'recommendations', 'results'],
+            list => list.concat(similarMovies.results)); // eslint-disable-line
+        modifiedState = modifiedState.mergeDeep({
+            movie_results: {
+                [id]: {
+                    similar: {
+                        page: recommendedMovies.page,
+                        total_pages: recommendedMovies.total_pages,
+                        total_results: recommendedMovies.total_results
+                    }
+                }
+            }
+        });
+        return modifiedState.toJS();
     }
     default:
         return state;

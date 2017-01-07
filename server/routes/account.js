@@ -7,7 +7,7 @@ var reqFn = ApiUtils.requestFn;
 router.use(ApiUtils.reqMiddleware);
 
 router.use(function (req, res, next) {
-    var cookie = new Cookies(req, res).get('tmdbredux');
+    var cookie = new Cookies(req, res).get('filmtalkies');
     if (!cookie) {
         if (req.url === '/getAccountDetails') {
             res.send({authenticationFailed: true});

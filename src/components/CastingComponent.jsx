@@ -1,43 +1,45 @@
 import React, {Component, PropTypes} from 'react';
+import Slider from 'react-slick';
 import { H632ImageUrl } from '../utilities/AppConstants';
-var Slider = require('react-slick');
 
 class Casting extends Component {
-    componentDidMount() {
-        const id = '#' + this.props.id;
-        $(id).slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 5,
-            slidesToScroll: 5,
-            adaptiveHeight: true,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            settings: {
+                lazyLoad: true,
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                infinite: true,
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            arrows: true,
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            arrows: true,
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
                     }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }
-            ]
-        });
-    }
+                ]
+            }
+        }
+    }    
+
     render() {
         if (this.props.cast.length > 0) {
             return (
                 <div>
                     <h5 className="center-align">CAST</h5>
-                    <div id={this.props.id}>
+                    <Slider {...this.state.settings}>
                         {
                             this.props.cast.map((actor, index) => {
                                 const profile_path = actor.profile_path;
@@ -49,7 +51,7 @@ class Casting extends Component {
                                     <div className="col s6 m4 l3" key={index} >
                                         <div className="relative">
                                             <img className="responsive-img pointer"
-                                                key={index} data-lazy={src} />
+                                                key={index} src={src} />
                                             <span className="cast-title">
                                                 {actor.name} ({actor.character})
                                             </span>
@@ -58,7 +60,7 @@ class Casting extends Component {
                                 )
                             })
                         }
-                    </div>
+                    </Slider>
                 </div>
             )
         }

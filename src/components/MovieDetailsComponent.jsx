@@ -1,13 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import Modal from 'react-modal';
-import ReactPlayer from 'react-player';
 import Rating from 'react-rating';
+import Slider from 'react-slick';
+import numeral from 'numeral';
+
+import Casting from './CastingComponent.jsx';
+import Crew from './CrewComponent.jsx';
+import MovieGallery from './SimilarOrRecommenedComponent.jsx';
+import ItemImageGallery from './ItemImageGallery.jsx';
+import VideoModal from './VideoModalComponent.jsx';
+import ItemLabel from './ItemLabelComponent.jsx';
+
 import { OriginalImageUrl, H632ImageUrl, W154ImageUrl } from '../utilities/AppConstants';
 import {formatDate} from '../utilities/AppUtils';
 import { languageCodeNames } from '../../dist/assets/data/language-countries';
-import numeral from 'numeral';
-import Casting from './CastingComponent.jsx';
-import Crew from './CrewComponent.jsx';
+
 
 class MovieDetailsComponent extends Component {
     
@@ -18,43 +24,14 @@ class MovieDetailsComponent extends Component {
         }
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
-        this.state.modalClass = modalClass;
     }
 
     componentDidMount() {
         this.props.actions.fetchMovie(this.props.params.id);
-        window.addEventListener('resize', function(event){
-            const state = this.state;
-            if(window.innerWidth < 900 && window.innerWidth > 720) {
-                state.modalClass.content.width = '480px';
-                state.modalClass.content.height = '320px';
-            }else if(window.innerWidth <= 600) {
-                state.modalClass.content.width = '320px';
-                state.modalClass.content.height = '240px';
-            }else if(window.innerWidth > 900) {
-                state.modalClass.content.width = '640px';
-                state.modalClass.content.height = '360px';
-            }
-            this.setState(state);
-        }.bind(this));
     }
     
     componentDidUpdate() {
         $('ul.tabs').tabs();
-        const movie = this.props.movies.movie_results[this.props.params.id];
-        let rating = 0;
-        if (movie) {
-            rating = movie.vote_average;
-        }
-        $('#movieRating').rateYo({
-            starWidth: '18px',
-            halfStar: true,
-            precision: 5,
-            padding: '5px',
-            numStars: 10,
-            maxValue: 10
-        });
-        $('#movieRating').rateYo('rating', rating);
     }
 
     keywordSelected(keyword) {
@@ -121,36 +98,24 @@ class MovieDetailsComponent extends Component {
                                 })}
                                 <p>{movie.overview}</p>
                                 <div className="row no-bm">
-                                    <div className="col s6 m3">
-                                        <p><b>Release Date</b></p>
-                                        <p>{releaseDate}</p>
-                                    </div>
-                                    <div className="col s6 m3">
-                                        <p><b>Play Time</b></p>
-                                        <p>{movie.runtime}</p>
-                                    </div>
-                                    <div className="col s6 m3">
-                                        <p><b>Language</b></p>
-                                        <p>{languageCodeNames[movie.original_language] || 'NA'}</p>
-                                    </div>
-                                    <div className="col s6 m3">
-                                        <p><b>IMDB ID</b></p>
-                                        <p>{movie.imdb_id || 'NA'}</p>
-                                    </div>
+                                    <ItemLabel className="col s6 m3" label="Release Date"
+                                        value={releaseDate} />
+                                    <ItemLabel className="col s6 m3" label="Play Time"
+                                        value={movie.runtime} />
+                                    <ItemLabel className="col s6 m3" label="Language"
+                                        value={languageCodeNames[movie.original_language] || 'NA'} />
+                                    <ItemLabel className="col s6 m3" label="IMDB ID"
+                                        value={movie.imdb_id || 'NA'} />
                                 </div>
                                 <div className="row no-bm">
-                                    <div className="col s6 m3">
-                                        <p><b>Budget</b></p>
-                                        <p>{movie.budget ? numeral(movie.budget).format('$ 0,0.00') : 'NA'}</p>
-                                    </div>
-                                    <div className="col s6 m3">
-                                        <p><b>Revenue</b></p>
-                                        <p>{movie.revenue ? numeral(movie.revenue).format('$ 0,0.00') : 'NA'}</p>
-                                    </div>
-                                    <div className="col s6 m3">
-                                        <p><b>Status</b></p>
-                                        <p>{movie.status}</p>
-                                    </div>
+                                    <ItemLabel className="col s6 m3" label="Budget"
+                                        value={movie.budget ?
+                                            numeral(movie.budget).format('$ 0,0.00') : 'NA'} />
+                                    <ItemLabel className="col s6 m3" label="Revenue"
+                                        value={movie.revenue ?
+                                            numeral(movie.revenue).format('$ 0,0.00') : 'NA'} />
+                                    <ItemLabel className="col s6 m3" label="Status"
+                                        value={movie.status} />
                                 </div>
                                 <div className="row no-bm">
                                     <div className="col s12">
@@ -209,44 +174,36 @@ class MovieDetailsComponent extends Component {
                             </div> 
                              <div id="movie_similar" className="col s12">
                                  <h5 className="center-align">Similar Movies</h5>
-                                 <div style={{padding: '0 25px'}}>
-                                     <SimilarMovies movieId={movie.id} fetchSimilar={this.props.actions.similarMovies}
-                                        similar={movie.similar} />
-                                 </div>
+                                 {
+                                    movie.similar.results.length > 0 ? (
+                                        <div style={{ padding: '0 25px' }}>
+                                            <MovieGallery id={movie.id} fetchMore={this.props.actions.similarMovies} nameKey="title" title="Similar Movies"
+                                                gallery={movie.similar} />
+                                        </div>
+                                    ): <div><p>No Similar Movies Found</p></div>
+                                 }
                                  <h5 className="center-align">Recommended Movies For You</h5>
-                                 <div style={{padding: '0 25px'}}>
-                                     <RecommendedMovies movieId={movie.id}
-                                        recommendations={movie.recommendations} />
-                                 </div>
+                                 {
+                                    movie.recommendations.length > 0 ? (
+                                        <div style={{ padding: '0 25px' }}>
+                                            <MovieGallery id={movie.id}
+                                                fetchMore={this.props.actions.recommendedMovies}
+                                                nameKey="title" title="Recommended Movies"
+                                                gallery={movie.recommendations} />
+                                        </div>
+                                    ):<div><p>Not able to find recommendations !</p></div>
+                                 }
                             </div>
                             <div id="movie_images" className="col s12">
                                 <div style={{padding: '0 25px'}}>
-                                    <ImageGallery posters={movie.images.posters} backdrops={movie.images.backdrops}/>
+                                    <ItemImageGallery posters={movie.images.posters}
+                                        backdrops={movie.images.backdrops} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <Modal
-                        isOpen={this.state.openDialog}
-                        shouldCloseOnOverlayClick={true}
-                        contentLabel="Modal"
-                        style={this.state.modalClass} onRequestClose={this.closeDialog}>
-                        <div className="relative">
-                            <i className="fa fa-times-circle-o fa-2x pointer" style={{position:'absolute', left: '100%', color: 'white', bottom: '95%'}} onClick={this.closeDialog}></i>
-                            {
-                                movie.videos.results.length > 0 ? (
-                                    <ReactPlayer 
-                                        width={this.state.modalClass.content.width}
-                                        height={this.state.modalClass.content.height}
-                                        url={'https://www.youtube.com/watch?v='+movie.videos.results[0].key} playing 
-                                        controls={true}/>
-                                ): (
-                                   <div style={{backgroundColor: '#fff', padding: '20px'}}> No Trailer To Play !!</div>
-                                )
-                            }
-                            
-                        </div>
-                    </Modal>
+                    <VideoModal isOpen={this.state.openDialog} closeDialog={this.closeDialog}
+                        video={movie.videos.results[0]} />
                 </div>
             )
         }else {
@@ -256,256 +213,3 @@ class MovieDetailsComponent extends Component {
 }
 
 export default MovieDetailsComponent;
-
-class SimilarMovies extends Component {
-
-    componentDidMount() {
-        $('#similar_movies').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 6,
-            slidesToScroll: 6,
-            adaptiveHeight: true,
-            infinite: true,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }
-            ]
-        });
-        $('#similar_movies').on('afterChange', function(slick, c) {
-            // const count = c.currentSlide + 4;
-            // let page = 1;
-            // const pageToGo = count/20;
-            // if(pageToGo >= 1 && pageToGo <= this.props.similar.total_pages) {
-            //     page = (count/20) + 1;
-            //     this.props.fetchSimilar(this.props.movieId, page);
-            // }
-        }.bind(this))
-    }
-
-    render() {
-        const similarMovies = this.props.similar.results;
-        return (
-            <div id="similar_movies" >
-                {
-                    similarMovies.map((movie, index) => {
-                        const poster_path = movie.poster_path;
-                        let src = '../../dist/assets/images/placeholder-movie.jpg';
-                        if (poster_path && poster_path !== null && poster_path.length > 0) {
-                            src = OriginalImageUrl + poster_path;
-                        }
-                        return (
-                            <div className="col s6 m4 l3" key={index} >
-                                <div className="relative">
-                                    <img className="responsive-img pointer" data-lazy={src} />
-                                    <span className="cast-title">
-                                        {movie.title}
-                                    </span>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
-
-}
-
-SimilarMovies.PropTypes = {
-    movieId: React.PropTypes.string.isRequired,
-    similar: React.PropTypes.object.isRequired,
-    fetchSimilar: React.PropTypes.func.isRequired
-}
-
-class RecommendedMovies extends Component {
-
-    componentDidMount() {
-        $('#recommended_movies').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }
-            ]
-        });
-
-    }
-
-    render() {
-        const recommendedMovies = this.props.recommendations.results;
-
-        return (
-            <div id="recommended_movies" >
-                {
-                    recommendedMovies.map((movie, index) => {
-                        const poster_path = movie.poster_path;
-                        let src = '../../dist/assets/images/placeholder-movie.jpg';
-                        if (poster_path && poster_path !== null && poster_path.length > 0) {
-                            src = OriginalImageUrl + poster_path;
-                        }
-                        return (
-                            <div className="col s6 m4 l3" key={index} >
-                                <div className="relative">
-                                    <img className="responsive-img pointer"
-                                         key={index} data-lazy={src} />
-                                    <span className="cast-title">
-                                        {movie.title}
-                                    </span>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
-
-}
-
-RecommendedMovies.PropTypes = {
-    movieId: React.PropTypes.string.isRequired,
-    recommendations: React.PropTypes.object.isRequired
-}
-
-
-class ImageGallery extends Component {
-
-    componentDidMount() {
-        $('#image_gallery').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-        $('#image_gallery').on('afterChange', function(slick, c) {
-            if(c.currentSlide >= this.props.backdrops.length) {
-                $('#image_gallery').slick('slickSetOption', 'slidesToShow', 3);
-                $('#image_gallery').slick('slickSetOption', 'slidesToScroll', 3);
-            }else {
-                $('#image_gallery').slick('slickSetOption', 'slidesToShow', 1);
-                $('#image_gallery').slick('slickSetOption', 'slidesToScroll', 1);
-            }
-        }.bind(this))
-    }
-
-    render() {
-        const images = this.props.backdrops.concat(this.props.posters);
-        return (
-            <div id="image_gallery" >
-                {
-                    images.map((image, index) => {
-                        const image_path = image.file_path;
-                        let src = '../../dist/assets/images/placeholder-movie.jpg';
-                        if (image_path && image_path !== null && image_path.length > 0) {
-                            src = OriginalImageUrl + image_path;
-                        }
-                        let classImage = 'col s6 m4 l4';
-                        let styles = {maxHeight: '400px'}
-                        if(index < this.props.backdrops.length) {
-                            classImage = 'col s12';
-                            styles = {maxHeight: ''};
-                        }
-                        return (
-                            <div className={classImage} key={index} >
-                                <div className="relative"  style={styles}>
-                                    <img className="responsive-img pointer"
-                                         key={index} data-lazy={src} />
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
-
-}
-
-ImageGallery.PropTypes = {
-    backdrops: React.PropTypes.array.isRequired,
-    posters: React.PropTypes.array.isRequired
-}
-
-
-const modalClass = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex:999
-    },
-    content: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        outline: 'none',
-        padding: '0 !important',
-        width: '640px',
-        height: '360px',
-        zIndex: 9999,
-        right: '0 !important',
-        bottom: '0 !important',
-        border: 'none !important',
-        overflow: 'none !important',
-        borderRadius: '0 !important',
-        backgroundColor: 'transparent'
-    }
-};

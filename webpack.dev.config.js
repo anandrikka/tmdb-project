@@ -15,7 +15,8 @@ module.exports = {
             'redux-thunk',
             'redux-logger',
             'react-modal',
-            'react-player'
+            'react-player',
+            'react-slick'
         ]
     },
     output: {
@@ -77,7 +78,7 @@ module.exports = {
                 loader: 'css-loader'
             },
 			{
-				test: /\.(png|jpg|gif)$/,
+				test: /\.(png|jpg|gif|ttf|eot|woff|woff2)$/,
 				loader: 'url-loader?limit=5000'
 			}
         ]

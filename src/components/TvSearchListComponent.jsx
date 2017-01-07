@@ -159,10 +159,10 @@ class TvSearchListComponent extends Component {
         }
     }
 
-    saveToWatchlist() {
+    saveToWatchlist(id) {
         const accountId = this.props.app.userInfo.id;
         if(accountId) {
-            this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_TV, id, flag);
+            this.props.actions.saveWatchlist(accountId, AppConstants.MEDIA_TYPE_TV, id, true);
         }
     }
 

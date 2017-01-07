@@ -36,7 +36,7 @@ app.get('/api/login', function (req, res) {
         var buildUrl = 'https://www.themoviedb.org/authenticate/' +
             tokenResult.data.request_token + '?redirect_to=';
         if (isProd) {
-            buildUrl = buildUrl + 'https://tmdbredux.herokuapp.com/api/callback';
+            buildUrl = buildUrl + 'https://filmtalkies.herokuapp.com/api/callback';
         } else {
             buildUrl = buildUrl + 'http://localhost/api/callback';
         }
@@ -63,7 +63,7 @@ app.get('/api/callback', function (req, res) {
                 //secure: isProd ? true : false
             };
             try {
-                cookies.set('tmdbredux', encryptedSessionId, cookieOptions);
+                cookies.set('filmtalkies', encryptedSessionId, cookieOptions);
             } catch (e) {
                 console.log(e)
                 res.sendStatus(500);
@@ -79,7 +79,7 @@ app.get('/api/callback', function (req, res) {
 })
 
 app.get('/api/logout', function (req, res) {
-    res.clearCookie('tmdbredux');
+    res.clearCookie('filmtalkies');
     res.redirect('/');
 });
 

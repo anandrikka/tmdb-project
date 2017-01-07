@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import LazyLoad from 'react-lazyload';
 import PaginationComponent from './PaginationComponent.jsx';
 import * as ProfileActions from '../actions/profile.actions';
 import { W154ImageUrl } from '../utilities/AppConstants';
 import { formatDate, commaSeparate } from '../utilities/AppUtils';
+import ProfileItem from './ProfileItem.jsx';
 
 class ProfileComponent extends Component {
 
@@ -12,10 +14,14 @@ class ProfileComponent extends Component {
         super(props);
         this.state = {
             favMoviesPage: 1,
-            favTvPage: 1
+            favTvPage: 1,
+            moviesWatchPage: 1,
+            tvWatchPage: 1
         }
         this.favMoviePageSelect = this.favMoviePageSelect.bind(this);
         this.favTvPageSelect = this.favTvPageSelect.bind(this);
+        this.movieWatchlistPageSelect = this.movieWatchlistPageSelect.bind(this);
+        this.tvWatchlistPageSelect = this.tvWatchlistPageSelect.bind(this);
     }
 
     componentDidMount() {
@@ -43,50 +49,15 @@ class ProfileComponent extends Component {
         }
     }
 
-    imageTag(item) {
-        const poster_path = item.poster_path;
-        let imageTag;
-        if(poster_path && poster_path !== null) {
-            const src = W154ImageUrl + poster_path;
-            imageTag = <img src={src} className="responsive-img"/>
-        }else {
-            let name = '';
-            const title = item.title || item.name;
-            let nameSplit = title.split(' ');
-            if(nameSplit.length > 0) {
-                nameSplit.forEach(function(n){
-                    name = name + n.substr(0, 1);
-                })
-            }else {
-                name = title.substr(0, 2);
-            }
-            imageTag = (<div className="responsive-img valign-wrapper"><h5 className="valign">{name}</h5></div>);
-        }
-        return imageTag;
-    }
-
-    genres(list, map) {
-        let genres = '';
-        if (list.length > 0) {
-            for (let i = 0; i < list.length; i++) {
-                if (map[list[i]] && map[list[i]].name) {
-                    genres += map[list[i]].name
-                }
-                if (i < list.length - 1) {
-                    genres += ', '
-                }
-            }
-        }
-        return genres;
-    }
-
     render() {
         const favMovies = this.props.profile.favoriteMovies.list;
         const favTv = this.props.profile.favoriteTv.list;
+        const moviesWatchlist = this.props.profile.movieWatchlist.list;
+        const tvWatchlist = this.props.profile.tvWatchlist.list;
         return (
             <div className="row">
                 <div className="col s12" style={{marginBottom: '10px'}}>
-                    <ul className="tabs tabs-fixed-width profile-tabs">
+                    <ul className="tabs profile-tabs">
                         <li className="tab col s4">
                             <a className="active"  href="#fav">Favorites</a>
                         </li>
@@ -103,28 +74,11 @@ class ProfileComponent extends Component {
                         <h5>Favorite Movies</h5>    
                         {
                             favMovies.map((favMovie, index) => {
-                                const imageTag = this.imageTag(favMovie);
-                                const genres = this.genres(favMovie.genre_ids, this.props.app.movieGenreMap)
-                                return (
-                                    <div className="col s12 m6 l3" key={index}>
-                                        <div className="card horizontal profile-card">
-                                            <div className="card-image">
-                                                {imageTag}
-                                            </div>
-                                            <div className="card-stacked">
-                                                <div className="card-content">
-                                                    <p className="title ellip">
-                                                        {favMovie.title} ({formatDate(favMovie.release_date, 'YYYY')})
-                                                    </p>
-                                                    <p className="ellip">{genres}</p>
-                                                    <p><b>Rating: </b>{favMovie.vote_average}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                )
+                                return <ProfileItem item={favMovie} key={index}
+                                    genres={this.props.app.movieGenreMap} />
                             })
                         }
+                        <div className="clearfix"></div>
                         {
                             favMovies.length > 0 &&
                             (<div className="right">
@@ -135,31 +89,15 @@ class ProfileComponent extends Component {
                                 </PaginationComponent>
                             </div>)
                         }
+                        <div className="clearfix"></div>
                         <h5>Favorite Tv</h5>
                         {
                             favTv.map((favT, index) => {
-                                const imageTag = this.imageTag(favT);
-                                const genres = this.genres(favT.genre_ids, this.props.app.tvGenreMap)
-                                return (
-                                    <div className="col s12 m6 l3" key={index}>
-                                        <div className="card horizontal profile-card">
-                                            <div className="card-image">
-                                                {imageTag}
-                                            </div>
-                                            <div className="card-stacked">
-                                                <div className="card-content">
-                                                    <p className="title ellip">
-                                                        {favT.name} ({formatDate(favT.first_air_date, 'YYYY')})
-                                                    </p>
-                                                    <p className="ellip">{genres}</p>
-                                                    <p><b>Rating: </b>{favT.vote_average}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                )
+                                return <ProfileItem item={favT} key={index}
+                                    genres={this.props.app.tvGenreMap} />
                             })
                         }
+                        <div className="clearfix"></div>
                         {
                             favTv.length > 0 && (
                             <div className="right">
@@ -173,10 +111,49 @@ class ProfileComponent extends Component {
                     </div>
                 </div>
                 <div className="col s12" id="watchlist">
-                    Watchlist
+                    <div className="row">
+                        <h5>Movie Watchlist</h5>    
+                        {
+                            moviesWatchlist.map((movie, index) => {
+                                return <ProfileItem item={movie} key={index}
+                                    genres={this.props.app.movieGenreMap} />
+                            })
+                        }
+                        <div className="clearfix"></div>
+                        {
+                            moviesWatchlist.length > 0 &&
+                            (<div className="right">
+                                <PaginationComponent
+                                    pages={this.props.profile.movieWatchlist.totalPages}
+                                    activePage={this.state.moviesWatchPage}
+                                    pageSelect={this.movieWatchlistPageSelect}>
+                                </PaginationComponent>
+                            </div>)
+                        }
+                        <div className="clearfix"></div>
+                        <h5>Television Watchlist</h5>
+                        {
+                            tvWatchlist.map((tv, index) => {
+                                return <ProfileItem item={tv} key={index}
+                                    genres={this.props.app.tvGenreMap} />
+                            })
+                        }
+                        <div className="clearfix"></div>
+                        {
+                            tvWatchlist.length > 0 && (
+                            <div className="right">
+                                <PaginationComponent
+                                    pages={this.props.profile.tvWatchlist.totalPages}
+                                    activePage={this.state.tvWatchPage}
+                                    pageSelect={this.tvWatchlistPageSelect}>
+                                </PaginationComponent>
+                            </div> )
+                        }
+                    </div>
                 </div>
                 <div className="col s12" id="rated">
-                    Rated
+                    <h5>Rated Movies</h5>
+                    <h5>Rated Television</h5>
                 </div>
             </div>
         );
@@ -196,6 +173,22 @@ class ProfileComponent extends Component {
         this.setState(state);
         const accountId = this.props.app.userInfo.id;
         this.props.actions.fetchTvFavorites(accountId, page);
+    }
+
+    movieWatchlistPageSelect(page) {
+        const state = this.state;
+        state.moviesWatchPage = page;
+        this.setState(state);
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.fetchMovieWatchlist(accountId, page);
+    }
+
+    tvWatchlistPageSelect(page) {
+        const state = this.state;
+        state.tvWatchPage = page;
+        this.setState(state);
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.fetchTvWatchlist(accountId, page);
     }
 }
 

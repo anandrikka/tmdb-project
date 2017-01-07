@@ -29,6 +29,12 @@ const loadSimilarSerials = (id, similarSerials) => ({
     similarSerials
 });
 
+const loadRecommendedSerials = (id, recommendedSerials) => ({
+    type: ActionConstants.FETCH_RECOMMENDED_SERIALS,
+    id,
+    recommendedSerials
+});
+
 const clearList = () => ({
     type: ActionConstants.CLEAR_TV_LIST
 });
@@ -141,6 +147,19 @@ export const similarSerials = (id, page = 1) => (dispatch) => {
         }
     }).then((response) => {
         dispatch(loadSimilarSerials(id, response.data));
+    }, (error) => { // eslint-disable-line
+
+    });
+};
+
+export const recommendedSerials = (id, page = 1) => (dispatch) => {
+    const resource = `/api/tv/${id}/recommendations`;
+    return axios.get(resource, {
+        params: {
+            page
+        }
+    }).then((response) => {
+        dispatch(loadRecommendedSerials(id, response.data));
     }, (error) => { // eslint-disable-line
 
     });

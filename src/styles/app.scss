@@ -1,5 +1,5 @@
 html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    //font-family: GillSans, Roboto, Calibri, Trebuchet, sans-serif;
 }
 
 #fullContent {
@@ -16,6 +16,11 @@ html {
 footer.page-footer {
     background: rgba(0, 0, 0, 0.8);
 }
+
+// @font-face {
+//     font-family: Atelas;
+//     src: url(../../dist/assets/fonts/Amaranth-Regular.ttf);
+// }
 
 .footer-title {
     display: flex;

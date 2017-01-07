@@ -22,4 +22,10 @@ router.get('/discover', reqFn('discoverTv'));
 
 router.get('/:tvId', reqFn('getTvShowDetails'));
 
+router.get('/:tvId/similar', reqFn('getTvShowsSimilar'));
+
+router.get('/:tvId/recommendations', reqFn('getTvShowRecommendations'));
+
+
+
 module.exports = router;
