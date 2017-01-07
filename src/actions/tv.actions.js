@@ -35,13 +35,13 @@ const loadRecommendedSerials = (id, recommendedSerials) => ({
     recommendedSerials
 });
 
-const clearList = () => ({
+const clearList = () => ({ // eslint-disable-line
     type: ActionConstants.CLEAR_TV_LIST
 });
 
 export const fetchOnAir = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.TV_ON_AIR, {
         params: quickSearchQuery
     }).then((response) => {
@@ -54,7 +54,7 @@ export const fetchOnAir = quickSearchQuery => ((dispatch) => {
 
 export const fetchTodaySerials = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.TODAY_SERIALS, {
         params: quickSearchQuery
     }).then((response) => {
@@ -67,7 +67,7 @@ export const fetchTodaySerials = quickSearchQuery => ((dispatch) => {
 
 export const fetchPopular = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.TV_POPULAR, {
         params: quickSearchQuery
     }).then((response) => {
@@ -80,7 +80,7 @@ export const fetchPopular = quickSearchQuery => ((dispatch) => {
 
 export const fetchTopRated = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.TV_TOP_RATED, {
         params: quickSearchQuery
     }).then((response) => {
@@ -93,7 +93,7 @@ export const fetchTopRated = quickSearchQuery => ((dispatch) => {
 
 export const searchTv = searchQuery => (dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.SEARCH_TV, { params: searchQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadTvList(response.data, searchQuery.page || 1));
@@ -104,7 +104,7 @@ export const searchTv = searchQuery => (dispatch) => {
 
 export const discoverTv = discoverQuery => (dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.DISCOVER_TV, { params: discoverQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadTvList(response.data, discoverQuery.page || 1));
@@ -162,5 +162,12 @@ export const recommendedSerials = (id, page = 1) => (dispatch) => {
         dispatch(loadRecommendedSerials(id, response.data));
     }, (error) => { // eslint-disable-line
 
+    });
+};
+
+export const rateTv = (id, rating) => (dispatch) => { // eslint-disable-line
+    const resource = `/api/tv/${id}/rating`;
+    return axios.post(resource, { value: rating }).then((response) => { // eslint-disable-line
+    }, (error) => { // eslint-disable-line
     });
 };

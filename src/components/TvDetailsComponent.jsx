@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import numeral from 'numeral';
+import Rating from 'react-rating';
 
 import Casting from './CastingComponent.jsx';
 import Crew from './CrewComponent.jsx';
-import Rating from 'react-rating';
 import TvGallery from './SimilarOrRecommenedComponent.jsx';
 import ItemImageGallery from './ItemImageGallery.jsx';
 import VideoModal from './VideoModalComponent.jsx';
@@ -21,6 +21,8 @@ class TvDetailsComponent extends Component {
         }
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.goBack = this.goBack.bind(this);
+        this.ratingSelected = this.ratingSelected.bind(this);
     }
 
     componentDidMount() {
@@ -45,8 +47,12 @@ class TvDetailsComponent extends Component {
         })
     }
 
-    ratingSelected(rate, event) {
-        console.log(rate);
+    ratingSelected(rating, event) {
+        this.props.actions.rateTv(this.props.params.id, rating);
+    }
+
+    goBack() {
+        this.context.router.goBack();
     }
 
     render() {
@@ -60,6 +66,10 @@ class TvDetailsComponent extends Component {
                 <div>
                     <div className="parallax" style={divStyle}></div>
                     <div className="movie-overlay"></div>
+                    <div className="back-button hide-on-small-only">
+                        <i className="fa fa-long-arrow-left fa-2x pointer" onClick={this.goBack}/> 
+                        <p>Go Back</p>
+                    </div>
                     <div className="movie card-panel">
                         <div className="row no-bm">
                             <div className="col s12 m3">
@@ -115,9 +125,10 @@ class TvDetailsComponent extends Component {
                                     <div className="col s12 m6">
                                         <p><b>Rating</b></p>
                                         <Rating empty="fa fa-star-o"
-                                            full="fa fa-star" fractions={10} stop={10} 
+                                            full="fa fa-star" fractions={2} stop={10} 
                                             initialRate={serial.vote_average}
-                                            onClick={this.ratingSelected} />
+                                            onClick={this.ratingSelected}
+                                            readonly={this.props.app.userInfo.authenticationFailed}/>
                                         <p className="inline-block no-m"
                                             style={{ paddingLeft: '15px' }}>
                                             <b>({serial.vote_average})</b>
@@ -218,6 +229,10 @@ class TvDetailsComponent extends Component {
         }
         return (<div/>);
     }
+}
+
+TvDetailsComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default TvDetailsComponent;

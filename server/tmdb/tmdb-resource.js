@@ -225,6 +225,11 @@ module.exports = {
                 resource: 'movie/:movieId/lists',
                 method: 'GET',
                 name: 'getMovieListofLists'
+            },
+            {
+                resource: 'movie/:movieId/rating',
+                method: 'POST',
+                name: 'rateMovie'
             }
         ],
         tvShowDetailsId: [
@@ -292,6 +297,11 @@ module.exports = {
                 resource: 'tv/:tvId/videos',
                 method: 'GET',
                 name: 'getTvShowVidoes'
+            },
+            {
+                resource: 'tv/:tvId/rating',
+                method: 'POST',
+                name: 'rateTv'
             }
         ],
         movies: [

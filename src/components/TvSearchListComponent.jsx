@@ -58,10 +58,6 @@ class TvSearchListComponent extends Component {
     }
 
     componentWillMount() {
-        if(!this.props.app.userInfo.authenticationFailed) {
-            this.props.actions.fetchTvFavorites();
-            this.props.actions.fetchTvWatchlist();
-        }
     }
 
     componentDidMount() {

@@ -8,24 +8,32 @@ class VideoModal extends Component {
         super(props);
         this.state = {};
         this.state.modalClass = modalClass;
+        this.resizeListener = this.resizeListener.bind(this);
     }    
 
     componentDidMount () {
-        window.addEventListener('resize', function(event){
-            const state = this.state;
-            if(window.innerWidth < 900 && window.innerWidth > 720) {
-                state.modalClass.content.width = '480px';
-                state.modalClass.content.height = '320px';
-            }else if(window.innerWidth <= 600) {
-                state.modalClass.content.width = '320px';
-                state.modalClass.content.height = '240px';
-            }else if(window.innerWidth > 900) {
-                state.modalClass.content.width = '640px';
-                state.modalClass.content.height = '360px';
-            }
-            this.setState(state);
-        }.bind(this));
+        window.addEventListener('resize', this.resizeListener);
     }
+
+    resizeListener(event) {
+        const state = this.state;
+        if(window.innerWidth < 900 && window.innerWidth > 720) {
+            state.modalClass.content.width = '480px';
+            state.modalClass.content.height = '320px';
+        }else if(window.innerWidth <= 600) {
+            state.modalClass.content.width = '320px';
+            state.modalClass.content.height = '240px';
+        }else if(window.innerWidth > 900) {
+            state.modalClass.content.width = '640px';
+            state.modalClass.content.height = '360px';
+        }
+        this.setState(state);
+    }
+
+    componentWillUnmount () {
+        window.removeEventListener('resize', this.resizeListener);
+    }
+    
 
     render() {
         return (

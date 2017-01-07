@@ -17,7 +17,7 @@ const loadMovieDetails = movie => ({
     movie
 });
 
-const clearList = () => ({
+const clearList = () => ({ // eslint-disable-line
     type: ActionConstants.CLEAR_MOVIE_LIST
 });
 
@@ -35,7 +35,7 @@ const loadRecommendedMovies = (id, recommendedMovies) => ({
 
 export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.PLAYING_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
@@ -48,7 +48,7 @@ export const fetchNowPlaying = quickSearchQuery => ((dispatch) => {
 
 export const fetchUpcoming = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.UPCOMING_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
@@ -61,7 +61,7 @@ export const fetchUpcoming = quickSearchQuery => ((dispatch) => {
 
 export const fetchPopular = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.POPULAR_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
@@ -74,7 +74,7 @@ export const fetchPopular = quickSearchQuery => ((dispatch) => {
 
 export const fetchTopRated = quickSearchQuery => ((dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.TOP_RATED_MOVIES, {
         params: quickSearchQuery
     }).then((response) => {
@@ -87,7 +87,7 @@ export const fetchTopRated = quickSearchQuery => ((dispatch) => {
 
 export const searchMovies = searchQuery => (dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.SEARCH_MOVIES, { params: searchQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadMovies(response.data, searchQuery.page || 1));
@@ -98,7 +98,7 @@ export const searchMovies = searchQuery => (dispatch) => {
 
 export const discoverMovies = discoverQuery => (dispatch) => {
     dispatch(showLoading());
-    dispatch(clearList());
+    // dispatch(clearList());
     return axios.get(Resources.DISCOVER_MOVIES, { params: discoverQuery }).then((response) => {
         dispatch(hideLoading());
         dispatch(loadMovies(response.data, discoverQuery.page || 1));
@@ -135,7 +135,6 @@ export const similarMovies = (id, page = 1) => (dispatch) => {
     });
 };
 
-
 export const recommendedMovies = (id, page = 1) => (dispatch) => {
     const resource = `/api/movies/${id}/recommendations`;
     return axios.get(resource, {
@@ -146,5 +145,12 @@ export const recommendedMovies = (id, page = 1) => (dispatch) => {
         dispatch(loadRecommendedMovies(id, response.data));
     }, (error) => { // eslint-disable-line
 
+    });
+};
+
+export const rateMovie = (id, rating) => (dispatch) => { // eslint-disable-line
+    const resource = `/api/movies/${id}/rating`;
+    return axios.post(resource, { value: rating }).then((response) => { // eslint-disable-line
+    }, (error) => { // eslint-disable-line
     });
 };

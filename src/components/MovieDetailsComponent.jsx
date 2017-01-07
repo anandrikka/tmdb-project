@@ -24,6 +24,8 @@ class MovieDetailsComponent extends Component {
         }
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.goBack = this.goBack.bind(this);
+        this.ratingSelected  =this.ratingSelected.bind(this)
     }
 
     componentDidMount() {
@@ -54,8 +56,12 @@ class MovieDetailsComponent extends Component {
         })
     }
 
-    ratingSelected(rate, event) {
-        console.log(rate);
+    ratingSelected(rating, event) {
+        this.props.actions.rateMovie(this.props.params.id, rating);
+    }
+
+    goBack() {
+        this.context.router.goBack();
     }
 
     render() {
@@ -68,7 +74,11 @@ class MovieDetailsComponent extends Component {
             return (
                 <div> 
                     <div className="parallax" style={divStyle}></div>
-                    <div className="movie-overlay"></div>  
+                    <div className="movie-overlay"></div>
+                    <div className="back-button hide-on-small-only">
+                        <i className="fa fa-long-arrow-left fa-2x pointer" onClick={this.goBack}/> 
+                        <p>Go Back</p>
+                    </div>
                     <div className="movie card-panel">
                         <div className="row no-bm">
                             <div className="col s12 m3">   
@@ -122,8 +132,10 @@ class MovieDetailsComponent extends Component {
                                         <p className="inline-block"
                                             style={{ paddingRight: '15px' }}><b>Rating: </b></p>
                                         <Rating empty="fa fa-star-o"
-                                            full="fa fa-star" fractions={10} stop={10} 
-                                            initialRate={movie.vote_average} onClick={this.ratingSelected}/>
+                                            full="fa fa-star" fractions={2} stop={10}
+                                            initialRate={movie.vote_average}
+                                            onClick={this.ratingSelected}
+                                            readonly={this.props.app.userInfo.authenticationFailed}/>
                                         <p className="inline-block"
                                             style={{ paddingLeft: '15px' }}>
                                             <b>({movie.vote_average})</b>
@@ -210,6 +222,10 @@ class MovieDetailsComponent extends Component {
             return (<div></div>);
         }
     }
+}
+
+MovieDetailsComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default MovieDetailsComponent;
