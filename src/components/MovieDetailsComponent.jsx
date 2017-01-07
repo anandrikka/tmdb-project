@@ -184,7 +184,7 @@ class MovieDetailsComponent extends Component {
                                  }
                                  <h5 className="center-align">Recommended Movies For You</h5>
                                  {
-                                    movie.recommendations.length > 0 ? (
+                                    movie.recommendations.results.length > 0 ? (
                                         <div style={{ padding: '0 25px' }}>
                                             <MovieGallery id={movie.id}
                                                 fetchMore={this.props.actions.recommendedMovies}

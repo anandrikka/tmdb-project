@@ -12,7 +12,6 @@ class HomeComponent extends Component {
 	}
 
 	componentDidMount() {
-        console.log('component mounted');
         this.props.actions.upcomingMovies().then(() => {
             $('#home_screen').slick({
                 lazyLoad: 'ondemand',
