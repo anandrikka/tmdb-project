@@ -16,12 +16,16 @@ class ProfileComponent extends Component {
             favMoviesPage: 1,
             favTvPage: 1,
             moviesWatchPage: 1,
-            tvWatchPage: 1
+            tvWatchPage: 1,
+            ratedMoviesPage: 1,
+            ratedTvPage: 1
         }
         this.favMoviePageSelect = this.favMoviePageSelect.bind(this);
         this.favTvPageSelect = this.favTvPageSelect.bind(this);
         this.movieWatchlistPageSelect = this.movieWatchlistPageSelect.bind(this);
         this.tvWatchlistPageSelect = this.tvWatchlistPageSelect.bind(this);
+        this.ratedMoviesPageSelect = this.ratedMoviesPageSelect.bind(this);
+        this.ratedTvPageSelect = this.ratedTvPageSelect.bind(this);
     }
 
     componentDidMount() {
@@ -54,10 +58,12 @@ class ProfileComponent extends Component {
         const favTv = this.props.profile.favoriteTv.list;
         const moviesWatchlist = this.props.profile.movieWatchlist.list;
         const tvWatchlist = this.props.profile.tvWatchlist.list;
+        const ratedMovies = this.props.profile.ratedMovies.list;
+        const ratedTv = this.props.profile.ratedTv.list;
         return (
             <div className="row">
                 <div className="col s12" style={{marginBottom: '10px'}}>
-                    <ul className="tabs profile-tabs">
+                    <ul className="tabs tabs-fixed-width profile-tabs">
                         <li className="tab col s4">
                             <a className="active"  href="#fav">Favorites</a>
                         </li>
@@ -80,7 +86,7 @@ class ProfileComponent extends Component {
                         }
                         <div className="clearfix"></div>
                         {
-                            favMovies.length > 0 &&
+                            this.props.profile.favoriteMovies.totalPages > 1 &&
                             (<div className="right">
                                 <PaginationComponent
                                     pages={this.props.profile.favoriteMovies.totalPages}
@@ -99,7 +105,7 @@ class ProfileComponent extends Component {
                         }
                         <div className="clearfix"></div>
                         {
-                            favTv.length > 0 && (
+                            this.props.profile.favoriteTv.totalPages > 1 && (
                             <div className="right">
                                 <PaginationComponent
                                     pages={this.props.profile.favoriteTv.totalPages}
@@ -121,7 +127,7 @@ class ProfileComponent extends Component {
                         }
                         <div className="clearfix"></div>
                         {
-                            moviesWatchlist.length > 0 &&
+                            this.props.profile.movieWatchlist.totalPages > 1 &&
                             (<div className="right">
                                 <PaginationComponent
                                     pages={this.props.profile.movieWatchlist.totalPages}
@@ -140,7 +146,7 @@ class ProfileComponent extends Component {
                         }
                         <div className="clearfix"></div>
                         {
-                            tvWatchlist.length > 0 && (
+                            this.props.profile.tvWatchlist.totalPages > 1 && (
                             <div className="right">
                                 <PaginationComponent
                                     pages={this.props.profile.tvWatchlist.totalPages}
@@ -152,8 +158,43 @@ class ProfileComponent extends Component {
                     </div>
                 </div>
                 <div className="col s12" id="rated">
-                    <h5>Rated Movies</h5>
+                    <h5>Rated Movies</h5>    
+                    {
+                        ratedMovies.map((movie, index) => {
+                            return <ProfileItem item={movie} key={index}
+                                genres={this.props.app.movieGenreMap} />
+                        })
+                    }
+                    <div className="clearfix"></div>
+                    {
+                        this.props.profile.ratedMovies.totalPages > 1 > 0 &&
+                        (<div className="right">
+                            <PaginationComponent
+                                pages={this.props.profile.ratedMovies.totalPages}
+                                activePage={this.state.ratedMoviesPage}
+                                pageSelect={this.ratedMoviesPageSelect}>
+                            </PaginationComponent>
+                        </div>)
+                    }
+                    <div className="clearfix"></div>
                     <h5>Rated Television</h5>
+                    {
+                        ratedTv.map((tv, index) => {
+                            return <ProfileItem item={tv} key={index}
+                                genres={this.props.app.tvGenreMap} />
+                        })
+                    }
+                    <div className="clearfix"></div>
+                    {
+                        this.props.profile.ratedTv.totalPages > 1 && (
+                        <div className="right">
+                            <PaginationComponent
+                                pages={this.props.profile.ratedTv.totalPages}
+                                activePage={this.state.ratedTvPage}
+                                pageSelect={this.ratedTvPageSelect}>
+                            </PaginationComponent>
+                        </div> )
+                    }
                 </div>
             </div>
         );
@@ -189,6 +230,22 @@ class ProfileComponent extends Component {
         this.setState(state);
         const accountId = this.props.app.userInfo.id;
         this.props.actions.fetchTvWatchlist(accountId, page);
+    }
+
+    ratedMoviesPageSelect(page) {
+        const state = this.state;
+        state.ratedMoviesPage = page;
+        this.setState(state);
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.fetchRatedMovies(accountId, page);
+    }
+
+    ratedTvPageSelect(page) {
+        const state = this.state;
+        state.ratedTvPage = page;
+        this.setState(state);
+        const accountId = this.props.app.userInfo.id;
+        this.props.actions.fetchRatedTv(accountId, page);
     }
 }
 

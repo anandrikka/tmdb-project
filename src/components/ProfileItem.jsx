@@ -20,7 +20,7 @@ class ProfileItem extends Component {
                                 {item.title || item.name} ({formatDate(item.release_date || item.first_air_date, 'YYYY')})
                             </p>
                             <p className="ellip">{genres}</p>
-                            <p><b>Rating: </b>{item.vote_average}</p>
+                            <p><b>Rating: </b>{item.rating || item.vote_average}</p>
                         </div>
                     </div>
                 </div>
