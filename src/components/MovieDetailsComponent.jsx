@@ -235,10 +235,16 @@ class MovieDetailsComponent extends Component {
                                  }
                             </div>
                             <div id="movie_images" className="col s12">
-                                <div style={{padding: '0 25px'}}>
-                                    <ItemImageGallery posters={movie.images.posters}
-                                        backdrops={movie.images.backdrops} />
-                                </div>
+                                {
+                                    (movie.images.posters.length > 0
+                                        || movie.images.backdrops.length > 0) ? 
+                                        (
+                                            <div style={{ padding: '0 25px' }}>
+                                                <ItemImageGallery posters={movie.images.posters}
+                                                    backdrops={movie.images.backdrops} />
+                                            </div>
+                                        ): (<div className="center-align">No Results Found !</div>)
+                                }
                             </div>
                         </div>
                     </div>

@@ -236,10 +236,16 @@ class TvDetailsComponent extends Component {
                                 
                             </div>
                             <div id="tv_images" className="col s12">
-                                <div style={{padding: '0 25px'}}>
-                                    <ItemImageGallery posters={serial.images.posters}
-                                        backdrops={serial.images.backdrops} />
-                                </div>
+                                {
+                                    (serial.images.posters.length > 0
+                                        || serial.images.backdrops.length > 0) ? 
+                                        (
+                                            <div style={{ padding: '0 25px' }}>
+                                                <ItemImageGallery posters={serial.images.posters}
+                                                    backdrops={serial.images.backdrops} />
+                                            </div>
+                                        ): (<div className="center-align">No Results Found !</div>)
+                                }
                             </div>
                         </div>
                     </div>

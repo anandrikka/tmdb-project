@@ -32,6 +32,7 @@ class PeopleGallery extends Component {
                         })
                     }
                 </Slider>
+                
             )
         } else {
             return (<div style={{ margin: '25px', fontWeight: 800, textAlign: 'center' }}>No Profile Pictures Found</div>)

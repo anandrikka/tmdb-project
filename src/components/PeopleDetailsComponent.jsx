@@ -190,10 +190,19 @@ class PeopleDetailsComponent extends Component {
                                     }
                                 </div>
                                 <div id="people_gallery" className="col s12">
-                                    <div style={{padding: '25px'}}>
-                                        <PeopleGallery taggedImages={taggedImages}
-                                            profileImages={profile.images.profiles}
-                                            afterChange={this.afterChange}/>
+                                    <div style={{ padding: '25px' }}>
+                                        {
+                                            (profile.images.profiles.length > 0
+                                                || taggedImages.length > 0) ?
+                                                (
+                                                  <PeopleGallery taggedImages={taggedImages}
+                                                    profileImages={profile.images.profiles}
+                                                    afterChange={this.afterChange}/>  
+                                                ) : (
+                                                    <div className="center-align">No Results Found</div>
+                                                )
+                                        }    
+                                        
                                     </div>
                                 </div>
                             </div>
