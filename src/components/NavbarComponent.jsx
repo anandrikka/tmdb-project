@@ -41,9 +41,9 @@ export default class NavbarComponent extends Component {
                             </ul>
                             <ul className="side-nav mobile-nav" id="mobile-menu">
                                 <div className="nav-id">
-                                    <div className="valign-wrapper">
-                                        <h5 className="valign">Film Talkies</h5>
-                                    </div>    
+                                    <div>
+                                        <img className="logo" src="../../dist/assets/images/logo.png"/>
+                                    </div>
                                     <li><Link to="/movies">Movies</Link></li>
                                     <li><Link to="/tv">Television</Link></li>
                                     <li><Link to="/people">People</Link></li>

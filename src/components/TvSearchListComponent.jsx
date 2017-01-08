@@ -21,7 +21,7 @@ class TvSearchListComponent extends Component {
             filter: {
                 quickSearchType: 'onAir',
                 language: 'en-US',
-                region: 'US',
+                region: '',
                 search: {
                     query: ''
                 },
@@ -30,7 +30,7 @@ class TvSearchListComponent extends Component {
                     ['vote_average.gte']:'',
                     ['first_air_date.lte']: null,
                     ['first_air_date.gte']: null,
-                    with_original_language:'en',
+                    with_original_language:'',
                     sort_by: 'popularity.desc'
                 }
             }

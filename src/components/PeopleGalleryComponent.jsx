@@ -1,54 +1,37 @@
 import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { OriginalImageUrl } from '../utilities/AppConstants';
 
 class PeopleGallery extends Component {
 
-    componentDidMount() {
-        $('#profileImagesSlick').slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 3,
-            slidesToScroll: 2,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 2,
-                        slidesToScroll: 1,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: true,
-                        centerPadding: '20px',
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
+    constructor(props) {
+        super(props);
+        this.afterChange = this.afterChange.bind(this);
     }
 
+    afterChange() {
+        this.props.afterChange();
+    }    
+
     render() {
-        if (this.props.profileImages.length > 0) {
+        const images = this.props.profileImages.concat(this.props.taggedImages);
+        if (images.length > 0) {
             return (
-                <div id="profileImagesSlick" >
+                <Slider {...slickSettings} afterChange={this.afterChange}>
                     {
-                        this.props.profileImages.map((profileImage, index) => {
+                        images.map((profileImage, index) => {
                             let filePath = profileImage.file_path;
                             if(filePath) {
                                 filePath = OriginalImageUrl + filePath;
                                 return (
                                     <div key={index} className="col s12 m2 l4">
-                                        <img className="responsive-img" data-lazy={filePath} />
+                                        <img className="responsive-img" src={filePath} />
                                     </div>
                                 )
                             }
                         })
                     }
-                </div>
+                </Slider>
             )
         } else {
             return (<div style={{ margin: '25px', fontWeight: 800, textAlign: 'center' }}>No Profile Pictures Found</div>)
@@ -58,3 +41,27 @@ class PeopleGallery extends Component {
 }
 
 export default PeopleGallery;
+
+const slickSettings = {
+    lazyLoad: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                arrows: true,
+                slidesToShow: 2,
+                slidesToScroll: 2,
+            }
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                arrows: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]
+};

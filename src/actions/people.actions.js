@@ -21,6 +21,12 @@ const loadQueryPeople = queryDetails => ({
     queryDetails
 });
 
+const loadTaggedImages = (peopleId, taggedImages) => ({
+    type: ActionConstants.FETCH_TAGGED_IMAGES,
+    peopleId,
+    taggedImages
+});
+
 export const clearQueryResults = () => ({
     type: ActionConstants.CLEAR_PEOPLE_QUERY_RESULTS
 });
@@ -63,6 +69,16 @@ export const fetchQueryedPeople = query => (dispatch) => {
             dispatch(loadQueryPeople(response.data));
         },(error) => { // eslint-disable-line
             dispatch(hideLoading());
+        });
+};
+
+export const fetchTaggedImages = (peopleId, page = 1) => (dispatch) => {
+    const resource = `/api/people/${peopleId}/tagged_images`;
+    return axios.get(resource, { params: { page } })
+        .then((response) => {
+            dispatch(loadTaggedImages(peopleId, response.data));
+        }, (error) => { // eslint-disable-line
+
         });
 };
 

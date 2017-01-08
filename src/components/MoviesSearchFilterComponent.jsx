@@ -36,7 +36,7 @@ export default class MoviesFilter extends Component {
         const data = this.props.data;
         return (
             <div className="row col s12 z-depth-3 filter-box search-filter search-background">
-                <div className="row">
+                <div className="row no-bm">
                     <div className="col s12">
                         <p className="search-select-label">Quick Search</p>
                         <select className="browser-default" value={data.quickSearchType}
@@ -51,23 +51,6 @@ export default class MoviesFilter extends Component {
                                 })
                             }
                         </select>
-                    </div>
-                </div>
-                <div className="row no-bm">
-                    <div className="input-field col s12">
-                        <input id="movie_search_text" type="text"  placeholder="Transformers, Cars etc.."
-                               value={data.search.query} onChange={(e) => actions.queryChanged(e.target.value)}/>
-                        <label htmlFor="movie_search_text" className="active">
-                            Search Text (min 3 letters)
-                        </label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12 no-tm">
-                        <input type="checkbox" checked={data.include_adult}
-                               className="filled-in" id="include_adult"
-                               onChange={(e) => actions.includeAdultChanged(e.target.checked)}/>
-                        <label htmlFor="include_adult">Include Adult</label>
                     </div>
                 </div>
                 <div className="row">
@@ -87,21 +70,22 @@ export default class MoviesFilter extends Component {
                         </select>
                     </div>
                 </div>
+                <div className="row no-bm">
+                    <div className="input-field col s12">
+                        <input id="movie_search_text" type="text"  placeholder="Transformers, Cars etc.."
+                            value={data.search.query}
+                            onChange={(e) => actions.queryChanged(e.target.value)} />
+                        <label htmlFor="movie_search_text" className="active">
+                            Search Text (min 3 letters)
+                        </label>
+                    </div>
+                </div>
                 <div className="row">
-                    <div className="col s12">
-                        <p className="movie-select-label">Translation Language</p>
-                        <select className="browser-default" value={data.language}
-                                onChange={(e) => actions.translationLangChanged(e.target.value)}>
-                            {
-                                languageCountryCodes.map((languageCode, index) => {
-                                    return (
-                                        <option key={index} value={languageCode.language}>
-                                            {languageCode.name}
-                                        </option>
-                                    )
-                                })
-                            }
-                        </select>
+                    <div className="input-field col s12 no-tm">
+                        <input type="checkbox" checked={data.include_adult}
+                               className="filled-in" id="include_adult"
+                               onChange={(e) => actions.includeAdultChanged(e.target.checked)}/>
+                        <label htmlFor="include_adult">Include Adult</label>
                     </div>
                 </div>
                 <div className="divider" />
@@ -128,6 +112,7 @@ export default class MoviesFilter extends Component {
                         <p className="movie-select-label">Original Language</p>
                         <select className="browser-default" value={data.discover.with_original_language}
                                 onChange={(e) => actions.originalLanguageChanged(e.target.value)}>
+                            <option key={-1} value=""></option>
                             {
                                 languageCodeList.map((language, index) => {
                                     return (
@@ -153,14 +138,14 @@ export default class MoviesFilter extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row no-bm">
                     <div className="input-field col s12">
                         <input type="date" placeholder="01-Jan-2017"
                                className="datepicker" id="released_before"/>
                         <label htmlFor="released_before" className="active">Released Before</label>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row no-bm">
                     <div className="input-field col s12">
                         <input type="date" placeholder="01-Jan-2017"
                                className="datepicker" id="released_after"/>

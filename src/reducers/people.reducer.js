@@ -45,6 +45,25 @@ const peopleReducer = (state = defaultState, action) => {
         modifiedState = modifiedState.updateIn(['query_results'], queryResults => emptyQueryState); // eslint-disable-line
         return modifiedState.toJS();
     }
+    case ActionConstants.FETCH_TAGGED_IMAGES: {
+        const { taggedImages, peopleId } = action;
+        modifiedState = Immutable.fromJS(state);
+        modifiedState = modifiedState.updateIn(
+            ['people_results', peopleId + '', 'tagged_images', 'results'], // eslint-disable-line
+            list => list.concat(taggedImages.results)); // eslint-disable-line
+        modifiedState = modifiedState.mergeDeep({
+            people_results: {
+                [peopleId]: {
+                    tagged_images: {
+                        page: taggedImages.page,
+                        total_pages: taggedImages.total_pages,
+                        total_results: taggedImages.total_results
+                    }
+                }
+            }
+        });
+        return modifiedState.toJS();
+    }
     default:
         return state;
     }

@@ -25,8 +25,8 @@ class Casting extends Component {
                         breakpoint: 600,
                         settings: {
                             arrows: true,
-                            slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToShow: 1,
+                            slidesToScroll: 1
                         }
                     }
                 ]
@@ -48,11 +48,11 @@ class Casting extends Component {
                                     src = H632ImageUrl + actor.profile_path;
                                 }
                                 return (
-                                    <div className="col s6 m4 l3" key={index} >
+                                    <div className="col s6 m4 l3" key={index} onClick={() => this.props.goto(actor.id)}>
                                         <div className="relative">
                                             <img className="responsive-img pointer"
                                                 key={index} src={src} />
-                                            <span className="cast-title">
+                                            <span className="cast-title hide-on-small-only">
                                                 {actor.name} ({actor.character})
                                             </span>
                                         </div>

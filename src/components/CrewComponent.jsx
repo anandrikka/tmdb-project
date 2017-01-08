@@ -44,7 +44,8 @@ class Crew extends Component {
                                 imageTag = (<div className="responsive-img valign-wrapper"><h5 className="valign">{name}</h5></div>);
                             }
                             return (
-                                <CrewMember imageTag={imageTag} member={cItem} key={index} />
+                                <CrewMember imageTag={imageTag} member={cItem} key={"crew"+index}
+                                    goto={this.props.goto} />
                             )
                         })
                     }
@@ -67,7 +68,8 @@ class CrewMember extends Component {
         return (
             <div className="col s12 m6 l4">
                 <div className="card horizontal crew-card">
-                    <div className="card-image">
+                    <div className="card-image pointer"
+                        onClick={() => this.props.goto(this.props.member.id)}>
                         {this.props.imageTag}
                     </div>
                     <div className="card-stacked">

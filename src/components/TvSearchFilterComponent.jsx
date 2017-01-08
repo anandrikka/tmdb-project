@@ -58,23 +58,6 @@ export default class TvFilter extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s12">
-                        <p className="movie-select-label">Translation Language</p>
-                        <select className="browser-default" value={data.language}
-                                onChange={(e) => actions.translationLangChanged(e.target.value)}>
-                            {
-                                languageCountryCodes.map((languageCode, index) => {
-                                    return (
-                                        <option key={index} value={languageCode.language}>
-                                            {languageCode.name}
-                                        </option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div className="row">
                     <div className="input-field col s12">
                         <input type="date" placeholder="2017" className="datepicker" id="tv_first_air_date"/>
                         <label htmlFor="tv_first_air_date" className="active">Air Date Year</label>
@@ -104,6 +87,7 @@ export default class TvFilter extends Component {
                         <p className="movie-select-label">Original Language</p>
                         <select className="browser-default" value={data.discover.with_original_language}
                                 onChange={(e) => actions.originalLanguageChanged(e.target.value)}>
+                            <option key={-1} value=""></option>
                             {
                                 languageCodeList.map((language, index) => {
                                     return (

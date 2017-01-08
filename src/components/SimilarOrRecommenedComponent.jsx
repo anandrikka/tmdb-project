@@ -57,7 +57,8 @@ class SimilarResults extends Component {
                             src = OriginalImageUrl + poster_path;
                         }
                         return (
-                            <div className="col s6 m4 l3" key={index} >
+                            <div className="col s6 m4 l3" key={index}
+                                onClick={() => this.props.goto(item.id)}>
                                 <div className="relative">
                                     <img className="responsive-img pointer" src={src} />
                                     {

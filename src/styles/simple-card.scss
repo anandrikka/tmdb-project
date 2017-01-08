@@ -56,3 +56,30 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .ccard-title {
+        font-size: 12px;
+    }
+    .ccard {
+        .card-date {
+            padding: 0.3em;
+            span {
+                display: block;
+                text-align: center;
+            }
+            .day {
+                font-weight: 500;
+                font-size: 20px;
+                text-shadow: 2px 3px 2px rgba(black, 0.18);
+            }
+            .month {
+                text-transform: uppercase;
+            }
+            .month,
+            .year {
+                font-size: 10px;
+            }
+        }
+    }
+}

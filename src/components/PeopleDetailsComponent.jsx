@@ -17,6 +17,10 @@ class PeopleDetailsComponent extends Component {
         }
         this.movieBtnClicked = this.movieBtnClicked.bind(this);
         this.tvBtnClicked = this.tvBtnClicked.bind(this);
+        this.afterChange = this.afterChange.bind(this);
+        this.gotoMovie = this.gotoMovie.bind(this);
+        this.gotoTv = this.gotoTv.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
@@ -75,6 +79,31 @@ class PeopleDetailsComponent extends Component {
         });
     }
 
+    afterChange(slideIndex) {
+        const profile = this.props.people.people_results[this.props.params.id];
+        const taggedImages = profile.tagged_images && profile.tagged_images.results || [];
+        const totalItems = profile.images.profiles.length + taggedImages.length;
+        const page = profile.tagged_images && profile.tagged_images.page || 1;
+        const totalPages = profile.tagged_images && profile.tagged_images.total_pages || 1;
+        if (slideIndex > (totalItems - 10)) {
+            if (page < totalPages) {
+                this.props.actions.fetchTaggedImages(this.props.params.id, page + 1);
+            }    
+        }
+    } 
+
+    gotoMovie(id) {
+        this.context.router.push(`/movies/${id}`);
+    }
+
+    gotoTv(id) {
+        this.context.router.push(`/tv/${id}`);
+    }
+
+    goBack() {
+        this.context.router.goBack();
+    }    
+
     render() {
         const profile = this.props.people.people_results[this.props.params.id];
         if(profile) {
@@ -101,6 +130,10 @@ class PeopleDetailsComponent extends Component {
                 <div>
                     <div className="profile-parallax parallax" style={divStyle} />
                     <div className="profile-overlay"></div>
+                    <div className="back-button hide-on-small-only">
+                        <i className="fa fa-long-arrow-left fa-2x pointer" onClick={this.goBack}/> 
+                        <p>Go Back</p>
+                    </div>
                     <div className="profile row">
                         <div className="col s12 m12 l3">
                             <div className="card">
@@ -148,13 +181,19 @@ class PeopleDetailsComponent extends Component {
                                     <div className="clearfix"/>
                                     {
                                         this.state.showMovieTimeline ? 
-                                            <PeopleTimeline timelineDate={movieTimelineData}></PeopleTimeline> :
-                                            <PeopleTimeline timelineDate={tvTimelineData}></PeopleTimeline>
+                                            <PeopleTimeline
+                                                goto= {this.gotoMovie}    
+                                                timelineDate={movieTimelineData} />:
+                                            <PeopleTimeline
+                                                goto= {this.gotoTv}     
+                                                timelineDate={tvTimelineData} />
                                     }
                                 </div>
                                 <div id="people_gallery" className="col s12">
                                     <div style={{padding: '25px'}}>
-                                        <PeopleGallery profileImages={profile.images.profiles}></PeopleGallery>
+                                        <PeopleGallery taggedImages={taggedImages}
+                                            profileImages={profile.images.profiles}
+                                            afterChange={this.afterChange}/>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +206,9 @@ class PeopleDetailsComponent extends Component {
     }
 }
 
-
+PeopleDetailsComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
 export default PeopleDetailsComponent;
 
 

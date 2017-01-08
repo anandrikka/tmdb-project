@@ -45,7 +45,7 @@ class VideoModal extends Component {
                 <div className="relative">
                     <i className="fa fa-times-circle-o fa-2x pointer" style={{position:'absolute', left: '100%', color: 'white', bottom: '95%'}} onClick={this.props.closeDialog}></i>
                     {
-                        this.props.video.key ? (
+                         this.props.video && this.props.video.key ? (
                             <ReactPlayer 
                                 width={this.state.modalClass.content.width}
                                 height={this.state.modalClass.content.height}
@@ -63,7 +63,7 @@ class VideoModal extends Component {
 }
 
 VideoModal.propTypes = {
-    video: React.PropTypes.object.isRequired,
+    //video: React.PropTypes.object.isRequired,
     isOpen: React.PropTypes.bool.isRequired,
     closeDialog: React.PropTypes.func.isRequired
 };

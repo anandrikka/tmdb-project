@@ -38,7 +38,7 @@ class HomeComponent extends Component {
                     )
                 }
                 {
-                    airingToday.length && (
+                    airingToday.length > 0 && (
                         <div>
                             {showFlag && <h5>WATCH TODAY IN TV</h5>}
                             <div style={{padding: '0 25px'}}>
@@ -60,13 +60,14 @@ class HomeComponent extends Component {
                         if (backdrop_path && backdrop_path !== null && backdrop_path.length > 0) {
                             const src = OriginalImageUrl + backdrop_path;
                             return (
-                                <div className="col s12" key={index} >
+                                <div className="col s12" key={"upcoming"+index} >
                                     <div className="relative home-carousel">
                                         <div className="home-carousel-overlay"></div>
                                         <img className="responsive-img pointer"
                                             src={src} />
                                         <div
-                                            className="home-carousel-title hide-on-small-only" style={{ top: '10%', left: '3%', width: '40%' }}>
+                                            className="home-carousel-title hide-on-small-only"
+                                            style={{ top: '10%', left: '3%', width: '40%' }}>
                                             <h3>{movie.original_title}</h3>
                                             <h6>{movie.overview}</h6>
                                         </div>

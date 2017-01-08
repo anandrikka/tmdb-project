@@ -15,8 +15,11 @@ class PeopleTimeline extends Component {
                                         {
                                             timelineData[year].map((item, key) => {
                                                 return(
-                                                    <li className="event pointer" key={key}>
-                                                        <span className="movie-title">{item.title || item.original_name}</span>
+                                                    <li className="event pointer" key={key}
+                                                        onClick={() => this.props.goto(item.id)}>
+                                                        <span className="movie-title">
+                                                            {item.title || item.original_name}
+                                                        </span>
                                                         <span>{item.character}</span>
                                                     </li>
                                                 )

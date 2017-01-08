@@ -9,14 +9,27 @@ class FooterComponent extends Component {
                     <div className="row">
                         <div className="col m6 l4">
                             <img src="../../dist/assets/images/logo.png" className="responsive-img" />
-                            <p className="col offset-m4 hide-on-small-only no-tm no-bm grey-text text-lighten-4">Powered by TMDB API</p>
+                            <p className="col offset-m4 hide-on-small-only no-tm no-bm grey-text text-lighten-4">Powered by TMDB Free API</p>
                         </div>
-                        <div className="col m12 l8">
-                            
+                        <div className="col m6 l8 grey-text text-lighten-4">
+                            <div className="col s6">
+                                <h5>Navigation</h5>
+                                <ul>
+                                    <li>
+                                        <Link className="grey-text text-lighten-4" to="/movies">Movies</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="grey-text text-lighten-4" to="/tv">Television</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="grey-text text-lighten-4" to="/people">People</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col s6">
+                                 
+                            </div>
                         </div>
-                    </div>
-                    <div className="row no-bm">
-                        
                     </div>
                 </div>
                 <div className="footer-copyright">

@@ -25,7 +25,9 @@ class MovieDetailsComponent extends Component {
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.goBack = this.goBack.bind(this);
-        this.ratingSelected  =this.ratingSelected.bind(this)
+        this.ratingSelected = this.ratingSelected.bind(this);
+        this.gotoMovie = this.gotoMovie.bind(this);
+        this.gotoCast = this.gotoCast.bind(this);
     }
 
     componentDidMount() {
@@ -56,6 +58,13 @@ class MovieDetailsComponent extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.params.id !== nextProps.params.id) {
+            this.props.actions.fetchMovie(nextProps.params.id);
+        }
+    }
+    
+
     ratingSelected(rating, event) {
         this.props.actions.rateMovie(this.props.params.id, rating);
     }
@@ -64,12 +73,28 @@ class MovieDetailsComponent extends Component {
         this.context.router.goBack();
     }
 
+    gotoMovie(id) {
+        this.context.router.push(`/movies/${id}`);
+    }
+
+    gotoCast(id) {
+        this.context.router.push(`/people/${id}`);
+    }
+
     render() {
         const movie = this.props.movies.movie_results[this.props.params.id];
         if (movie) {
             const releaseDate = formatDate(movie.release_date);
+            let backdropSrc = '../../dist/assets/images/placeholder-backdrop.jpg';
+            if (movie.backdrop_path) {
+                backdropSrc = OriginalImageUrl + movie.backdrop_path;
+            }
             const divStyle = {
-                backgroundImage: 'url(' + OriginalImageUrl + movie.backdrop_path + ')'
+                backgroundImage: 'url(' + backdropSrc + ')'
+            }
+            let posterSrc = '../../dist/assets/images/placeholder-movie.jpg';
+            if (movie.poster_path) {
+                posterSrc = OriginalImageUrl + movie.poster_path;
             }
             return (
                 <div> 
@@ -83,7 +108,7 @@ class MovieDetailsComponent extends Component {
                         <div className="row no-bm">
                             <div className="col s12 m3">   
                                 <img className="responsive-img"
-                                    src={OriginalImageUrl + movie.poster_path} />
+                                    src={posterSrc} />
                                 <a className="btn waves-effect waves-light w100" onClick={this.openDialog}>Watch Trailer 
                                     <i className="fa fa-youtube-play left" aria-hidden="true"/>
                                 </a>
@@ -176,9 +201,10 @@ class MovieDetailsComponent extends Component {
                                         (
                                             <div>
                                                 <div style={{ padding: '0 25px' }}>
-                                                    <Casting cast={movie.credits.cast} id="movieCast"/>
+                                                    <Casting cast={movie.credits.cast}
+                                                        goto={this.gotoCast} id="movieCast" />
                                                 </div>
-                                                <Crew crew={movie.credits.crew} />
+                                                <Crew crew={movie.credits.crew} goto={this.gotoCast}/>
                                             </div>
                                         ): <div>No Cast & Crew Details Found !!</div>    
                                 }    
@@ -189,10 +215,10 @@ class MovieDetailsComponent extends Component {
                                  {
                                     movie.similar.results.length > 0 ? (
                                         <div style={{ padding: '0 25px' }}>
-                                            <MovieGallery id={movie.id} fetchMore={this.props.actions.similarMovies} nameKey="title" title="Similar Movies"
+                                            <MovieGallery id={movie.id} fetchMore={this.props.actions.similarMovies} nameKey="title" title="Similar Movies" goto={this.gotoMovie}
                                                 gallery={movie.similar} />
                                         </div>
-                                    ): <div><p>No Similar Movies Found</p></div>
+                                    ): <div className="center-align"><p>No Similar Movies Found</p></div>
                                  }
                                  <h5 className="center-align">Recommended Movies For You</h5>
                                  {
@@ -201,9 +227,11 @@ class MovieDetailsComponent extends Component {
                                             <MovieGallery id={movie.id}
                                                 fetchMore={this.props.actions.recommendedMovies}
                                                 nameKey="title" title="Recommended Movies"
+                                                goto={this.gotoMovie}
                                                 gallery={movie.recommendations} />
                                         </div>
-                                    ):<div><p>Not able to find recommendations !</p></div>
+                                    ) : <div className="center-align">
+                                            <p>Not able to find recommendations !</p></div>
                                  }
                             </div>
                             <div id="movie_images" className="col s12">
