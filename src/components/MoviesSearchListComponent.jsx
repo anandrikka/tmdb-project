@@ -255,6 +255,7 @@ class MoviesSearchListComponent extends Component {
     minRatingChanged(minRating) {
         const state = this.state;
         state.filter.discover['vote_average.gte'] = minRating;
+        state.searchType = 'discover';
         this.setState(state);
         this.loadByDiscover();
     }
@@ -262,6 +263,7 @@ class MoviesSearchListComponent extends Component {
     maxRatingChanged(maxRating) {
         const state = this.state;
         state.filter.discover['vote_average.lte'] = maxRating;
+        state.searchType = 'discover';
         this.setState(state);
         this.loadByDiscover();
     }
@@ -269,6 +271,7 @@ class MoviesSearchListComponent extends Component {
     minVoteCountChanged(minVote) {
         const state = this.state;
         state.filter.discover['vote_count.gte'] = minVote;
+        state.searchType = 'discover';
         this.setState(state);
         if(this.state.minVoteCountTimeout) {
             clearTimeout(this.state.minVoteCountTimeout);
@@ -283,6 +286,7 @@ class MoviesSearchListComponent extends Component {
     maxVoteCountChanged(maxVote) {
         const state = this.state;
         state.filter.discover['vote_count.lte'] = maxVote;
+        state.searchType = 'discover';
         this.setState(state);
         if(this.state.maxVoteCountTimeout) {
             clearTimeout(this.state.maxVoteCountTimeout);
@@ -297,6 +301,7 @@ class MoviesSearchListComponent extends Component {
     originalLanguageChanged(originalLang) {
         const state = this.state;
         state.filter.discover.with_original_language = originalLang;
+        state.searchType = 'discover';
         this.setState(state);
         this.loadByDiscover();
     }
@@ -304,6 +309,7 @@ class MoviesSearchListComponent extends Component {
     releasedBeforeChanged(date) {
         const state = this.state;
         state.filter.discover['release_date.lte'] = date;
+        state.searchType = 'discover';
         this.setState(state);
         this.loadByDiscover();
     }
@@ -311,6 +317,7 @@ class MoviesSearchListComponent extends Component {
     releasedAfterChanged(date) {
         const state = this.state;
         state.filter.discover['release_date.gte'] = date;
+        state.searchType = 'discover';
         this.setState(state);
         this.loadByDiscover();
     }

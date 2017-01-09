@@ -20,9 +20,11 @@ const loadTvAiringToday = tvAiringToday => ({
     tvAiringToday
 });
 
-export const fetchMovies = () => (dispatch) => {
-    dispatch(showLoading());
-    return axios.get(Resources.PLAYING_MOVIES, { params: { region: 'US' } }).then((response) => {
+export const fetchMovies = (page = 1) => (dispatch) => {
+    if (page === 1) {
+        dispatch(showLoading());
+    }
+    return axios.get(Resources.PLAYING_MOVIES, { params: { page } }).then((response) => {
         dispatch(loadMovies(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
@@ -30,18 +32,20 @@ export const fetchMovies = () => (dispatch) => {
     });
 };
 
-export const fetchTvAiringToday = () => (dispatch) => {
-    dispatch(showLoading());
-    return axios.get(Resources.TODAY_SERIALS).then((response) => {
+export const fetchTvAiringToday = (page = 1) => (dispatch) => {
+    if (page === 1) {
+        dispatch(showLoading());
+    }
+    return axios.get(Resources.TODAY_SERIALS, { params: { page } }).then((response) => {
         dispatch(loadTvAiringToday(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line
     });
 };
 
-export const upcomingMovies = () => (dispatch) => {
+export const upcomingMovies = (page = 1) => (dispatch) => {
     dispatch(showLoading());
-    return axios.get(Resources.UPCOMING_MOVIES, { params: { region: 'US' } }).then((response) => {
+    return axios.get(Resources.UPCOMING_MOVIES, { params: { page } }).then((response) => {
         dispatch(loadUpcomingMovies(response.data));
         dispatch(hideLoading());
     }, (error) => { // eslint-disable-line

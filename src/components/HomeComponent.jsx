@@ -7,11 +7,36 @@ import css from '../styles/home.scss';
 
 class HomeComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.gotoMovie = this.gotoMovie.bind(this);
+        this.nowPlayingNextSlide = this.nowPlayingNextSlide.bind(this);
+        this.airingTodayNextSlide = this.airingTodayNextSlide.bind(this);
+    }
+
 	componentDidMount() {
         this.props.actions.upcomingMovies();
         this.props.actions.fetchMovies();
         this.props.actions.fetchTvAiringToday();
 	}
+
+    gotoMovie(id) {
+        this.context.router.push(`/movies/${id}`);
+    }
+    
+    nowPlayingNextSlide(index) {
+        if (index > (this.props.home.nowPlaying.list.length - 10) &&
+            this.props.home.nowPlaying.page < this.props.home.nowPlaying.totalPages) {
+            this.props.actions.fetchMovies(this.props.home.nowPlaying.page + 1);
+        }
+    }
+
+    airingTodayNextSlide(index) {
+        if (index > (this.props.home.tvAiringToday.list.length - 10) &&
+            this.props.home.tvAiringToday.page < this.props.home.tvAiringToday.totalPages) {
+            this.props.actions.fetchTvAiringToday(this.props.home.tvAiringToday.page + 1);
+        }
+    }
 
     render() {
         const upcoming = this.props.home.upcoming.list;
@@ -32,7 +57,8 @@ class HomeComponent extends Component {
                         <div>
                             {showFlag && <h5>WATCH IN THEATERS NOW</h5>}
                             <div style={{padding: '0 25px'}}>
-                                <HomeSlider items={nowPlaying} id="nowPlaying"/>
+                                <HomeSlider items={nowPlaying} id="nowPlaying"
+                                    afterChange={this.nowPlayingNextSlide} goto={this.gotoMovie} />
                             </div>
                         </div>
                     )
@@ -42,7 +68,8 @@ class HomeComponent extends Component {
                         <div>
                             {showFlag && <h5>WATCH TODAY IN TV</h5>}
                             <div style={{padding: '0 25px'}}>
-                                <HomeSlider items={airingToday} id="airingToday"/>
+                                <HomeSlider items={airingToday} id="airingToday"
+                                    afterChange={this.airingTodayNextSlide} goto={this.gotoMovie} />
                             </div>
                         </div>
                     )
@@ -60,7 +87,8 @@ class HomeComponent extends Component {
                         if (backdrop_path && backdrop_path !== null && backdrop_path.length > 0) {
                             const src = OriginalImageUrl + backdrop_path;
                             return (
-                                <div className="col s12" key={"upcoming"+index} >
+                                <div className="col s12 pointer" key={"upcoming" + index}
+                                    onClick={() => this.gotoMovie(movie.id)}>
                                     <div className="relative home-carousel">
                                         <div className="home-carousel-overlay"></div>
                                         <img className="responsive-img pointer"
@@ -86,6 +114,9 @@ class HomeComponent extends Component {
 
 }
 
+HomeComponent.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
 
 
 export default HomeComponent;
@@ -94,7 +125,7 @@ class HomeSlider extends Component {
     render() {
         return (
             <div className="row">
-                <Slider {...normalSlider}>
+                <Slider {...normalSlider} afterChange={this.props.afterChange}>
                     {
                         this.props.items.map((item, index) => {
                             const id = this.props.id + index;
@@ -104,7 +135,7 @@ class HomeSlider extends Component {
                                 return (
                                     <div className="col s12 m4 l3" key={id} >
                                         <img className="responsive-img pointer"
-                                           src={src} />
+                                           src={src} onClick={() => this.props.goto(item.id)}/>
                                     </div>
                                 )
                             }
@@ -147,8 +178,8 @@ const normalSlider = {
             breakpoint: 600,
             settings: {
                 arrows: true,
-                slidesToShow: 2,
-                slidesToScroll: 2
+                slidesToShow: 1,
+                slidesToScroll: 1
             }
         }
     ]

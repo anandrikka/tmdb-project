@@ -15,6 +15,18 @@
   z-index:3;
 }
 
+@media (max-width: 600px) {
+  .movie {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 992px){
+  .movie {
+    margin-top: 50;
+  }
+}
+
 .back-button {
   padding: 1em;
   color: #fff;

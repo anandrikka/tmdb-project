@@ -57,9 +57,6 @@ class TvSearchListComponent extends Component {
         this.saveToWatchlist = this.saveToWatchlist.bind(this);
     }
 
-    componentWillMount() {
-    }
-
     componentDidMount() {
         this.loadQuickSearch();
     }
@@ -203,7 +200,8 @@ class TvSearchListComponent extends Component {
 
     firstAirDateYearChanged(year) {
         const state = this.state;
-        state.filter.search.first_air_date_year = year
+        state.filter.search.first_air_date_year = year;
+        state.searchType = 'discover';
         this.setState(state);
         if(state.filter.search.query.length > 0) {
             this.loadBySearch();

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Slider from 'react-slick';
-import { OriginalImageUrl } from '../utilities/AppConstants';
+import { W185ImageUrl } from '../utilities/AppConstants';
 
 class SimilarResults extends Component {
     
@@ -9,7 +9,7 @@ class SimilarResults extends Component {
         this.state = {
             settings: {
                 lazyLoad: true,
-                speed: 1000,
+                speed: 2000,
                 slidesToShow: 6,
                 slidesToScroll: 6,
                 responsive: [
@@ -54,7 +54,7 @@ class SimilarResults extends Component {
                         const poster_path = item.poster_path;
                         let src = '../../dist/assets/images/placeholder-movie.jpg';
                         if (poster_path && poster_path !== null && poster_path.length > 0) {
-                            src = OriginalImageUrl + poster_path;
+                            src = W185ImageUrl + poster_path;
                         }
                         return (
                             <div className="col s6 m4 l3" key={index}

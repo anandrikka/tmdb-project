@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Slider from 'react-slick';
-import { OriginalImageUrl } from '../utilities/AppConstants';
+import { W1280ImageUrl, W780ImageUrl } from '../utilities/AppConstants';
 
 
 class ItemImageGallery extends Component {
@@ -58,7 +58,11 @@ class ItemImageGallery extends Component {
                         const image_path = image.file_path;
                         let src = '../../dist/assets/images/placeholder-movie.jpg';
                         if (image_path && image_path !== null && image_path.length > 0) {
-                            src = OriginalImageUrl + image_path;
+                            if (index > this.props.backdrops.length) {
+                               src =  W780ImageUrl + image_path;
+                            } else {
+                                src = W1280ImageUrl + image_path;
+                            }
                         }
                         let classImage = 'col s6 m4 l4';
                         let styles = {maxHeight: '400px'}
