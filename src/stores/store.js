@@ -14,5 +14,6 @@ const defaultState = {};
 export default createStore(
     rootReducer,
     defaultState,
-    applyMiddleware(thunkMiddleware, loggerMiddleware)
+    // applyMiddleware(thunkMiddleware, loggerMiddleware)
+    applyMiddleware(thunkMiddleware)
 );
