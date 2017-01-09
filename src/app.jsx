@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './stores/store';
 
@@ -24,7 +24,7 @@ import css from './styles/main.scss'; // eslint-ignore-line
 
 const router = (
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={hashHistory}>
             {Routes}
         </Router>
     </Provider>
