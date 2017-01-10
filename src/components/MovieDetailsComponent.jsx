@@ -114,10 +114,10 @@ class MovieDetailsComponent extends Component {
                                 </a>
                             </div>
                             <div className="col s12 m9">
-                                <h5 className="right mcolor">
+                                { /*<h5 className="right mcolor">
                                     <span className="fa fa-heart-o pointer"></span> &nbsp;
                                     <span className="fa fa-bookmark-o pointer"></span>
-                                </h5>    
+                                </h5> */ }    
                                 <h5>
                                     <a href={movie.homepage || '#!'} target="_blank">
                                         {movie.title} ({formatDate(movie.release_date, 'YYYY')})

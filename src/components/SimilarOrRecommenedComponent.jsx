@@ -59,7 +59,7 @@ class SimilarResults extends Component {
                         return (
                             <div className="col s6 m4 l3" key={index}
                                 onClick={() => this.props.goto(item.id)}>
-                                <div className="relative">
+                                <div className="relative" style={{minHeight: '100px'}}>
                                     <img className="responsive-img pointer" src={src} />
                                     {
                                         !poster_path && (

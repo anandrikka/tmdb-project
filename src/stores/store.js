@@ -4,7 +4,7 @@ import createLogger from 'redux-logger';
 
 import rootReducer from '../reducers';
 
-const loggerMiddleware = createLogger({
+const loggerMiddleware = createLogger({ // eslint-disable-line
     collapsed: true,
     diff: true
 });

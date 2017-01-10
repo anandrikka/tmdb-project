@@ -65,7 +65,7 @@ class SimpleCardComponent extends Component {
                             <img onClick={() => { this.props.gotoItem(item.id) } }
                             src={this.getImageSrc(item.image_path)}
                             className="pointer" id={"image-"+item.id}/>
-                            <div className="card-bookmark-fav" id={"card-top-"+item.id}>
+                            { /* <div className="card-bookmark-fav" id={"card-top-"+item.id}>
                                 <span>
                                     <i className="fa fa-bookmark-o pointer"
                                         onClick={() => this.addToWatchList(item.id)}>
@@ -75,7 +75,7 @@ class SimpleCardComponent extends Component {
                                         onClick={() => this.addToFavorites(item.id)}>
                                     </i>
                                 </span>
-                            </div>
+                                </div> */ }
                             <div className="ccard-title">
                                 {item.title}
                                 <span className="right">{item.vote_average + '/10'}</span>

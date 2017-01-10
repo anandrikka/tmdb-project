@@ -37,7 +37,7 @@ export default class NavbarComponent extends Component {
                                          iconClass="fa fa-television fa-2x left" />
                                 <NavType link="/people" title="People"
                                          iconClass="fa fa-users fa-2x left" />
-                                <UserButton profile={this.props.profile}></UserButton>
+                                {/*<UserButton profile={this.props.profile}></UserButton>*/}
                             </ul>
                             <ul className="side-nav mobile-nav" id="mobile-menu">
                                 <div className="nav-id">
@@ -47,7 +47,7 @@ export default class NavbarComponent extends Component {
                                     <li><Link to="/movies">Movies</Link></li>
                                     <li><Link to="/tv">Television</Link></li>
                                     <li><Link to="/people">People</Link></li>
-                                    {
+                                    { /*
                                         this.props.profile.authenticationFailed ? (
                                             <li>
                                                 <a href="/api/login">Login
@@ -65,7 +65,7 @@ export default class NavbarComponent extends Component {
                                                 </ul>
                                             </li>    
                                         )
-                                    }
+                                    */ }
                                 </div>    
                                 
                             </ul>

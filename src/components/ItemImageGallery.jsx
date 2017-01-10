@@ -65,7 +65,7 @@ class ItemImageGallery extends Component {
                             }
                         }
                         let classImage = 'col s6 m4 l4';
-                        let styles = {maxHeight: '400px'}
+                        let styles = {maxHeight: '400px', minHeight: '100px'}
                         if(index < this.props.backdrops.length) {
                             classImage = 'col s12';
                             styles = {maxHeight: ''};
