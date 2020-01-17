@@ -12,7 +12,7 @@
   "author": "Anand Rikka <appsbyanand@gmail.com> (http://techanand.wordpress.com)",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.15.1",
+    "axios": "^0.19.1",
     "body-parser": "^1.15.2",
     "cookies": "^0.6.2",
     "crypto-js": "^3.1.8",
